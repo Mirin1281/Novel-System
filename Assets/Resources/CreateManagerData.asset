@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84fb41f64c9121f4e9b82d1903421d55, type: 3}
+  m_Name: CreateManagerData
+  m_EditorClassIdentifier: 
+  managerParams:
+  - <ManagerPrefab>k__BackingField: {fileID: 1923619094264598125, guid: 95f5ce8351017de4a9f26b25ed01bb3c, type: 3}
+    <IsInactiveOnAwake>k__BackingField: 1
+  - <ManagerPrefab>k__BackingField: {fileID: 160024398300412179, guid: 988c04e9226c9114f804164b554a5a2e, type: 3}
+    <IsInactiveOnAwake>k__BackingField: 0
+  - <ManagerPrefab>k__BackingField: {fileID: 7566127515359389570, guid: f20d6aa72c281c6439c73afaad28cb2a, type: 3}
+    <IsInactiveOnAwake>k__BackingField: 0
+  - <ManagerPrefab>k__BackingField: {fileID: 1784988432445149621, guid: fd8b1b7dad1c2b94fbeba8cf3a31fffa, type: 3}
+    <IsInactiveOnAwake>k__BackingField: 0
