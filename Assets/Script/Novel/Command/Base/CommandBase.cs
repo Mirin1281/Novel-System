@@ -4,6 +4,12 @@ using Cysharp.Threading.Tasks;
 
 namespace Novel.Command
 {
+    public interface ICommand
+    {
+        UniTask CallCommandAsync(IFlowchart flowchart);
+        CommandStatus GetCommandStatus();
+    }
+
     [Serializable]
     public abstract class CommandBase : ICommand
     {

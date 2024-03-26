@@ -7,12 +7,18 @@ using System.Collections.Generic;
 
 namespace Novel
 {
+    public interface IFlowchart
+    {
+        UniTask ExecuteAsync(int index = 0, bool isNest = false);
+        void Stop();
+    }
+
     // FlowchartはMonoBehaviourとScriptableObjectのどちらからでも呼び出せる
-    // MonoBehaviourはシーン内で参照が取れるためできることが多い
+    // MonoBehaviourはシーン内で参照が取れるためできることが多いしカスタムエディタが効く
     // ScriptableObjectはどのシーンからでも呼べるので使い回しが効く
-    //
-    // リスト右クリックで要素をコピーできますが、そうすると参照まで共有されてしまうので、
-    // 同じく右クリックから"New Instance"を押せば連携が外せます
+
+    // バグ: 複製すると中の参照が共有されてしまう。現状対処法がないのでコピー禁止
+
     public class FlowchartExecutor : MonoBehaviour, IFlowchart
     {
         [SerializeField, TextArea]
