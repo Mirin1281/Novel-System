@@ -1,23 +1,21 @@
 ﻿using UnityEngine;
 using Cysharp.Threading.Tasks;
-using Novel.Command;
+using System.Threading;
 using System.Collections.Generic;
+using Novel.Command;
 #pragma warning disable 0414 // value is never used の警告を消すため
 
 namespace Novel
 {
     public interface IFlowchart
     {
-        UniTask ExecuteAsync(int index = 0, bool isNest = false);
-        void Stop();
+        UniTask ExecuteAsync(int index = 0, FlowchartCallStatus callStatus = null);
+        void Stop(FlowchartStopType stopType);
     }
 
-    // FlowchartはMonoBehaviourとScriptableObjectのどちらからでも呼び出せる
+    // FlowchartはMonoBehaviour型とScriptableObject型がある
     // MonoBehaviourはシーン内で参照が取れるためできることが多いしカスタムエディタが効く
     // ScriptableObjectはどのシーンからでも呼べるので使い回しが効く
-
-    // バグ: 複製すると中の参照が共有されてしまう。現状対処法がないのでコピー禁止
-
     public class FlowchartExecutor : MonoBehaviour, IFlowchart
     {
         [SerializeField, TextArea]
@@ -25,31 +23,35 @@ namespace Novel
 
         [SerializeField] bool isStartExecute;
 
-        // シリアライズしないとなぜかコマンドが消えたりして不安定
-        [field: SerializeField, HideInInspector]
-        public List<CommandData> CommandDataList { get; set; } = new();
+        // シリアライズはする
+        [SerializeField, HideInInspector]
+        List<CommandData> commandDataList = new();
+        public IEnumerable<CommandData> CommandDataList => commandDataList;
+        public void SetCommandList(List<CommandData> list)
+        {
+            commandDataList = list;
+        }
 
         bool isStopped;
+        CancellationTokenSource cts;
 
         void Start()
         {
-            if (isStartExecute) Execute();
+            if (isStartExecute) ExecuteAsync().Forget();
         }
 
-        public void Execute(int index = 0)
+        public async UniTask ExecuteAsync(int index = 0, FlowchartCallStatus callStatus = null)
         {
-            ExecuteAsync(index).Forget();
-        }
-
-        public async UniTask ExecuteAsync(int index = 0, bool isNest = false)
-        {
-            while (CommandDataList.Count > index && isStopped == false)
+            var status = SetStatus(callStatus);
+            
+            while (commandDataList.Count > index && isStopped == false)
             {
-                var cmdData = CommandDataList[index];
-                await cmdData.CallAsync(this);
+                var cmdData = commandDataList[index];
+                await cmdData.CallAsync(this, status);
                 index++;
             }
-            if (isStopped == false && isNest == false)
+            bool isEndClearUI = isStopped == false && status.IsNestCalled == false;
+            if (isEndClearUI)
             {
                 MessageBoxManager.Instance.AllClearFadeAsync().Forget();
                 PortraitManager.Instance.AllClearFadeAsync().Forget();
@@ -57,9 +59,55 @@ namespace Novel
             isStopped = false;
         }
 
-        void IFlowchart.Stop()
+        /// <summary>
+        /// FlowchartCallStatusをctsに反映します。
+        /// statusがnullだった場合は初期化をします
+        /// </summary>
+        FlowchartCallStatus SetStatus(FlowchartCallStatus callStatus)
         {
-            isStopped = true;
+            if (callStatus == null)
+            {
+                cts = new CancellationTokenSource();
+                return new FlowchartCallStatus(cts.Token, cts, false);
+            }
+            else
+            {
+                cts = callStatus.Cts;
+                return callStatus;
+            }
+        }
+
+        void IFlowchart.Stop(FlowchartStopType stopType)
+        {
+            if(stopType == FlowchartStopType.IncludeParent)
+            {
+                cts.Cancel();
+            }
+            else if(stopType == FlowchartStopType.Single)
+            {
+                isStopped = true;
+            }
+        }
+    }
+
+    public enum FlowchartStopType
+    {
+        [InspectorName("このフローチャートのみ")] Single,
+        [InspectorName("入れ子の親も含む")] IncludeParent,
+    }
+
+    public class FlowchartCallStatus
+    {
+        public readonly CancellationToken Token;
+        public readonly CancellationTokenSource Cts;
+        public readonly bool IsNestCalled;
+
+        public FlowchartCallStatus(
+            CancellationToken token, CancellationTokenSource cts, bool isNestCalled)
+        {
+            Token = token;
+            Cts = cts;
+            IsNestCalled = isNestCalled;
         }
     }
 }

@@ -24,6 +24,7 @@ namespace Novel
 
             if (createCount == currentCount)
             {
+                AllShowFadeAsync(createButtons, 0f).Forget();
                 SetNames(createButtons, texts);
                 return createButtons;
             }
@@ -31,15 +32,12 @@ namespace Novel
             {
                 for (int i = 0; i < createCount; i++)
                 {
-                    if (i < currentCount)
-                    {
-                        createButtons[i].ShowFadeAsync(0f).Forget();
-                    }
-                    else
+                    if (i >= currentCount)
                     {
                         createButtons.Add(Instantiate(buttonPrefab, transform));
                     }
                 }
+                AllShowFadeAsync(createButtons, 0f).Forget();
                 SetNames(createButtons, texts);
                 return createButtons;
             }
@@ -51,7 +49,8 @@ namespace Novel
                     buttons.Add(createButtons[i]);
                     createButtons[i].ShowFadeAsync(0f).Forget();
                 }
-                SetNames(createButtons, texts);
+                AllShowFadeAsync(buttons, 0f).Forget();
+                SetNames(buttons, texts);
                 return buttons;
             }
         }
@@ -64,7 +63,16 @@ namespace Novel
             }
         }
 
-        public async UniTask AllFadeOutAsync(float time = MyStatic.DefaultFadeTime)
+        async UniTask AllShowFadeAsync(List<MenuButton> buttons, float time = MyStatic.DefaultFadeTime)
+        {
+            foreach (var button in buttons)
+            {
+                button.ShowFadeAsync(time).Forget();
+            }
+            await MyStatic.WaitSeconds(time);
+        }
+
+        public async UniTask AllClearFadeAsync(float time = MyStatic.DefaultFadeTime)
         {
             foreach(var button in createButtons)
             {

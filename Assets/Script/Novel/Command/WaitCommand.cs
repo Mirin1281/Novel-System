@@ -7,7 +7,6 @@ namespace Novel.Command
     public class WaitCommand : CommandBase
     {
         [SerializeField] float waitSeconds;
-        [SerializeField] GameObject gameObject;
 
         protected override async UniTask EnterAsync()
         {

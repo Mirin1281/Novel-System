@@ -37,7 +37,10 @@ namespace Novel.Command
             BoxType boxType = character == null ? BoxType.Default : character.BoxType;
             MessageBoxManager.Instance.OtherClearFadeAsync(boxType, 0f).Forget();
             var msgBox = MessageBoxManager.Instance.CreateIfNotingBox(boxType);
-            await msgBox.ShowFadeAsync();
+            if(msgBox.gameObject.activeInHierarchy == false)
+            {
+                await msgBox.ShowFadeAsync();
+            }
             await msgBox.Writer.WriteAsync(character, convertedText);
             await msgBox.Input.WaitInput();
         }

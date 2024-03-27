@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &160024398300412179
+--- !u!1 &7566127515359389570
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,22 +8,22 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 8355474226756050046}
-  - component: {fileID: 8785947705645057324}
+  - component: {fileID: 5989685786248330377}
+  - component: {fileID: 1055451498034029546}
   m_Layer: 0
-  m_Name: MessageBoxManager
+  m_Name: PortraitManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &8355474226756050046
+--- !u!4 &5989685786248330377
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 160024398300412179}
+  m_GameObject: {fileID: 7566127515359389570}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
@@ -32,23 +32,23 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8785947705645057324
+--- !u!114 &1055451498034029546
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 160024398300412179}
+  m_GameObject: {fileID: 7566127515359389570}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f15bcf803c19e8d4f845c5256c8f87d8, type: 3}
+  m_Script: {fileID: 11500000, guid: e1d88d80ef2f3fa4ba31a65ed1a7a804, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  createOnSceneChanged: 1
-  linkedBoxList:
+  createOnSceneChanged: 0
+  linkedPortraitList:
   - <Type>k__BackingField: 0
-    <Prefab>k__BackingField: {fileID: 0}
+    Prefab: {fileID: 0}
   - <Type>k__BackingField: 1
-    <Prefab>k__BackingField: {fileID: 7569092899542360163, guid: 3189b2246a172b14995175364328f596, type: 3}
+    Prefab: {fileID: 4948133415678357041, guid: 6c606e11f2d02144a841de8d6b867516, type: 3}
   - <Type>k__BackingField: 2
-    <Prefab>k__BackingField: {fileID: 5118259939152359994, guid: 756daeb12524a974e9540072cf8206d6, type: 3}
+    Prefab: {fileID: 3054643880008192328, guid: 5233196620065c74183458e416fe8281, type: 3}

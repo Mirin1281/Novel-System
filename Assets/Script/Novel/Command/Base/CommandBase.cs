@@ -1,12 +1,13 @@
 ﻿using UnityEngine;
 using System;
+using System.Threading;
 using Cysharp.Threading.Tasks;
 
 namespace Novel.Command
 {
     public interface ICommand
     {
-        UniTask CallCommandAsync(IFlowchart flowchart);
+        UniTask CallCommandAsync(IFlowchart flowchart, FlowchartCallStatus callStatus);
         CommandStatus GetCommandStatus();
     }
 
@@ -14,11 +15,13 @@ namespace Novel.Command
     public abstract class CommandBase : ICommand
     {
         protected IFlowchart CalledFlowchart { get; private set; }
+        protected FlowchartCallStatus CallStatus { get; private set; }
 
         protected abstract UniTask EnterAsync();
-        async UniTask ICommand.CallCommandAsync(IFlowchart flowchart)
+        async UniTask ICommand.CallCommandAsync(IFlowchart flowchart, FlowchartCallStatus callStatus)
         {
             CalledFlowchart = flowchart;
+            CallStatus = callStatus;
             await EnterAsync();
         }
 

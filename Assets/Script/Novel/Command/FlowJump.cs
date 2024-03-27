@@ -7,9 +7,10 @@ namespace Novel.Command
     public class FlowJumpCommand : CommandBase
     {
         [SerializeField] int jumpCommandIndex;
+
         protected override async UniTask EnterAsync()
         {
-            CalledFlowchart.Stop();
+            CalledFlowchart.Stop(FlowchartStopType.Single);
             UniTask.Void(async () =>
             {
                 await UniTask.DelayFrame(1);

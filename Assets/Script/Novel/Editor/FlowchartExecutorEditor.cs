@@ -22,7 +22,7 @@ using Novel.Command;
                 "それを防ぐために下のボタンから複製してください",
                 EditorStyles.wordWrappedLabel);
 
-            if (GUILayout.Button("オブジェクトを複製する"))
+            if (GUILayout.Button("フローチャートを複製する"))
             {
                 var flowchart = target as FlowchartExecutor;
                 var copiedCmdList = new List<CommandData>();
@@ -33,7 +33,7 @@ using Novel.Command;
                 }
                 var copiedFlowchart = Instantiate(flowchart);
                 copiedFlowchart.name = "Flowchart(Copied)";
-                copiedFlowchart.CommandDataList = copiedCmdList;
+                copiedFlowchart.SetCommandList(copiedCmdList);
             }
         }
     }

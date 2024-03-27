@@ -18,14 +18,14 @@ namespace Novel.Command
             {
                 if(flowchart != null)
                 {
-                    flowchart.Execute();
+                    flowchart.ExecuteAsync().Forget();
                 }
                 else
                 {
-                    flowchartData.Execute();
+                    flowchartData.ExecuteAsync().Forget();
                 }
                 
-                CalledFlowchart.Stop();
+                CalledFlowchart.Stop(FlowchartStopType.Single);
                 await UniTask.CompletedTask;
             }
         }

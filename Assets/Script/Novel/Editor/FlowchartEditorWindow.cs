@@ -46,7 +46,7 @@ namespace Novel
                 if (flowchartExecutor != null)
                 {
                     activeFlowchartExecutor = flowchartExecutor;
-                    commandList = flowchartExecutor.CommandDataList;
+                    commandList = flowchartExecutor.CommandDataList as List<CommandData>;
                 }
             }
             CreateReorderableList();
@@ -100,7 +100,7 @@ namespace Novel
                 reorderableList.DoLayoutList();
                 if (activeFlowchartExecutor != null)
                 {
-                    activeFlowchartExecutor.CommandDataList = commandList;
+                    activeFlowchartExecutor.SetCommandList(commandList);
                 }
             }
         }

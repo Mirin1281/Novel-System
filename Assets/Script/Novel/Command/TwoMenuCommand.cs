@@ -12,7 +12,7 @@ namespace Novel.Command
 
         protected override async UniTask EnterAsync()
         {
-            int clickedButtonIndex = await menu.WaitButtonClick(
+            int clickedButtonIndex = await menu.ShowAndWaitButtonClick(
                 new string[] {topSelectionText, bottomSelectionText});
             if(clickedButtonIndex == 0)
             {

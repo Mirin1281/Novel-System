@@ -16,5 +16,14 @@ namespace Novel.Command
             }
             return result;
         }
+
+        protected override string GetCommandInfo()
+        {
+            if (flag != null)
+            {
+                return flag.Description;
+            }
+            return null;
+        }
     }
 }

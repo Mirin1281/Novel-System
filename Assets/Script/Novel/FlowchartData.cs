@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using Cysharp.Threading.Tasks;
 using Novel.Command;
+using System.Threading;
 #pragma warning disable 0414 // value is never used の警告を消すため
 
 namespace Novel
@@ -18,33 +19,58 @@ namespace Novel
         ICommand[] commands;
 
         bool isStopped;
+        CancellationTokenSource cts;
 
-        public void Execute(int index = 0)
+        public async UniTask ExecuteAsync(int index = 0, FlowchartCallStatus callStatus = null)
         {
-            ExecuteAsync(index).Forget();
-        }
+            var status = SetStatus(callStatus);
 
-        public async UniTask ExecuteAsync(int index = 0, bool isNest = false)
-        {
             while (commands.Length > index && isStopped == false)
             {
                 var cmdData = commands[index];
                 if(cmdData != null)
                 {
-                    await cmdData.CallCommandAsync(null);
+                    await cmdData.CallCommandAsync(this, status);
                 }
                 index++;
             }
-            if (isStopped == false && isNest == false)
+            bool isEndClearUI = isStopped == false && status.IsNestCalled == false;
+            if (isEndClearUI)
             {
-                MessageBoxManager.Instance.AllClearFadeAsync(0.3f).Forget();
+                MessageBoxManager.Instance.AllClearFadeAsync().Forget();
+                PortraitManager.Instance.AllClearFadeAsync().Forget();
             }
             isStopped = false;
         }
 
-        public void Stop()
+        /// <summary>
+        /// FlowchartCallStatusをctsに反映します。
+        /// statusがnullだった場合は初期化をします
+        /// </summary>
+        FlowchartCallStatus SetStatus(FlowchartCallStatus callStatus)
         {
-            isStopped = true;
+            if (callStatus == null)
+            {
+                cts = new CancellationTokenSource();
+                return new FlowchartCallStatus(cts.Token, cts, false);
+            }
+            else
+            {
+                cts = callStatus.Cts;
+                return callStatus;
+            }
+        }
+
+        void IFlowchart.Stop(FlowchartStopType stopType)
+        {
+            if (stopType == FlowchartStopType.IncludeParent)
+            {
+                cts.Cancel();
+            }
+            else if (stopType == FlowchartStopType.Single)
+            {
+                isStopped = true;
+            }
         }
     }
 }
