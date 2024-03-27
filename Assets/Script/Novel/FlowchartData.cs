@@ -37,7 +37,7 @@ namespace Novel
             }
             if (isStopped == false && isNest == false)
             {
-                MessageBoxManager.Instance.AllFadeOutAsync(0.3f).Forget();
+                MessageBoxManager.Instance.AllClearFadeAsync(0.3f).Forget();
             }
             isStopped = false;
         }

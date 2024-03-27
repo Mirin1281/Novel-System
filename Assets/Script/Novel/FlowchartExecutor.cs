@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using Cysharp.Threading.Tasks;
 using Novel.Command;
-using System;
 using System.Collections.Generic;
 #pragma warning disable 0414 // value is never used の警告を消すため
 
@@ -52,8 +51,8 @@ namespace Novel
             }
             if (isStopped == false && isNest == false)
             {
-                MessageBoxManager.Instance.AllFadeOutAsync().Forget();
-                PortraitManager.Instance.AllFadeOutAsync().Forget();
+                MessageBoxManager.Instance.AllClearFadeAsync().Forget();
+                PortraitManager.Instance.AllClearFadeAsync().Forget();
             }
             isStopped = false;
         }

@@ -2,9 +2,9 @@
 using System;
 using Random = UnityEngine.Random;
 
-public class GameManager : SingletonMonoBehaviour<GameManager>
+public class GameManager : SingletonMonoBehaviour<GameManager>, IInitializableManager
 {
-    void Start()
+    void IInitializableManager.Init()
     {
         MyStatic.Init();
         Random.InitState(DateTime.Now.Millisecond);
@@ -13,31 +13,10 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
 #endif
     }
 
-    public event Action<float> OnBGMVolumeChanged;
-
-    /// <summary>
-    /// 0～1で管理
-    /// </summary>
-    public float BGMVolume
-    {
-        get => _BGMVolume;
-        set
-        {
-            _BGMVolume = value;
-            OnBGMVolumeChanged?.Invoke(value);
-        }
-    }
-    float _BGMVolume = 0.3f;
-
-    /// <summary>
-    /// 0～1で管理
-    /// </summary>
-    public float SEVolume { get; set; } = 0.3f;
-
     public float DefaultWriteSpeed { get; private set; } = 2;
 
     void OnDestroy()
     {
-        MyStatic.Init();
+        MyStatic.ResetToken();
     }
 }

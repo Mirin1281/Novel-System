@@ -7,19 +7,6 @@ namespace Novel
     {
         [SerializeField] MenuButtonCreator buttonCreator;
 
-        public async UniTask<int> WaitButtonClick(int count)
-        {
-            var buttons = buttonCreator.CreateShowButtons(count);
-            var tasks = new UniTask[buttons.Count];
-            for (int i = 0; i < buttons.Count; i++)
-            {
-                tasks[i] = buttons[i].Button.OnClickAsync();
-            }
-            int clickIndex = await UniTask.WhenAny(tasks);
-            buttonCreator.AllFadeOutAsync(0.1f).Forget();
-            return clickIndex;
-        }
-
         public async UniTask<int> WaitButtonClick(params string[] text)
         {
             var buttons = buttonCreator.CreateShowButtons(text);

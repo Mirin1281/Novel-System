@@ -12,7 +12,7 @@ using TagType = TagUtility.TagType;
         [SerializeField] TMP_Text nameTmpro;
         [SerializeField] TMP_Text storyTmpro;
         [SerializeField] MsgBoxInput input;
-        float timePer100Charas; // 100文字表示するのにかかる時間
+        float timePer100Charas; // 100文字表示するのにかかる時間(s)
         bool isSkipped;
         float defaultSpeed => GameManager.Instance.DefaultWriteSpeed;
 

@@ -8,7 +8,7 @@ namespace Novel
 {
     public class FlowchartEditorWindow : EditorWindow
     {
-        List<CommandData> commandList = new();
+        [SerializeField] List<CommandData> commandList = new();
         ReorderableList reorderableList;
         CommandData selectedCommand;
         FlowchartExecutor activeFlowchartExecutor;
@@ -60,14 +60,13 @@ namespace Novel
             {
                 parameterScrollPosition = scroll.scrollPosition;
 
-                if (selectedCommand != null)
+                if (selectedCommand == null) return;
+                Editor.CreateEditor(selectedCommand).DrawDefaultInspector();
+
+                var infoText = selectedCommand.GetCommandStatus().Info;
+                if(string.IsNullOrEmpty(infoText) == false)
                 {
-                    Editor.CreateEditor(selectedCommand).DrawDefaultInspector();
-                    var infoText = selectedCommand.GetCommandStatus().Info;
-                    if(string.IsNullOrEmpty(infoText) == false)
-                    {
-                        EditorGUILayout.HelpBox(infoText, MessageType.Info);
-                    }
+                    EditorGUILayout.HelpBox(infoText, MessageType.Info);
                 }
             }
         }
@@ -116,11 +115,13 @@ namespace Novel
         }
         void Paste(CommandData copiedCommand)
         {
+            Undo.RecordObject(this, "Paste Command");
             int currentIndex = reorderableList.index;
             Event.current.Use();
             if (GUIUtility.keyboardControl > 0)
             {
-                commandList.Insert(currentIndex, Instantiate(copiedCommand));
+                var createCommand = Instantiate(copiedCommand);
+                commandList.Insert(currentIndex, createCommand);
             }
         }
 
@@ -139,6 +140,7 @@ namespace Novel
 
             void Add(ReorderableList list)
             {
+                Undo.RecordObject(this, "Add Command");
                 var newCommand = CreateInstance<CommandData>();
                 commandList.Insert(list.index + 1, newCommand);
                 selectedCommand = newCommand;
@@ -147,6 +149,7 @@ namespace Novel
 
             void Remove(ReorderableList list)
             {
+                Undo.RecordObject(this, "Remove Command");
                 commandList.Remove(selectedCommand);
                 int removeIndex = list.index;
                 bool isLastRemoved = removeIndex == commandList.Count;
@@ -178,10 +181,7 @@ namespace Novel
                 GUI.color = Color.black;
                 string commandName = commandList[index].GetCommandStatus().Name;
                 string summary = commandList[index].GetCommandStatus().Summary;
-                EditorGUI.LabelField(new Rect(
-                    rect.x, rect.y,
-                    rect.width, rect.height),
-                    commandName, style);
+                EditorGUI.LabelField(rect, commandName, style);
                 EditorGUI.LabelField(new Rect(
                     rect.x + 80, rect.y,
                     rect.width, rect.height),

@@ -7,15 +7,15 @@ namespace Novel.Command
     [Serializable]
     public class CommandData : ScriptableObject
     {
-        [SerializeField] bool enabled = true;
-        public bool Enabled => enabled;
+        [field: SerializeField]
+        public bool Enabled { get; private set; } = true;
 
         [SerializeField, SerializeReference, SubclassSelector]
         ICommand command;
 
         public async UniTask CallAsync(IFlowchart flowchart)
         {
-            if(enabled && command != null)
+            if(Enabled && command != null)
             {
                 await command.CallCommandAsync(flowchart);
             }
@@ -25,7 +25,7 @@ namespace Novel.Command
         {
             if(command == null)
             {
-                return new CommandStatus("<Null>", string.Empty, Color.white);
+                return new CommandStatus("<color=#dc143c><Null></color>", string.Empty, Color.white, null);
             }
             return command.GetCommandStatus();
         }
@@ -39,7 +39,7 @@ namespace Novel.Command
         readonly public string Info;
 
         public CommandStatus(
-            string name, string summary, Color color, string info = null)
+            string name, string summary, Color color, string info)
         {
             Name = name;
             Summary = summary;

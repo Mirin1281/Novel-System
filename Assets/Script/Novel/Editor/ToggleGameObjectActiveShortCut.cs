@@ -1,7 +1,5 @@
-#if UNITY_EDITOR
 using UnityEngine;
 using UnityEditor;
-using UnityEditor.Callbacks;
 using System.Reflection;
 
 [InitializeOnLoad]
@@ -39,4 +37,3 @@ public class ToggleGameObjectActiveShortCut
         info.SetValue(null, functions);
     }
 }
-#endif // UNITY_EDITOR

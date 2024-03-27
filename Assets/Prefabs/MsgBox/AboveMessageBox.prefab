@@ -370,6 +370,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 249dd9fb2b0002d46a31b3178628dd6a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  type: 2
   canvasGroup: {fileID: 4911840148839503034}
   boxImage: {fileID: 7579626283401351308}
   writer: {fileID: 1410146618533293932}

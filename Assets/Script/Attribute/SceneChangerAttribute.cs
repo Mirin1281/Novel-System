@@ -1,11 +1,13 @@
 ﻿using UnityEngine;
-#if UNITY_EDITOR
+using System;
 using System.Collections.Generic;
 using System.Linq;
+#if UNITY_EDITOR
 using UnityEditor;
 #endif
 
 // https://qiita.com/keel/items/11ec62aff184a3a2cccc
+[AttributeUsage(AttributeTargets.Field)]
 class SceneChangerAttribute : PropertyAttribute { }
 
 #if UNITY_EDITOR

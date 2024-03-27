@@ -15,7 +15,7 @@ MonoBehaviour:
   <CharacterName>k__BackingField: "\u6CB3\u91CE\u4FEE\u4E8C"
   <NameColor>k__BackingField: {r: 1, g: 0.8013874, b: 0.7607843, a: 1}
   <BoxType>k__BackingField: 2
-  <PortraitType>k__BackingField: 1
+  <PortraitType>k__BackingField: 2
   portraits:
   - {fileID: 21300000, guid: 3acf519915df4db4dbc821f975a6eb0f, type: 3}
   - {fileID: 21300000, guid: bfe05a6543794664e976d2b7c3d30067, type: 3}

@@ -12,12 +12,15 @@ namespace Novel
         Custom,
     }
 
-    public class Portrait : MonoBehaviour
+    public class Portrait : MonoBehaviour, IFadable
     {
+        [SerializeField] PortraitType type;
         [SerializeField] Image portraitImage;
         [SerializeField] Vector2 leftPosition = new(-400, 0);
         [SerializeField] Vector2 centerPosition = new(0, 0);
         [SerializeField] Vector2 rightPosition = new(400, 0);
+
+        public PortraitType Type => type;
         public Image PortraitImage => portraitImage;
 
         readonly Color hideColor = new Color(0.5f, 0.5f, 0.5f, 0.8f);
@@ -95,8 +98,7 @@ namespace Novel
 
         void SetAlpha(float a)
         {
-            var currentColor = portraitImage.color;
-            portraitImage.color = new Color(currentColor.r, currentColor.g, currentColor.b, a);
+            portraitImage.SetAlpha(a);
         }
 
         async UniTask FadeAlphaAsync(float toAlpha, float time)

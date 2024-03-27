@@ -44,9 +44,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1d88d80ef2f3fa4ba31a65ed1a7a804, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  allCreateOnSceneChanged: 0
+  createOnSceneChanged: 1
   linkedPortraitList:
-  - type: 0
-    portraitPrefab: {fileID: 4948133415678357041, guid: 6c606e11f2d02144a841de8d6b867516, type: 3}
-  - type: 1
-    portraitPrefab: {fileID: 3054643880008192328, guid: 5233196620065c74183458e416fe8281, type: 3}
+  - <Type>k__BackingField: 0
+    Prefab: {fileID: 0}
+  - <Type>k__BackingField: 1
+    Prefab: {fileID: 4948133415678357041, guid: 6c606e11f2d02144a841de8d6b867516, type: 3}
+  - <Type>k__BackingField: 2
+    Prefab: {fileID: 3054643880008192328, guid: 5233196620065c74183458e416fe8281, type: 3}

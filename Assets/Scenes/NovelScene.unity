@@ -191,53 +191,30 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &278996883
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 278996885}
-  - component: {fileID: 278996884}
-  m_Layer: 0
-  m_Name: Flowchart2
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &278996884
+--- !u!114 &138232191
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 278996883}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d7cf50fdd8e070440a24501548002687, type: 3}
+  m_Script: {fileID: 11500000, guid: 4399fbfc898731a4f96fd937ce84eeff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  description: "\u8AAC\u660E"
-  isStartExecute: 0
-  <CommandDataList>k__BackingField: []
---- !u!4 &278996885
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 278996883}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  <Enabled>k__BackingField: 1
+  command:
+    rid: 6983526730132094979
+  references:
+    version: 2
+    RefIds:
+    - rid: 6983526730132094979
+      type: {class: TwoMenuCommand, ns: Novel.Command, asm: Assembly-CSharp}
+      data:
+        topSelectionText: 
+        bottomSelectionText: 
+        menu: {fileID: 0}
 --- !u!114 &366150227
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -250,7 +227,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4399fbfc898731a4f96fd937ce84eeff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enabled: 1
+  <Enabled>k__BackingField: 1
   command:
     rid: 6983526716047884288
   references:
@@ -259,8 +236,8 @@ MonoBehaviour:
     - rid: 6983526716047884288
       type: {class: SayCommand, ns: Novel.Command, asm: Assembly-CSharp}
       data:
-        character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
-        changeSprite: {fileID: 21300000, guid: 855f9004ee0d1af44a9142b63035d451, type: 3}
+        character: {fileID: 11400000, guid: 36e06002688543545a19e42b88b58c8b, type: 2}
+        changeSprite: {fileID: 0}
         storyText: "\u3042\u3042\u3042\u3042\u3042\u3042\u3042"
         flagKeys: []
 --- !u!1 &780081498
@@ -296,6 +273,9 @@ MonoBehaviour:
   isStartExecute: 1
   <CommandDataList>k__BackingField:
   - {fileID: 366150227}
+  - {fileID: 788505253}
+  - {fileID: 2071279612}
+  - {fileID: 138232191}
 --- !u!4 &780081500
 Transform:
   m_ObjectHideFlags: 0
@@ -311,6 +291,31 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &788505253
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4399fbfc898731a4f96fd937ce84eeff, type: 3}
+  m_Name: (Clone)(Clone)(Clone)(Clone)(Clone)(Clone)(Clone)(Clone)(Clone)(Clone)
+  m_EditorClassIdentifier: 
+  <Enabled>k__BackingField: 1
+  command:
+    rid: 6983526730132094977
+  references:
+    version: 2
+    RefIds:
+    - rid: 6983526730132094977
+      type: {class: SayCommand, ns: Novel.Command, asm: Assembly-CSharp}
+      data:
+        character: {fileID: 11400000, guid: 36e06002688543545a19e42b88b58c8b, type: 2}
+        changeSprite: {fileID: 0}
+        storyText: "\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044"
+        flagKeys: []
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -403,6 +408,26 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2071279612
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4399fbfc898731a4f96fd937ce84eeff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <Enabled>k__BackingField: 1
+  command:
+    rid: -2
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -410,4 +435,3 @@ SceneRoots:
   - {fileID: 963194228}
   - {fileID: 107513323}
   - {fileID: 780081500}
-  - {fileID: 278996885}

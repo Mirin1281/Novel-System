@@ -1,20 +1,17 @@
 ﻿using UnityEngine;
-#if UNITY_EDITOR
-using UnityEditor; // AssetDatabaseを使うために必要
-#endif
+using UnityEngine.SceneManagement;
 using Cysharp.Threading.Tasks;
 using System;
 using System.Threading;
-using UnityEngine.SceneManagement;
+#if UNITY_EDITOR
+using UnityEditor; // AssetDatabaseを使うために必要
+#endif
 
 /// <summary>
 /// 定数で名前を保管する
 /// </summary>
 public static class NameContainer
 {
-    public const string PLYAER = "Player";
-    public const string TERRAIN = "Terrain";
-    public const string ENEMY_TERRAIN = "EnemyTerrain";
     public const string RESOURCES_PATH = "Assets/Resources/";
     public const string SUBMIT_KEYNAME = "Submit";
     public const string CANCEL_KEYNAME = "Cancel";
@@ -31,7 +28,7 @@ public static class MyStatic
     public static readonly Color32 LIGHT_GREEN = new(219, 253, 221, 255);
 
     static CancellationTokenSource cts;
-    public static CancellationToken Token { get; private set; }
+    public static CancellationToken TokenOnSceneChange { get; private set; }
 
 
     public static void Init()
@@ -44,15 +41,8 @@ public static class MyStatic
     {
         cts?.Cancel();
         cts = new();
-        Token = cts.Token;
+        TokenOnSceneChange = cts.Token;
     }
-
-    /// <summary>
-    /// Tilemap用、z成分は0になります
-    /// </summary>
-    /*public static Vector3Int ToVector3Int(Vector3 pos)
-        => new Vector3Int(Mathf.RoundToInt(pos.x - 1), Mathf.RoundToInt(pos.y - 1));
-    */
 
     /// <summary>
     /// await句で指定した秒数待てます
@@ -63,7 +53,7 @@ public static class MyStatic
         if(waitTime > 0)
         {
             return UniTask.Delay(TimeSpan.FromSeconds(waitTime),
-                cancellationToken: token == default ? Token : token);
+                cancellationToken: token == default ? TokenOnSceneChange : token);
         }
         else
         {
@@ -74,7 +64,9 @@ public static class MyStatic
     /// <summary>
     /// await句で1フレーム待てます
     /// </summary>
-    public static UniTask Yield() => UniTask.Yield(Token);
+    public static UniTask Yield(CancellationToken token = default)
+        => UniTask.Yield(token == default ? TokenOnSceneChange : token);
+
 
     /// <summary>
     /// シーン内のコンポーネントを検索します
@@ -140,7 +132,6 @@ public static class MyStatic
 
         foreach (var gameObjectInHierarchy in gameObjects)
         {
-
 #if UNITY_EDITOR
             //Hierarchy上のものでなければスルー
             if (!AssetDatabase.GetAssetOrScenePath(gameObjectInHierarchy).Contains(".unity"))

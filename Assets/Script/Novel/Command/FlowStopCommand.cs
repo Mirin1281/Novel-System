@@ -14,11 +14,11 @@ namespace Novel.Command
             CalledFlowchart.Stop();
             if(hideMsgBoxes)
             {
-                MessageBoxManager.Instance.AllFadeOutAsync().Forget();
+                MessageBoxManager.Instance.AllClearFadeAsync().Forget();
             }
             if(hidePortraits)
             {
-                PortraitManager.Instance.AllFadeOutAsync().Forget();
+                PortraitManager.Instance.AllClearFadeAsync().Forget();
             }
             await UniTask.CompletedTask;
             return;

@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System;
 using Cysharp.Threading.Tasks;
+using System.Threading;
 
 public class MsgBoxInput : MonoBehaviour
 {
@@ -24,6 +25,11 @@ public class MsgBoxInput : MonoBehaviour
         OnInputed?.Invoke();
     }
 
+    /// <summary>
+    /// 入力があるまで待ちます
+    /// </summary>
+    /// <param name="action">コールバック</param>
+    /// <returns></returns>
     public async UniTask WaitInput(Action action = null)
     {
         bool clicked = false;
@@ -32,7 +38,7 @@ public class MsgBoxInput : MonoBehaviour
         {
             OnInputed += action;
         }
-        await UniTask.WaitUntil(() => clicked, cancellationToken: MyStatic.Token);
+        await UniTask.WaitUntil(() => clicked, cancellationToken: MyStatic.TokenOnSceneChange);
         OnInputed -= () => clicked = true;
         if (action != null)
         {

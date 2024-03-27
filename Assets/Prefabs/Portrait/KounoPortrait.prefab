@@ -172,6 +172,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ac2eff1c9c1b4842afc7e42f20610a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  type: 2
   portraitImage: {fileID: 7216882014658262160}
   leftPosition: {x: -400, y: -100}
   centerPosition: {x: 0, y: 0}

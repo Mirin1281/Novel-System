@@ -581,6 +581,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 249dd9fb2b0002d46a31b3178628dd6a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  type: 1
   canvasGroup: {fileID: 6185902709344502304}
   boxImage: {fileID: 6945061703859445924}
   writer: {fileID: 4396099477878180525}

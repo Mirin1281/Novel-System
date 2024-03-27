@@ -10,7 +10,7 @@ namespace Novel
 
         // 【タグの増やし方】
         // 1. TagTypeの項目を増やす
-        // 2. 下部のGetTagStatus()ないに条件を増やす
+        // 2. 下部のGetTagStatus()の中に条件を増やす
         // 3. Writerクラス内の処理を増やす
         public enum TagType
         {
@@ -53,9 +53,7 @@ namespace Novel
             foreach (Match match in matches)
             {
                 string tag = match.Value;
-                var s = tag.Remove(0, 1).Remove(tag.Length - 2);
-
-                var (tagType, value) = GetTagStatus(s);
+                var (tagType, value) = GetTagStatus(tag);
 
                 tagDataArray[count] = new TagData(tagType, value, match.Index - tagStringLength);
                 tagStringLength += tag.Length;
@@ -64,35 +62,38 @@ namespace Novel
             return (regex.Replace(text, string.Empty), tagDataArray);
 
 
-            static (TagType, float) GetTagStatus(string tagContent)
+            static (TagType, float) GetTagStatus(string tag)
             {
+                // "{}"を取り除く
+                var content = tag.Remove(0, 1).Remove(tag.Length - 2);
+
                 TagType tagType = TagType.None;
                 float value = 0f;
-                if (tagContent.StartsWith("s=", StringComparison.Ordinal))
+                if (content.StartsWith("s=", StringComparison.Ordinal))
                 {
                     tagType = TagType.SpeedStart;
-                    value = float.Parse(tagContent.Replace("s=", string.Empty));
+                    value = float.Parse(content.Replace("s=", string.Empty));
                 }
-                else if (tagContent == "/s")
+                else if (content == "/s")
                 {
                     tagType = TagType.SpeedEnd;
                 }
-                else if (tagContent.StartsWith("w=", StringComparison.Ordinal))
+                else if (content.StartsWith("w=", StringComparison.Ordinal))
                 {
                     tagType = TagType.WaitSeconds;
-                    value = float.Parse(tagContent.Replace("w=", string.Empty));
+                    value = float.Parse(content.Replace("w=", string.Empty));
                 }
-                else if (tagContent == "wi")
+                else if (content == "wi")
                 {
                     tagType = TagType.WaitInput;
                 }
-                else if (tagContent == "wic")
+                else if (content == "wic")
                 {
                     tagType = TagType.WaitInputClear;
                 }
                 else
                 {
-                    Debug.LogWarning($"{{{tagContent}}} ←タグのタイポしてるかも");
+                    Debug.LogWarning($"{tag} ← タグのタイポしてるかも");
                 }
                 return (tagType, value);
             }

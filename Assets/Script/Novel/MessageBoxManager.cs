@@ -11,37 +11,30 @@ namespace Novel
     // 既にシーンの中にボックスがある場合はそれを使います(名前で検索してます)ので、オーバーライドできます
     // シーンの中ではボックスはキャッシュされます
     // 基本はデフォルトのボックスで、変化を加えたい場合はシーンに置いてできる設計です
-    public class MessageBoxManager : SingletonMonoBehaviour<MessageBoxManager>
+    public class MessageBoxManager : SingletonMonoBehaviour<MessageBoxManager>, IInitializableManager
     {
-        [SerializeField, Tooltip("true時はシーン切り替え時に全メッセージボックスを生成します\n" +
+        [SerializeField, Tooltip(
+            "true時はシーン切り替え時に全メッセージボックスを生成します\n" +
             "false時は受注生産方式でキャッシュします")]
-        bool allCreateOnSceneChanged;
+        bool createOnSceneChanged;
 
         #region Data
+
         [Header("右上の「︙」 > 「◆SetEnum」から列挙子を更新できます")]
         [SerializeField] List<LinkedBox> linkedBoxList;
-
-        MessageBox GetBoxPrefab(BoxType type)
-            => linkedBoxList[(int)type].BoxPrefab;
 
         [Serializable]
         class LinkedBox
         {
-            [SerializeField, ReadOnly] BoxType type;
-            public BoxType Type => type;
-            [SerializeField] MessageBox boxPrefab;
-            public MessageBox BoxPrefab => boxPrefab;
-            public MessageBox Box { get; set; }
+            [field: SerializeField, ReadOnly]
+            public BoxType Type { get; set; }
 
-#if UNITY_EDITOR
-            public void SetType(BoxType type)
-            {
-                this.type = type;
-            }
-#endif
+            [field: SerializeField]
+            public MessageBox Prefab { get; private set; }
+
+            public MessageBox Box { get; set; }
         }
 
-#if UNITY_EDITOR
         /// <summary>
         /// 列挙子を設定します
         /// </summary>
@@ -66,80 +59,103 @@ namespace Novel
 
             for (int i = 0; i < enumCount; i++)
             {
-                linkedBoxList[i].SetType((BoxType)i);
+                linkedBoxList[i].Type =(BoxType)i;
             }
         }
-#endif
         #endregion
 
-        protected override void Awake()
+        void IInitializableManager.Init()
         {
-            base.Awake();
-            OnSceneChanged(default, default);
+            InitCheck();
             SceneManager.activeSceneChanged += OnSceneChanged;
         }
 
-        void OnSceneChanged(Scene _, Scene __)
+        void InitCheck()
         {
+            int enumCount = Enum.GetValues(typeof(BoxType)).Length;
+
+            // 登録数のチェック
+            if (linkedBoxList.Count != enumCount)
+            {
+                Debug.LogWarning($"{nameof(MessageBoxManager)}に登録数が{nameof(BoxType)}の数と合いません！");
+            }
+            else
+            {
+                for (int i = 0; i < enumCount; i++)
+                {
+                    linkedBoxList[i].Type = (BoxType)i;
+                }
+            }
+        }
+
+        void OnSceneChanged(Scene _ = default, Scene __ = default)
+        {
+            // 生成している子を削除する
             for (int i = 0; i < transform.childCount; i++)
             {
                 var child = transform.GetChild(i);
                 Destroy(child.gameObject);
             }
 
+            var existBoxes = FindObjectsByType<MessageBox>(
+                    FindObjectsInactive.Include, FindObjectsSortMode.None);
             foreach (var linkedBox in linkedBoxList)
             {
                 linkedBox.Box = null;
-                var boxObj = MyStatic.FindIncludInactive(linkedBox.BoxPrefab.name);
-                if (boxObj != null)
+                foreach(var existBox in existBoxes)
                 {
-                    boxObj.SetActive(false);
-                    linkedBox.Box = boxObj.GetComponent<MessageBox>();
+                    if (existBox.Type == linkedBox.Type)
+                    {
+                        existBox.gameObject.SetActive(false);
+                        linkedBox.Box = existBox;
+                        break;
+                    }
                 }
-                else if (allCreateOnSceneChanged)
+
+                if (linkedBox.Box == null && createOnSceneChanged)
                 {
-                    var box = Instantiate(linkedBox.BoxPrefab, transform);
-                    box.gameObject.SetActive(false);
-                    box.name = linkedBox.BoxPrefab.name;
-                    linkedBox.Box = box;
+                    CreateAndAddBox(linkedBox);
                 }
             }
+        }
+
+        MessageBox CreateAndAddBox(LinkedBox linkedBox)
+        {
+            if (linkedBox.Prefab == null) return null;
+            var newBox = Instantiate(linkedBox.Prefab, transform);
+            newBox.gameObject.SetActive(false);
+            newBox.name = linkedBox.Prefab.name;
+            linkedBox.Box = newBox;
+            return newBox;
         }
 
         /// <summary>
         /// メッセージボックスを返します。なければ生成してから返します
         /// </summary>
-        /// <param name="boxType"></param>
-        /// <returns></returns>
         public MessageBox CreateIfNotingBox(BoxType boxType)
         {
             var linkedBox = linkedBoxList[(int)boxType];
             if (linkedBox.Box != null) return linkedBox.Box;
-
-            var box = Instantiate(GetBoxPrefab(boxType), transform);
-            box.gameObject.SetActive(false);
-            box.name = linkedBox.BoxPrefab.name;
-            linkedBox.Box = box;
-            return box;
+            return CreateAndAddBox(linkedBox);
         }
 
-        public async UniTask AllFadeOutAsync(float time = MyStatic.DefaultFadeTime)
+        public async UniTask AllClearFadeAsync(float time = MyStatic.DefaultFadeTime)
         {
             foreach(var linkedBox in linkedBoxList)
             {
                 if (linkedBox.Box == null) continue;
-                linkedBox.Box.FadeOutAsync(time).Forget();
+                linkedBox.Box.ClearFadeAsync(time).Forget();
             }
             await MyStatic.WaitSeconds(time);
         }
 
-        public async UniTask FadeOutOtherAsync(BoxType boxType, float time = MyStatic.DefaultFadeTime)
+        public async UniTask OtherClearFadeAsync(BoxType boxType, float time = MyStatic.DefaultFadeTime)
         {
             foreach (var linkedBox in linkedBoxList)
             {
-                if (linkedBox.Type == boxType) continue;
-                if (linkedBox.Box == null) continue;
-                linkedBox.Box.FadeOutAsync(time).Forget();
+                if (linkedBox.Box == null ||
+                    linkedBox.Type == boxType) continue;
+                linkedBox.Box.ClearFadeAsync(time).Forget();
             }
             await MyStatic.WaitSeconds(time);
         }

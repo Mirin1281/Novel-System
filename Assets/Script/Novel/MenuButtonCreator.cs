@@ -9,49 +9,6 @@ namespace Novel
         [SerializeField] MenuButton buttonPrefab;
         List<MenuButton> createButtons = new();
 
-        public IReadOnlyList<MenuButton> CreateShowButtons(int count)
-        {
-            int currentCount = 0;
-            if (createButtons == null)
-            {
-                createButtons = new();
-            }
-            else
-            {
-                currentCount = createButtons.Count;
-            }
-
-            if (count == currentCount)
-            {
-                return createButtons;
-            }
-            else if (count > currentCount)
-            {
-                for (int i = 0; i < count; i++)
-                {
-                    if(i < currentCount)
-                    {
-                        createButtons[i].ShowFadeAsync(0f).Forget();
-                    }
-                    else
-                    {
-                        createButtons.Add(Instantiate(buttonPrefab, transform));
-                    }
-                }
-                return createButtons;
-            }
-            else
-            {
-                var buttons = new List<MenuButton>(count);
-                for (int i = 0; i < count; i++)
-                {
-                    buttons.Add(createButtons[i]);
-                    createButtons[i].ShowFadeAsync(0f).Forget();
-                }
-                return buttons;
-            }
-        }
-
         public IReadOnlyList<MenuButton> CreateShowButtons(params string[] texts)
         {
             int createCount = texts.Length;
@@ -113,7 +70,7 @@ namespace Novel
             {
                 if(button.gameObject.activeInHierarchy)
                 {
-                    button.FadeOutAsync(time).Forget();
+                    button.ClearFadeAsync(time).Forget();
                 }
             }
             await MyStatic.WaitSeconds(time);
