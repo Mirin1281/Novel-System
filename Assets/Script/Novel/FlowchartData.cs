@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using Cysharp.Threading.Tasks;
 using Novel.Command;
+using System.Linq;
 using System.Threading;
 using System.Collections.Generic;
 #pragma warning disable 0414 // value is never used の警告を消すため
@@ -16,17 +17,17 @@ namespace Novel
         [SerializeField, TextArea]
         string description = "説明";
 
-        [SerializeField, SerializeReference, SubclassSelector]
-        ICommand[] commands;
+        // シリアライズはする
+        [SerializeField, HideInInspector]
+        List<CommandData> commandDataList = new();
 
         IEnumerable<CommandBase> IFlowchart.GetCommandBaseList()
+            => commandDataList.Select(data => data.GetCommandBase());
+
+        IEnumerable<CommandData> IFlowchart.GetCommandDataList() => commandDataList;
+        void IFlowchart.SetCommandDataList(IEnumerable<CommandData> list)
         {
-            var cmds = new CommandBase[commands.Length];
-            for(int i = 0; i < commands.Length; i++)
-            {
-                cmds[i] = commands[i] as CommandBase;
-            }
-            return cmds;
+            commandDataList = list as List<CommandData>;
         }
 
         bool isStopped;
@@ -36,13 +37,10 @@ namespace Novel
         {
             var status = SetStatus(callStatus);
 
-            while (commands.Length > index && isStopped == false)
+            while (commandDataList.Count > index && isStopped == false)
             {
-                var cmdData = commands[index];
-                if(cmdData != null)
-                {
-                    await cmdData.CallCommandAsync(this, index, status);
-                }
+                var cmdData = commandDataList[index];
+                await cmdData.CallAsync(this, index, status);
                 index++;
             }
             bool isEndClearUI = isStopped == false && status.IsNestCalled == false;

@@ -34,7 +34,7 @@ namespace Novel.Command
                 portrait.SetSprite(changeSprite);
             }
 
-            BoxType boxType = character == null ? BoxType.Default : character.BoxType;
+            BoxType boxType = character == null ? BoxType.Type1 : character.BoxType;
             MessageBoxManager.Instance.OtherClearFadeAsync(boxType, 0f).Forget();
             var msgBox = MessageBoxManager.Instance.CreateIfNotingBox(boxType);
             if(msgBox.gameObject.activeInHierarchy == false)

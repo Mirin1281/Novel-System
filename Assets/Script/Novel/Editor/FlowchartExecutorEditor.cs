@@ -24,19 +24,20 @@ using Novel.Command;
 
             if (GUILayout.Button("フローチャートを複製する"))
             {
-                var flowchart = target as FlowchartExecutor;
+                var flowchartExecutor = target as FlowchartExecutor;
+                var copiedFlowchartExecutor = Instantiate(flowchartExecutor);
+                copiedFlowchartExecutor.name = "Flowchart(Copied)";
+                var flowchart = copiedFlowchartExecutor as IFlowchart;
+
                 var copiedCmdList = new List<CommandData>();
-                var copiedFlowchart = Instantiate(flowchart);
                 foreach (var cmdData in flowchart.GetCommandDataList())
                 {
                     var copiedCmdData = Instantiate(cmdData);
                     var cmd = copiedCmdData.GetCommandBase();
-                    cmd.SetFlowchart(copiedFlowchart);
+                    cmd.SetFlowchart(flowchart);
                     copiedCmdList.Add(copiedCmdData);
                 }
-                
-                copiedFlowchart.name = "Flowchart(Copied)";
-                copiedFlowchart.SetCommandDataList(copiedCmdList);
+                flowchart.SetCommandDataList(copiedCmdList);
             }
         }
     }

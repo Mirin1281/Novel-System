@@ -3,12 +3,23 @@ using UnityEngine;
 using UnityEditor;
 using Novel.Command;
 using UnityEditorInternal;
+using System.IO;
 
 namespace Novel
 {
     public class FlowchartEditorWindow : EditorWindow
     {
-        FlowchartExecutor activeFlowchartExecutor;
+        enum ActiveMode
+        {
+            None,
+            Executor,
+            Data,
+        }
+
+        IFlowchart activeFlowchart;
+        FlowchartData activeFlowchartData;
+        ActiveMode activeMode;
+
         [SerializeField] List<CommandData> commandList = new();
         ReorderableList reorderableList;
         CommandData selectedCommand;
@@ -16,6 +27,8 @@ namespace Novel
 
         Vector2 dataScrollPosition;
         Vector2 parameterScrollPosition;
+
+        readonly static string CommandDataPath = $"{NameContainer.RESOURCES_PATH}Commands";
 
         [MenuItem("Tools/Novel/Show Flowchart Editor")]
         static void CreateEditor()
@@ -30,10 +43,21 @@ namespace Novel
 
         void OnGUI()
         {
+            EditorGUI.BeginChangeCheck();
+
             using (new GUILayout.HorizontalScope())
             {
                 UpdateCommandList();
                 UpdateCommandInspector();
+            }
+
+            if (EditorGUI.EndChangeCheck())
+            {
+                if (activeMode == ActiveMode.Data)
+                {
+                    EditorUtility.SetDirty(activeFlowchartData);
+                    AssetDatabase.SaveAssetIfDirty(activeFlowchartData);
+                }
             }
         }
 
@@ -44,8 +68,9 @@ namespace Novel
                 var flowchartExecutor = Selection.activeGameObject.GetComponent<FlowchartExecutor>();
                 if (flowchartExecutor != null)
                 {
-                    activeFlowchartExecutor = flowchartExecutor;
-                    commandList = flowchartExecutor.GetCommandDataList() as List<CommandData>;
+                    activeFlowchart = flowchartExecutor;
+                    activeMode = ActiveMode.Executor;
+                    commandList = activeFlowchart.GetCommandDataList() as List<CommandData>;
                 }
             }
             if (Selection.activeObject != null)
@@ -53,7 +78,10 @@ namespace Novel
                 var flowchartData = Selection.GetFiltered<FlowchartData>(SelectionMode.Assets);
                 if (flowchartData != null && flowchartData.Length != 0)
                 {
-                    Debug.Log(0);
+                    activeFlowchartData = flowchartData[0];
+                    activeFlowchart = activeFlowchartData;
+                    activeMode = ActiveMode.Data;
+                    commandList = activeFlowchart.GetCommandDataList() as List<CommandData>;
                 }
             }
             CreateReorderableList();
@@ -62,7 +90,7 @@ namespace Novel
 
         void UpdateCommandInspector()
         {
-            if (activeFlowchartExecutor == null) return;
+            if (activeFlowchart == null) return;
             using (GUILayout.ScrollViewScope scroll = new(parameterScrollPosition, EditorStyles.helpBox))
             {
                 parameterScrollPosition = scroll.scrollPosition;
@@ -80,7 +108,7 @@ namespace Novel
 
         void UpdateCommandList()
         {
-            if (activeFlowchartExecutor == null) return;
+            if (activeFlowchart == null) return;
 
             var ev = Event.current;
             if (ev.type == EventType.KeyDown && ev.control)
@@ -105,9 +133,9 @@ namespace Novel
             {
                 dataScrollPosition = scroll.scrollPosition;
                 
-                if (activeFlowchartExecutor != null)
+                if (activeFlowchart != null)
                 {
-                    activeFlowchartExecutor.SetCommandDataList(commandList);
+                    activeFlowchart.SetCommandDataList(commandList);
                     UpdateCommandSettings();
                 }
                 reorderableList.DoLayoutList();
@@ -121,11 +149,9 @@ namespace Novel
             {
                 var cmd = cmdData.GetCommandBase();
                 if (cmd == null) continue;
-                cmd.SetFlowchart(activeFlowchartExecutor);
+                cmd.SetFlowchart(activeFlowchart);
                 cmd.SetIndex(i);
                 i++;
-                EditorUtility.SetDirty(cmdData);
-                AssetDatabase.SaveAssets();
             }
         }
 
@@ -145,7 +171,15 @@ namespace Novel
             if (GUIUtility.keyboardControl > 0)
             {
                 var createCommand = Instantiate(copiedCommand);
-                commandList.Insert(currentIndex, createCommand);
+                if(activeMode == ActiveMode.Data)
+                {
+                    var name = GetFileName(CommandDataPath, $"CommandData_{activeFlowchartData.name}");
+                    AssetDatabase.CreateAsset(createCommand, Path.Combine(CommandDataPath, name));
+                }
+                
+                commandList.Insert(currentIndex + 1, createCommand);
+                selectedCommand = createCommand;
+                reorderableList.Select(currentIndex + 1);
             }
         }
 
@@ -167,10 +201,19 @@ namespace Novel
             void Add(ReorderableList list)
             {
                 Undo.RecordObject(this, "Add Command");
-                var newCommand = CreateInstance<CommandData>();
+                CommandData newCommandData = activeMode switch
+                {
+                    ActiveMode.Executor => CreateInstance<CommandData>(),
+                    ActiveMode.Data => CreateCommandData(CommandDataPath, activeFlowchartData.name),
+                    _ => throw new System.Exception()
+                };
                 int insertIndex = list.index + 1;
-                commandList.Insert(insertIndex, newCommand);
-                selectedCommand = newCommand;
+                if (commandList == null || commandList.Count == 0)
+                {
+                    insertIndex = 0;
+                }
+                commandList.Insert(insertIndex, newCommandData);
+                selectedCommand = newCommandData;
                 reorderableList.Select(insertIndex);
             }
 
@@ -178,6 +221,15 @@ namespace Novel
             {
                 Undo.RecordObject(this, "Remove Command");
                 commandList.Remove(selectedCommand);
+                if (activeMode == ActiveMode.Data)
+                {
+                    var deleteName = selectedCommand.name;
+                    DestroyImmediate(selectedCommand, true);
+                    File.Delete($"{CommandDataPath}/{deleteName}.asset");
+                    File.Delete($"{CommandDataPath}/{deleteName}.asset.meta");
+                    AssetDatabase.Refresh(ImportAssetOptions.ForceUpdate);
+                }
+
                 int removeIndex = list.index;
                 bool isLastElementRemoved = removeIndex == commandList.Count;
                 if (isLastElementRemoved)
@@ -201,6 +253,7 @@ namespace Novel
 
             void OnDrawElement(Rect rect, int index, bool isActive, bool isFocused)
             {
+                if (index < 0 || commandList.Count <= index) return;
                 var style = new GUIStyle(EditorStyles.label);
                 style.richText = true;
                 var tmpColor = GUI.color;
@@ -218,6 +271,7 @@ namespace Novel
 
             void DrawElementBackground(Rect rect, int index, bool isActive, bool isFocused)
             {
+                if (index < 0 || commandList.Count <= index) return;
                 var cmd = commandList[index];
                 var color = cmd.GetCommandStatus().Color;
                 color.a = 1f;
@@ -247,5 +301,27 @@ namespace Novel
         }
         #endregion
 
+        CommandData CreateCommandData(string path, string parentDataName)
+        {
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+            }
+            var name = GetFileName(path, $"CommandData_{parentDataName}");
+            var cmdData = CreateInstance<CommandData>();
+            AssetDatabase.CreateAsset(cmdData, Path.Combine(path, name));
+            return cmdData;
+        }
+
+        string GetFileName(string path, string name)
+        {
+            int i = 1;
+            var targetName = name;
+            while (File.Exists($"{path}/{targetName}.asset"))
+            {
+                targetName = $"{name}_({i++})";
+            }
+            return $"{targetName}.asset";
+        }
     }
 }

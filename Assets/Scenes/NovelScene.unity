@@ -307,56 +307,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &155414318
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4399fbfc898731a4f96fd937ce84eeff, type: 3}
-  m_Name: (Clone)(Clone)(Clone)
-  m_EditorClassIdentifier: 
-  <Enabled>k__BackingField: 1
-  command:
-    rid: 6983526735906340871
-  references:
-    version: 2
-    RefIds:
-    - rid: 6983526735906340871
-      type: {class: SayCommand, ns: Novel.Command, asm: Assembly-CSharp}
-      data:
-        character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
-        changeSprite: {fileID: 0}
-        storyText: "\u3046\u3046\u3046\u3046\u3046\u3046\u3046\u3046\u3046\u3046"
-        flagKeys: []
---- !u!114 &180108955
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4399fbfc898731a4f96fd937ce84eeff, type: 3}
-  m_Name: (Clone)
-  m_EditorClassIdentifier: 
-  <Enabled>k__BackingField: 1
-  command:
-    rid: 6983526735906340871
-  references:
-    version: 2
-    RefIds:
-    - rid: 6983526735906340871
-      type: {class: SayCommand, ns: Novel.Command, asm: Assembly-CSharp}
-      data:
-        character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
-        changeSprite: {fileID: 0}
-        storyText: "\u3048\u3048\u3048\u3048\u3048\u3048\u3048\u3048\u3048\u3048"
-        flagKeys: []
 --- !u!114 &253184301
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -380,7 +330,7 @@ MonoBehaviour:
       data:
         character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
         changeSprite: {fileID: 0}
-        storyText: "\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042"
+        storyText: "\u3046\u3046\u3046\u3046\u3046\u3046\u3046\u3046\u3046\u3046"
         flagKeys: []
 --- !u!114 &348722330
 MonoBehaviour:
@@ -408,6 +358,31 @@ MonoBehaviour:
         flowchartData: {fileID: 11400000, guid: e71fa871895562c43bbc914d31b332a4, type: 2}
         commandIndex: 0
         isAwaitNest: 1
+--- !u!114 &414737396
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4399fbfc898731a4f96fd937ce84eeff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <Enabled>k__BackingField: 1
+  command:
+    rid: 6983526749080649744
+  references:
+    version: 2
+    RefIds:
+    - rid: 6983526749080649744
+      type: {class: SayCommand, ns: Novel.Command, asm: Assembly-CSharp}
+      data:
+        character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
+        changeSprite: {fileID: 0}
+        storyText: "\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044"
+        flagKeys: []
 --- !u!114 &582280749
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -549,30 +524,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1199964055
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4399fbfc898731a4f96fd937ce84eeff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  <Enabled>k__BackingField: 1
-  command:
-    rid: 6983526749080649728
-  references:
-    version: 2
-    RefIds:
-    - rid: 6983526749080649728
-      type: {class: FlowStopCommand, ns: Novel.Command, asm: Assembly-CSharp}
-      data:
-        stopType: 0
-        hideMsgBoxes: 1
-        hidePortraits: 1
 --- !u!114 &1212497245
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -627,9 +578,7 @@ MonoBehaviour:
   description: "\u8AAC\u660E"
   isStartExecute: 0
   commandDataList:
-  - {fileID: 155414318}
-  - {fileID: 1199964055}
-  - {fileID: 180108955}
+  - {fileID: 414737396}
 --- !u!4 &1508693284
 Transform:
   m_ObjectHideFlags: 0

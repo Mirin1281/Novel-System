@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4399fbfc898731a4f96fd937ce84eeff, type: 3}
+  m_Name: CommandData_FlowchartData_(1)
+  m_EditorClassIdentifier: 
+  <Enabled>k__BackingField: 1
+  command:
+    rid: 6983526753827815424
+  references:
+    version: 2
+    RefIds:
+    - rid: 6983526753827815424
+      type: {class: PortraitCommand, ns: Novel.Command, asm: Assembly-CSharp}
+      data:
+        character: {fileID: 0}
+        actionType: 0
+        portraitSprite: {fileID: 0}
+        positionType: 0
+        overridePos: {x: 0, y: 0}
+        fadeTime: 0
+        isAwait: 0

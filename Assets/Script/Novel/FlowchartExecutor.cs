@@ -8,11 +8,91 @@ using Novel.Command;
 
 namespace Novel
 {
-    public interface IFlowchart
+    /*public interface IFlowchart
     {
         UniTask ExecuteAsync(int index = 0, FlowchartCallStatus callStatus = null);
         void Stop(FlowchartStopType stopType);
         IEnumerable<CommandBase> GetCommandBaseList();
+        IEnumerable<CommandData> GetCommandDataList();
+        void SetCommandDataList(IEnumerable<CommandData> list);
+    }*/
+
+    public class Flowchart
+    {
+        [SerializeField, TextArea]
+        string description = "説明";
+
+        [SerializeField] bool isStartExecute;
+
+        // シリアライズはする
+        [SerializeField, HideInInspector]
+        List<CommandData> commandDataList = new();
+
+        public IEnumerable<CommandBase> GetCommandBaseList()
+            => commandDataList.Select(data => data.GetCommandBase());
+
+        public IEnumerable<CommandData> GetCommandDataList() => commandDataList;
+        public void SetCommandDataList(IEnumerable<CommandData> list)
+        {
+            commandDataList = list as List<CommandData>;
+        }
+
+        bool isStopped;
+        CancellationTokenSource cts;
+
+        void Start()
+        {
+            if (isStartExecute) ExecuteAsync().Forget();
+        }
+
+        public async UniTask ExecuteAsync(int index = 0, FlowchartCallStatus callStatus = null)
+        {
+            var status = SetStatus(callStatus);
+
+            while (commandDataList.Count > index && isStopped == false)
+            {
+                var cmdData = commandDataList[index];
+                await cmdData.CallAsync(this, index, status);
+                index++;
+            }
+            bool isEndClearUI = isStopped == false && status.IsNestCalled == false;
+            if (isEndClearUI)
+            {
+                MessageBoxManager.Instance.AllClearFadeAsync().Forget();
+                PortraitManager.Instance.AllClearFadeAsync().Forget();
+            }
+            isStopped = false;
+        }
+
+        /// <summary>
+        /// FlowchartCallStatusをctsに反映します。
+        /// statusがnullだった場合は初期化をします
+        /// </summary>
+        FlowchartCallStatus SetStatus(FlowchartCallStatus callStatus)
+        {
+            if (callStatus == null)
+            {
+                cts = new CancellationTokenSource();
+                return new FlowchartCallStatus(cts.Token, cts, false);
+            }
+            else
+            {
+                cts = callStatus.Cts;
+                return callStatus;
+            }
+        }
+
+        public void Stop(FlowchartStopType stopType)
+        {
+            if (stopType == FlowchartStopType.IncludeParent)
+            {
+                cts.Cancel();
+            }
+            else if (stopType == FlowchartStopType.Single)
+            {
+                isStopped = true;
+            }
+        }
     }
 
     // FlowchartはMonoBehaviour型とScriptableObject型がある
@@ -32,8 +112,8 @@ namespace Novel
         IEnumerable<CommandBase> IFlowchart.GetCommandBaseList()
             => commandDataList.Select(data => data.GetCommandBase());
 
-        public IEnumerable<CommandData> GetCommandDataList() => commandDataList;
-        public void SetCommandDataList(IEnumerable<CommandData> list)
+        IEnumerable<CommandData> IFlowchart.GetCommandDataList() => commandDataList;
+        void IFlowchart.SetCommandDataList(IEnumerable<CommandData> list)
         {
             commandDataList = list as List<CommandData>;
         }
