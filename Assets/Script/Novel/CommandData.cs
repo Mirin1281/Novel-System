@@ -15,7 +15,7 @@ namespace Novel.Command
         [SerializeField, SerializeReference, SubclassSelector]
         ICommand command;
 
-        public async UniTask CallAsync(IFlowchart flowchart, int index, FlowchartCallStatus callStatus)
+        public async UniTask CallAsync(Flowchart flowchart, int index, FlowchartCallStatus callStatus)
         {
             if(Enabled && command != null)
             {
@@ -25,7 +25,11 @@ namespace Novel.Command
 
         #region For Editor
 
-        public CommandBase GetCommandBase() => command as CommandBase;
+        public CommandBase GetCommandBase()
+        {
+            if (command == null) return null;
+            return command as CommandBase;
+        }
 
         public CommandStatus GetCommandStatus()
         {

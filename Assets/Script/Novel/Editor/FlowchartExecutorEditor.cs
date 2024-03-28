@@ -27,14 +27,17 @@ using Novel.Command;
                 var flowchartExecutor = target as FlowchartExecutor;
                 var copiedFlowchartExecutor = Instantiate(flowchartExecutor);
                 copiedFlowchartExecutor.name = "Flowchart(Copied)";
-                var flowchart = copiedFlowchartExecutor as IFlowchart;
+                var flowchart = copiedFlowchartExecutor.Flowchart;
 
                 var copiedCmdList = new List<CommandData>();
                 foreach (var cmdData in flowchart.GetCommandDataList())
                 {
                     var copiedCmdData = Instantiate(cmdData);
                     var cmd = copiedCmdData.GetCommandBase();
-                    cmd.SetFlowchart(flowchart);
+                    if(cmd != null)
+                    {
+                        cmd.SetFlowchart(flowchart);
+                    }
                     copiedCmdList.Add(copiedCmdData);
                 }
                 flowchart.SetCommandDataList(copiedCmdList);

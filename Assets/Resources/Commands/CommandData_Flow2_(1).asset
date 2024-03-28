@@ -10,22 +10,23 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4399fbfc898731a4f96fd937ce84eeff, type: 3}
-  m_Name: CommandData_FlowchartData
+  m_Name: CommandData_Flow2_(1)
   m_EditorClassIdentifier: 
   <Enabled>k__BackingField: 1
   command:
-    rid: 6983526754053259273
+    rid: 6983526754449096705
   references:
     version: 2
     RefIds:
-    - rid: 6983526754053259273
+    - rid: 6983526754449096705
       type: {class: SayCommand, ns: Novel.Command, asm: Assembly-CSharp}
       data:
         <ParentFlowchart>k__BackingField:
           description: "\u8AAC\u660E"
           commandDataList:
+          - {fileID: 11400000, guid: f2f613b99c9bd694b8342f5a64409e47, type: 2}
           - {fileID: 11400000}
-        character: {fileID: 11400000, guid: 36e06002688543545a19e42b88b58c8b, type: 2}
+        character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
         changeSprite: {fileID: 0}
-        storyText: "\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044"
+        storyText: "\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042"
         flagKeys: []

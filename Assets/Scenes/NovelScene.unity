@@ -307,131 +307,106 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &253184301
+--- !u!1 &187121798
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 187121800}
+  - component: {fileID: 187121799}
+  m_Layer: 0
+  m_Name: Flowchart
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &187121799
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 187121798}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4399fbfc898731a4f96fd937ce84eeff, type: 3}
-  m_Name: (Clone)(Clone)
-  m_EditorClassIdentifier: 
-  <Enabled>k__BackingField: 1
-  command:
-    rid: 6983526735906340871
-  references:
-    version: 2
-    RefIds:
-    - rid: 6983526735906340871
-      type: {class: SayCommand, ns: Novel.Command, asm: Assembly-CSharp}
-      data:
-        character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
-        changeSprite: {fileID: 0}
-        storyText: "\u3046\u3046\u3046\u3046\u3046\u3046\u3046\u3046\u3046\u3046"
-        flagKeys: []
---- !u!114 &348722330
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4399fbfc898731a4f96fd937ce84eeff, type: 3}
+  m_Script: {fileID: 11500000, guid: d7cf50fdd8e070440a24501548002687, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <Enabled>k__BackingField: 1
-  command:
-    rid: 6983526735906340872
-  references:
-    version: 2
-    RefIds:
-    - rid: 6983526735906340872
-      type: {class: FlowExecuteCommand, ns: Novel.Command, asm: Assembly-CSharp}
-      data:
-        flowchartType: 1
-        flowchartExecutor: {fileID: 1508693283}
-        flowchartData: {fileID: 11400000, guid: e71fa871895562c43bbc914d31b332a4, type: 2}
-        commandIndex: 0
-        isAwaitNest: 1
---- !u!114 &414737396
+  isStartExecute: 1
+  flowchart:
+    description: "\u8AAC\u660E"
+    commandDataList:
+    - {fileID: 1321452943}
+    - {fileID: 2144438659}
+    - {fileID: 1621440276}
+--- !u!4 &187121800
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 187121798}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &329357642
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 329357644}
+  - component: {fileID: 329357643}
+  m_Layer: 0
+  m_Name: Flowchart(Copied)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &329357643
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 329357642}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4399fbfc898731a4f96fd937ce84eeff, type: 3}
+  m_Script: {fileID: 11500000, guid: d7cf50fdd8e070440a24501548002687, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <Enabled>k__BackingField: 1
-  command:
-    rid: 6983526749080649744
-  references:
-    version: 2
-    RefIds:
-    - rid: 6983526749080649744
-      type: {class: SayCommand, ns: Novel.Command, asm: Assembly-CSharp}
-      data:
-        character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
-        changeSprite: {fileID: 0}
-        storyText: "\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044"
-        flagKeys: []
---- !u!114 &582280749
-MonoBehaviour:
+  isStartExecute: 0
+  flowchart:
+    description: "\u8AAC\u660E"
+    commandDataList:
+    - {fileID: 2147284905}
+--- !u!4 &329357644
+Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4399fbfc898731a4f96fd937ce84eeff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  <Enabled>k__BackingField: 0
-  command:
-    rid: 6983526735906340873
-  references:
-    version: 2
-    RefIds:
-    - rid: 6983526735906340873
-      type: {class: TwoMenuCommand, ns: Novel.Command, asm: Assembly-CSharp}
-      data:
-        topSelectionText: "\u3042\u3042\u3042\u3042\u3042\u3042"
-        bottomSelectionText: "\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044"
-        menu: {fileID: 71278597}
---- !u!114 &921063823
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4399fbfc898731a4f96fd937ce84eeff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  <Enabled>k__BackingField: 1
-  command:
-    rid: 6983526735906340871
-  references:
-    version: 2
-    RefIds:
-    - rid: 6983526735906340871
-      type: {class: SayCommand, ns: Novel.Command, asm: Assembly-CSharp}
-      data:
-        character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
-        changeSprite: {fileID: 0}
-        storyText: "\u3044\u3044\u3044\u3044\u3044\u3044\u3044"
-        flagKeys: []
+  m_GameObject: {fileID: 329357642}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -524,77 +499,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1212497245
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4399fbfc898731a4f96fd937ce84eeff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  <Enabled>k__BackingField: 0
-  command:
-    rid: 6983526735906340874
-  references:
-    version: 2
-    RefIds:
-    - rid: 6983526735906340874
-      type: {class: WaitCommand, ns: Novel.Command, asm: Assembly-CSharp}
-      data:
-        waitSeconds: 1
---- !u!1 &1508693282
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1508693284}
-  - component: {fileID: 1508693283}
-  m_Layer: 0
-  m_Name: Flowchart(Copied)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1508693283
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1508693282}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d7cf50fdd8e070440a24501548002687, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  description: "\u8AAC\u660E"
-  isStartExecute: 0
-  commandDataList:
-  - {fileID: 414737396}
---- !u!4 &1508693284
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1508693282}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1681693828
+--- !u!114 &1321452943
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -608,75 +513,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Enabled>k__BackingField: 1
   command:
-    rid: 6983526749080649737
+    rid: 6983526754053259271
   references:
     version: 2
     RefIds:
-    - rid: 6983526749080649737
-      type: {class: PortraitCommand, ns: Novel.Command, asm: Assembly-CSharp}
+    - rid: 6983526754053259271
+      type: {class: SayCommand, ns: Novel.Command, asm: Assembly-CSharp}
       data:
+        <ParentFlowchart>k__BackingField:
+          description: "\u8AAC\u660E"
+          commandDataList:
+          - {fileID: 1321452943}
+          - {fileID: 2144438659}
+          - {fileID: 1621440276}
         character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
-        actionType: 0
-        portraitSprite: {fileID: 21300000, guid: 321b0bfb6c84b2e4ea411c3d1246c306, type: 3}
-        positionType: 0
-        overridePos: {x: 0, y: 0}
-        fadeTime: 0.3
-        isAwait: 0
---- !u!1 &1747581731
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1747581733}
-  - component: {fileID: 1747581732}
-  m_Layer: 0
-  m_Name: Flowchart
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1747581732
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1747581731}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d7cf50fdd8e070440a24501548002687, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  description: "\u8AAC\u660E"
-  isStartExecute: 1
-  commandDataList:
-  - {fileID: 1681693828}
-  - {fileID: 253184301}
-  - {fileID: 348722330}
-  - {fileID: 921063823}
-  - {fileID: 1854464867}
-  - {fileID: 1212497245}
-  - {fileID: 582280749}
---- !u!4 &1747581733
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1747581731}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1854464867
+        changeSprite: {fileID: 0}
+        storyText: "\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042"
+        flagKeys: []
+--- !u!114 &1621440276
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -686,20 +540,27 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4399fbfc898731a4f96fd937ce84eeff, type: 3}
-  m_Name: (Clone)(Clone)
+  m_Name: (Clone)
   m_EditorClassIdentifier: 
-  <Enabled>k__BackingField: 0
+  <Enabled>k__BackingField: 1
   command:
-    rid: 6983526735906340873
+    rid: 6983526754053259271
   references:
     version: 2
     RefIds:
-    - rid: 6983526735906340873
-      type: {class: TwoMenuCommand, ns: Novel.Command, asm: Assembly-CSharp}
+    - rid: 6983526754053259271
+      type: {class: SayCommand, ns: Novel.Command, asm: Assembly-CSharp}
       data:
-        topSelectionText: "\u3042\u3042\u3042\u3042\u3042\u3042"
-        bottomSelectionText: "\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044"
-        menu: {fileID: 71278597}
+        <ParentFlowchart>k__BackingField:
+          description: "\u8AAC\u660E"
+          commandDataList:
+          - {fileID: 1321452943}
+          - {fileID: 2144438659}
+          - {fileID: 1621440276}
+        character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
+        changeSprite: {fileID: 0}
+        storyText: "\u304A\u304A\u304A\u304A\u304A\u304A\u304A\u304A\u304A\u304A\u304A"
+        flagKeys: []
 --- !u!1 &2102222174
 GameObject:
   m_ObjectHideFlags: 0
@@ -816,12 +677,73 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 150}
   m_SizeDelta: {x: 0, y: -300}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &2144438659
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4399fbfc898731a4f96fd937ce84eeff, type: 3}
+  m_Name: (Clone)(Clone)
+  m_EditorClassIdentifier: 
+  <Enabled>k__BackingField: 1
+  command:
+    rid: 6983526754053259272
+  references:
+    version: 2
+    RefIds:
+    - rid: 6983526754053259272
+      type: {class: FlowExecuteCommand, ns: Novel.Command, asm: Assembly-CSharp}
+      data:
+        <ParentFlowchart>k__BackingField:
+          description: "\u8AAC\u660E"
+          commandDataList:
+          - {fileID: 1321452943}
+          - {fileID: 2144438659}
+          - {fileID: 1621440276}
+        flowchartType: 1
+        flowchartExecutor: {fileID: 329357643}
+        flowchartData: {fileID: 11400000, guid: 8322b514457ed3e4f85631bbe8bc1427, type: 2}
+        commandIndex: 0
+        isAwaitNest: 1
+--- !u!114 &2147284905
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4399fbfc898731a4f96fd937ce84eeff, type: 3}
+  m_Name: (Clone)
+  m_EditorClassIdentifier: 
+  <Enabled>k__BackingField: 1
+  command:
+    rid: 6983526754053259271
+  references:
+    version: 2
+    RefIds:
+    - rid: 6983526754053259271
+      type: {class: SayCommand, ns: Novel.Command, asm: Assembly-CSharp}
+      data:
+        <ParentFlowchart>k__BackingField:
+          description: "\u8AAC\u660E"
+          commandDataList:
+          - {fileID: 2147284905}
+        character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
+        changeSprite: {fileID: 0}
+        storyText: "\u3046\u3046\u3046\u3046\u3046\u3046\u3046\u3046\u3046\u3046\u3046\u3046\u3046\u3046\u3046"
+        flagKeys: []
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 963194228}
   - {fileID: 107513323}
-  - {fileID: 1747581733}
-  - {fileID: 1508693284}
   - {fileID: 71278601}
+  - {fileID: 187121800}
+  - {fileID: 329357644}

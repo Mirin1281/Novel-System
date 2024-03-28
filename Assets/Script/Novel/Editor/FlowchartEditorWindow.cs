@@ -1,9 +1,11 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
-using UnityEditor;
+﻿using Cysharp.Threading.Tasks;
 using Novel.Command;
-using UnityEditorInternal;
+using System;
+using System.Collections.Generic;
 using System.IO;
+using UnityEditor;
+using UnityEditorInternal;
+using UnityEngine;
 
 namespace Novel
 {
@@ -16,7 +18,8 @@ namespace Novel
             Data,
         }
 
-        IFlowchart activeFlowchart;
+        Flowchart activeFlowchart;
+        FlowchartExecutor activeFlowchartExecutor;
         FlowchartData activeFlowchartData;
         ActiveMode activeMode;
 
@@ -24,6 +27,7 @@ namespace Novel
         ReorderableList reorderableList;
         CommandData selectedCommand;
         CommandData copiedCommand;
+        bool savableBuffer = true;
 
         Vector2 dataScrollPosition;
         Vector2 parameterScrollPosition;
@@ -43,6 +47,8 @@ namespace Novel
 
         void OnGUI()
         {
+            if (activeMode == ActiveMode.None) return;
+
             EditorGUI.BeginChangeCheck();
 
             using (new GUILayout.HorizontalScope())
@@ -53,11 +59,26 @@ namespace Novel
 
             if (EditorGUI.EndChangeCheck())
             {
-                if (activeMode == ActiveMode.Data)
-                {
-                    EditorUtility.SetDirty(activeFlowchartData);
-                    AssetDatabase.SaveAssetIfDirty(activeFlowchartData);
-                }
+                Save().Forget();
+            }
+        }
+
+        async UniTask Save()
+        {
+            if (savableBuffer == false) return;
+            savableBuffer = false;
+            await UniTask.Delay(TimeSpan.FromSeconds(2f));
+            savableBuffer = true;
+
+            if (activeMode == ActiveMode.Executor)
+            {
+                EditorUtility.SetDirty(activeFlowchartExecutor);
+                AssetDatabase.SaveAssetIfDirty(activeFlowchartExecutor);
+            }
+            else if (activeMode == ActiveMode.Data)
+            {
+                EditorUtility.SetDirty(activeFlowchartData);
+                AssetDatabase.SaveAssetIfDirty(activeFlowchartData);
             }
         }
 
@@ -68,7 +89,8 @@ namespace Novel
                 var flowchartExecutor = Selection.activeGameObject.GetComponent<FlowchartExecutor>();
                 if (flowchartExecutor != null)
                 {
-                    activeFlowchart = flowchartExecutor;
+                    activeFlowchartExecutor = flowchartExecutor;
+                    activeFlowchart = activeFlowchartExecutor.Flowchart;
                     activeMode = ActiveMode.Executor;
                     commandList = activeFlowchart.GetCommandDataList() as List<CommandData>;
                 }
@@ -79,7 +101,7 @@ namespace Novel
                 if (flowchartData != null && flowchartData.Length != 0)
                 {
                     activeFlowchartData = flowchartData[0];
-                    activeFlowchart = activeFlowchartData;
+                    activeFlowchart = activeFlowchartData.Flowchart;
                     activeMode = ActiveMode.Data;
                     commandList = activeFlowchart.GetCommandDataList() as List<CommandData>;
                 }
@@ -175,6 +197,7 @@ namespace Novel
                 {
                     var name = GetFileName(CommandDataPath, $"CommandData_{activeFlowchartData.name}");
                     AssetDatabase.CreateAsset(createCommand, Path.Combine(CommandDataPath, name));
+                    AssetDatabase.ImportAsset(CommandDataPath, ImportAssetOptions.ForceUpdate);
                 }
                 
                 commandList.Insert(currentIndex + 1, createCommand);
@@ -310,6 +333,7 @@ namespace Novel
             var name = GetFileName(path, $"CommandData_{parentDataName}");
             var cmdData = CreateInstance<CommandData>();
             AssetDatabase.CreateAsset(cmdData, Path.Combine(path, name));
+            AssetDatabase.ImportAsset(path, ImportAssetOptions.ForceUpdate);
             return cmdData;
         }
 

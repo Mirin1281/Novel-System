@@ -8,7 +8,7 @@ namespace Novel.Command
 
     public interface ICommand
     {
-        UniTask CallCommandAsync(IFlowchart flowchart, int index, FlowchartCallStatus callStatus);
+        UniTask CallCommandAsync(Flowchart flowchart, int index, FlowchartCallStatus callStatus);
         CommandStatus GetCommandStatus();
     }
 
@@ -16,12 +16,12 @@ namespace Novel.Command
     public abstract class CommandBase : ICommand
     {
         [field: SerializeField, HideInInspector]
-        protected IFlowchart ParentFlowchart { get; private set; }
+        protected Flowchart ParentFlowchart { get; private set; }
         protected FlowchartCallStatus CallStatus { get; private set; }
         protected int Index { get; private set; }
 
         protected abstract UniTask EnterAsync();
-        async UniTask ICommand.CallCommandAsync(IFlowchart flowchart, int index, FlowchartCallStatus callStatus)
+        async UniTask ICommand.CallCommandAsync(Flowchart flowchart, int index, FlowchartCallStatus callStatus)
         {
             ParentFlowchart = flowchart;
             CallStatus = callStatus;
@@ -48,7 +48,7 @@ namespace Novel.Command
         }
 
         CommandStatus ICommand.GetCommandStatus()
-            => new CommandStatus(GetName(), GetSummary(), GetCommandColor(), GetCommandInfo());
+            => new　(GetName(), GetSummary(), GetCommandColor(), GetCommandInfo());
 
         protected virtual string GetSummary() => string.Empty;
         protected virtual Color GetCommandColor() => new Color(0.9f, 0.9f, 0.9f, 1f);
@@ -64,7 +64,7 @@ namespace Novel.Command
         protected string WarningColorText(string text = "Warning!!")
             => $"<color=#dc143c>{text}</color>";
 
-        public void SetFlowchart(IFlowchart f) => ParentFlowchart = f;
+        public void SetFlowchart(Flowchart f) => ParentFlowchart = f;
         public void SetIndex(int i) => Index = i;
     }
 
