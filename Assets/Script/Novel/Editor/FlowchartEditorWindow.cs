@@ -48,6 +48,14 @@ namespace Novel
                     commandList = flowchartExecutor.GetCommandDataList() as List<CommandData>;
                 }
             }
+            if (Selection.activeObject != null)
+            {
+                var flowchartData = Selection.GetFiltered<FlowchartData>(SelectionMode.Assets);
+                if (flowchartData != null && flowchartData.Length != 0)
+                {
+                    Debug.Log(0);
+                }
+            }
             CreateReorderableList();
             Repaint();
         }
@@ -116,6 +124,8 @@ namespace Novel
                 cmd.SetFlowchart(activeFlowchartExecutor);
                 cmd.SetIndex(i);
                 i++;
+                EditorUtility.SetDirty(cmdData);
+                AssetDatabase.SaveAssets();
             }
         }
 

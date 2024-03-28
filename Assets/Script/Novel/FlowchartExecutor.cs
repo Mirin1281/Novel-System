@@ -53,7 +53,7 @@ namespace Novel
             while (commandDataList.Count > index && isStopped == false)
             {
                 var cmdData = commandDataList[index];
-                await cmdData.CallAsync(index, status);
+                await cmdData.CallAsync(this, index, status);
                 index++;
             }
             bool isEndClearUI = isStopped == false && status.IsNestCalled == false;

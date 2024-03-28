@@ -8,20 +8,22 @@ namespace Novel.Command
 
     public interface ICommand
     {
-        UniTask CallCommandAsync(int index, FlowchartCallStatus callStatus);
+        UniTask CallCommandAsync(IFlowchart flowchart, int index, FlowchartCallStatus callStatus);
         CommandStatus GetCommandStatus();
     }
 
     [Serializable]
     public abstract class CommandBase : ICommand
     {
+        [field: SerializeField, HideInInspector]
         protected IFlowchart ParentFlowchart { get; private set; }
         protected FlowchartCallStatus CallStatus { get; private set; }
         protected int Index { get; private set; }
 
         protected abstract UniTask EnterAsync();
-        async UniTask ICommand.CallCommandAsync(int index, FlowchartCallStatus callStatus)
+        async UniTask ICommand.CallCommandAsync(IFlowchart flowchart, int index, FlowchartCallStatus callStatus)
         {
+            ParentFlowchart = flowchart;
             CallStatus = callStatus;
             await EnterAsync();
         }

@@ -15,11 +15,11 @@ namespace Novel.Command
         [SerializeField, SerializeReference, SubclassSelector]
         ICommand command;
 
-        public async UniTask CallAsync(int index, FlowchartCallStatus callStatus)
+        public async UniTask CallAsync(IFlowchart flowchart, int index, FlowchartCallStatus callStatus)
         {
             if(Enabled && command != null)
             {
-                await command.CallCommandAsync(index, callStatus);
+                await command.CallCommandAsync(flowchart, index, callStatus);
             }
         }
 

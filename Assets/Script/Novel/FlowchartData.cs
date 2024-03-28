@@ -21,7 +21,7 @@ namespace Novel
 
         IEnumerable<CommandBase> IFlowchart.GetCommandBaseList()
         {
-            CommandBase[] cmds = new CommandBase[commands.Length];
+            var cmds = new CommandBase[commands.Length];
             for(int i = 0; i < commands.Length; i++)
             {
                 cmds[i] = commands[i] as CommandBase;
@@ -41,7 +41,7 @@ namespace Novel
                 var cmdData = commands[index];
                 if(cmdData != null)
                 {
-                    await cmdData.CallCommandAsync(index, status);
+                    await cmdData.CallCommandAsync(this, index, status);
                 }
                 index++;
             }

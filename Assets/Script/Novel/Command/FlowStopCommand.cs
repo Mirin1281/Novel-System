@@ -9,10 +9,20 @@ namespace Novel.Command
         [SerializeField] FlowchartStopType stopType;
         [SerializeField] bool hideMsgBoxes = true;
         [SerializeField] bool hidePortraits = true;
+        [SerializeField] bool checkLog = true;
 
         protected override async UniTask EnterAsync()
         {
             ParentFlowchart.Stop(stopType);
+
+            if(checkLog)
+            {
+                if (CallStatus.IsNestCalled == false && stopType == FlowchartStopType.IncludeParent)
+                {
+                    Debug.LogWarning("入れ子で呼び出していません！");
+                }
+                Debug.Log($"入れ子: {CallStatus.IsNestCalled}, ストップ: {stopType}");
+            }
 
             try
             {
@@ -23,7 +33,7 @@ namespace Novel.Command
                 ClearFadeUIIfSet();
                 throw;
             }
-            
+
             if (CallStatus.IsNestCalled == false)
             {
                 ClearFadeUIIfSet();

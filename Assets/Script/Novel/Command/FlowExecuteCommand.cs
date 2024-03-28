@@ -25,28 +25,22 @@ namespace Novel.Command
 
         protected override async UniTask EnterAsync()
         {
-            IFlowchart flowchart = null;
-            if (flowchartType == FlowchartType.Executor)
+            IFlowchart flowchart = flowchartType switch
             {
-                flowchart = flowchartExecutor;
-            }
-            else if (flowchartType == FlowchartType.Data)
-            {
-                flowchart = flowchartData;
-            }
+                FlowchartType.Executor => flowchartExecutor,
+                FlowchartType.Data => flowchartData,
+                _ => throw new System.Exception()
+            };
 
-            FlowchartCallStatus status =
-                new(CallStatus.Token, CallStatus.Cts, isAwaitNest);
+            FlowchartCallStatus status = new(CallStatus.Token, CallStatus.Cts, isAwaitNest);
             if (isAwaitNest)
             {
                 await flowchart.ExecuteAsync(commandIndex, status);
-                return;
             }
             else
             {
                 flowchart.ExecuteAsync(commandIndex, status).Forget();
                 ParentFlowchart.Stop(FlowchartStopType.Single);
-                return;
             }
         }
 
