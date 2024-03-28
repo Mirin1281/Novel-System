@@ -34,12 +34,6 @@ namespace Novel
 
         readonly static string CommandDataPath = $"{NameContainer.RESOURCES_PATH}Commands";
 
-        [MenuItem("Tools/Novel/Show Flowchart Editor")]
-        static void CreateEditor()
-        {
-            GetWindow<FlowchartEditorWindow>("Flowchart Editor");
-        }
-
         void OnEnable()
         {
             CreateReorderableList();
@@ -89,10 +83,10 @@ namespace Novel
                 var flowchartExecutor = Selection.activeGameObject.GetComponent<FlowchartExecutor>();
                 if (flowchartExecutor != null)
                 {
+                    activeMode = ActiveMode.Executor;
                     activeFlowchartExecutor = flowchartExecutor;
                     activeFlowchart = activeFlowchartExecutor.Flowchart;
-                    activeMode = ActiveMode.Executor;
-                    commandList = activeFlowchart.GetCommandDataList() as List<CommandData>;
+                    commandList = activeFlowchart.GetCommandDataList();
                 }
             }
             if (Selection.activeObject != null)
@@ -100,32 +94,14 @@ namespace Novel
                 var flowchartData = Selection.GetFiltered<FlowchartData>(SelectionMode.Assets);
                 if (flowchartData != null && flowchartData.Length != 0)
                 {
+                    activeMode = ActiveMode.Data;
                     activeFlowchartData = flowchartData[0];
                     activeFlowchart = activeFlowchartData.Flowchart;
-                    activeMode = ActiveMode.Data;
-                    commandList = activeFlowchart.GetCommandDataList() as List<CommandData>;
+                    commandList = activeFlowchart.GetCommandDataList();
                 }
             }
             CreateReorderableList();
             Repaint();
-        }
-
-        void UpdateCommandInspector()
-        {
-            if (activeFlowchart == null) return;
-            using (GUILayout.ScrollViewScope scroll = new(parameterScrollPosition, EditorStyles.helpBox))
-            {
-                parameterScrollPosition = scroll.scrollPosition;
-
-                if (selectedCommand == null) return;
-                Editor.CreateEditor(selectedCommand).DrawDefaultInspector();
-
-                var infoText = selectedCommand.GetCommandStatus().Info;
-                if(string.IsNullOrEmpty(infoText) == false)
-                {
-                    EditorGUILayout.HelpBox(infoText, MessageType.Info);
-                }
-            }
         }
 
         void UpdateCommandList()
@@ -155,26 +131,44 @@ namespace Novel
             {
                 dataScrollPosition = scroll.scrollPosition;
                 
-                if (activeFlowchart != null)
-                {
-                    activeFlowchart.SetCommandDataList(commandList);
-                    UpdateCommandSettings();
-                }
+                activeFlowchart.SetCommandDataList(commandList);
+                CommandSettings();
                 reorderableList.DoLayoutList();
+            }
+
+
+            void CommandSettings()
+            {
+                for (int i = 0; i < commandList.Count; i++)
+                {
+                    var cmd = commandList[i].GetCommandBase();
+                    if (cmd == null) continue;
+                    cmd.SetFlowchart(activeFlowchart);
+                    cmd.SetIndex(i);
+                }
             }
         }
 
-        void UpdateCommandSettings()
+        void UpdateCommandInspector()
         {
-            int i = 0;
-            foreach(var cmdData in commandList)
+            using (GUILayout.ScrollViewScope scroll = new(parameterScrollPosition, EditorStyles.helpBox))
             {
-                var cmd = cmdData.GetCommandBase();
-                if (cmd == null) continue;
-                cmd.SetFlowchart(activeFlowchart);
-                cmd.SetIndex(i);
-                i++;
+                parameterScrollPosition = scroll.scrollPosition;
+
+                if (selectedCommand == null)
+                {
+                    Repaint();
+                    return;
+                }
+                Editor.CreateEditor(selectedCommand).DrawDefaultInspector();
+
+                var infoText = selectedCommand.GetCommandStatus().Info;
+                if (string.IsNullOrEmpty(infoText) == false)
+                {
+                    EditorGUILayout.HelpBox(infoText, MessageType.Info);
+                }
             }
+            Repaint();
         }
 
         void Copy(CommandData command)
@@ -210,14 +204,19 @@ namespace Novel
 
         void CreateReorderableList()
         {
-            reorderableList = new ReorderableList(commandList, typeof(CommandData))
+            reorderableList = new ReorderableList(
+                commandList, typeof(CommandData),
+                draggable: true,
+                displayHeader: false,
+                displayAddButton: true,
+                displayRemoveButton: true)
             {
                 onAddCallback = Add,
                 onRemoveCallback = Remove,
                 onSelectCallback = OnSelect,
                 drawElementCallback = OnDrawElement,
                 drawElementBackgroundCallback = DrawElementBackground,
-                drawHeaderCallback = DrawHeader,
+                //drawHeaderCallback = DrawHeader,
                 elementHeightCallback = GetElementHeight,
             };
 
@@ -228,7 +227,7 @@ namespace Novel
                 {
                     ActiveMode.Executor => CreateInstance<CommandData>(),
                     ActiveMode.Data => CreateCommandData(CommandDataPath, activeFlowchartData.name),
-                    _ => throw new System.Exception()
+                    _ => throw new Exception()
                 };
                 int insertIndex = list.index + 1;
                 if (commandList == null || commandList.Count == 0)
@@ -310,11 +309,12 @@ namespace Novel
                     }
                     EditorGUI.DrawRect(rect, color);
                 }
-            }
-
-            void DrawHeader(Rect rect)
-            {
-                EditorGUI.LabelField(rect, "CommandList");
+                var tmpColor = GUI.color;
+                GUI.color = Color.black;
+                GUI.Box(new Rect(
+                    rect.x, rect.y,
+                    rect.width, 1), "");
+                GUI.color = tmpColor;
             }
 
             float GetElementHeight(int index)

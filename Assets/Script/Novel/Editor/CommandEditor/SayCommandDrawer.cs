@@ -1,5 +1,4 @@
-﻿#if UNITY_EDITOR
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEditor;
 using System;
 using System.Linq;
@@ -68,6 +67,10 @@ namespace Novel.Command
             EditorGUILayout.PropertyField(storyTextProp, new GUIContent("StoryText"),
                 new GUILayoutOption[] { GUILayout.Height(70) });
 
+            // ボックスフェード時間の設定 //
+            var boxShowTimeProp = property.FindPropertyRelative("boxShowTime");
+            EditorGUILayout.PropertyField(boxShowTimeProp, new GUIContent("BoxShowTime"));
+
             // フラグキーの設定 //
             var flagKeysProp = property.FindPropertyRelative("flagKeys");
             EditorGUILayout.PropertyField(flagKeysProp, new GUIContent("FlagKeys"));
@@ -76,4 +79,3 @@ namespace Novel.Command
         }
     }
 }
-#endif

@@ -19,14 +19,38 @@ namespace Novel
 
             EditorGUILayout.Space(20);
 
+            if (GUILayout.Button("フローチャートエディタを開く"))
+            {
+                EditorWindow.GetWindow<FlowchartEditorWindow>("Flowchart Editor");
+            }
+
+            EditorGUILayout.Space(10);
+
             EditorGUILayout.LabelField(
-                "【重要】\n" +
-                "普通にフローチャートを複製するとSerializeReference内部の関係で\n" +
-                "参照が共有され結果としてコマンドデータのフィールドが連動してしまいます\n" +
-                "それを防ぐために下のボタンから複製してください",
+                "【注意】\n" +
+                "普通にフローチャートを複製するとSerializeReference内部の関係で参照が共有され、\n" +
+                "結果としてコマンドデータのフィールドが連動してしまうのでボタンから複製してください",
                 EditorStyles.wordWrappedLabel);
 
-            if (GUILayout.Button("フローチャートを複製する"))
+            EditorGUILayout.Space(5);
+
+            EditorGUILayout.LabelField(
+                "また、普通に削除するとCommandDataがCommandsフォルダ内に\n" +
+                "残り続けてしまうので、下のボタンから削除してください",
+                EditorStyles.wordWrappedLabel);
+
+            EditorGUILayout.Space(10);
+
+            EditorGUILayout.LabelField(
+                "【対処】\n" +
+                "もしctrl+Dで複製してしまったら、普通に削除すれば大丈夫です\n" +
+                "普通に削除してしまった場合は放置するのを推奨します",
+                EditorStyles.wordWrappedLabel);
+
+            EditorGUILayout.Space(5);
+
+            EditorGUILayout.BeginHorizontal();
+            if (GUILayout.Button("複製する"))
             {
                 var flowchartData = target as FlowchartData;
                 var copiedFlowchartData = Instantiate(flowchartData);
@@ -54,15 +78,7 @@ namespace Novel
                 AssetDatabase.Refresh(ImportAssetOptions.ForceUpdate);
             }
 
-            EditorGUILayout.Space(10);
-
-            EditorGUILayout.LabelField(
-                "【重要】\n" +
-                "普通に削除すると内部のScriptableObjectがCommandsフォルダ内に\n" +
-                "残り続けるので、下のボタンから削除してください",
-                EditorStyles.wordWrappedLabel);
-
-            if (GUILayout.Button("フローチャートを削除する"))
+            if (GUILayout.Button("削除する"))
             {
                 var flowchartData = target as FlowchartData;
                 foreach (var cmdData in flowchartData.Flowchart.GetCommandDataList())
@@ -78,6 +94,7 @@ namespace Novel
                 File.Delete($"{FlowchartDataPath}/{deleteDataName}.asset.meta");
                 AssetDatabase.Refresh(ImportAssetOptions.ForceUpdate);
             }
+            EditorGUILayout.EndHorizontal();
         }
 
         string GetFileName(string path, string name)

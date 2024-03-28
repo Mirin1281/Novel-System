@@ -15,22 +15,26 @@ namespace Novel.Command
         [SerializeField, SerializeReference, SubclassSelector]
         ICommand command;
 
-        public async UniTask CallAsync(Flowchart flowchart, int index, FlowchartCallStatus callStatus)
+        public async UniTask ExecuteAsync(Flowchart flowchart, FlowchartCallStatus callStatus)
         {
             if(Enabled && command != null)
             {
-                await command.CallCommandAsync(flowchart, index, callStatus);
+                await command.ExecuteAsync(flowchart, callStatus);
             }
         }
 
-        #region For Editor
-
+        /// <summary>
+        /// コマンドをキャストして返します
+        /// </summary>
         public CommandBase GetCommandBase()
         {
             if (command == null) return null;
             return command as CommandBase;
         }
 
+        /// <summary>
+        /// カスタムエディタ用
+        /// </summary>
         public CommandStatus GetCommandStatus()
         {
             if(command == null)
@@ -43,7 +47,5 @@ namespace Novel.Command
             }
             return command.GetCommandStatus();
         }
-
-        #endregion
     }
 }

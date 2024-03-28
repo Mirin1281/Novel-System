@@ -1,10 +1,8 @@
 ﻿using UnityEngine;
 using Cysharp.Threading.Tasks;
-using UnityEngine.Scripting.APIUpdating;
 
 namespace Novel.Command
 {
-    [MovedFrom(false, null, null, "FlowExcuteCommand")]
     [AddTypeMenu("FlowExecute"), System.Serializable]
     public class FlowExecuteCommand : CommandBase
     {
@@ -56,7 +54,7 @@ namespace Novel.Command
                 if (flowchartData == null) return WarningColorText();
                 objectName = flowchartData.name;
             }
-            var nest = isAwaitNest ? "Nest" : "No Nest";
+            var nest = isAwaitNest ? "Nest" : string.Empty;
             return $"{objectName}   {nest}";
         }
     }

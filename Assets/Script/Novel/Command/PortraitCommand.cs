@@ -25,45 +25,45 @@ namespace Novel.Command
 
         protected override async UniTask EnterAsync()
         {
-            if(actionType == ActionType.Show)
+            var portrait = PortraitManager.Instance.CreateIfNotingPortrait(character.PortraitType);
+            if (actionType == ActionType.Show)
             {
                 if (isAwait)
                 {
-                    await ShowAsync();
+                    await ShowAsync(portrait);
                 }
                 else
                 {
-                    ShowAsync().Forget();
+                    ShowAsync(portrait).Forget();
                 }
             }
             else if(actionType == ActionType.Change)
             {
-                Change();
+                Change(portrait);
             }
             else if(actionType == ActionType.Clear)
             {
                 if(isAwait)
                 {
-                    await ClearAsync();
+                    await ClearAsync(portrait);
                 }
                 else
                 {
-                    ClearAsync().Forget();
+                    ClearAsync(portrait).Forget();
                 }
             }
             else if(actionType == ActionType.HideOn)
             {
-                HideOn();
+                HideOn(portrait);
             }
             else if (actionType == ActionType.HideOff)
             {
-                HideOff();
+                HideOff(portrait);
             }
         }
 
-        async UniTask ShowAsync()
+        async UniTask ShowAsync(Portrait portrait)
         {
-            var portrait = PortraitManager.Instance.CreateIfNotingPortrait(character.PortraitType);
             if(positionType == PortraitPositionType.Custom)
             {
                 portrait.SetPos(overridePos);
@@ -77,27 +77,23 @@ namespace Novel.Command
             await portrait.ShowFadeAsync(fadeTime);
         }
 
-        void Change()
+        void Change(Portrait portrait)
         {
-            var portrait = PortraitManager.Instance.CreateIfNotingPortrait(character.PortraitType);
             portrait.SetSprite(portraitSprite);
         }
 
-        async UniTask ClearAsync()
+        async UniTask ClearAsync(Portrait portrait)
         {
-            var portrait = PortraitManager.Instance.CreateIfNotingPortrait(character.PortraitType);
             await portrait.ClearFadeAsync(fadeTime);
         }
 
-        void HideOn()
+        void HideOn(Portrait portrait)
         {
-            var portrait = PortraitManager.Instance.CreateIfNotingPortrait(character.PortraitType);
             portrait.HideOn();
         }
 
-        void HideOff()
+        void HideOff(Portrait portrait)
         {
-            var portrait = PortraitManager.Instance.CreateIfNotingPortrait(character.PortraitType);
             portrait.HideOff();
         }
 

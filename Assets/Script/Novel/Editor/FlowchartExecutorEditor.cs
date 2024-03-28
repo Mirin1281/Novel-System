@@ -1,10 +1,10 @@
 using UnityEngine;
 using UnityEditor;
+using System.Collections.Generic;
 
 namespace Novel
 {
-using Novel.Command;
-    using System.Collections.Generic;
+    using Novel.Command;
 
     [CustomEditor(typeof(FlowchartExecutor))]
     public class FlowchartExecutorEditor : Editor
@@ -15,14 +15,22 @@ using Novel.Command;
 
             EditorGUILayout.Space(20);
 
+            if (GUILayout.Button("フローチャートエディタを開く"))
+            {
+                EditorWindow.GetWindow<FlowchartEditorWindow>("Flowchart Editor");
+            }
+
+            EditorGUILayout.Space(10);
+
             EditorGUILayout.LabelField(
-                "【重要】\n" +
-                "普通にフローチャートを複製するとSerializeReference内部の関係で\n" +
-                "参照が共有され結果としてコマンドデータのフィールドが連動してしまいます\n" +
-                "それを防ぐために下のボタンから複製してください",
+                "【注意】\n" +
+                "普通にフローチャートを複製するとSerializeReference内部の関係で参照が共有され、\n" +
+                "結果としてコマンドデータのフィールドが連動してしまうのでボタンから複製してください",
                 EditorStyles.wordWrappedLabel);
 
-            if (GUILayout.Button("フローチャートを複製する"))
+            EditorGUILayout.Space(5);
+
+            if (GUILayout.Button("複製する"))
             {
                 var flowchartExecutor = target as FlowchartExecutor;
                 var copiedFlowchartExecutor = Instantiate(flowchartExecutor);

@@ -10,22 +10,23 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4399fbfc898731a4f96fd937ce84eeff, type: 3}
-  m_Name: CommandData_FlowchartData
+  m_Name: CommandData_FlowchartData_(1)
   m_EditorClassIdentifier: 
   <Enabled>k__BackingField: 1
   command:
-    rid: 6983526754053259273
+    rid: 6983526757799559169
   references:
     version: 2
     RefIds:
-    - rid: 6983526754053259273
-      type: {class: SayCommand, ns: Novel.Command, asm: Assembly-CSharp}
+    - rid: 6983526757799559169
+      type: {class: FlowStopCommand, ns: Novel.Command, asm: Assembly-CSharp}
       data:
         <ParentFlowchart>k__BackingField:
           description: "\u8AAC\u660E"
           commandDataList:
+          - {fileID: 11400000, guid: 218357cfed5547e498e8bfd0d3cb496d, type: 2}
           - {fileID: 11400000}
-        character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
-        changeSprite: {fileID: 0}
-        storyText: "\u3048\u3048\u3048\u3048\u3048\u3048\u3048\u3048\u3048\u3048\u3048\u3048\u3048\u3048"
-        flagKeys: []
+        stopType: 1
+        hideMsgBoxes: 1
+        hidePortraits: 1
+        checkLog: 1

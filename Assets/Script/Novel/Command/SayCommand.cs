@@ -15,7 +15,12 @@ namespace Novel.Command
         [SerializeField, TextArea]
         string storyText;
 
-        [SerializeField, Tooltip("\"{item0}万円\"のように書くことで、文の中にフラグの値を入れ込むことができます")]
+        [SerializeField]
+        float boxShowTime;
+
+        [SerializeField, Tooltip(
+            "\"{item0}万円\"のように書くことで、文の中にフラグの値を入れ込むことができます\n" +
+            "(FlagKeyの型はint型以外でもかまいません)")]
         FlagKeyDataBase[] flagKeys;
 
         protected override async UniTask EnterAsync()
@@ -39,7 +44,7 @@ namespace Novel.Command
             var msgBox = MessageBoxManager.Instance.CreateIfNotingBox(boxType);
             if(msgBox.gameObject.activeInHierarchy == false)
             {
-                await msgBox.ShowFadeAsync();
+                await msgBox.ShowFadeAsync(boxShowTime);
             }
             await msgBox.Writer.WriteAsync(character, convertedText);
             await msgBox.Input.WaitInput();
@@ -48,16 +53,13 @@ namespace Novel.Command
         /// <summary>
         /// "{item0}"などの部分をそこに対応する変数値に置き換えます
         /// </summary>
-        /// <param name="text"></param>
-        /// <param name="flagKeys"></param>
-        /// <returns></returns>
-        string ReplaceFlagValue(string text, FlagKeyDataBase[] flagKeys)
+        string ReplaceFlagValue(string fullText, FlagKeyDataBase[] flagKeys)
         {
             for (int i = 0; i < flagKeys.Length; i++)
             {
-                if (text.Contains($"{{item{i}}}"))
+                if (fullText.Contains($"{{item{i}}}"))
                 {
-                    text = text.Replace($"{{item{i}}}",
+                    fullText = fullText.Replace($"{{item{i}}}",
                         FlagManager.GetFlagValueString(flagKeys[i]).valueStr);
                 }
                 else
@@ -65,7 +67,7 @@ namespace Novel.Command
                     Debug.LogWarning($"{{item{i}}}がなかったよ");
                 }
             }
-            return text;
+            return fullText;
         }
 
         /* 【文字装飾についての説明】
