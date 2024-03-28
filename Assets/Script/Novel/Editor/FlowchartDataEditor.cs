@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEditor;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 namespace Novel
 {
@@ -11,7 +12,6 @@ namespace Novel
     public class FlowchartDataEditor : Editor
     {
         readonly static string CommandDataPath = $"{NameContainer.RESOURCES_PATH}Commands";
-        readonly static string FlowchartDataPath = $"{NameContainer.RESOURCES_PATH}Flowchart";
 
         public override void OnInspectorGUI()
         {
@@ -28,36 +28,30 @@ namespace Novel
 
             EditorGUILayout.LabelField(
                 "【注意】\n" +
-                "普通にフローチャートを複製するとSerializeReference内部の関係で参照が共有され、\n" +
-                "結果としてコマンドデータのフィールドが連動してしまうのでボタンから複製してください",
-                EditorStyles.wordWrappedLabel);
-
-            EditorGUILayout.Space(5);
-
-            EditorGUILayout.LabelField(
-                "また、普通に削除するとCommandDataがCommandsフォルダ内に\n" +
-                "残り続けてしまうので、下のボタンから削除してください",
-                EditorStyles.wordWrappedLabel);
+                "下のボタンから複製や削除をしてください。じゃないとバグります\n" +
+                "\n" +
+                $"また、{CommandDataPath} のデータは基本的に直接いじらないでください\n" +
+                "\n" +
+                "【もしもの対処】\n" +
+                "もしも普通に複製してしまったら、そのまま削除すれば大丈夫です。普通に削除し\n" +
+                "てしまった場合は「未使用のCommandDataを削除する」を押すとクリアされます\n" +
+                "(ちょっと怖いのでGitなどでバックアップを取ることを推奨します)"
+                , EditorStyles.wordWrappedLabel);
 
             EditorGUILayout.Space(10);
 
-            EditorGUILayout.LabelField(
-                "【対処】\n" +
-                "もしctrl+Dで複製してしまったら、普通に削除すれば大丈夫です\n" +
-                "普通に削除してしまった場合は放置するのを推奨します",
-                EditorStyles.wordWrappedLabel);
-
-            EditorGUILayout.Space(5);
-
             EditorGUILayout.BeginHorizontal();
+
             if (GUILayout.Button("複製する"))
             {
                 var flowchartData = target as FlowchartData;
                 var copiedFlowchartData = Instantiate(flowchartData);
                 copiedFlowchartData.name = "CopiedFlowchartData";
-                var dataName = GetFileName(FlowchartDataPath, copiedFlowchartData.name);
-                AssetDatabase.CreateAsset(copiedFlowchartData, Path.Combine(FlowchartDataPath, dataName));
-                AssetDatabase.ImportAsset(FlowchartDataPath, ImportAssetOptions.ForceUpdate);
+                var folderPath = GetExistFolderPath(flowchartData);
+
+                var dataName = GetFileName(folderPath, copiedFlowchartData.name);
+                AssetDatabase.CreateAsset(copiedFlowchartData, Path.Combine(folderPath, dataName));
+                AssetDatabase.ImportAsset(folderPath, ImportAssetOptions.ForceUpdate);
                 var flowchart = copiedFlowchartData.Flowchart;
 
                 var copiedCmdList = new List<CommandData>();
@@ -83,18 +77,52 @@ namespace Novel
                 var flowchartData = target as FlowchartData;
                 foreach (var cmdData in flowchartData.Flowchart.GetCommandDataList())
                 {
-                    var deleteCmdName = cmdData.name;
-                    DestroyImmediate(cmdData, true);
-                    File.Delete($"{CommandDataPath}/{deleteCmdName}.asset");
-                    File.Delete($"{CommandDataPath}/{deleteCmdName}.asset.meta");
+                    DestroyScritableObject(cmdData);
                 }
-                var deleteDataName = flowchartData.name;
-                DestroyImmediate(flowchartData, true);
-                File.Delete($"{FlowchartDataPath}/{deleteDataName}.asset");
-                File.Delete($"{FlowchartDataPath}/{deleteDataName}.asset.meta");
-                AssetDatabase.Refresh(ImportAssetOptions.ForceUpdate);
+                DestroyScritableObject(flowchartData);
             }
+
+            if (GUILayout.Button("未使用のCommandDataを削除する"))
+            {
+                var cmdDatas = GetAllScriptableObjects<CommandData>();
+                var flowchartDatas = GetAllScriptableObjects<FlowchartData>();
+
+                foreach (var cmdData in cmdDatas)
+                {
+                    if (IsUsed(cmdData, flowchartDatas) == false)
+                    {
+                        DestroyScritableObject(cmdData);
+                    }
+                }
+            }
+
             EditorGUILayout.EndHorizontal();
+        }
+
+        string GetExistFolderPath(Object obj)
+        {
+            var dataPath = AssetDatabase.GetAssetPath(obj.GetInstanceID());
+            var index = dataPath.LastIndexOf("/");
+            return dataPath.Substring(0, index);
+        }
+
+        void DestroyScritableObject(ScriptableObject obj)
+        {
+            var path = GetExistFolderPath(obj);
+            var deleteCmdName = obj.name;
+            DestroyImmediate(obj, true);
+            File.Delete($"{path}/{deleteCmdName}.asset");
+            File.Delete($"{path}/{deleteCmdName}.asset.meta");
+            AssetDatabase.Refresh(ImportAssetOptions.ForceUpdate);
+        }
+
+        bool IsUsed(CommandData targetData, FlowchartData[] flowchartDatas)
+        {
+            foreach (var flowchartData in flowchartDatas)
+            {
+                if (flowchartData.IsUsed(targetData)) return true;
+            }
+            return false;
         }
 
         string GetFileName(string path, string name)
@@ -106,6 +134,13 @@ namespace Novel
                 targetName = $"{name}_({i++})";
             }
             return $"{targetName}.asset";
+        }
+
+        T[] GetAllScriptableObjects<T>() where T : ScriptableObject
+        {
+            var guids = AssetDatabase.FindAssets($"t:{typeof(T).Name}");
+            var assetPaths = guids.Select(AssetDatabase.GUIDToAssetPath).ToArray();
+            return assetPaths.Select(AssetDatabase.LoadAssetAtPath<T>).ToArray();
         }
     }
 }
