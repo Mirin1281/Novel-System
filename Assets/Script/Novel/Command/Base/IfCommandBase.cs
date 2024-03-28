@@ -25,7 +25,7 @@ namespace Novel.Command
                     flowchartData.ExecuteAsync().Forget();
                 }
                 
-                CalledFlowchart.Stop(FlowchartStopType.Single);
+                ParentFlowchart.Stop(FlowchartStopType.Single);
                 await UniTask.CompletedTask;
             }
         }

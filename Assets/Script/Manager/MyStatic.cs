@@ -23,10 +23,6 @@ public static class MyStatic
     public static readonly float SEMasterVolume = 0.15f;
     public const float DefaultFadeTime = 0.3f;
 
-    public static readonly Color32 PINK = new(243, 213, 231, 255);
-    public static readonly Color32 YELLOW = new(235, 248, 181, 255);
-    public static readonly Color32 LIGHT_GREEN = new(219, 253, 221, 255);
-
     static CancellationTokenSource cts;
     public static CancellationToken TokenOnSceneChange { get; private set; }
 
@@ -34,7 +30,6 @@ public static class MyStatic
     public static void Init()
     {
         SceneManager.activeSceneChanged += (_, _) => ResetToken();
-        ResetToken();
     }
 
     public static void ResetToken()

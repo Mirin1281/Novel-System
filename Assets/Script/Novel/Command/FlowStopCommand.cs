@@ -12,7 +12,7 @@ namespace Novel.Command
 
         protected override async UniTask EnterAsync()
         {
-            CalledFlowchart.Stop(stopType);
+            ParentFlowchart.Stop(stopType);
 
             try
             {

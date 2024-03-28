@@ -8,11 +8,10 @@ namespace Novel
 {
     public class FlowchartEditorWindow : EditorWindow
     {
+        FlowchartExecutor activeFlowchartExecutor;
         [SerializeField] List<CommandData> commandList = new();
         ReorderableList reorderableList;
         CommandData selectedCommand;
-        FlowchartExecutor activeFlowchartExecutor;
-
         CommandData copiedCommand;
 
         Vector2 dataScrollPosition;
@@ -46,7 +45,7 @@ namespace Novel
                 if (flowchartExecutor != null)
                 {
                     activeFlowchartExecutor = flowchartExecutor;
-                    commandList = flowchartExecutor.CommandDataList as List<CommandData>;
+                    commandList = flowchartExecutor.GetCommandDataList() as List<CommandData>;
                 }
             }
             CreateReorderableList();
@@ -97,11 +96,26 @@ namespace Novel
                 new(dataScrollPosition, EditorStyles.helpBox, GUILayout.Width(position.size.x / 2f)))
             {
                 dataScrollPosition = scroll.scrollPosition;
-                reorderableList.DoLayoutList();
+                
                 if (activeFlowchartExecutor != null)
                 {
-                    activeFlowchartExecutor.SetCommandList(commandList);
+                    activeFlowchartExecutor.SetCommandDataList(commandList);
+                    UpdateCommandSettings();
                 }
+                reorderableList.DoLayoutList();
+            }
+        }
+
+        void UpdateCommandSettings()
+        {
+            int i = 0;
+            foreach(var cmdData in commandList)
+            {
+                var cmd = cmdData.GetCommandBase();
+                if (cmd == null) continue;
+                cmd.SetFlowchart(activeFlowchartExecutor);
+                cmd.SetIndex(i);
+                i++;
             }
         }
 
@@ -110,7 +124,7 @@ namespace Novel
             Event.current.Use();
             if (GUIUtility.keyboardControl > 0)
             {
-                copiedCommand = Instantiate(command);
+                copiedCommand = command;
             }
         }
         void Paste(CommandData copiedCommand)
@@ -124,6 +138,8 @@ namespace Novel
                 commandList.Insert(currentIndex, createCommand);
             }
         }
+
+        #region ReorderableList
 
         void CreateReorderableList()
         {
@@ -142,9 +158,10 @@ namespace Novel
             {
                 Undo.RecordObject(this, "Add Command");
                 var newCommand = CreateInstance<CommandData>();
-                commandList.Insert(list.index + 1, newCommand);
+                int insertIndex = list.index + 1;
+                commandList.Insert(insertIndex, newCommand);
                 selectedCommand = newCommand;
-                reorderableList.Select(list.index + 1);
+                reorderableList.Select(insertIndex);
             }
 
             void Remove(ReorderableList list)
@@ -152,8 +169,8 @@ namespace Novel
                 Undo.RecordObject(this, "Remove Command");
                 commandList.Remove(selectedCommand);
                 int removeIndex = list.index;
-                bool isLastRemoved = removeIndex == commandList.Count;
-                if (isLastRemoved)
+                bool isLastElementRemoved = removeIndex == commandList.Count;
+                if (isLastElementRemoved)
                 {
                     if(commandList.Count == 0) return;
                     selectedCommand = commandList[removeIndex - 1];
@@ -174,37 +191,35 @@ namespace Novel
 
             void OnDrawElement(Rect rect, int index, bool isActive, bool isFocused)
             {
-                if (index < 0 || commandList.Count <= index) return;
                 var style = new GUIStyle(EditorStyles.label);
                 style.richText = true;
                 var tmpColor = GUI.color;
                 GUI.color = Color.black;
-                string commandName = commandList[index].GetCommandStatus().Name;
-                string summary = commandList[index].GetCommandStatus().Summary;
-                EditorGUI.LabelField(rect, commandName, style);
+
+                var cmdStatus = commandList[index].GetCommandStatus();
+                EditorGUI.LabelField(rect, cmdStatus.Name, style);
                 EditorGUI.LabelField(new Rect(
                     rect.x + 80, rect.y,
                     rect.width, rect.height),
-                    $"<size=10>{summary}</size>", style);
+                    $"<size=10>{cmdStatus.Summary}</size>", style);
+
                 GUI.color = tmpColor;
             }
 
             void DrawElementBackground(Rect rect, int index, bool isActive, bool isFocused)
             {
-                if (index < 0 || commandList.Count <= index) return;
-                var color = commandList[index].GetCommandStatus().Color;
-                color.a = 0.7f;
+                var cmd = commandList[index];
+                var color = cmd.GetCommandStatus().Color;
+                color.a = 1f;
                 if (isFocused)
                 {
-                    EditorGUI.DrawRect(rect, color * new Color(0, 1, 1, 0.8f));
+                    EditorGUI.DrawRect(rect, new Color(0.2f, 0.85f, 0.95f, 1f));
                 }
                 else
                 {
-                    var enabled = commandList[index].Enabled;
-                    if (enabled == false)
+                    if (cmd.Enabled == false)
                     {
-                        EditorGUI.DrawRect(rect, new Color(0.6f, 0.6f, 0.6f, 0.8f));
-                        return;
+                        color = new Color(0.7f, 0.7f, 0.7f, 1f);
                     }
                     EditorGUI.DrawRect(rect, color);
                 }
@@ -220,5 +235,7 @@ namespace Novel
                 return 30;
             }
         }
+        #endregion
+
     }
 }

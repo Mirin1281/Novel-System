@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using Cysharp.Threading.Tasks;
+using System.Linq;
 using System.Threading;
 using System.Collections.Generic;
 using Novel.Command;
@@ -11,6 +12,7 @@ namespace Novel
     {
         UniTask ExecuteAsync(int index = 0, FlowchartCallStatus callStatus = null);
         void Stop(FlowchartStopType stopType);
+        IEnumerable<CommandBase> GetCommandBaseList();
     }
 
     // FlowchartはMonoBehaviour型とScriptableObject型がある
@@ -26,10 +28,14 @@ namespace Novel
         // シリアライズはする
         [SerializeField, HideInInspector]
         List<CommandData> commandDataList = new();
-        public IEnumerable<CommandData> CommandDataList => commandDataList;
-        public void SetCommandList(List<CommandData> list)
+
+        IEnumerable<CommandBase> IFlowchart.GetCommandBaseList()
+            => commandDataList.Select(data => data.GetCommandBase());
+
+        public IEnumerable<CommandData> GetCommandDataList() => commandDataList;
+        public void SetCommandDataList(IEnumerable<CommandData> list)
         {
-            commandDataList = list;
+            commandDataList = list as List<CommandData>;
         }
 
         bool isStopped;
@@ -47,7 +53,7 @@ namespace Novel
             while (commandDataList.Count > index && isStopped == false)
             {
                 var cmdData = commandDataList[index];
-                await cmdData.CallAsync(this, status);
+                await cmdData.CallAsync(index, status);
                 index++;
             }
             bool isEndClearUI = isStopped == false && status.IsNestCalled == false;

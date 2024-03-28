@@ -100,7 +100,7 @@ namespace Novel.Command
             }
         }
 
-        protected override Color GetCommandColor() => MyStatic.PINK;
+        protected override Color GetCommandColor() => new Color32(235, 210, 225, 255);
 
         #endregion
     }

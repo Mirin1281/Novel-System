@@ -110,6 +110,6 @@ namespace Novel.Command
             return $"{character.CharacterName} {actionType}: {fadeTime}s";
         }
 
-        protected override Color GetCommandColor() => MyStatic.LIGHT_GREEN;
+        protected override Color GetCommandColor() => new Color32(213, 245, 215, 255);
     }
 }

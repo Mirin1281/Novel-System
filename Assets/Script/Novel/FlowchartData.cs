@@ -2,6 +2,7 @@
 using Cysharp.Threading.Tasks;
 using Novel.Command;
 using System.Threading;
+using System.Collections.Generic;
 #pragma warning disable 0414 // value is never used の警告を消すため
 
 namespace Novel
@@ -18,6 +19,16 @@ namespace Novel
         [SerializeField, SerializeReference, SubclassSelector]
         ICommand[] commands;
 
+        IEnumerable<CommandBase> IFlowchart.GetCommandBaseList()
+        {
+            CommandBase[] cmds = new CommandBase[commands.Length];
+            for(int i = 0; i < commands.Length; i++)
+            {
+                cmds[i] = commands[i] as CommandBase;
+            }
+            return cmds;
+        }
+
         bool isStopped;
         CancellationTokenSource cts;
 
@@ -30,7 +41,7 @@ namespace Novel
                 var cmdData = commands[index];
                 if(cmdData != null)
                 {
-                    await cmdData.CallCommandAsync(this, status);
+                    await cmdData.CallCommandAsync(index, status);
                 }
                 index++;
             }

@@ -45,7 +45,7 @@ namespace Novel.Command
             else
             {
                 flowchart.ExecuteAsync(commandIndex, status).Forget();
-                CalledFlowchart.Stop(FlowchartStopType.Single);
+                ParentFlowchart.Stop(FlowchartStopType.Single);
                 return;
             }
         }
