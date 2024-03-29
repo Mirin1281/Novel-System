@@ -19,33 +19,32 @@ namespace Novel.Command
         protected override async UniTask EnterAsync()
         {
             var portrait = PortraitManager.Instance.CreateIfNotingPortrait(character.PortraitType);
+            var portTs = portrait.PortraitImage.transform;
+
             if(isAwait)
             {
                 if(moveType == MoveType.Relative)
                 {
-                    await portrait.PortraitImage.transform.DOLocalMoveX(movePosX, time)
-                        .SetRelative(true).SetEase(ease);
+                    await portTs.DOLocalMoveX(movePosX, time)
+                        .SetRelative(true).SetEase(ease).WithCancellation(CallStatus.Token);
                 }
                 else if(moveType == MoveType.Absolute)
                 {
-                    await portrait.PortraitImage.transform.DOLocalMoveX(movePosX, time)
-                        .SetEase(ease);
+                    await portTs.DOLocalMoveX(movePosX, time).SetEase(ease).WithCancellation(CallStatus.Token);
                 }
             }
             else
             {
                 if (moveType == MoveType.Relative)
                 {
-                    _ = portrait.PortraitImage.transform.DOLocalMoveX(movePosX, time)
-                        .SetRelative(true).SetEase(ease);
+                    _ = portTs.DOLocalMoveX(movePosX, time)
+                        .SetRelative(true).SetEase(ease).WithCancellation(CallStatus.Token);
                 }
                 else if (moveType == MoveType.Absolute)
                 {
-                    _ = portrait.PortraitImage.transform.DOLocalMoveX(movePosX, time)
-                        .SetEase(ease);
+                    _ = portTs.DOLocalMoveX(movePosX, time).SetEase(ease).WithCancellation(CallStatus.Token);
                 }
             }
-            return;
         }
     }
 }

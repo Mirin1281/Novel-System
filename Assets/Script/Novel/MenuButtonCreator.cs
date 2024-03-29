@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
+using System.Threading;
 
 namespace Novel
 {
@@ -69,19 +70,20 @@ namespace Novel
             {
                 button.ShowFadeAsync(time).Forget();
             }
-            await MyStatic.WaitSeconds(time);
+            await MyStatic.WaitSeconds(time, destroyCancellationToken);
         }
 
-        public async UniTask AllClearFadeAsync(float time = MyStatic.DefaultFadeTime)
+        public async UniTask AllClearFadeAsync(
+            float time = MyStatic.DefaultFadeTime, CancellationToken token = default)
         {
             foreach(var button in createButtons)
             {
                 if(button.gameObject.activeInHierarchy)
                 {
-                    button.ClearFadeAsync(time).Forget();
+                    button.ClearFadeAsync(time, token).Forget();
                 }
             }
-            await MyStatic.WaitSeconds(time);
+            await MyStatic.WaitSeconds(time, token == default ? destroyCancellationToken : token);
         }
     }
 }

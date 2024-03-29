@@ -15,7 +15,7 @@ namespace Novel
 
         void Start()
         {
-            if (isStartExecute) flowchart.ExecuteAsync().Forget();
+            if (isStartExecute) ExecuteAsync().Forget();
         }
 
         public async UniTask ExecuteAsync(int index = 0, FlowchartCallStatus callStatus = null)

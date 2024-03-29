@@ -14,20 +14,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Enabled>k__BackingField: 1
   command:
-    rid: 6983526757348671494
+    rid: 6983526773211004933
   references:
     version: 2
     RefIds:
-    - rid: 6983526757348671494
-      type: {class: FlowExecuteCommand, ns: Novel.Command, asm: Assembly-CSharp}
+    - rid: 6983526773211004933
+      type: {class: PortraitCommand, ns: Novel.Command, asm: Assembly-CSharp}
       data:
         <ParentFlowchart>k__BackingField:
           description: "\u8AAC\u660E"
           commandDataList:
-          - {fileID: 11400000, guid: f2f613b99c9bd694b8342f5a64409e47, type: 2}
           - {fileID: 11400000}
-        flowchartType: 1
-        flowchartExecutor: {fileID: 0}
-        flowchartData: {fileID: 11400000, guid: e71fa871895562c43bbc914d31b332a4, type: 2}
-        commandIndex: 0
-        isAwaitNest: 1
+          - {fileID: 11400000, guid: 02e486cde25a033418a0d1ccb6c0b779, type: 2}
+          - {fileID: 11400000, guid: 21bd5e94084d3be4bb70fc56c9acbad9, type: 2}
+        <Index>k__BackingField: 0
+        character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
+        actionType: 0
+        portraitSprite: {fileID: 21300000, guid: 217884d24e46f54418eb8fbf3008481d, type: 3}
+        positionType: 0
+        overridePos: {x: 0, y: 0}
+        fadeTime: 0
+        isAwait: 0

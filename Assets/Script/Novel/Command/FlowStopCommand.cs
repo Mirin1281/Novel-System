@@ -13,6 +13,7 @@ namespace Novel.Command
 
         protected override async UniTask EnterAsync()
         {
+#if UNITY_EDITOR
             if(checkLog)
             {
                 if (CallStatus.IsNestCalled == false && stopType == FlowchartStopType.All)
@@ -21,6 +22,7 @@ namespace Novel.Command
                 }
                 Debug.Log($"入れ子: {CallStatus.IsNestCalled}, ストップ: {stopType}");
             }
+#endif
 
             ParentFlowchart.Stop(stopType);
 
@@ -51,6 +53,12 @@ namespace Novel.Command
             {
                 PortraitManager.Instance.AllClearFadeAsync().Forget();
             }
+        }
+
+
+        protected override string GetName()
+        {
+            return "Stop";
         }
 
         protected override string GetSummary()

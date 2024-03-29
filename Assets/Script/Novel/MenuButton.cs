@@ -2,6 +2,7 @@
 using UnityEngine.UI;
 using Cysharp.Threading.Tasks;
 using TMPro;
+using System.Threading;
 
 namespace Novel
 {
@@ -17,16 +18,18 @@ namespace Novel
             tmpro.SetText(s);
         }
 
-        public async UniTask ShowFadeAsync(float time = MyStatic.DefaultFadeTime)
+        public async UniTask ShowFadeAsync(
+            float time = MyStatic.DefaultFadeTime, CancellationToken token = default)
         {
             gameObject.SetActive(true);
             SetAlpha(0f);
-            await FadeAlphaAsync(1f, time);
+            await FadeAlphaAsync(1f, time, token);
         }
 
-        public async UniTask ClearFadeAsync(float time = MyStatic.DefaultFadeTime)
+        public async UniTask ClearFadeAsync(
+            float time = MyStatic.DefaultFadeTime, CancellationToken token = default)
         {
-            await FadeAlphaAsync(0f, time);
+            await FadeAlphaAsync(0f, time, token);
             gameObject.SetActive(false);
         }
 
@@ -35,7 +38,7 @@ namespace Novel
             image.SetAlpha(a);
         }
 
-        async UniTask FadeAlphaAsync(float toAlpha, float time)
+        async UniTask FadeAlphaAsync(float toAlpha, float time, CancellationToken token)
         {
             if (time == 0f)
             {
@@ -48,7 +51,7 @@ namespace Novel
             {
                 SetAlpha(outQuad.Ease(t));
                 t += Time.deltaTime;
-                await MyStatic.Yield();
+                await MyStatic.Yield(token == default ? destroyCancellationToken : token);
             }
             SetAlpha(toAlpha);
         }

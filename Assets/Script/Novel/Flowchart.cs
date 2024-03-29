@@ -20,6 +20,8 @@ namespace Novel
 
         public List<CommandData> GetCommandDataList() => commandDataList;
 
+        public List<CommandData> GetReadOnlyCommandDataList() => commandDataList;
+
         /// <summary>
         /// カスタムエディタ用
         /// </summary>
@@ -36,7 +38,7 @@ namespace Novel
         /// </summary>
         /// <param name="index">リストの何番目から発火するか</param>
         /// <param name="callStatus">他のフローチャートから呼び出された時の情報</param>
-        public async UniTask ExecuteAsync(int index = 0, FlowchartCallStatus callStatus = null)
+        public async UniTask ExecuteAsync(int index, FlowchartCallStatus callStatus)
         {
             var status = SetStatus(callStatus);
 

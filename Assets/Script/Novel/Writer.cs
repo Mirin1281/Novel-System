@@ -2,6 +2,7 @@
 using Cysharp.Threading.Tasks;
 using TMPro;
 using System;
+using System.Threading;
 
 namespace Novel
 {
@@ -23,11 +24,12 @@ using TagType = TagUtility.TagType;
             input.OnInputed += SkipTextIfValid;
         }
 
-        public async UniTask WriteAsync(CharacterData character, string fullText)
+        public async UniTask WriteAsync(
+            CharacterData character, string fullText, CancellationToken token)
         {
             SetName(character);
             var (convertedText, tagDataArray) = TagUtility.ExtractTag(fullText);
-            await WriteStoryTextAsync(convertedText, tagDataArray);
+            await WriteStoryTextAsync(convertedText, tagDataArray, null, token);
 
 
             void SetName(CharacterData character)
@@ -44,7 +46,7 @@ using TagType = TagUtility.TagType;
             }
 
             async UniTask WriteStoryTextAsync(
-                string text, TagUtility.TagData[] tagDataArray = null, float? timePerCharas = null)
+                string text, TagUtility.TagData[] tagDataArray = null, float? timePerCharas = null, CancellationToken token = default)
             {
                 storyTmpro.SetText(text);
                 timePer100Charas = timePerCharas ?? defaultSpeed;
@@ -63,7 +65,8 @@ using TagType = TagUtility.TagType;
                         tagInsertIndex = await ApplyTag(tagNumber, tagInsertIndex);
                         tagNumber++;
                     }
-                    await MyStatic.WaitSeconds(timePer100Charas / 100f);
+                    await MyStatic.WaitSeconds(timePer100Charas / 100f,
+                        token == default ? destroyCancellationToken : token);
                     i++;
                 }
 
@@ -129,7 +132,7 @@ using TagType = TagUtility.TagType;
                     while (t < time && isSkipped == false)
                     {
                         t += Time.deltaTime;
-                        await MyStatic.Yield();
+                        await MyStatic.Yield(destroyCancellationToken);
                     }
                 }
 
@@ -139,7 +142,8 @@ using TagType = TagUtility.TagType;
                     {
                         timePer100Charas = defaultSpeed;
                         isSkipped = false;
-                    });
+                    },
+                    destroyCancellationToken);
                 }
             }
         }

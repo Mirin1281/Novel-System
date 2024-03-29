@@ -30,7 +30,7 @@ public class MsgBoxInput : MonoBehaviour
     /// </summary>
     /// <param name="action">コールバック</param>
     /// <returns></returns>
-    public async UniTask WaitInput(Action action = null)
+    public async UniTask WaitInput(Action action = null, CancellationToken token = default)
     {
         bool clicked = false;
         OnInputed += () => clicked = true;
@@ -38,7 +38,7 @@ public class MsgBoxInput : MonoBehaviour
         {
             OnInputed += action;
         }
-        await UniTask.WaitUntil(() => clicked, cancellationToken: MyStatic.TokenOnSceneChange);
+        await UniTask.WaitUntil(() => clicked, cancellationToken: token);
         OnInputed -= () => clicked = true;
         if (action != null)
         {

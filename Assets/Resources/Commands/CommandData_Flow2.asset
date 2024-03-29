@@ -14,19 +14,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Enabled>k__BackingField: 1
   command:
-    rid: 6983526754449096704
+    rid: 6983526773211004931
   references:
     version: 2
     RefIds:
-    - rid: 6983526754449096704
+    - rid: 6983526773211004931
       type: {class: SayCommand, ns: Novel.Command, asm: Assembly-CSharp}
       data:
         <ParentFlowchart>k__BackingField:
           description: "\u8AAC\u660E"
           commandDataList:
-          - {fileID: 11400000}
           - {fileID: 11400000, guid: 99628bdc47ad50a41b15e4e5cd5aa0e2, type: 2}
+          - {fileID: 11400000}
+          - {fileID: 11400000, guid: 21bd5e94084d3be4bb70fc56c9acbad9, type: 2}
+        <Index>k__BackingField: 1
         character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
         changeSprite: {fileID: 0}
-        storyText: "(\u30CD\u30B9\u30C8)\n\u3046\u3046\u3046\u3046\u3046\u3046\u3046\u3046\u3046\u3046\u3046"
+        storyText: "\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042"
+        boxShowTime: 0
         flagKeys: []

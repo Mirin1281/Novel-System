@@ -1,30 +1,33 @@
 ﻿using UnityEngine;
 
-// シングルトンなMonoBehaviourの基底クラス
-public abstract class SingletonMonoBehaviour<T> : MonoBehaviour where T : MonoBehaviour
+namespace Novel
 {
-    static T instance;
-    public static T Instance
+    // シングルトンなMonoBehaviourの基底クラス
+    public abstract class SingletonMonoBehaviour<T> : MonoBehaviour where T : MonoBehaviour
     {
-        get
+        static T instance;
+        public static T Instance
         {
-            if (instance != null) return instance;
-            instance = FindObjectOfType<T>();
-            if (instance == null)
+            get
             {
-                Debug.LogWarning(typeof(T) + " is nothing");
+                if (instance != null) return instance;
+                instance = FindObjectOfType<T>();
+                if (instance == null)
+                {
+                    Debug.LogWarning(typeof(T) + " is nothing");
+                }
+                return instance;
             }
-            return instance;
         }
-    }
 
-    protected virtual void Awake()
-    {
-        if (instance != null && instance != this)
+        protected virtual void Awake()
         {
-            Debug.LogWarning(typeof(T) + " is multiple created", this);
-            return;
+            if (instance != null && instance != this)
+            {
+                Debug.LogWarning(typeof(T) + " is multiple created", this);
+                return;
+            }
+            instance = this as T;
         }
-        instance = this as T;
     }
 }

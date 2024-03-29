@@ -3,58 +3,61 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Cysharp.Threading.Tasks;
 
-public class FadeLoadSceneManager : SingletonMonoBehaviour<FadeLoadSceneManager>
+namespace Novel
 {
-    [SerializeField] Image fadeImage;
-
-    /// <summary>
-    /// フェードしながらシーンを遷移します
-    /// </summary>
-    /// <param name="fadeInterval">暗転、明転の秒数</param>
-    /// <param name="sceneName">遷移先のシーン名</param>
-    public void LoadScene(float fadeInterval, string sceneName)
+    public class FadeLoadSceneManager : SingletonMonoBehaviour<FadeLoadSceneManager>
     {
-        LoadSceneAsync(fadeInterval, sceneName).Forget();
-    }
+        [SerializeField] Image fadeImage;
 
-    // こっちはawaitできる
-    public async UniTask LoadSceneAsync(float fadeInterval, string sceneName)
-    {
-        if(fadeInterval != 0f)
+        /// <summary>
+        /// フェードしながらシーンを遷移します
+        /// </summary>
+        /// <param name="fadeInterval">暗転、明転の秒数</param>
+        /// <param name="sceneName">遷移先のシーン名</param>
+        public void LoadScene(float fadeInterval, string sceneName)
         {
-            await FadeIn(fadeInterval);
+            LoadSceneAsync(fadeInterval, sceneName).Forget();
         }
-            
-        await SceneManager.LoadSceneAsync(sceneName);
 
-        if(fadeInterval != 0f)
+        // こっちはawaitできる
+        public async UniTask LoadSceneAsync(float fadeInterval, string sceneName)
         {
-            await FadeOut(fadeInterval);
-        }
-    }
+            if (fadeInterval != 0f)
+            {
+                await FadeIn(fadeInterval);
+            }
 
-    public async UniTask FadeIn(float interval, Color? fadeColor = null)
-    {
-        gameObject.SetActive(true);
-        var time = 0f;
-        while (time <= interval)
-        {
-            fadeImage.color = Color.Lerp(Color.clear, fadeColor ?? Color.black, time);
-            time += Time.deltaTime;
-            await UniTask.Yield();
-        }
-        fadeImage.color = fadeColor ?? Color.black;
-    }
+            await SceneManager.LoadSceneAsync(sceneName);
 
-    public async UniTask FadeOut(float interval, Color? fadeColor = null)
-    {
-        var time = 0f;
-        while (time <= interval)
-        {
-            fadeImage.color = Color.Lerp(fadeColor ?? Color.black, Color.clear, time);
-            time += Time.deltaTime;
-            await UniTask.Yield();
+            if (fadeInterval != 0f)
+            {
+                await FadeOut(fadeInterval);
+            }
         }
-        gameObject.SetActive(false);
+
+        public async UniTask FadeIn(float interval, Color? fadeColor = null)
+        {
+            gameObject.SetActive(true);
+            var time = 0f;
+            while (time <= interval)
+            {
+                fadeImage.color = Color.Lerp(Color.clear, fadeColor ?? Color.black, time);
+                time += Time.deltaTime;
+                await UniTask.Yield();
+            }
+            fadeImage.color = fadeColor ?? Color.black;
+        }
+
+        public async UniTask FadeOut(float interval, Color? fadeColor = null)
+        {
+            var time = 0f;
+            while (time <= interval)
+            {
+                fadeImage.color = Color.Lerp(fadeColor ?? Color.black, Color.clear, time);
+                time += Time.deltaTime;
+                await UniTask.Yield();
+            }
+            gameObject.SetActive(false);
+        }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 using System;
+using System.Threading;
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 
@@ -11,7 +12,7 @@ namespace Novel
     // 既にシーンの中にボックスがある場合はそれを使います(名前で検索してます)ので、オーバーライドできます
     // シーンの中ではボックスはキャッシュされます
     // 基本はデフォルトのボックスで、変化を加えたい場合はシーンに置いてできる設計です
-    public class MessageBoxManager : SingletonMonoBehaviour<MessageBoxManager>, IInitializableManager
+    public class MessageBoxManager : SingletonMonoBehaviour<MessageBoxManager>
     {
         [SerializeField, Tooltip(
             "true時はシーン切り替え時に全メッセージボックスを生成します\n" +
@@ -64,8 +65,9 @@ namespace Novel
         }
         #endregion
 
-        void IInitializableManager.Init()
+        protected override void Awake()
         {
+            base.Awake();
             InitCheck();
             SceneManager.activeSceneChanged += OnSceneChanged;
         }
@@ -77,7 +79,7 @@ namespace Novel
             // 登録数のチェック
             if (linkedBoxList.Count != enumCount)
             {
-                Debug.LogWarning($"{nameof(MessageBoxManager)}に登録数が{nameof(BoxType)}の数と合いません！");
+                Debug.LogWarning($"{nameof(MessageBoxManager)}に登録している数が{nameof(BoxType)}の数と合いません！");
             }
             else
             {
@@ -139,14 +141,15 @@ namespace Novel
             return CreateAndAddBox(linkedBox);
         }
 
-        public async UniTask AllClearFadeAsync(float time = MyStatic.DefaultFadeTime)
+        public async UniTask AllClearFadeAsync(
+            float time = MyStatic.DefaultFadeTime, CancellationToken token = default)
         {
             foreach(var linkedBox in linkedBoxList)
             {
                 if (linkedBox.Box == null) continue;
-                linkedBox.Box.ClearFadeAsync(time).Forget();
+                linkedBox.Box.ClearFadeAsync(time, token).Forget();
             }
-            await MyStatic.WaitSeconds(time);
+            await MyStatic.WaitSeconds(time, token == default ? destroyCancellationToken : token);
         }
 
         public async UniTask OtherClearFadeAsync(BoxType boxType, float time = MyStatic.DefaultFadeTime)
@@ -157,7 +160,7 @@ namespace Novel
                     linkedBox.Type == boxType) continue;
                 linkedBox.Box.ClearFadeAsync(time).Forget();
             }
-            await MyStatic.WaitSeconds(time);
+            await MyStatic.WaitSeconds(time, destroyCancellationToken);
         }
 
         void OnDestroy()

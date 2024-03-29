@@ -24,11 +24,13 @@ namespace Novel
 
             EditorGUILayout.LabelField(
                 "【注意】\n" +
-                "普通にフローチャートを複製するとSerializeReference内部の関係で参照が共有され、\n" +
-                "結果としてコマンドデータのフィールドが連動してしまうのでボタンから複製してください",
-                EditorStyles.wordWrappedLabel);
+                "下のボタンから複製をしてください。じゃないとバグります\n" +
+                "\n" +
+                "【もしもの対処】\n" +
+                "もしも普通に複製してしまったら、そのまま削除すれば大丈夫です"
+                , EditorStyles.wordWrappedLabel);
 
-            EditorGUILayout.Space(5);
+            EditorGUILayout.Space(10);
 
             if (GUILayout.Button("複製する"))
             {

@@ -1,5 +1,4 @@
-﻿using Cysharp.Threading.Tasks;
-using Novel.Command;
+﻿using Novel.Command;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -19,7 +18,6 @@ namespace Novel
         }
 
         Flowchart activeFlowchart;
-        FlowchartExecutor activeFlowchartExecutor;
         FlowchartData activeFlowchartData;
         ActiveMode activeMode;
 
@@ -27,53 +25,13 @@ namespace Novel
         ReorderableList reorderableList;
         CommandData selectedCommand;
         CommandData copiedCommand;
-        bool savableBuffer = true;
 
-        Vector2 dataScrollPosition;
-        Vector2 parameterScrollPosition;
-
-        readonly static string CommandDataPath = $"{NameContainer.RESOURCES_PATH}Commands";
+        Vector2 listScrollPos;
+        Vector2 commandScrollPos;
 
         void OnEnable()
         {
-            CreateReorderableList();
-        }
-
-        void OnGUI()
-        {
-            if (activeMode == ActiveMode.None) return;
-
-            EditorGUI.BeginChangeCheck();
-
-            using (new GUILayout.HorizontalScope())
-            {
-                UpdateCommandList();
-                UpdateCommandInspector();
-            }
-
-            if (EditorGUI.EndChangeCheck())
-            {
-                Save().Forget();
-            }
-        }
-
-        async UniTask Save()
-        {
-            if (savableBuffer == false) return;
-            savableBuffer = false;
-            await UniTask.Delay(TimeSpan.FromSeconds(2f));
-            savableBuffer = true;
-
-            if (activeMode == ActiveMode.Executor)
-            {
-                EditorUtility.SetDirty(activeFlowchartExecutor);
-                AssetDatabase.SaveAssetIfDirty(activeFlowchartExecutor);
-            }
-            else if (activeMode == ActiveMode.Data)
-            {
-                EditorUtility.SetDirty(activeFlowchartData);
-                AssetDatabase.SaveAssetIfDirty(activeFlowchartData);
-            }
+            reorderableList = CreateReorderableList();
         }
 
         void OnSelectionChange()
@@ -84,8 +42,7 @@ namespace Novel
                 if (flowchartExecutor != null)
                 {
                     activeMode = ActiveMode.Executor;
-                    activeFlowchartExecutor = flowchartExecutor;
-                    activeFlowchart = activeFlowchartExecutor.Flowchart;
+                    activeFlowchart = flowchartExecutor.Flowchart;
                     commandList = activeFlowchart.GetCommandDataList();
                 }
             }
@@ -100,45 +57,26 @@ namespace Novel
                     commandList = activeFlowchart.GetCommandDataList();
                 }
             }
-            CreateReorderableList();
+            reorderableList = CreateReorderableList();
             Repaint();
         }
 
-        void UpdateCommandList()
-        {
-            if (activeFlowchart == null) return;
+        void OnGUI()
+        { 
+            if (activeMode == ActiveMode.None) return;
 
-            var ev = Event.current;
-            if (ev.type == EventType.KeyDown && ev.control)
+            EditorGUI.BeginChangeCheck();
+
+            using (new GUILayout.HorizontalScope())
             {
-                if (ev.keyCode == KeyCode.C && selectedCommand != null)
-                {
-                    Copy(selectedCommand);
-                }
-                else if (ev.keyCode == KeyCode.V && copiedCommand != null)
-                {
-                    Paste(copiedCommand);
-                }
-                else if (ev.keyCode == KeyCode.D && selectedCommand != null)
-                {
-                    Copy(selectedCommand);
-                    Paste(copiedCommand);
-                }
+                UpdateCommandList();
+                UpdateCommandInspector();
             }
 
-            using (GUILayout.ScrollViewScope scroll =
-                new(dataScrollPosition, EditorStyles.helpBox, GUILayout.Width(position.size.x / 2f)))
+            if (EditorGUI.EndChangeCheck())
             {
-                dataScrollPosition = scroll.scrollPosition;
-                
                 activeFlowchart.SetCommandDataList(commandList);
-                CommandSettings();
-                reorderableList.DoLayoutList();
-            }
 
-
-            void CommandSettings()
-            {
                 for (int i = 0; i < commandList.Count; i++)
                 {
                     var cmd = commandList[i].GetCommandBase();
@@ -146,20 +84,52 @@ namespace Novel
                     cmd.SetFlowchart(activeFlowchart);
                     cmd.SetIndex(i);
                 }
+
+                if (activeMode == ActiveMode.Data)
+                {
+                    EditorUtility.SetDirty(activeFlowchartData);
+                }
+            }
+        }
+
+        void UpdateCommandList()
+        {
+            if (activeFlowchart == null) return;
+
+            var e = Event.current;
+            if (e.type == EventType.KeyDown && e.control)
+            {
+                if (e.keyCode == KeyCode.C && selectedCommand != null)
+                {
+                    Copy(selectedCommand);
+                }
+                else if (e.keyCode == KeyCode.V && copiedCommand != null)
+                {
+                    Paste(copiedCommand);
+                }
+                else if (e.keyCode == KeyCode.D && selectedCommand != null)
+                {
+                    Copy(selectedCommand);
+                    Paste(copiedCommand);
+                }
+            }
+
+            using (GUILayout.ScrollViewScope scroll =
+                new(listScrollPos, EditorStyles.helpBox, GUILayout.Width(position.size.x / 2f)))
+            {
+                listScrollPos = scroll.scrollPosition;
+                reorderableList.DoLayoutList();
             }
         }
 
         void UpdateCommandInspector()
         {
-            using (GUILayout.ScrollViewScope scroll = new(parameterScrollPosition, EditorStyles.helpBox))
+            using (GUILayout.ScrollViewScope scroll = new(commandScrollPos, EditorStyles.helpBox))
             {
-                parameterScrollPosition = scroll.scrollPosition;
+                commandScrollPos = scroll.scrollPosition;
 
-                if (selectedCommand == null)
-                {
-                    Repaint();
-                    return;
-                }
+                if (selectedCommand == null) return;
+
                 Editor.CreateEditor(selectedCommand).DrawDefaultInspector();
 
                 var infoText = selectedCommand.GetCommandStatus().Info;
@@ -168,7 +138,6 @@ namespace Novel
                     EditorGUILayout.HelpBox(infoText, MessageType.Info);
                 }
             }
-            Repaint();
         }
 
         void Copy(CommandData command)
@@ -189,9 +158,10 @@ namespace Novel
                 var createCommand = Instantiate(copiedCommand);
                 if(activeMode == ActiveMode.Data)
                 {
-                    var name = GetFileName(CommandDataPath, $"CommandData_{activeFlowchartData.name}");
-                    AssetDatabase.CreateAsset(createCommand, Path.Combine(CommandDataPath, name));
-                    AssetDatabase.ImportAsset(CommandDataPath, ImportAssetOptions.ForceUpdate);
+                    var path = FlowchartEditorUtility.GetExistFolderPath(copiedCommand);
+                    var name = FlowchartEditorUtility.GetFileName(path, $"CommandData_{activeFlowchartData.name}");
+                    AssetDatabase.CreateAsset(createCommand, Path.Combine(path, name));
+                    AssetDatabase.ImportAsset(path, ImportAssetOptions.ForceUpdate);
                 }
                 
                 commandList.Insert(currentIndex + 1, createCommand);
@@ -202,9 +172,9 @@ namespace Novel
 
         #region ReorderableList
 
-        void CreateReorderableList()
+        ReorderableList CreateReorderableList()
         {
-            reorderableList = new ReorderableList(
+            return new ReorderableList(
                 commandList, typeof(CommandData),
                 draggable: true,
                 displayHeader: false,
@@ -216,7 +186,6 @@ namespace Novel
                 onSelectCallback = OnSelect,
                 drawElementCallback = OnDrawElement,
                 drawElementBackgroundCallback = DrawElementBackground,
-                //drawHeaderCallback = DrawHeader,
                 elementHeightCallback = GetElementHeight,
             };
 
@@ -226,7 +195,7 @@ namespace Novel
                 CommandData newCommandData = activeMode switch
                 {
                     ActiveMode.Executor => CreateInstance<CommandData>(),
-                    ActiveMode.Data => CreateCommandData(CommandDataPath, activeFlowchartData.name),
+                    ActiveMode.Data => CreateCommandData(NameContainer.COMMANDDATA_PATH, activeFlowchartData.name),
                     _ => throw new Exception()
                 };
                 int insertIndex = list.index + 1;
@@ -247,8 +216,8 @@ namespace Novel
                 {
                     var deleteName = selectedCommand.name;
                     DestroyImmediate(selectedCommand, true);
-                    File.Delete($"{CommandDataPath}/{deleteName}.asset");
-                    File.Delete($"{CommandDataPath}/{deleteName}.asset.meta");
+                    File.Delete($"{NameContainer.COMMANDDATA_PATH}/{deleteName}.asset");
+                    File.Delete($"{NameContainer.COMMANDDATA_PATH}/{deleteName}.asset.meta");
                     AssetDatabase.Refresh(ImportAssetOptions.ForceUpdate);
                 }
 
@@ -270,7 +239,6 @@ namespace Novel
             void OnSelect(ReorderableList list)
             {
                 selectedCommand = commandList[list.index];
-                UpdateCommandInspector();
             }
 
             void OnDrawElement(Rect rect, int index, bool isActive, bool isFocused)
@@ -284,7 +252,7 @@ namespace Novel
                 var cmdStatus = commandList[index].GetCommandStatus();
                 EditorGUI.LabelField(rect, cmdStatus.Name, style);
                 EditorGUI.LabelField(new Rect(
-                    rect.x + 80, rect.y,
+                    rect.x + 75, rect.y,
                     rect.width, rect.height),
                     $"<size=10>{cmdStatus.Summary}</size>", style);
 
@@ -311,9 +279,7 @@ namespace Novel
                 }
                 var tmpColor = GUI.color;
                 GUI.color = Color.black;
-                GUI.Box(new Rect(
-                    rect.x, rect.y,
-                    rect.width, 1), "");
+                GUI.Box(new Rect(rect.x, rect.y,rect.width, 1), string.Empty);
                 GUI.color = tmpColor;
             }
 
@@ -322,7 +288,6 @@ namespace Novel
                 return 30;
             }
         }
-        #endregion
 
         CommandData CreateCommandData(string path, string parentDataName)
         {
@@ -330,22 +295,13 @@ namespace Novel
             {
                 Directory.CreateDirectory(path);
             }
-            var name = GetFileName(path, $"CommandData_{parentDataName}");
+            var name = FlowchartEditorUtility.GetFileName(path, $"CommandData_{parentDataName}");
             var cmdData = CreateInstance<CommandData>();
             AssetDatabase.CreateAsset(cmdData, Path.Combine(path, name));
             AssetDatabase.ImportAsset(path, ImportAssetOptions.ForceUpdate);
             return cmdData;
         }
 
-        string GetFileName(string path, string name)
-        {
-            int i = 1;
-            var targetName = name;
-            while (File.Exists($"{path}/{targetName}.asset"))
-            {
-                targetName = $"{name}_({i++})";
-            }
-            return $"{targetName}.asset";
-        }
+        #endregion
     }
 }

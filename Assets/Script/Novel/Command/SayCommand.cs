@@ -44,10 +44,10 @@ namespace Novel.Command
             var msgBox = MessageBoxManager.Instance.CreateIfNotingBox(boxType);
             if(msgBox.gameObject.activeInHierarchy == false)
             {
-                await msgBox.ShowFadeAsync(boxShowTime);
+                await msgBox.ShowFadeAsync(boxShowTime, CallStatus.Token);
             }
-            await msgBox.Writer.WriteAsync(character, convertedText);
-            await msgBox.Input.WaitInput();
+            await msgBox.Writer.WriteAsync(character, convertedText, CallStatus.Token);
+            await msgBox.Input.WaitInput(token: CallStatus.Token);
         }
 
         /// <summary>

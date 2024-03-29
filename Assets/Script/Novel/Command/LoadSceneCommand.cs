@@ -12,7 +12,7 @@ namespace Novel.Command
         protected override async UniTask EnterAsync()
         {
             FadeLoadSceneManager.Instance.LoadScene(fadeTime, sceneName);
-            await MyStatic.WaitSeconds(5f);
+            await MyStatic.WaitSeconds(100f, CallStatus.Token);
         }
 
         protected override string GetSummary()

@@ -10,7 +10,7 @@ namespace Novel.Command
 
         protected override async UniTask EnterAsync()
         {
-            await MyStatic.WaitSeconds(waitSeconds);
+            await MyStatic.WaitSeconds(waitSeconds, CallStatus.Token);
         }
     }
 }

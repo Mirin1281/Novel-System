@@ -9,9 +9,8 @@ public class CreateManagerData : ScriptableObject
 {
     [SerializeField] CreateManagerParam[] managerParams;
 
-    // この属性によりAwakeより前に処理が走る
+    // この属性によりAwakeより前に処理が走る(ここでしか呼ばないほうが吉)
     // ScriptableObjectからマネージャーを生成する
-    // ここでしか呼ばないほうが吉
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
     static void BeforeAwakeInit()
     {
@@ -31,8 +30,6 @@ public class CreateManagerData : ScriptableObject
             var obj = Instantiate(param.ManagerPrefab);
             obj.name = param.ManagerPrefab.name;
             DontDestroyOnLoad(obj);
-            var initializable = obj.GetComponent<IInitializableManager>();
-            initializable?.Init();
             if (param.IsInactiveOnAwake)
             {
                 obj.SetActive(false);

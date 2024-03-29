@@ -10,8 +10,6 @@ namespace Novel.Command
     [CustomPropertyDrawer(typeof(PortraitCommand))]
     public class PortraitCommandDrawer : PropertyDrawer
     {
-        const string characterFolderName = "Character";
-
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
             GUILayout.Space(-10);
@@ -34,7 +32,7 @@ namespace Novel.Command
 
             // characterFolderPath内のキャラクターデータを取得
             var characterArray = AssetDatabase.FindAssets(
-                "t:ScriptableObject", new string[] { NameContainer.RESOURCES_PATH + characterFolderName })
+                "t:ScriptableObject", new string[] { NameContainer.CHARACTER_PATH })
                 .Select(c => AssetDatabase.GUIDToAssetPath(c))
                 .Select(c => AssetDatabase.LoadAssetAtPath<CharacterData>(c))
                 .Prepend(null)

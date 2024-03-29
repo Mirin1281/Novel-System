@@ -3,16 +3,20 @@ using UnityEngine.SceneManagement;
 using Cysharp.Threading.Tasks;
 using System;
 using System.Threading;
+using System.IO;
 #if UNITY_EDITOR
 using UnityEditor; // AssetDatabaseを使うために必要
 #endif
+using Object = UnityEngine.Object;
 
 /// <summary>
 /// 定数で名前を保管する
 /// </summary>
 public static class NameContainer
 {
-    public const string RESOURCES_PATH = "Assets/Resources/";
+    public const string RESOURCES_PATH = "Assets/Resources";
+    public const string COMMANDDATA_PATH = RESOURCES_PATH + "/Commands";
+    public const string CHARACTER_PATH = RESOURCES_PATH + "/Characters";
     public const string SUBMIT_KEYNAME = "Submit";
     public const string CANCEL_KEYNAME = "Cancel";
 }
@@ -24,7 +28,7 @@ public static class MyStatic
     public const float DefaultFadeTime = 0.3f;
 
     static CancellationTokenSource cts;
-    public static CancellationToken TokenOnSceneChange { get; private set; }
+    static CancellationToken tokenOnSceneChange;
 
 
     public static void Init()
@@ -36,19 +40,16 @@ public static class MyStatic
     {
         cts?.Cancel();
         cts = new();
-        TokenOnSceneChange = cts.Token;
+        tokenOnSceneChange = cts.Token;
     }
 
-    /// <summary>
-    /// await句で指定した秒数待てます
-    /// </summary>
-    /// <param name="waitTime">待つ時間(秒)</param>
-    public static UniTask WaitSeconds(float waitTime, CancellationToken token = default)
+
+    public static UniTask WaitSeconds(float waitTime, CancellationToken token)
     {
         if(waitTime > 0)
         {
             return UniTask.Delay(TimeSpan.FromSeconds(waitTime),
-                cancellationToken: token == default ? TokenOnSceneChange : token);
+                cancellationToken: token == default ? tokenOnSceneChange : token);
         }
         else
         {
@@ -56,11 +57,11 @@ public static class MyStatic
         }
     }
 
-    /// <summary>
-    /// await句で1フレーム待てます
-    /// </summary>
-    public static UniTask Yield(CancellationToken token = default)
-        => UniTask.Yield(token == default ? TokenOnSceneChange : token);
+    public static UniTask Yield(CancellationToken token)
+        => UniTask.Yield(token == default ? tokenOnSceneChange : token);
+
+    public static UniTask WaitFrame(int frame, CancellationToken token)
+        => UniTask.DelayFrame(frame, cancellationToken: token == default ? tokenOnSceneChange : token);
 
 
     /// <summary>
@@ -119,9 +120,7 @@ public static class MyStatic
     /// <summary>
     /// 非アクティブのも含めてFindできます
     /// </summary>
-    /// <param name="targetName"></param>
-    /// <returns></returns>
-    public static GameObject FindIncludInactive(string targetName)
+    static GameObject FindIncludInactive(string targetName)
     {
         var gameObjects = Resources.FindObjectsOfTypeAll<GameObject>();
 

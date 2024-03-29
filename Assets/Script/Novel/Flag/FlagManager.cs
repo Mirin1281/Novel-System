@@ -11,7 +11,7 @@ namespace Novel
     // FlagKeyを鍵として変数をやり取りするクラス
     public static class FlagManager
     {
-        static readonly Dictionary<string, object> flagDictionary = new();
+        static Dictionary<string, object> flagDictionary = new();
 
         public static void SetFlagValue<T>(FlagKeyDataBase<T> flagKey, T value)
         {
@@ -69,5 +69,8 @@ namespace Novel
             }
 #endif      
         }
+
+        public static Dictionary<string, object> GetFlagDictionary() => flagDictionary;
+        public static void SetFlagDictionary(Dictionary<string, object> dic) => flagDictionary = dic;
     }
 }

@@ -23,11 +23,11 @@ namespace Novel.Command
             if(showType == ShowType.Show)
             {
                 var box = MessageBoxManager.Instance.CreateIfNotingBox(boxType);
-                await box.ShowFadeAsync(time);
+                await box.ShowFadeAsync(time, CallStatus.Token);
             }
             else if(showType == ShowType.ClearAll)
             {
-                await MessageBoxManager.Instance.AllClearFadeAsync(time);
+                await MessageBoxManager.Instance.AllClearFadeAsync(time, CallStatus.Token);
             }
         }
 

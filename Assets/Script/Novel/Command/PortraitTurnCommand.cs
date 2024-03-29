@@ -15,7 +15,7 @@ namespace Novel.Command
             var portrait = PortraitManager.Instance.CreateIfNotingPortrait(character.PortraitType);
             if(isAwait)
             {
-                await portrait.TurnAsync(time);
+                await portrait.TurnAsync(time, CallStatus.Token);
             }
             else
             {

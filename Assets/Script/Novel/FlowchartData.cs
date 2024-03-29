@@ -24,7 +24,7 @@ namespace Novel
         /// </summary>
         public bool IsUsed(CommandData targetData)
         {
-            foreach(var cmd in flowchart.GetCommandDataList())
+            foreach(var cmd in flowchart.GetReadOnlyCommandDataList())
             {
                 if (cmd == targetData) return true;
             }

@@ -39,26 +39,26 @@ namespace Novel.Command
             }
             else if(actionType == ActionType.Change)
             {
-                Change(portrait);
+                portrait.SetSprite(portraitSprite);
             }
             else if(actionType == ActionType.Clear)
             {
                 if(isAwait)
                 {
-                    await ClearAsync(portrait);
+                    await portrait.ClearFadeAsync(fadeTime, CallStatus.Token);
                 }
                 else
                 {
-                    ClearAsync(portrait).Forget();
+                    portrait.ClearFadeAsync(fadeTime, CallStatus.Token).Forget();
                 }
             }
             else if(actionType == ActionType.HideOn)
             {
-                HideOn(portrait);
+                portrait.HideOn();
             }
             else if (actionType == ActionType.HideOff)
             {
-                HideOff(portrait);
+                portrait.HideOff();
             }
         }
 
@@ -74,32 +74,17 @@ namespace Novel.Command
             }
             
             portrait.SetSprite(portraitSprite);
-            await portrait.ShowFadeAsync(fadeTime);
+            await portrait.ShowFadeAsync(fadeTime, CallStatus.Token);
         }
 
-        void Change(Portrait portrait)
-        {
-            portrait.SetSprite(portraitSprite);
-        }
-
-        async UniTask ClearAsync(Portrait portrait)
-        {
-            await portrait.ClearFadeAsync(fadeTime);
-        }
-
-        void HideOn(Portrait portrait)
-        {
-            portrait.HideOn();
-        }
-
-        void HideOff(Portrait portrait)
-        {
-            portrait.HideOff();
-        }
 
         protected override string GetSummary()
         {
             if (character == null)
+            {
+                return WarningColorText();
+            }
+            if(portraitSprite == null && (actionType == ActionType.Show || actionType == ActionType.Change))
             {
                 return WarningColorText();
             }

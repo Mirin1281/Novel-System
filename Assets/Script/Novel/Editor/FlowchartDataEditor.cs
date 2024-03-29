@@ -11,8 +11,6 @@ namespace Novel
     [CustomEditor(typeof(FlowchartData))]
     public class FlowchartDataEditor : Editor
     {
-        readonly static string CommandDataPath = $"{NameContainer.RESOURCES_PATH}Commands";
-
         public override void OnInspectorGUI()
         {
             base.OnInspectorGUI();
@@ -28,14 +26,14 @@ namespace Novel
 
             EditorGUILayout.LabelField(
                 "【注意】\n" +
-                "下のボタンから複製や削除をしてください。じゃないとバグります\n" +
-                "\n" +
-                $"また、{CommandDataPath} のデータは基本的に直接いじらないでください\n" +
+                "下のボタンから複製や削除をしてください。特に複製はデータが共有されるので注意\n" +
+                $"また、{NameContainer.COMMANDDATA_PATH} のデータは基本的に直接いじらないでください\n" +
                 "\n" +
                 "【もしもの対処】\n" +
-                "もしも普通に複製してしまったら、そのまま削除すれば大丈夫です。普通に削除し\n" +
-                "てしまった場合は「未使用のCommandDataを削除する」を押すとクリアされます\n" +
-                "(ちょっと怖いのでGitなどでバックアップを取ることを推奨します)"
+                "もしも普通に複製してしまったら、そのまま削除すれば大丈夫です\n" +
+                "普通に削除してしまった場合やアンドゥをした時など、コマンドデータが取り残される\n" +
+                "ことがありますが、「未使用のCommandDataを削除する」を押すとクリアできます\n" +
+                "(ちょっと怖いのでGitなど元に戻せる環境の用意を推奨します)"
                 , EditorStyles.wordWrappedLabel);
 
             EditorGUILayout.Space(10);
@@ -47,21 +45,22 @@ namespace Novel
                 var flowchartData = target as FlowchartData;
                 var copiedFlowchartData = Instantiate(flowchartData);
                 copiedFlowchartData.name = "CopiedFlowchartData";
-                var folderPath = GetExistFolderPath(flowchartData);
+                var folderPath = FlowchartEditorUtility.GetExistFolderPath(flowchartData);
 
-                var dataName = GetFileName(folderPath, copiedFlowchartData.name);
+                var dataName = FlowchartEditorUtility.GetFileName(folderPath, copiedFlowchartData.name);
                 AssetDatabase.CreateAsset(copiedFlowchartData, Path.Combine(folderPath, dataName));
                 AssetDatabase.ImportAsset(folderPath, ImportAssetOptions.ForceUpdate);
                 var flowchart = copiedFlowchartData.Flowchart;
 
                 var copiedCmdList = new List<CommandData>();
-                foreach (var cmdData in flowchart.GetCommandDataList())
+                foreach (var cmdData in flowchart.GetReadOnlyCommandDataList())
                 {
                     var copiedCmdData = Instantiate(cmdData);
                     var cmd = copiedCmdData.GetCommandBase();
-                    var cmdName = GetFileName(CommandDataPath, $"CommandData_{copiedFlowchartData.name}");
-                    AssetDatabase.CreateAsset(copiedCmdData, Path.Combine(CommandDataPath, cmdName));
-                    AssetDatabase.ImportAsset(CommandDataPath, ImportAssetOptions.ForceUpdate);
+                    var path = FlowchartEditorUtility.GetExistFolderPath(cmdData);
+                    var cmdName = FlowchartEditorUtility.GetFileName(path, $"CommandData_{copiedFlowchartData.name}");
+                    AssetDatabase.CreateAsset(copiedCmdData, Path.Combine(path, cmdName));
+                    AssetDatabase.ImportAsset(path, ImportAssetOptions.ForceUpdate);
                     if (cmd != null)
                     {
                         cmd.SetFlowchart(flowchart);
@@ -99,16 +98,9 @@ namespace Novel
             EditorGUILayout.EndHorizontal();
         }
 
-        string GetExistFolderPath(Object obj)
-        {
-            var dataPath = AssetDatabase.GetAssetPath(obj.GetInstanceID());
-            var index = dataPath.LastIndexOf("/");
-            return dataPath.Substring(0, index);
-        }
-
         void DestroyScritableObject(ScriptableObject obj)
         {
-            var path = GetExistFolderPath(obj);
+            var path = FlowchartEditorUtility.GetExistFolderPath(obj);
             var deleteCmdName = obj.name;
             DestroyImmediate(obj, true);
             File.Delete($"{path}/{deleteCmdName}.asset");
@@ -123,17 +115,6 @@ namespace Novel
                 if (flowchartData.IsUsed(targetData)) return true;
             }
             return false;
-        }
-
-        string GetFileName(string path, string name)
-        {
-            int i = 1;
-            var targetName = name;
-            while (File.Exists($"{path}/{targetName}.asset"))
-            {
-                targetName = $"{name}_({i++})";
-            }
-            return $"{targetName}.asset";
         }
 
         T[] GetAllScriptableObjects<T>() where T : ScriptableObject

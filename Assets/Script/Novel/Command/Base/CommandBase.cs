@@ -15,9 +15,14 @@ namespace Novel.Command
     [Serializable]
     public abstract class CommandBase : ICommand
     {
+        [field: SerializeField, HideInInspector]
         protected Flowchart ParentFlowchart { get; private set; }
-        protected FlowchartCallStatus CallStatus { get; private set; }
+
+        [field: SerializeField, HideInInspector]
         protected int Index { get; private set; }
+
+        protected FlowchartCallStatus CallStatus { get; private set; }
+        
 
         protected abstract UniTask EnterAsync();
         async UniTask ICommand.ExecuteAsync(Flowchart flowchart, FlowchartCallStatus callStatus)
@@ -47,23 +52,31 @@ namespace Novel.Command
         }
 
         CommandStatus ICommand.GetCommandStatus()
-            => new　(GetName(this), GetSummary(), GetCommandColor(), GetCommandInfo());
+            => new　(GetName(), GetSummary(), GetCommandColor(), GetCommandInfo());
 
         /// <summary>
-        /// エディタのコマンドに状態を記述します
+        /// コマンド名を定義します
+        /// </summary>
+        protected virtual string GetName() => GetName(this);
+
+        /// <summary>
+        /// エディタのコマンドに状態を記述します(オーバーライド)
         /// </summary>
         protected virtual string GetSummary() => string.Empty;
 
         /// <summary>
-        /// コマンドの色を設定します
+        /// コマンドの色を設定します(オーバーライド)
         /// </summary>
         protected virtual Color GetCommandColor() => new Color(0.9f, 0.9f, 0.9f, 1f);
 
         /// <summary>
-        /// 説明を記載します
+        /// 説明を記載します(オーバーライド)
         /// </summary>
         protected virtual string GetCommandInfo() => null;
 
+        /// <summary>
+        /// コマンドのクラス名を取得します
+        /// </summary>
         protected string GetName(CommandBase commandBase)
             => commandBase.ToString()
                 .Replace("Novel.Command.", string.Empty)

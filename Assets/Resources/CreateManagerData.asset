@@ -13,11 +13,13 @@ MonoBehaviour:
   m_Name: CreateManagerData
   m_EditorClassIdentifier: 
   managerParams:
+  - <ManagerPrefab>k__BackingField: {fileID: 1784988432445149621, guid: fd8b1b7dad1c2b94fbeba8cf3a31fffa, type: 3}
+    <IsInactiveOnAwake>k__BackingField: 0
   - <ManagerPrefab>k__BackingField: {fileID: 1923619094264598125, guid: 95f5ce8351017de4a9f26b25ed01bb3c, type: 3}
     <IsInactiveOnAwake>k__BackingField: 1
   - <ManagerPrefab>k__BackingField: {fileID: 160024398300412179, guid: 988c04e9226c9114f804164b554a5a2e, type: 3}
     <IsInactiveOnAwake>k__BackingField: 0
   - <ManagerPrefab>k__BackingField: {fileID: 7566127515359389570, guid: f20d6aa72c281c6439c73afaad28cb2a, type: 3}
     <IsInactiveOnAwake>k__BackingField: 0
-  - <ManagerPrefab>k__BackingField: {fileID: 1784988432445149621, guid: fd8b1b7dad1c2b94fbeba8cf3a31fffa, type: 3}
-    <IsInactiveOnAwake>k__BackingField: 0
+  - <ManagerPrefab>k__BackingField: {fileID: 412559883167632820, guid: a1344cb860053464fb63872cebbbd1d4, type: 3}
+    <IsInactiveOnAwake>k__BackingField: 1

@@ -26,13 +26,21 @@ namespace Novel.Command
                 JumpType.DownRelative => Index + jumpIndex,
                 _ => throw new System.Exception()
             };
-            UniTask.Void(async () =>
-            {
-                await UniTask.DelayFrame(1);
-                ParentFlowchart.ExecuteAsync(index).Forget();
-            });
+            ExecuteSelf(index, CallStatus).Forget();
             await UniTask.CompletedTask;
             return;
+        }
+
+        async UniTask ExecuteSelf(int index, FlowchartCallStatus callStatus)
+        {
+            await MyStatic.WaitFrame(1, callStatus.Token);
+            ParentFlowchart.ExecuteAsync(index, callStatus).Forget();
+        }
+
+
+        protected override string GetName()
+        {
+            return "Jump";
         }
 
         protected override string GetSummary()
@@ -45,11 +53,11 @@ namespace Novel.Command
                 _ => throw new System.Exception()
             };
             
-            var cmdDataList = ParentFlowchart.GetCommandDataList();
+            var cmdDataList = ParentFlowchart.GetReadOnlyCommandDataList();
             if (index < 0 || index >= cmdDataList.Count || index == Index) return WarningColorText();
             var cmd = cmdDataList[index].GetCommandBase();
             if(cmd == null || cmdDataList[index].Enabled == false) return WarningColorText();
-            return $"To [{GetName(cmd)}]";
+            return $"<color=#000080>→ [ {GetName(cmd)} ]</color>";
         }
     }
 }

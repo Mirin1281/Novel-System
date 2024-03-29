@@ -36,9 +36,15 @@ namespace Novel.Command
             }
             else
             {
-                flowchart.ExecuteAsync(commandIndex, status).Forget();
+                flowchart.ExecuteAsync(commandIndex, null).Forget();
                 ParentFlowchart.Stop(FlowchartStopType.Single);
             }
+        }
+
+
+        protected override string GetName()
+        {
+            return "Execute";
         }
 
         protected override string GetSummary()

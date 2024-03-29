@@ -7,7 +7,7 @@ using Cysharp.Threading.Tasks;
 namespace Novel
 {
     // 基本的な実装はMessageBoxManagerと同じ
-    public class PortraitManager : SingletonMonoBehaviour<PortraitManager>, IInitializableManager
+    public class PortraitManager : SingletonMonoBehaviour<PortraitManager>
     {
         [SerializeField] bool createOnSceneChanged;
 
@@ -55,12 +55,20 @@ namespace Novel
         }
         #endregion
 
-        void IInitializableManager.Init()
+        protected override void Awake()
+        {
+            base.Awake();
+            InitCheck();
+            SceneManager.activeSceneChanged += OnSceneChanged;
+        }
+
+        void InitCheck()
         {
             int enumCount = Enum.GetValues(typeof(PortraitType)).Length;
+
             if (linkedPortraitList.Count != enumCount)
             {
-                Debug.LogWarning($"{nameof(PortraitManager)}に登録数が{nameof(PortraitType)}の数と合いません！");
+                Debug.LogWarning($"{nameof(PortraitManager)}に登録している数が{nameof(PortraitType)}の数と合いません！");
             }
             else
             {
@@ -69,7 +77,6 @@ namespace Novel
                     linkedPortraitList[i].Type = (PortraitType)i;
                 }
             }
-            SceneManager.activeSceneChanged += OnSceneChanged;
         }
 
         void OnSceneChanged(Scene _ = default, Scene __ = default)
@@ -129,7 +136,7 @@ namespace Novel
                 if (linkedPortrait.Portrait == null) continue;
                 linkedPortrait.Portrait.ClearFadeAsync(time).Forget();
             }
-            await MyStatic.WaitSeconds(time);
+            await MyStatic.WaitSeconds(time, destroyCancellationToken);
         }
 
         void OnDestroy()
