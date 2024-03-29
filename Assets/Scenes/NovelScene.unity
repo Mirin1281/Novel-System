@@ -225,6 +225,7 @@ MonoBehaviour:
     description: "RPG\u306ENPC\u304C\u3088\u304F\u3084\u308B\u3084\u3064"
     commandDataList:
     - {fileID: 1571157907}
+    - {fileID: 1758943309}
     - {fileID: 589748438}
     - {fileID: 228053330}
     - {fileID: 1214609753}
@@ -272,6 +273,7 @@ MonoBehaviour:
           description: "RPG\u306ENPC\u304C\u3088\u304F\u3084\u308B\u3084\u3064"
           commandDataList:
           - {fileID: 1571157907}
+          - {fileID: 1758943309}
           - {fileID: 589748438}
           - {fileID: 228053330}
           - {fileID: 1214609753}
@@ -279,7 +281,7 @@ MonoBehaviour:
           - {fileID: 963140770}
           - {fileID: 1848595418}
           - {fileID: 774803274}
-        <Index>k__BackingField: 2
+        <Index>k__BackingField: 3
         jumpIndex: 2
         jumpType: 2
 --- !u!114 &398368274
@@ -307,6 +309,7 @@ MonoBehaviour:
           description: "RPG\u306ENPC\u304C\u3088\u304F\u3084\u308B\u3084\u3064"
           commandDataList:
           - {fileID: 1571157907}
+          - {fileID: 1758943309}
           - {fileID: 589748438}
           - {fileID: 228053330}
           - {fileID: 1214609753}
@@ -314,7 +317,7 @@ MonoBehaviour:
           - {fileID: 963140770}
           - {fileID: 1848595418}
           - {fileID: 774803274}
-        <Index>k__BackingField: 4
+        <Index>k__BackingField: 5
         topSelectionText: "\u306F\u3044"
         bottomSelectionText: "\u3044\u3084\u3060"
         actionType: 0
@@ -345,6 +348,7 @@ MonoBehaviour:
           description: "RPG\u306ENPC\u304C\u3088\u304F\u3084\u308B\u3084\u3064"
           commandDataList:
           - {fileID: 1571157907}
+          - {fileID: 1758943309}
           - {fileID: 589748438}
           - {fileID: 228053330}
           - {fileID: 1214609753}
@@ -352,7 +356,7 @@ MonoBehaviour:
           - {fileID: 963140770}
           - {fileID: 1848595418}
           - {fileID: 774803274}
-        <Index>k__BackingField: 1
+        <Index>k__BackingField: 2
         character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
         changeSprite: {fileID: 0}
         storyText: "\u3042\u306A\u305F\u304C\u9B54\u738B\u3092\u5012\u3057\u3066\u304F\u3060\u3055\u308B\u306E\u3067\u3059\u304B\uFF1F"
@@ -370,7 +374,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4399fbfc898731a4f96fd937ce84eeff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <Enabled>k__BackingField: 1
+  <Enabled>k__BackingField: 0
   command:
     rid: 6983526783263178753
   references:
@@ -383,6 +387,7 @@ MonoBehaviour:
           description: "RPG\u306ENPC\u304C\u3088\u304F\u3084\u308B\u3084\u3064"
           commandDataList:
           - {fileID: 1571157907}
+          - {fileID: 1758943309}
           - {fileID: 589748438}
           - {fileID: 228053330}
           - {fileID: 1214609753}
@@ -390,7 +395,7 @@ MonoBehaviour:
           - {fileID: 963140770}
           - {fileID: 1848595418}
           - {fileID: 774803274}
-        <Index>k__BackingField: 7
+        <Index>k__BackingField: 8
         sceneName: NovelScene
         fadeTime: 0.5
 --- !u!114 &963140770
@@ -418,6 +423,7 @@ MonoBehaviour:
           description: "RPG\u306ENPC\u304C\u3088\u304F\u3084\u308B\u3084\u3064"
           commandDataList:
           - {fileID: 1571157907}
+          - {fileID: 1758943309}
           - {fileID: 589748438}
           - {fileID: 228053330}
           - {fileID: 1214609753}
@@ -425,7 +431,7 @@ MonoBehaviour:
           - {fileID: 963140770}
           - {fileID: 1848595418}
           - {fileID: 774803274}
-        <Index>k__BackingField: 5
+        <Index>k__BackingField: 6
         jumpIndex: 2
         jumpType: 1
 --- !u!1 &963194225
@@ -545,6 +551,7 @@ MonoBehaviour:
           description: "RPG\u306ENPC\u304C\u3088\u304F\u3084\u308B\u3084\u3064"
           commandDataList:
           - {fileID: 1571157907}
+          - {fileID: 1758943309}
           - {fileID: 589748438}
           - {fileID: 228053330}
           - {fileID: 1214609753}
@@ -552,7 +559,7 @@ MonoBehaviour:
           - {fileID: 963140770}
           - {fileID: 1848595418}
           - {fileID: 774803274}
-        <Index>k__BackingField: 3
+        <Index>k__BackingField: 4
         character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
         changeSprite: {fileID: 21300000, guid: 2cac55ee056facd45994581fb90084cf, type: 3}
         storyText: "\u3082\u3046\u4E00\u5EA6\u5C0B\u306D\u307E\u3059\n\u3042\u306A\u305F\u304C\u9B54\u738B\u3092\u5012\u3057\u3066\u304F\u3060\u3055\u308B\u306E\u3067\u3059\u304B\uFF1F"
@@ -779,6 +786,7 @@ MonoBehaviour:
           description: "RPG\u306ENPC\u304C\u3088\u304F\u3084\u308B\u3084\u3064"
           commandDataList:
           - {fileID: 1571157907}
+          - {fileID: 1758943309}
           - {fileID: 589748438}
           - {fileID: 228053330}
           - {fileID: 1214609753}
@@ -789,11 +797,50 @@ MonoBehaviour:
         <Index>k__BackingField: 0
         character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
         actionType: 0
-        portraitSprite: {fileID: 21300000, guid: 162e8f67bd2b1e742a97c68a93ba3fff, type: 3}
+        portraitSprite: {fileID: 21300000, guid: 855f9004ee0d1af44a9142b63035d451, type: 3}
         positionType: 0
         overridePos: {x: 0, y: 0}
         fadeTime: 0
         isAwait: 1
+--- !u!114 &1758943309
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4399fbfc898731a4f96fd937ce84eeff, type: 3}
+  m_Name: (Clone)
+  m_EditorClassIdentifier: 
+  <Enabled>k__BackingField: 1
+  command:
+    rid: 6983526772994736129
+  references:
+    version: 2
+    RefIds:
+    - rid: 6983526772994736129
+      type: {class: SayCommand, ns: Novel.Command, asm: Assembly-CSharp}
+      data:
+        <ParentFlowchart>k__BackingField:
+          description: "RPG\u306ENPC\u304C\u3088\u304F\u3084\u308B\u3084\u3064"
+          commandDataList:
+          - {fileID: 1571157907}
+          - {fileID: 1758943309}
+          - {fileID: 589748438}
+          - {fileID: 228053330}
+          - {fileID: 1214609753}
+          - {fileID: 398368274}
+          - {fileID: 963140770}
+          - {fileID: 1848595418}
+          - {fileID: 774803274}
+        <Index>k__BackingField: 1
+        character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
+        changeSprite: {fileID: 0}
+        storyText: "\u30C6\u30B9\u30C8\u3067\u3059"
+        boxShowTime: 0
+        flagKeys: []
 --- !u!114 &1848595418
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -819,6 +866,7 @@ MonoBehaviour:
           description: "RPG\u306ENPC\u304C\u3088\u304F\u3084\u308B\u3084\u3064"
           commandDataList:
           - {fileID: 1571157907}
+          - {fileID: 1758943309}
           - {fileID: 589748438}
           - {fileID: 228053330}
           - {fileID: 1214609753}
@@ -826,10 +874,10 @@ MonoBehaviour:
           - {fileID: 963140770}
           - {fileID: 1848595418}
           - {fileID: 774803274}
-        <Index>k__BackingField: 6
+        <Index>k__BackingField: 7
         character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
         changeSprite: {fileID: 21300000, guid: 217884d24e46f54418eb8fbf3008481d, type: 3}
-        storyText: "\u3042\u308A\u304C\u3068\u3046\u3054\u3056\u3044\u307E\u3059\uFF01\uFF01\uFF01"
+        storyText: "\u3042\u308A\u304C\u3068\u3046\u3054\u3056\u3044\u307E\u3059\uFF01\uFF01\uFF01\n\u6A2A\u9808\u8CC0\uFF01\uFF01\uFF01"
         boxShowTime: 0
         flagKeys: []
 --- !u!1 &2061781012

@@ -31,6 +31,6 @@ MonoBehaviour:
         <Index>k__BackingField: 3
         character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
         changeSprite: {fileID: 0}
-        storyText: "\u3044"
+        storyText: "\u3046"
         boxShowTime: 0
         flagKeys: []

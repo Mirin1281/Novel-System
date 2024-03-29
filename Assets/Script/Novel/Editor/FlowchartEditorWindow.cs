@@ -17,10 +17,11 @@ namespace Novel
             Data,
         }
 
+        ActiveMode activeMode;
+
         Flowchart activeFlowchart;
         FlowchartData activeFlowchartData;
-        FlowchartExecutor activeFlowchartExecutor;
-        ActiveMode activeMode;
+        GameObject executorObj;
 
         [SerializeField] List<CommandData> commandList = new();
         ReorderableList reorderableList;
@@ -36,6 +37,17 @@ namespace Novel
             reorderableList = CreateReorderableList();
         }
 
+        // シーン終了時にそのままコマンド選択をすると表示されない問題の解決
+        void OnFocus()
+        {
+            if (activeMode == ActiveMode.Executor && executorObj != null)
+            {
+                var flowchartExecutor = executorObj.GetComponent<FlowchartExecutor>();
+                activeFlowchart = flowchartExecutor.Flowchart;
+                commandList = activeFlowchart.GetCommandDataList();
+            }
+        }
+
         void OnSelectionChange()
         {
             if (Selection.activeGameObject != null)
@@ -44,8 +56,8 @@ namespace Novel
                 if (flowchartExecutor != null)
                 {
                     activeMode = ActiveMode.Executor;
-                    activeFlowchartExecutor = flowchartExecutor;
-                    activeFlowchart = activeFlowchartExecutor.Flowchart;
+                    executorObj = flowchartExecutor.gameObject;
+                    activeFlowchart = flowchartExecutor.Flowchart;
                     commandList = activeFlowchart.GetCommandDataList();
                 }
             }
@@ -101,6 +113,8 @@ namespace Novel
         void UpdateCommandList()
         {
             if (activeFlowchart == null) return;
+
+            commandList = activeFlowchart.GetCommandDataList();
 
             var e = Event.current;
             if (e.type == EventType.KeyDown && e.control)
@@ -243,10 +257,6 @@ namespace Novel
             void OnSelect(ReorderableList list)
             {
                 selectedCommand = commandList[list.index];
-                if(selectedCommand == null)
-                {
-                    Debug.LogWarning("フローチャートを選択してください");
-                }
             }
 
             void OnDrawElement(Rect rect, int index, bool isActive, bool isFocused)
