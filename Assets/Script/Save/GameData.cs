@@ -1,5 +1,6 @@
 using Newtonsoft.Json;
 using System.Collections.Generic;
+using Novel;
 
 [JsonObject]
 public class GameData
@@ -12,4 +13,7 @@ public class GameData
 
     [JsonProperty("フラグリスト")]
     public Dictionary<string, object> FlagDictionary { get; set; } = new();
+
+    [JsonProperty("ログ")]
+    public List<(string, string)> LogList { get; set; } = new();
 }

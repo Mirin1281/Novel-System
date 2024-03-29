@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using System.Threading;
+using UnityEngine.SceneManagement;
 
 namespace Novel
 {
@@ -9,6 +10,15 @@ namespace Novel
     {
         [SerializeField] MenuButton buttonPrefab;
         List<MenuButton> createButtons = new();
+
+        void Awake()
+        {
+            SceneManager.activeSceneChanged += (_, __) => AllClearFadeAsync(0).Forget();
+        }
+        void OnDestroy()
+        {
+            SceneManager.activeSceneChanged -= (_, __) => AllClearFadeAsync(0).Forget();
+        }
 
         public IReadOnlyList<MenuButton> CreateShowButtons(params string[] texts)
         {

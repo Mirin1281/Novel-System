@@ -15,7 +15,7 @@ namespace Novel
 
         public static void SetFlagValue<T>(FlagKeyDataBase<T> flagKey, T value)
         {
-            flagDictionary[flagKey.name] = value;
+            flagDictionary[flagKey.GetName()] = value;
         }
 
         /// <summary>
@@ -23,12 +23,12 @@ namespace Novel
         /// </summary>
         public static (bool, T) GetFlagValue<T>(FlagKeyDataBase<T> flagKey)
         {
-            if (flagDictionary.ContainsKey(flagKey.name) == false)
+            if (flagDictionary.ContainsKey(flagKey.GetName()) == false)
             {
-                Debug.LogWarning($"{flagKey.name}が辞書に含まれてませんでした");
+                Debug.LogWarning($"{flagKey.GetName()}が辞書に含まれてませんでした");
                 return (false, default);
             }
-            return (true, (T)flagDictionary[flagKey.name]);
+            return (true, (T)flagDictionary[flagKey.GetName()]);
         }
 
         /// <summary>

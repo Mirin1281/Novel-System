@@ -19,6 +19,7 @@ namespace Novel
 
         Flowchart activeFlowchart;
         FlowchartData activeFlowchartData;
+        FlowchartExecutor activeFlowchartExecutor;
         ActiveMode activeMode;
 
         [SerializeField] List<CommandData> commandList = new();
@@ -28,6 +29,7 @@ namespace Novel
 
         Vector2 listScrollPos;
         Vector2 commandScrollPos;
+
 
         void OnEnable()
         {
@@ -42,7 +44,8 @@ namespace Novel
                 if (flowchartExecutor != null)
                 {
                     activeMode = ActiveMode.Executor;
-                    activeFlowchart = flowchartExecutor.Flowchart;
+                    activeFlowchartExecutor = flowchartExecutor;
+                    activeFlowchart = activeFlowchartExecutor.Flowchart;
                     commandList = activeFlowchart.GetCommandDataList();
                 }
             }
@@ -75,20 +78,23 @@ namespace Novel
 
             if (EditorGUI.EndChangeCheck())
             {
-                activeFlowchart.SetCommandDataList(commandList);
+                RefreshFlowchart();
+            }
+        }
 
-                for (int i = 0; i < commandList.Count; i++)
-                {
-                    var cmd = commandList[i].GetCommandBase();
-                    if (cmd == null) continue;
-                    cmd.SetFlowchart(activeFlowchart);
-                    cmd.SetIndex(i);
-                }
-
-                if (activeMode == ActiveMode.Data)
-                {
-                    EditorUtility.SetDirty(activeFlowchartData);
-                }
+        void RefreshFlowchart()
+        {
+            activeFlowchart.SetCommandDataList(commandList);
+            for (int i = 0; i < commandList.Count; i++)
+            {
+                var cmd = commandList[i].GetCommandBase();
+                if (cmd == null) continue;
+                cmd.SetFlowchart(activeFlowchart);
+                cmd.SetIndex(i);
+            }
+            if (activeMode == ActiveMode.Data)
+            {
+                EditorUtility.SetDirty(activeFlowchartData);
             }
         }
 
@@ -167,6 +173,8 @@ namespace Novel
                 commandList.Insert(currentIndex + 1, createCommand);
                 selectedCommand = createCommand;
                 reorderableList.Select(currentIndex + 1);
+
+                RefreshFlowchart();
             }
         }
 
@@ -195,7 +203,7 @@ namespace Novel
                 CommandData newCommandData = activeMode switch
                 {
                     ActiveMode.Executor => CreateInstance<CommandData>(),
-                    ActiveMode.Data => CreateCommandData(NameContainer.COMMANDDATA_PATH, activeFlowchartData.name),
+                    ActiveMode.Data => CreateCommandData(NameContainer.COMMANDDATA_PATH, $"CommandData_{activeFlowchartData.name}"),
                     _ => throw new Exception()
                 };
                 int insertIndex = list.index + 1;
@@ -214,11 +222,7 @@ namespace Novel
                 commandList.Remove(selectedCommand);
                 if (activeMode == ActiveMode.Data)
                 {
-                    var deleteName = selectedCommand.name;
-                    DestroyImmediate(selectedCommand, true);
-                    File.Delete($"{NameContainer.COMMANDDATA_PATH}/{deleteName}.asset");
-                    File.Delete($"{NameContainer.COMMANDDATA_PATH}/{deleteName}.asset.meta");
-                    AssetDatabase.Refresh(ImportAssetOptions.ForceUpdate);
+                    FlowchartEditorUtility.DestroyScritableObject(selectedCommand);
                 }
 
                 int removeIndex = list.index;
@@ -239,6 +243,10 @@ namespace Novel
             void OnSelect(ReorderableList list)
             {
                 selectedCommand = commandList[list.index];
+                if(selectedCommand == null)
+                {
+                    Debug.LogWarning("フローチャートを選択してください");
+                }
             }
 
             void OnDrawElement(Rect rect, int index, bool isActive, bool isFocused)
@@ -252,8 +260,7 @@ namespace Novel
                 var cmdStatus = commandList[index].GetCommandStatus();
                 EditorGUI.LabelField(rect, cmdStatus.Name, style);
                 EditorGUI.LabelField(new Rect(
-                    rect.x + 75, rect.y,
-                    rect.width, rect.height),
+                    rect.x + 75, rect.y, rect.width, rect.height),
                     $"<size=10>{cmdStatus.Summary}</size>", style);
 
                 GUI.color = tmpColor;
@@ -289,13 +296,13 @@ namespace Novel
             }
         }
 
-        CommandData CreateCommandData(string path, string parentDataName)
+        CommandData CreateCommandData(string path, string baseName)
         {
             if (!Directory.Exists(path))
             {
                 Directory.CreateDirectory(path);
             }
-            var name = FlowchartEditorUtility.GetFileName(path, $"CommandData_{parentDataName}");
+            var name = FlowchartEditorUtility.GetFileName(path, baseName);
             var cmdData = CreateInstance<CommandData>();
             AssetDatabase.CreateAsset(cmdData, Path.Combine(path, name));
             AssetDatabase.ImportAsset(path, ImportAssetOptions.ForceUpdate);

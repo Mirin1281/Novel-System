@@ -12,7 +12,6 @@ namespace Novel
         [SerializeField] Image boxImage;
         [SerializeField] Writer writer;
         [SerializeField] MsgBoxInput input;
-        [SerializeField] AudioClip nextSE;
 
         public BoxType Type => type;
         public Writer Writer => writer; 

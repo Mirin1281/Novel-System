@@ -57,7 +57,14 @@ namespace Novel.Command
             if (index < 0 || index >= cmdDataList.Count || index == Index) return WarningColorText();
             var cmd = cmdDataList[index].GetCommandBase();
             if(cmd == null || cmdDataList[index].Enabled == false) return WarningColorText();
-            return $"<color=#000080>→ [ {GetName(cmd)} ]</color>";
+            if(Index < index)
+            {
+                return $"<color=#000080>▽ [ {GetName(cmd)} ] ▽</color>";
+            }
+            else
+            {
+                return $"<color=#000080>△ [ {GetName(cmd)} ] △</color>";
+            }
         }
     }
 }

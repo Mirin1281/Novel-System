@@ -70,6 +70,7 @@ namespace Novel
             base.Awake();
             InitCheck();
             SceneManager.activeSceneChanged += OnSceneChanged;
+            OnSceneChanged(); // 一番最初は2回分呼ばれるので注意
         }
 
         void InitCheck()
@@ -96,7 +97,7 @@ namespace Novel
             for (int i = 0; i < transform.childCount; i++)
             {
                 var child = transform.GetChild(i);
-                Destroy(child.gameObject);
+                DestroyImmediate(child.gameObject);
             }
 
             var existBoxes = FindObjectsByType<MessageBox>(

@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f15bcf803c19e8d4f845c5256c8f87d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  createOnSceneChanged: 0
+  createOnSceneChanged: 1
   linkedBoxList:
   - <Type>k__BackingField: 0
     <Prefab>k__BackingField: {fileID: 0}

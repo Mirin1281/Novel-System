@@ -41,7 +41,7 @@ namespace Novel
             var time = 0f;
             while (time <= interval)
             {
-                fadeImage.color = Color.Lerp(Color.clear, fadeColor ?? Color.black, time);
+                fadeImage.color = Color.Lerp(Color.clear, fadeColor ?? Color.black, time / interval);
                 time += Time.deltaTime;
                 await UniTask.Yield();
             }
@@ -53,7 +53,7 @@ namespace Novel
             var time = 0f;
             while (time <= interval)
             {
-                fadeImage.color = Color.Lerp(fadeColor ?? Color.black, Color.clear, time);
+                fadeImage.color = Color.Lerp(fadeColor ?? Color.black, Color.clear, time / interval);
                 time += Time.deltaTime;
                 await UniTask.Yield();
             }

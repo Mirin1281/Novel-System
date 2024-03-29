@@ -515,7 +515,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 10
+  m_SortingOrder: -5
   m_TargetDisplay: 0
 --- !u!114 &5912829179644139120
 MonoBehaviour:
@@ -586,7 +586,6 @@ MonoBehaviour:
   boxImage: {fileID: 6945061703859445924}
   writer: {fileID: 4396099477878180525}
   input: {fileID: 4580097606251552107}
-  nextSE: {fileID: 0}
 --- !u!114 &4396099477878180525
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -614,3 +613,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e3318d8059d3f74394ed9af094e774e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inputSE: {fileID: 8300000, guid: 522992e0a4764cf48970a69ee6850a79, type: 3}

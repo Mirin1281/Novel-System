@@ -61,7 +61,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 20
+  m_SortingOrder: -1
   m_TargetDisplay: 0
 --- !u!114 &6265759614882042962
 MonoBehaviour:
@@ -116,6 +116,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buttonCreator: {fileID: 5360255290086442875}
+  selectSE: {fileID: 8300000, guid: 522992e0a4764cf48970a69ee6850a79, type: 3}
 --- !u!1 &987948544389264415
 GameObject:
   m_ObjectHideFlags: 0

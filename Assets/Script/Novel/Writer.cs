@@ -30,20 +30,8 @@ using TagType = TagUtility.TagType;
             SetName(character);
             var (convertedText, tagDataArray) = TagUtility.ExtractTag(fullText);
             await WriteStoryTextAsync(convertedText, tagDataArray, null, token);
+            SayLogger.AddLog(character, convertedText);
 
-
-            void SetName(CharacterData character)
-            {
-                if (character != null)
-                {
-                    nameTmpro.color = character.NameColor;
-                    nameTmpro.SetText(character.CharacterName);
-                }
-                else
-                {
-                    nameTmpro.SetText(string.Empty);
-                }
-            }
 
             async UniTask WriteStoryTextAsync(
                 string text, TagUtility.TagData[] tagDataArray = null, float? timePerCharas = null, CancellationToken token = default)
@@ -148,10 +136,30 @@ using TagType = TagUtility.TagType;
             }
         }
 
+        public void SetName(CharacterData character)
+        {
+            if (character != null)
+            {
+                nameTmpro.color = character.NameColor;
+                nameTmpro.SetText(character.CharacterName);
+            }
+            else
+            {
+                nameTmpro.SetText(string.Empty);
+            }
+        }
+
         public void SkipTextIfValid()
         {
             timePer100Charas = 0;
             isSkipped = true;
+        }
+
+        public void PreviewText(CharacterData character, string text)
+        {
+            var convertedText = TagUtility.ExtractTag(text).convertedText;
+            storyTmpro.SetText(convertedText);
+            SetName(character);
         }
 
         void OnDestroy()

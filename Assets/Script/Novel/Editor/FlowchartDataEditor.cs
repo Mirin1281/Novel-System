@@ -76,37 +76,29 @@ namespace Novel
                 var flowchartData = target as FlowchartData;
                 foreach (var cmdData in flowchartData.Flowchart.GetCommandDataList())
                 {
-                    DestroyScritableObject(cmdData);
+                    FlowchartEditorUtility.DestroyScritableObject(cmdData);
                 }
-                DestroyScritableObject(flowchartData);
+                FlowchartEditorUtility.DestroyScritableObject(flowchartData);
+                AssetDatabase.Refresh(ImportAssetOptions.ForceUpdate);
             }
 
             if (GUILayout.Button("ñ¢égópÇÃCommandDataÇçÌèúÇ∑ÇÈ"))
             {
-                var cmdDatas = GetAllScriptableObjects<CommandData>();
-                var flowchartDatas = GetAllScriptableObjects<FlowchartData>();
+                var cmdDatas = FlowchartEditorUtility.GetAllScriptableObjects<CommandData>();
+                var flowchartDatas = FlowchartEditorUtility.GetAllScriptableObjects<FlowchartData>();
 
                 foreach (var cmdData in cmdDatas)
                 {
                     if (IsUsed(cmdData, flowchartDatas) == false)
                     {
-                        DestroyScritableObject(cmdData);
+                        FlowchartEditorUtility.DestroyScritableObject(cmdData);
                     }
                 }
+                AssetDatabase.Refresh(ImportAssetOptions.ForceUpdate);
             }
 
             EditorGUILayout.EndHorizontal();
-        }
-
-        void DestroyScritableObject(ScriptableObject obj)
-        {
-            var path = FlowchartEditorUtility.GetExistFolderPath(obj);
-            var deleteCmdName = obj.name;
-            DestroyImmediate(obj, true);
-            File.Delete($"{path}/{deleteCmdName}.asset");
-            File.Delete($"{path}/{deleteCmdName}.asset.meta");
-            AssetDatabase.Refresh(ImportAssetOptions.ForceUpdate);
-        }
+        }        
 
         bool IsUsed(CommandData targetData, FlowchartData[] flowchartDatas)
         {
@@ -115,13 +107,6 @@ namespace Novel
                 if (flowchartData.IsUsed(targetData)) return true;
             }
             return false;
-        }
-
-        T[] GetAllScriptableObjects<T>() where T : ScriptableObject
-        {
-            var guids = AssetDatabase.FindAssets($"t:{typeof(T).Name}");
-            var assetPaths = guids.Select(AssetDatabase.GUIDToAssetPath).ToArray();
-            return assetPaths.Select(AssetDatabase.LoadAssetAtPath<T>).ToArray();
         }
     }
 }

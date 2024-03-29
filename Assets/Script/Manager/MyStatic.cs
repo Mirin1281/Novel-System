@@ -28,7 +28,7 @@ public static class MyStatic
     public const float DefaultFadeTime = 0.3f;
 
     static CancellationTokenSource cts;
-    static CancellationToken tokenOnSceneChange;
+    public static CancellationToken TokenOnSceneChange;
 
 
     public static void Init()
@@ -40,7 +40,7 @@ public static class MyStatic
     {
         cts?.Cancel();
         cts = new();
-        tokenOnSceneChange = cts.Token;
+        TokenOnSceneChange = cts.Token;
     }
 
 
@@ -49,7 +49,7 @@ public static class MyStatic
         if(waitTime > 0)
         {
             return UniTask.Delay(TimeSpan.FromSeconds(waitTime),
-                cancellationToken: token == default ? tokenOnSceneChange : token);
+                cancellationToken: token == default ? TokenOnSceneChange : token);
         }
         else
         {
@@ -58,10 +58,10 @@ public static class MyStatic
     }
 
     public static UniTask Yield(CancellationToken token)
-        => UniTask.Yield(token == default ? tokenOnSceneChange : token);
+        => UniTask.Yield(token == default ? TokenOnSceneChange : token);
 
     public static UniTask WaitFrame(int frame, CancellationToken token)
-        => UniTask.DelayFrame(frame, cancellationToken: token == default ? tokenOnSceneChange : token);
+        => UniTask.DelayFrame(frame, cancellationToken: token == default ? TokenOnSceneChange : token);
 
 
     /// <summary>

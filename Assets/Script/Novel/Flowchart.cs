@@ -66,6 +66,8 @@ namespace Novel
                 if (callStatus == null)
                 {
                     cts = new CancellationTokenSource();
+                    cts = CancellationTokenSource.CreateLinkedTokenSource(
+                            MyStatic.TokenOnSceneChange, cts.Token);
                     return new FlowchartCallStatus(cts.Token, cts, false);
                 }
                 else
@@ -74,7 +76,7 @@ namespace Novel
                     return callStatus;
                 }
             }
-        }        
+        }
 
         /// <summary>
         /// コマンドリストの切れ目でフローチャートを停止します
@@ -83,7 +85,7 @@ namespace Novel
         {
             if (stopType == FlowchartStopType.All)
             {
-                cts.Cancel();
+                cts?.Cancel();
             }
             else if (stopType == FlowchartStopType.Single)
             {

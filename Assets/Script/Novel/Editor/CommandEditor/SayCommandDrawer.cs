@@ -73,6 +73,35 @@ namespace Novel.Command
             var flagKeysProp = property.FindPropertyRelative("flagKeys");
             EditorGUILayout.PropertyField(flagKeysProp, new GUIContent("FlagKeys"));
 
+            GUILayout.Space(10);
+
+            if (GUILayout.Button("テキストをプレビュー", GUILayout.Height(30)))
+            {
+                var text = storyTextProp.stringValue;
+                var boxes = GameObject.FindObjectsByType<MessageBox>(FindObjectsInactive.Exclude, FindObjectsSortMode.None);
+                if(boxes == null || boxes.Length == 0)
+                {
+                    Debug.LogWarning("メッセージボックスがありません！");
+                }
+                else
+                {
+                    bool isMatch = false;
+                    foreach (var box in boxes)
+                    {
+                        if (box.Type == chara.BoxType)
+                        {
+                            box.Writer.PreviewText(chara, text);
+                            isMatch = true;
+                        }
+                    }
+                    if(isMatch == false)
+                    {
+                        Debug.LogWarning("ボックスとキャラクタのタイプが合いませんでした");
+                        boxes[0].Writer.PreviewText(chara, text);
+                    }
+                }
+            }
+
             EditorGUILayout.EndVertical();
         }
     }
