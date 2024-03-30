@@ -8,7 +8,8 @@ using System.Collections.Generic;
 
 namespace Novel
 {
-using TagType = TagUtility.TagType;
+    using TagType = TagUtility.TagType;
+    using TagData = TagUtility.TagData;
 
     public class Writer : MonoBehaviour
     {
@@ -26,46 +27,58 @@ using TagType = TagUtility.TagType;
             input.OnInputed += SkipTextIfValid;
         }
 
+        void OnDestroy()
+        {
+            input.OnInputed -= SkipTextIfValid;
+        }
+
         public async UniTask WriteAsync(
             CharacterData character, string fullText, CancellationToken token)
         {
             SetName(character);
             var (richText, tagDataList) = TagUtility.ExtractMyTag(fullText);
-            tagDataList.ToList().ForEach(data => data.ShowTagStatus());
             await WriteStoryTextAsync(richText, tagDataList, null, token);
             SayLogger.AddLog(character, richText);
 
 
             async UniTask WriteStoryTextAsync(
-                string richText, List<TagUtility.TagData> tagDataList = null, float? timePerCharas = null, CancellationToken token = default)
+                string richText, List<TagData> tagDataList = null, float? timePerCharas = null, CancellationToken token = default)
             {
                 storyTmpro.SetUneditedText(richText);
                 timePer100Charas = timePerCharas ?? defaultSpeed;
+                token = token == default ? destroyCancellationToken : token;
+
                 int tagNumber = 0;
                 int insertIndex = -1;
                 if (tagDataList != null && tagDataList.Count != 0)
                 {
-                    insertIndex = tagDataList[tagNumber].IndexIgnoreAllTag;
+                    insertIndex = tagDataList[0].IndexIgnoreAllTag;
                 }
+
                 int i = 0;
                 while(i <= richText.Length)
                 {
                     storyTmpro.maxVisibleCharacters = i;
+
                     if (i == insertIndex)
                     {
-                        insertIndex = await ApplyTag(tagNumber, insertIndex);
-                        tagNumber++;
+                        int beforeIndex = insertIndex;
+                        while (beforeIndex == insertIndex)
+                        {
+                            insertIndex = await ApplyTag(tagNumber, insertIndex);
+                            tagNumber++;
+                        }
                     }
-                    await MyStatic.WaitSeconds(timePer100Charas / 100f,
-                        token == default ? destroyCancellationToken : token);
+                    await MyStatic.WaitSeconds(timePer100Charas / 100f, token);
                     i++;
                 }
+
 
                 async UniTask<int> ApplyTag(int num, int index)
                 {
                     var value = tagDataList[num].Value;
                     var type = tagDataList[num].TagType;
-                    if(type == TagType.None)
+                    if (type == TagType.None)
                     {
 
                     }
@@ -100,7 +113,14 @@ using TagType = TagUtility.TagType;
                         storyTmpro.maxVisibleCharacters = 0;
                         foreach(var tagData in tagDataList)
                         {
-                            tagData.IndexIgnoreMyTag -= index;
+                            tagData.IndexIgnoreAllTag -= index;
+                        }
+                    }
+                    else if (type == TagType.RubyStart)
+                    {
+                        foreach (var tagData in tagDataList)
+                        {
+                            tagData.IndexIgnoreAllTag -= 4;
                         }
                     }
                     else
@@ -111,9 +131,9 @@ using TagType = TagUtility.TagType;
                     // 次のタグがあればそこのインデックスを返す
                     if (num + 1 < tagDataList.Count)
                     {
-                        index = tagDataList[num + 1].IndexIgnoreAllTag;
+                        return tagDataList[num + 1].IndexIgnoreAllTag;
                     }
-                    return index;
+                    return -1;
                 }
 
 
@@ -123,7 +143,7 @@ using TagType = TagUtility.TagType;
                     while (t < time && isSkipped == false)
                     {
                         t += Time.deltaTime;
-                        await MyStatic.Yield(destroyCancellationToken);
+                        await MyStatic.Yield(token);
                     }
                 }
 
@@ -134,7 +154,7 @@ using TagType = TagUtility.TagType;
                         timePer100Charas = defaultSpeed;
                         isSkipped = false;
                     },
-                    destroyCancellationToken);
+                    token);
                 }
             }
         }
@@ -158,16 +178,14 @@ using TagType = TagUtility.TagType;
             isSkipped = true;
         }
 
+        /// <summary>
+        /// エディタ用
+        /// </summary>
         public void PreviewText(CharacterData character, string text)
         {
             var convertedText = TagUtility.ExtractMyTag(text).convertedText;
             storyTmpro.SetUneditedText(convertedText);
             SetName(character);
-        }
-
-        void OnDestroy()
-        {
-            input.OnInputed -= SkipTextIfValid;
         }
     }
 }

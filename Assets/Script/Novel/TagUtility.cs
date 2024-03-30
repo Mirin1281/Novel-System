@@ -21,13 +21,14 @@ namespace Novel
             WaitSeconds,
             WaitInput,
             WaitInputClear,
+            RubyStart,
         }
 
         public class TagData
         {
             public TagType TagType; // タグの種類
             public float Value; // タグの値(ない場合もある)
-            public int IndexIgnoreMyTag; // 独自のタグを無視した時のタグの位置(語彙力)
+            public readonly int IndexIgnoreMyTag; // 独自のタグを無視した時のタグの位置(語彙力)
             public int IndexIgnoreAllTag; // リッチテキストを含む全てのタグを無視した時のタグの位置
 
             public TagData(TagType tagType, float value, int indexIgnoreMyTag, int indexIgnoreAllTag)
@@ -40,7 +41,7 @@ namespace Novel
 
             public void ShowTagStatus()
             {
-                Debug.Log($"type: {TagType}, mIndex: {IndexIgnoreMyTag}");
+                Debug.Log($"type: {TagType}, allIndex: {IndexIgnoreAllTag}");
             }
         }
 
@@ -66,8 +67,9 @@ namespace Novel
 
                 if (tagType != TagType.None)
                 {
-                    text = text.Replace(match.Value, string.Empty);
                     tagDataList.Add(new TagData(tagType, value, match.Index - myTagsLength, match.Index - allTagsLength));
+                    if (tagType == TagType.RubyStart) continue;
+                    text = text.Replace(match.Value, string.Empty);
                     myTagsLength += tag.Length;
                 }
                 allTagsLength += tag.Length;
@@ -103,6 +105,11 @@ namespace Novel
                 else if (content == "wic")
                 {
                     tagType = TagType.WaitInputClear;
+                }
+                else if (content.StartsWith("r=", StringComparison.Ordinal))
+                {
+                    tagType = TagType.RubyStart;
+                    value = content.Replace("r=", string.Empty).Length;
                 }
                 return (tagType, value);
             }
