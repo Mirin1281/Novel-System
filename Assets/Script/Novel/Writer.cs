@@ -37,6 +37,7 @@ namespace Novel
         {
             SetName(character);
             var (richText, tagDataList) = TagUtility.ExtractMyTag(fullText);
+            isSkipped = false;
             await WriteStoryTextAsync(richText, tagDataList, null, token);
             SayLogger.AddLog(character, richText);
 
@@ -45,18 +46,21 @@ namespace Novel
                 string richText, List<TagData> tagDataList = null, float? timePerCharas = null, CancellationToken token = default)
             {
                 storyTmpro.SetUneditedText(richText);
+                storyTmpro.ForceMeshUpdate();
+                var planeText = storyTmpro.GetParsedText();
+
                 timePer100Charas = timePerCharas ?? defaultSpeed;
                 token = token == default ? destroyCancellationToken : token;
 
-                int tagNumber = 0;
                 int insertIndex = -1;
                 if (tagDataList != null && tagDataList.Count != 0)
                 {
                     insertIndex = tagDataList[0].IndexIgnoreAllTag;
                 }
+                int tagNumber = 0;
 
                 int i = 0;
-                while(i <= richText.Length)
+                while(i <= planeText.Length)
                 {
                     storyTmpro.maxVisibleCharacters = i;
 
@@ -65,8 +69,16 @@ namespace Novel
                         int beforeIndex = insertIndex;
                         while (beforeIndex == insertIndex)
                         {
-                            insertIndex = await ApplyTag(tagNumber, insertIndex);
+                            await ApplyTag(tagDataList[tagNumber]);
                             tagNumber++;
+                            if(tagNumber < tagDataList.Count)
+                            {
+                                insertIndex = tagDataList[tagNumber].IndexIgnoreAllTag;
+                            }
+                            else
+                            {
+                                insertIndex = -1;
+                            }
                         }
                     }
                     await MyStatic.WaitSeconds(timePer100Charas / 100f, token);
@@ -74,10 +86,9 @@ namespace Novel
                 }
 
 
-                async UniTask<int> ApplyTag(int num, int index)
+                async UniTask ApplyTag(TagData tag)
                 {
-                    var value = tagDataList[num].Value;
-                    var type = tagDataList[num].TagType;
+                    var type = tag.TagType;
                     if (type == TagType.None)
                     {
 
@@ -86,7 +97,7 @@ namespace Novel
                     {
                         if (isSkipped == false)
                         {
-                            timePer100Charas /= value;
+                            timePer100Charas /= tag.Value;
                         }
                     }
                     else if (type == TagType.SpeedEnd)
@@ -98,7 +109,7 @@ namespace Novel
                     }
                     else if (type == TagType.WaitSeconds)
                     {
-                        await WaitSecondsSkippable(value);
+                        await WaitSecondsSkippable(tag.Value);
                     }
                     else if (type == TagType.WaitInput)
                     {
@@ -107,13 +118,15 @@ namespace Novel
                     else if (type == TagType.WaitInputClear)
                     {
                         await WaitInput();
-                        richText = richText.Remove(0, tagDataList[num].IndexIgnoreMyTag);
+                        richText = richText.Remove(0, tag.IndexIgnoreMyTag);
                         storyTmpro.SetUneditedText(richText);
+                        storyTmpro.ForceMeshUpdate();
+                        planeText = storyTmpro.GetParsedText();
                         i = 0;
                         storyTmpro.maxVisibleCharacters = 0;
                         foreach(var tagData in tagDataList)
                         {
-                            tagData.IndexIgnoreAllTag -= index;
+                            tagData.IndexIgnoreAllTag -= tag.IndexIgnoreAllTag;
                         }
                     }
                     else if (type == TagType.RubyStart)
@@ -127,13 +140,6 @@ namespace Novel
                     {
                         throw new Exception();
                     }
-
-                    // 次のタグがあればそこのインデックスを返す
-                    if (num + 1 < tagDataList.Count)
-                    {
-                        return tagDataList[num + 1].IndexIgnoreAllTag;
-                    }
-                    return -1;
                 }
 
 

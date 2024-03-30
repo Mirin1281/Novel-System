@@ -153,8 +153,9 @@ MonoBehaviour:
           - {fileID: 303718605}
           - {fileID: 169343970}
           - {fileID: 8249579}
-          - {fileID: 1783640916}
           - {fileID: 731471653}
+          - {fileID: 1783640916}
+          - {fileID: 475675669}
           - {fileID: 1036543119}
           - {fileID: 393522200}
           - {fileID: 1752266439}
@@ -194,8 +195,9 @@ MonoBehaviour:
           - {fileID: 303718605}
           - {fileID: 169343970}
           - {fileID: 8249579}
-          - {fileID: 1783640916}
           - {fileID: 731471653}
+          - {fileID: 1783640916}
+          - {fileID: 475675669}
           - {fileID: 1036543119}
           - {fileID: 393522200}
           - {fileID: 1752266439}
@@ -235,8 +237,9 @@ MonoBehaviour:
           - {fileID: 303718605}
           - {fileID: 169343970}
           - {fileID: 8249579}
-          - {fileID: 1783640916}
           - {fileID: 731471653}
+          - {fileID: 1783640916}
+          - {fileID: 475675669}
           - {fileID: 1036543119}
           - {fileID: 393522200}
           - {fileID: 1752266439}
@@ -276,16 +279,59 @@ MonoBehaviour:
           - {fileID: 303718605}
           - {fileID: 169343970}
           - {fileID: 8249579}
-          - {fileID: 1783640916}
           - {fileID: 731471653}
+          - {fileID: 1783640916}
+          - {fileID: 475675669}
           - {fileID: 1036543119}
           - {fileID: 393522200}
           - {fileID: 1752266439}
-        <Index>k__BackingField: 9
+        <Index>k__BackingField: 10
         character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
         changeSprite: {fileID: 0}
         storyText: "\u3053\u3093\u3070\u3093\u3070\u3093\u3070\u3093\u3070\uFF5E\uFF5E\uFF5E\uFF01\uFF01"
         boxShowTime: 0.2
+        flagKeys: []
+--- !u!114 &475675669
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4399fbfc898731a4f96fd937ce84eeff, type: 3}
+  m_Name: (Clone)(Clone)(Clone)(Clone)(Clone)(Clone)
+  m_EditorClassIdentifier: 
+  <Enabled>k__BackingField: 1
+  command:
+    rid: 6983526785575550977
+  references:
+    version: 2
+    RefIds:
+    - rid: 6983526785575550977
+      type: {class: SayCommand, ns: Novel.Command, asm: Assembly-CSharp}
+      data:
+        <ParentFlowchart>k__BackingField:
+          description: "\u8AAC\u660E"
+          commandDataList:
+          - {fileID: 1867056071}
+          - {fileID: 1917366921}
+          - {fileID: 1003915386}
+          - {fileID: 303718605}
+          - {fileID: 169343970}
+          - {fileID: 8249579}
+          - {fileID: 731471653}
+          - {fileID: 1783640916}
+          - {fileID: 475675669}
+          - {fileID: 1036543119}
+          - {fileID: 393522200}
+          - {fileID: 1752266439}
+        <Index>k__BackingField: 8
+        character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
+        changeSprite: {fileID: 21300000, guid: 855f9004ee0d1af44a9142b63035d451, type: 3}
+        storyText: "\u30EB\u30D3\u3001\u30AB\u30E9\u30FC\u3068wi, wic\u306E\u30C6\u30B9\u30C8\u3067\u3059\n<color=red><r=\u308F\u305F\u3057>\u79C1</r></color>\u306F<r=\u307E\u3057\u308D>\u771F\u767D</r>\u30CE\u30D9\u30EB\u3067\u3059\uFF01\n<wi>\u30B7\u30B9\u30BF\u30FC\u3092\u3084\u3063\u3066\u3044\u307E\u3059"
+        boxShowTime: 0
         flagKeys: []
 --- !u!1001 &615500499
 PrefabInstance:
@@ -414,12 +460,13 @@ MonoBehaviour:
           - {fileID: 303718605}
           - {fileID: 169343970}
           - {fileID: 8249579}
-          - {fileID: 1783640916}
           - {fileID: 731471653}
+          - {fileID: 1783640916}
+          - {fileID: 475675669}
           - {fileID: 1036543119}
           - {fileID: 393522200}
           - {fileID: 1752266439}
-        <Index>k__BackingField: 7
+        <Index>k__BackingField: 6
         character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
         changeSprite: {fileID: 21300000, guid: 855f9004ee0d1af44a9142b63035d451, type: 3}
         storyText: "\u30EB\u30D3\u3001\u30AB\u30E9\u30FC\u3068wi, wic, sp\u306E\u30C6\u30B9\u30C8\u3067\u3059\n<sp=0.1><color=red><r=\u308F\u305F\u3057>\u79C1</r></color>\u306F\u771F\u767D</sp>\u30CE\u30D9\u30EB\u3067\u3059\uFF01\n<wic>\u30B7\u30B9\u30BF\u30FC\u3092\u3084\u3063\u3066\u3044\u307E\u3059"
@@ -523,8 +570,9 @@ MonoBehaviour:
           - {fileID: 303718605}
           - {fileID: 169343970}
           - {fileID: 8249579}
-          - {fileID: 1783640916}
           - {fileID: 731471653}
+          - {fileID: 1783640916}
+          - {fileID: 475675669}
           - {fileID: 1036543119}
           - {fileID: 393522200}
           - {fileID: 1752266439}
@@ -564,15 +612,16 @@ MonoBehaviour:
           - {fileID: 303718605}
           - {fileID: 169343970}
           - {fileID: 8249579}
-          - {fileID: 1783640916}
           - {fileID: 731471653}
+          - {fileID: 1783640916}
+          - {fileID: 475675669}
           - {fileID: 1036543119}
           - {fileID: 393522200}
           - {fileID: 1752266439}
-        <Index>k__BackingField: 8
+        <Index>k__BackingField: 9
         character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
         changeSprite: {fileID: 21300000, guid: 855f9004ee0d1af44a9142b63035d451, type: 3}
-        storyText: "<color=red><sp=0.1>\u9752\u773C\u306E\u767D\u9F8D</color>\u306F</sp>\u597D\u304D\u3067\u3059\u304B\uFF1F\n<wic>\u79C1\u306F\u305D\u308C\u307B\u3069\u3067\u3082"
+        storyText: "<color=red><sp=0.1><r=\u30D6\u30EB\u30FC\u30A2\u30A4\u30BA\u30DB\u30EF\u30A4\u30C8\u30C9\u30E9\u30B4\u30F3>\u9752\u773C\u306E\u767D\u9F8D</r></color>\u306F</sp>\u597D\u304D\u3067\u3059\u304B\uFF1F\n<wic>\u79C1\u306F\u305D\u308C\u307B\u3069\u3067\u3082"
         boxShowTime: 0
         flagKeys: []
 --- !u!1 &1167165277
@@ -614,8 +663,9 @@ MonoBehaviour:
     - {fileID: 303718605}
     - {fileID: 169343970}
     - {fileID: 8249579}
-    - {fileID: 1783640916}
     - {fileID: 731471653}
+    - {fileID: 1783640916}
+    - {fileID: 475675669}
     - {fileID: 1036543119}
     - {fileID: 393522200}
     - {fileID: 1752266439}
@@ -664,12 +714,13 @@ MonoBehaviour:
           - {fileID: 303718605}
           - {fileID: 169343970}
           - {fileID: 8249579}
-          - {fileID: 1783640916}
           - {fileID: 731471653}
+          - {fileID: 1783640916}
+          - {fileID: 475675669}
           - {fileID: 1036543119}
           - {fileID: 393522200}
           - {fileID: 1752266439}
-        <Index>k__BackingField: 10
+        <Index>k__BackingField: 11
         character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
         changeSprite: {fileID: 21300000, guid: 855f9004ee0d1af44a9142b63035d451, type: 3}
         storyText: "(\u8FD4\u7B54\u3092\u5F85\u3063\u3066\u3044\u308B)"
@@ -705,12 +756,13 @@ MonoBehaviour:
           - {fileID: 303718605}
           - {fileID: 169343970}
           - {fileID: 8249579}
-          - {fileID: 1783640916}
           - {fileID: 731471653}
+          - {fileID: 1783640916}
+          - {fileID: 475675669}
           - {fileID: 1036543119}
           - {fileID: 393522200}
           - {fileID: 1752266439}
-        <Index>k__BackingField: 6
+        <Index>k__BackingField: 7
         labelName: "\u2191\u30AF\u30EA\u30A2\u6E08\u3000\u2193\u307E\u3060"
 --- !u!114 &1867056071
 MonoBehaviour:
@@ -742,8 +794,9 @@ MonoBehaviour:
           - {fileID: 303718605}
           - {fileID: 169343970}
           - {fileID: 8249579}
-          - {fileID: 1783640916}
           - {fileID: 731471653}
+          - {fileID: 1783640916}
+          - {fileID: 475675669}
           - {fileID: 1036543119}
           - {fileID: 393522200}
           - {fileID: 1752266439}
@@ -785,8 +838,9 @@ MonoBehaviour:
           - {fileID: 303718605}
           - {fileID: 169343970}
           - {fileID: 8249579}
-          - {fileID: 1783640916}
           - {fileID: 731471653}
+          - {fileID: 1783640916}
+          - {fileID: 475675669}
           - {fileID: 1036543119}
           - {fileID: 393522200}
           - {fileID: 1752266439}

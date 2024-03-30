@@ -26,10 +26,18 @@ namespace Novel
 
         public class TagData
         {
-            public TagType TagType; // タグの種類
-            public float Value; // タグの値(ない場合もある)
-            public readonly int IndexIgnoreMyTag; // 独自のタグを無視した時のタグの位置(語彙力)
-            public int IndexIgnoreAllTag; // リッチテキストを含む全てのタグを無視した時のタグの位置
+            public TagType TagType;
+            public float Value;
+
+            /// <summary>
+            /// 独自のタグを無視した時のタグの位置(語彙力)
+            /// </summary>
+            public readonly int IndexIgnoreMyTag;
+
+            /// <summary>
+            /// リッチテキストを含む全てのタグを無視した時のタグの位置
+            /// </summary>
+            public int IndexIgnoreAllTag;
 
             public TagData(TagType tagType, float value, int indexIgnoreMyTag, int indexIgnoreAllTag)
             {
@@ -109,7 +117,6 @@ namespace Novel
                 else if (content.StartsWith("r=", StringComparison.Ordinal))
                 {
                     tagType = TagType.RubyStart;
-                    value = content.Replace("r=", string.Empty).Length;
                 }
                 return (tagType, value);
             }
