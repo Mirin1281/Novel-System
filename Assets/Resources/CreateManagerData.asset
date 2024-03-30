@@ -23,5 +23,5 @@ MonoBehaviour:
     <IsInactiveOnAwake>k__BackingField: 0
   - <ManagerPrefab>k__BackingField: {fileID: 7566127515359389570, guid: f20d6aa72c281c6439c73afaad28cb2a, type: 3}
     <IsInactiveOnAwake>k__BackingField: 0
-  - <ManagerPrefab>k__BackingField: {fileID: 412559883167632820, guid: a1344cb860053464fb63872cebbbd1d4, type: 3}
+  - <ManagerPrefab>k__BackingField: {fileID: 8644177693789249775, guid: a1344cb860053464fb63872cebbbd1d4, type: 3}
     <IsInactiveOnAwake>k__BackingField: 1

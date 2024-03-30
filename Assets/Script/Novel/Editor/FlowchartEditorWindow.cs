@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Text.RegularExpressions;
 using UnityEditor;
 using UnityEditorInternal;
 using UnityEngine;
@@ -21,7 +22,7 @@ namespace Novel
 
         Flowchart activeFlowchart;
         FlowchartData activeFlowchartData;
-        GameObject executorObj;
+        GameObject activeExecutorObj;
 
         [SerializeField] List<CommandData> commandList = new();
         ReorderableList reorderableList;
@@ -37,12 +38,11 @@ namespace Novel
             reorderableList = CreateReorderableList();
         }
 
-        // シーン終了時にそのままコマンド選択をすると表示されない問題の解決
         void OnFocus()
         {
-            if (activeMode == ActiveMode.Executor && executorObj != null)
+            if (activeMode == ActiveMode.Executor && activeExecutorObj != null)
             {
-                var flowchartExecutor = executorObj.GetComponent<FlowchartExecutor>();
+                var flowchartExecutor = activeExecutorObj.GetComponent<FlowchartExecutor>();
                 activeFlowchart = flowchartExecutor.Flowchart;
                 commandList = activeFlowchart.GetCommandDataList();
             }
@@ -56,7 +56,7 @@ namespace Novel
                 if (flowchartExecutor != null)
                 {
                     activeMode = ActiveMode.Executor;
-                    executorObj = flowchartExecutor.gameObject;
+                    activeExecutorObj = flowchartExecutor.gameObject;
                     activeFlowchart = flowchartExecutor.Flowchart;
                     commandList = activeFlowchart.GetCommandDataList();
                 }
@@ -113,8 +113,6 @@ namespace Novel
         void UpdateCommandList()
         {
             if (activeFlowchart == null) return;
-
-            commandList = activeFlowchart.GetCommandDataList();
 
             var e = Event.current;
             if (e.type == EventType.KeyDown && e.control)
@@ -271,9 +269,18 @@ namespace Novel
                 EditorGUI.LabelField(rect, cmdStatus.Name, style);
                 EditorGUI.LabelField(new Rect(
                     rect.x + 75, rect.y, rect.width, rect.height),
-                    $"<size=10>{cmdStatus.Summary}</size>", style);
+                    $"<size=10>{RemoveTag(cmdStatus.Summary)}</size>", style);
 
                 GUI.color = tmpColor;
+            }
+
+            string RemoveTag(string text)
+            {
+                string myRegexString = @"\{.*?\}";
+                string richRegexString = @"\<.*?\>";
+                var myRegex = new Regex(myRegexString);
+                var richRegex = new Regex(richRegexString);
+                return richRegex.Replace(myRegex.Replace(text, string.Empty), string.Empty);
             }
 
             void DrawElementBackground(Rect rect, int index, bool isActive, bool isFocused)

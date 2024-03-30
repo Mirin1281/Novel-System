@@ -102,6 +102,27 @@ namespace Novel.Command
                 }
             }
 
+            var tooltipText =
+                "【タグについて】\n" +
+                "<hoge>の構文を用いることで、リッチテキストや独自の修飾タグを使うことができます\n\n" +
+
+                "<r=さだめ>運命</r>\n" +
+                "ルビを振ります\n\n" +
+
+                "<sp=2.5>オタクの早口</s>\n" +
+                "表示スピードを数値倍します\n\n" +
+
+                "<w=1>\n" +
+                "数値の秒数だけ待機します(入力時はスキップ)\n\n" +
+
+                "<wi>\n" +
+                "入力があるまで待機します\n\n" +
+
+                "<wic>\n" +
+                "入力があるまで待機し、\n" +
+                "それまでの文を消してから次を表示します\n";
+            EditorGUILayout.LabelField(new GUIContent("◆タグについて(ホバーで表示)", tooltipText));
+
             EditorGUILayout.EndVertical();
         }
     }

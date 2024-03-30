@@ -8,6 +8,7 @@ namespace Novel.Command
     {
         public enum ActionType
         {
+            [InspectorName("何もしない")] None,
             [InspectorName("上 → 1個下, 下 → 2個下へ飛ぶ")] Jump,
             [InspectorName("フラグをセットする(上がTrue)")] SetFlag,
 

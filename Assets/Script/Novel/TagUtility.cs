@@ -1,12 +1,13 @@
 ﻿using UnityEngine;
 using System;
 using System.Text.RegularExpressions;
+using System.Collections.Generic;
 
 namespace Novel
 {
     public static class TagUtility
     {
-        const string RegexString = @"\{.*?\}";
+        const string RegexString = @"\<.*?\>";
 
         // 【タグの増やし方】
         // 1. TagTypeの項目を増やす
@@ -22,17 +23,24 @@ namespace Novel
             WaitInputClear,
         }
 
-        public struct TagData
+        public class TagData
         {
             public TagType TagType; // タグの種類
             public float Value; // タグの値(ない場合もある)
-            public int Index; // タグを無視した時のタグの位置(語彙力)
+            public int IndexIgnoreMyTag; // 独自のタグを無視した時のタグの位置(語彙力)
+            public int IndexIgnoreAllTag; // リッチテキストを含む全てのタグを無視した時のタグの位置
 
-            public TagData(TagType tagType, float value, int index)
+            public TagData(TagType tagType, float value, int indexIgnoreMyTag, int indexIgnoreAllTag)
             {
                 TagType = tagType;
                 Value = value;
-                Index = index;
+                IndexIgnoreMyTag = indexIgnoreMyTag;
+                IndexIgnoreAllTag = indexIgnoreAllTag;
+            }
+
+            public void ShowTagStatus()
+            {
+                Debug.Log($"type: {TagType}, mIndex: {IndexIgnoreMyTag}");
             }
         }
 
@@ -41,40 +49,45 @@ namespace Novel
         /// </summary>
         /// <param name="text"></param>
         /// <returns>(タグを取り除いたテキスト, TagDataの配列)</returns>
-        public static (string convertedText, TagData[] tagDataArray) ExtractTag(string text)
+        public static (string convertedText, List<TagData> tagDataList) ExtractMyTag(string text)
         {
             var regex = new Regex(RegexString);
             var matches = regex.Matches(text);
             if (matches.Count == 0) return (text, null);
 
-            var tagDataArray = new TagData[matches.Count];
-            int tagStringLength = 0;
-            int count = 0;
+            var tagDataList = new List<TagData>();
+            int myTagsLength = 0;
+            int allTagsLength = 0;
             foreach (Match match in matches)
             {
                 string tag = match.Value;
+                
                 var (tagType, value) = GetTagStatus(tag);
 
-                tagDataArray[count] = new TagData(tagType, value, match.Index - tagStringLength);
-                tagStringLength += tag.Length;
-                count++;
+                if (tagType != TagType.None)
+                {
+                    text = text.Replace(match.Value, string.Empty);
+                    tagDataList.Add(new TagData(tagType, value, match.Index - myTagsLength, match.Index - allTagsLength));
+                    myTagsLength += tag.Length;
+                }
+                allTagsLength += tag.Length;
             }
-            return (regex.Replace(text, string.Empty), tagDataArray);
+            return (text, tagDataList);
 
 
             static (TagType, float) GetTagStatus(string tag)
             {
-                // "{}"を取り除く
+                // "<>"を取り除く
                 var content = tag.Remove(0, 1).Remove(tag.Length - 2);
 
                 TagType tagType = TagType.None;
                 float value = 0f;
-                if (content.StartsWith("s=", StringComparison.Ordinal))
+                if (content.StartsWith("sp=", StringComparison.Ordinal))
                 {
                     tagType = TagType.SpeedStart;
-                    value = float.Parse(content.Replace("s=", string.Empty));
+                    value = float.Parse(content.Replace("sp=", string.Empty));
                 }
-                else if (content == "/s")
+                else if (content == "/sp")
                 {
                     tagType = TagType.SpeedEnd;
                 }
@@ -90,10 +103,6 @@ namespace Novel
                 else if (content == "wic")
                 {
                     tagType = TagType.WaitInputClear;
-                }
-                else
-                {
-                    Debug.LogWarning($"{tag} ← タグのタイポしてるかも");
                 }
                 return (tagType, value);
             }

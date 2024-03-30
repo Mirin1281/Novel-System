@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using System.Threading;
+using System.Linq;
 using UnityEngine.SceneManagement;
 
 namespace Novel
@@ -13,6 +14,8 @@ namespace Novel
 
         void Awake()
         {
+            createButtons = GetComponentsInChildren<MenuButton>().ToList();
+            createButtons.ForEach(button => button.gameObject.SetActive(false));
             SceneManager.activeSceneChanged += (_, __) => AllClearFadeAsync(0).Forget();
         }
         void OnDestroy()

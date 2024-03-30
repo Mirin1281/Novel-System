@@ -320,7 +320,7 @@ MonoBehaviour:
         <Index>k__BackingField: 5
         topSelectionText: "\u306F\u3044"
         bottomSelectionText: "\u3044\u3084\u3060"
-        actionType: 0
+        actionType: 1
         isReverse: 1
         flagKey: {fileID: 0}
 --- !u!114 &589748438
@@ -838,7 +838,7 @@ MonoBehaviour:
         <Index>k__BackingField: 1
         character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
         changeSprite: {fileID: 0}
-        storyText: "\u30C6\u30B9\u30C8\u3067\u3059"
+        storyText: "<s=0.5>\u30C6\u30B9\u30C8\u3067\u3059</s>"
         boxShowTime: 0
         flagKeys: []
 --- !u!114 &1848595418

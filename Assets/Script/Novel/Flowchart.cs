@@ -25,9 +25,9 @@ namespace Novel
         /// <summary>
         /// カスタムエディタ用
         /// </summary>
-        public void SetCommandDataList(IEnumerable<CommandData> list)
+        public void SetCommandDataList(List<CommandData> list)
         {
-            commandDataList = list as List<CommandData>;
+            commandDataList = list;
         }
 
         bool isStopped;

@@ -2,7 +2,9 @@
 using Cysharp.Threading.Tasks;
 using TMPro;
 using System;
+using System.Linq;
 using System.Threading;
+using System.Collections.Generic;
 
 namespace Novel
 {
@@ -11,7 +13,7 @@ using TagType = TagUtility.TagType;
     public class Writer : MonoBehaviour
     {
         [SerializeField] TMP_Text nameTmpro;
-        [SerializeField] TMP_Text storyTmpro;
+        [SerializeField] RubyTextMeshProUGUI storyTmpro;
         [SerializeField] MsgBoxInput input;
         float timePer100Charas; // 100文字表示するのにかかる時間(s)
         bool isSkipped;
@@ -20,7 +22,7 @@ using TagType = TagUtility.TagType;
         void Awake()
         {
             nameTmpro.SetText(string.Empty);
-            storyTmpro.SetText(string.Empty);
+            storyTmpro.SetUneditedText(string.Empty);
             input.OnInputed += SkipTextIfValid;
         }
 
@@ -28,29 +30,30 @@ using TagType = TagUtility.TagType;
             CharacterData character, string fullText, CancellationToken token)
         {
             SetName(character);
-            var (convertedText, tagDataArray) = TagUtility.ExtractTag(fullText);
-            await WriteStoryTextAsync(convertedText, tagDataArray, null, token);
-            SayLogger.AddLog(character, convertedText);
+            var (richText, tagDataList) = TagUtility.ExtractMyTag(fullText);
+            tagDataList.ToList().ForEach(data => data.ShowTagStatus());
+            await WriteStoryTextAsync(richText, tagDataList, null, token);
+            SayLogger.AddLog(character, richText);
 
 
             async UniTask WriteStoryTextAsync(
-                string text, TagUtility.TagData[] tagDataArray = null, float? timePerCharas = null, CancellationToken token = default)
+                string richText, List<TagUtility.TagData> tagDataList = null, float? timePerCharas = null, CancellationToken token = default)
             {
-                storyTmpro.SetText(text);
+                storyTmpro.SetUneditedText(richText);
                 timePer100Charas = timePerCharas ?? defaultSpeed;
                 int tagNumber = 0;
-                int tagInsertIndex = -1;
-                if (tagDataArray != null)
+                int insertIndex = -1;
+                if (tagDataList != null && tagDataList.Count != 0)
                 {
-                    tagInsertIndex = tagDataArray[tagNumber].Index;
+                    insertIndex = tagDataList[tagNumber].IndexIgnoreAllTag;
                 }
                 int i = 0;
-                while(i <= text.Length)
+                while(i <= richText.Length)
                 {
                     storyTmpro.maxVisibleCharacters = i;
-                    if (i == tagInsertIndex)
+                    if (i == insertIndex)
                     {
-                        tagInsertIndex = await ApplyTag(tagNumber, tagInsertIndex);
+                        insertIndex = await ApplyTag(tagNumber, insertIndex);
                         tagNumber++;
                     }
                     await MyStatic.WaitSeconds(timePer100Charas / 100f,
@@ -58,10 +61,10 @@ using TagType = TagUtility.TagType;
                     i++;
                 }
 
-                async UniTask<int> ApplyTag(int tagNum, int tagIndex)
+                async UniTask<int> ApplyTag(int num, int index)
                 {
-                    var value = tagDataArray[tagNum].Value;
-                    var type = tagDataArray[tagNum].TagType;
+                    var value = tagDataList[num].Value;
+                    var type = tagDataList[num].TagType;
                     if(type == TagType.None)
                     {
 
@@ -91,13 +94,13 @@ using TagType = TagUtility.TagType;
                     else if (type == TagType.WaitInputClear)
                     {
                         await WaitInput();
-                        text = text.Remove(0, tagIndex);
-                        storyTmpro.SetText(text);
+                        richText = richText.Remove(0, tagDataList[num].IndexIgnoreMyTag);
+                        storyTmpro.SetUneditedText(richText);
                         i = 0;
-                        storyTmpro.maxVisibleCharacters = i;
-                        for(int j = 0; j < tagDataArray.Length; j++)
+                        storyTmpro.maxVisibleCharacters = 0;
+                        foreach(var tagData in tagDataList)
                         {
-                            tagDataArray[j].Index -= tagIndex;
+                            tagData.IndexIgnoreMyTag -= index;
                         }
                     }
                     else
@@ -106,11 +109,11 @@ using TagType = TagUtility.TagType;
                     }
 
                     // 次のタグがあればそこのインデックスを返す
-                    if (tagNum + 1 < tagDataArray.Length)
+                    if (num + 1 < tagDataList.Count)
                     {
-                        tagIndex = tagDataArray[tagNum + 1].Index;
+                        index = tagDataList[num + 1].IndexIgnoreAllTag;
                     }
-                    return tagIndex;
+                    return index;
                 }
 
 
@@ -157,8 +160,8 @@ using TagType = TagUtility.TagType;
 
         public void PreviewText(CharacterData character, string text)
         {
-            var convertedText = TagUtility.ExtractTag(text).convertedText;
-            storyTmpro.SetText(convertedText);
+            var convertedText = TagUtility.ExtractMyTag(text).convertedText;
+            storyTmpro.SetUneditedText(convertedText);
             SetName(character);
         }
 

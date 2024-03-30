@@ -47,8 +47,8 @@ MonoBehaviour:
   createOnSceneChanged: 1
   linkedBoxList:
   - <Type>k__BackingField: 0
-    <Prefab>k__BackingField: {fileID: 0}
+    <Prefab>k__BackingField: {fileID: 3517438053775606728, guid: d61be9789ac52e4438457865ed8aa12a, type: 3}
   - <Type>k__BackingField: 1
-    <Prefab>k__BackingField: {fileID: 7569092899542360163, guid: 3189b2246a172b14995175364328f596, type: 3}
+    <Prefab>k__BackingField: {fileID: 3966473258314235236, guid: 01f398ff4e924394181e7ebaa91b7e76, type: 3}
   - <Type>k__BackingField: 2
-    <Prefab>k__BackingField: {fileID: 5118259939152359994, guid: 756daeb12524a974e9540072cf8206d6, type: 3}
+    <Prefab>k__BackingField: {fileID: 5228983518920981639, guid: 527be47de0893f14bb4548a36b3e3249, type: 3}

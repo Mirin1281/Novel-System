@@ -19,9 +19,12 @@ namespace Novel.Command
         float boxShowTime;
 
         [SerializeField, Tooltip(
-            "\"{item0}万円\"のように書くことで、文の中にフラグの値を入れ込むことができます\n" +
+            "\"<item0>万円\"のように書くことで、文の中にフラグの値を入れ込むことができます\n" +
             "(FlagKeyの型はint型以外でもかまいません)")]
         FlagKeyDataBase[] flagKeys;
+
+        // キャラクターが設定されない時に使われるメッセージボックスのタイプ
+        const BoxType DefaultType = BoxType.Default;
 
         protected override async UniTask EnterAsync()
         {
@@ -39,7 +42,7 @@ namespace Novel.Command
                 portrait.SetSprite(changeSprite);
             }
 
-            BoxType boxType = character == null ? BoxType.Type1 : character.BoxType;
+            BoxType boxType = character == null ? DefaultType : character.BoxType;
             MessageBoxManager.Instance.OtherClearFadeAsync(boxType, 0f).Forget();
             var msgBox = MessageBoxManager.Instance.CreateIfNotingBox(boxType);
             if(msgBox.gameObject.activeInHierarchy == false)
@@ -51,20 +54,20 @@ namespace Novel.Command
         }
 
         /// <summary>
-        /// "{item0}"などの部分をそこに対応する変数値に置き換えます
+        /// "<item0>"などの部分をそこに対応する変数値に置き換えます
         /// </summary>
         string ReplaceFlagValue(string fullText, FlagKeyDataBase[] flagKeys)
         {
             for (int i = 0; i < flagKeys.Length; i++)
             {
-                if (fullText.Contains($"{{item{i}}}"))
+                if (fullText.Contains($"<item{i}>"))
                 {
-                    fullText = fullText.Replace($"{{item{i}}}",
+                    fullText = fullText.Replace($"<item{i}>",
                         FlagManager.GetFlagValueString(flagKeys[i]).valueStr);
                 }
                 else
                 {
-                    Debug.LogWarning($"{{item{i}}}がなかったよ");
+                    Debug.LogWarning($"<item{i}>がなかったよ");
                 }
             }
             return fullText;
@@ -72,14 +75,15 @@ namespace Novel.Command
 
         /* 【文字装飾についての説明】
          * 文の中にはTMPro由来のリッチテキストを入れることができ、文字の色やサイズを変えられます
-         * また、その他に{hoge}という構文で独自の設定(タグ)を使用できます
+         * また、その他に<hoge>という構文で独自の設定(タグ)を使用できます
          * 
          * 【タグの例】
-         * {s=1.2} 表示スピードを変更します(数値は何倍にするかを表します)
-         * {/s} 表示スピードをデフォルトに戻します
-         * {w=1} その場所で1秒待機します(入力があったら無視されます)
-         * {wi} 入力があるまで待機します(入力があった時もそこで止まります)
-         * {wic} 入力があるまで待機し、今までの文をクリアしてから次を表示します(入力があった時もそこで止まります)
+         * <r=さだめ>運命</r> ルビを振ることができます
+         * <s=1.2> 表示スピードを変更します(数値は何倍にするかを表します)
+         * </s> 表示スピードをデフォルトに戻します
+         * <w=1> その場所で1秒待機します(入力があったら無視されます)
+         * <wi> 入力があるまで待機します(入力があった時もそこで止まります)
+         * <wic> 入力があるまで待機し、今までの文をクリアしてから次を表示します(入力があった時もそこで止まります)
          */
 
         #region For EditorWindow
