@@ -112,6 +112,16 @@ namespace Novel.Command
         /// </summary>
         protected virtual string GetCSVContent2() => null;
 
+        /// <summary>
+        /// CSV出力時の第一表示
+        /// </summary>
+        public virtual void SetCSVContent1(string content) { }
+
+        /// <summary>
+        /// CSV出力時の第一表示
+        /// </summary>
+        public virtual void SetCSVContent2(string content) { }
+
         public void SetFlowchart(Flowchart f) => ParentFlowchart = f;
         public void SetIndex(int i) => Index = i;
 #endif

@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using Cysharp.Threading.Tasks;
+using System.Linq;
 
 namespace Novel.Command
 {
@@ -97,6 +98,21 @@ namespace Novel.Command
 
         protected override string GetCSVContent1() => character.CharacterName;
         protected override string GetCSVContent2() => storyText;
+
+        public override void SetCSVContent1(string content)
+        {
+            var characters = Resources.LoadAll<CharacterData>(NameContainer.CHARACTER_PATH);
+            var meetChara = characters.Where(c => c.CharacterName == content).ToList();
+            if(meetChara.Count != 0)
+            {
+                Debug.LogWarning($"キャラクターのカウントがおかしいです！: {meetChara.Count}");
+            }
+            else
+            {
+                character = meetChara[0];
+            }
+        }
+        public override void SetCSVContent2(string content) => storyText = content;
 
         #endregion
     }

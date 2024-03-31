@@ -57,6 +57,11 @@ namespace Novel
             {
                 FlowchartCSVExporter.ExportFlowchartCommandData();
             }
+
+            if (GUILayout.Button("CSVをインポートする"))
+            {
+                FlowchartCSVExporter.ImportFlowchartCommandData();
+            }
         }
     }
 }
