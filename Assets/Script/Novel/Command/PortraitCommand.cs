@@ -92,5 +92,7 @@ namespace Novel.Command
         }
 
         protected override Color GetCommandColor() => new Color32(213, 245, 215, 255);
+        protected override string GetCSVContent1() => character.CharacterName;
+        protected override string GetCSVContent2() => actionType.ToString();
     }
 }

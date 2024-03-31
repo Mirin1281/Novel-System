@@ -47,7 +47,7 @@ namespace Novel
                 copiedFlowchartData.name = "CopiedFlowchartData";
                 var folderPath = FlowchartEditorUtility.GetExistFolderPath(flowchartData);
 
-                var dataName = FlowchartEditorUtility.GetFileName(folderPath, copiedFlowchartData.name);
+                var dataName = FlowchartEditorUtility.GetFileName(folderPath, copiedFlowchartData.name, "assets");
                 AssetDatabase.CreateAsset(copiedFlowchartData, Path.Combine(folderPath, dataName));
                 AssetDatabase.ImportAsset(folderPath, ImportAssetOptions.ForceUpdate);
                 var flowchart = copiedFlowchartData.Flowchart;
@@ -58,7 +58,7 @@ namespace Novel
                     var copiedCmdData = Instantiate(cmdData);
                     var cmd = copiedCmdData.GetCommandBase();
                     var path = FlowchartEditorUtility.GetExistFolderPath(cmdData);
-                    var cmdName = FlowchartEditorUtility.GetFileName(path, $"CommandData_{copiedFlowchartData.name}");
+                    var cmdName = FlowchartEditorUtility.GetFileName(path, $"CommandData_{copiedFlowchartData.name}", "assets");
                     AssetDatabase.CreateAsset(copiedCmdData, Path.Combine(path, cmdName));
                     AssetDatabase.ImportAsset(path, ImportAssetOptions.ForceUpdate);
                     if (cmd != null)

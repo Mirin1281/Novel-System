@@ -43,19 +43,29 @@ namespace Novel.Command
             readonly public string Summary;
             readonly public Color Color;
             readonly public string Info;
+            readonly public string Content1;
+            readonly public string Content2;
 
             public CommandStatus(
-                string name, string summary, Color color, string info)
+                string name, string summary = null, Color color = default, string info = null, string content1 = null, string content2 = null)
             {
                 Name = name;
-                Summary = summary;
-                Color = color;
-                Info = info;
+                Summary = summary ?? string.Empty;
+                Color = color == default ? new Color(0.9f, 0.9f, 0.9f, 1f) : color;
+                Info = info ?? string.Empty;
+                Content1 = content1 ?? string.Empty;
+                Content2 = content2 ?? string.Empty;
             }
         }
 
         CommandStatus ICommand.GetCommandStatus()
-            => new　(GetName(), GetSummary(), GetCommandColor(), GetCommandInfo());
+            => new　(
+                GetName(),
+                GetSummary(),
+                GetCommandColor(),
+                GetCommandInfo(),
+                GetCSVContent1(),
+                GetCSVContent2());
 
         /// <summary>
         /// コマンド名を定義します
@@ -65,12 +75,12 @@ namespace Novel.Command
         /// <summary>
         /// エディタのコマンドに状態を記述します(オーバーライド)
         /// </summary>
-        protected virtual string GetSummary() => string.Empty;
+        protected virtual string GetSummary() => null;
 
         /// <summary>
         /// コマンドの色を設定します(オーバーライド)
         /// </summary>
-        protected virtual Color GetCommandColor() => new Color(0.9f, 0.9f, 0.9f, 1f);
+        protected virtual Color GetCommandColor() => default;
 
         /// <summary>
         /// 説明を記載します(オーバーライド)
@@ -92,6 +102,16 @@ namespace Novel.Command
             => $"<color=#dc143c>{text}</color>";
 
 #if UNITY_EDITOR
+        /// <summary>
+        /// CSV出力時の第一表示
+        /// </summary>
+        protected virtual string GetCSVContent1() => null;
+
+        /// <summary>
+        /// CSV出力時の第一表示
+        /// </summary>
+        protected virtual string GetCSVContent2() => null;
+
         public void SetFlowchart(Flowchart f) => ParentFlowchart = f;
         public void SetIndex(int i) => Index = i;
 #endif

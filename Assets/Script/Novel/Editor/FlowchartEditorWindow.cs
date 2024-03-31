@@ -185,7 +185,7 @@ namespace Novel
                     {
                         path = NameContainer.COMMANDDATA_PATH;
                     }
-                    var name = FlowchartEditorUtility.GetFileName(path, $"CommandData_{activeFlowchartData.name}");
+                    var name = FlowchartEditorUtility.GetFileName(path, $"CommandData_{activeFlowchartData.name}", "assets");
                     AssetDatabase.CreateAsset(createCommand, Path.Combine(path, name));
                     AssetDatabase.ImportAsset(path, ImportAssetOptions.ForceUpdate);
                 }
@@ -327,7 +327,7 @@ namespace Novel
             {
                 Directory.CreateDirectory(path);
             }
-            var name = FlowchartEditorUtility.GetFileName(path, baseName);
+            var name = FlowchartEditorUtility.GetFileName(path, baseName, "assets");
             var cmdData = CreateInstance<CommandData>();
             AssetDatabase.CreateAsset(cmdData, Path.Combine(path, name));
             AssetDatabase.ImportAsset(path, ImportAssetOptions.ForceUpdate);

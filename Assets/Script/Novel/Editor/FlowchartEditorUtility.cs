@@ -24,15 +24,22 @@ namespace Novel
             return dataPath.Substring(0, index);
         }
 
-        public static string GetFileName(string path, string name)
+        /// <summary>
+        /// ファイル名を重複を考慮して付けます
+        /// </summary>
+        /// <param name="path">パス</param>
+        /// <param name="name">名前(拡張子を除く)</param>
+        /// <param name="extension">拡張子(.は除く)</param>
+        /// <returns></returns>
+        public static string GetFileName(string path, string name, string extension)
         {
             int i = 1;
             var targetName = name;
-            while (File.Exists($"{path}/{targetName}.asset"))
+            while (File.Exists($"{path}/{targetName}.{extension}"))
             {
                 targetName = $"{name}_({i++})";
             }
-            return $"{targetName}.asset";
+            return $"{targetName}.{extension}";
         }
 
         public static T[] GetAllScriptableObjects<T>() where T : ScriptableObject

@@ -39,11 +39,7 @@ namespace Novel.Command
         {
             if(command == null)
             {
-                return new CommandStatus(
-                    "<color=#dc143c><Null></color>",
-                    string.Empty,
-                    new Color(0.9f, 0.9f, 0.9f, 1f),
-                    null);
+                return new CommandStatus("<Null>");
             }
             return command.GetCommandStatus();
         }
