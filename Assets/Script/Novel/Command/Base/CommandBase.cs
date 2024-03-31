@@ -34,6 +34,9 @@ namespace Novel.Command
 
         #region For Editor
 
+        /// <summary>
+        /// 名前、色、説明、状態を表す
+        /// </summary>
         public readonly struct CommandStatus
         {
             readonly public string Name;

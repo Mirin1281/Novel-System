@@ -32,7 +32,6 @@ namespace Novel
         Vector2 listScrollPos;
         Vector2 commandScrollPos;
 
-
         void OnEnable()
         {
             reorderableList = CreateReorderableList();
@@ -46,6 +45,7 @@ namespace Novel
                 activeFlowchart = flowchartExecutor.Flowchart;
                 commandList = activeFlowchart.GetCommandDataList();
             }
+            reorderableList = CreateReorderableList();
         }
 
         void OnSelectionChange()
@@ -77,7 +77,7 @@ namespace Novel
         }
 
         void OnGUI()
-        { 
+        {
             if (activeMode == ActiveMode.None) return;
 
             EditorGUI.BeginChangeCheck();
@@ -114,8 +114,10 @@ namespace Novel
         {
             if (activeFlowchart == null) return;
 
+            // ReorderableList.HasKeyboardControl()は絶対使い方間違えてるけど、
+            // 簡単に選択中かを取得できるものがなぜか無かったのでこうなっている
             var e = Event.current;
-            if (e.type == EventType.KeyDown && e.control)
+            if (e.type == EventType.KeyDown && e.control && reorderableList.HasKeyboardControl())
             {
                 if (e.keyCode == KeyCode.C && selectedCommand != null)
                 {
@@ -164,10 +166,12 @@ namespace Novel
             if (GUIUtility.keyboardControl > 0)
             {
                 copiedCommand = command;
+                Debug.Log("<color=lightblue>コマンドをコピーしました</color>");
             }
         }
         void Paste(CommandData copiedCommand)
         {
+            
             Undo.RecordObject(this, "Paste Command");
             int currentIndex = reorderableList.index;
             Event.current.Use();
@@ -177,6 +181,10 @@ namespace Novel
                 if(activeMode == ActiveMode.Data)
                 {
                     var path = FlowchartEditorUtility.GetExistFolderPath(copiedCommand);
+                    if(path == null)
+                    {
+                        path = NameContainer.COMMANDDATA_PATH;
+                    }
                     var name = FlowchartEditorUtility.GetFileName(path, $"CommandData_{activeFlowchartData.name}");
                     AssetDatabase.CreateAsset(createCommand, Path.Combine(path, name));
                     AssetDatabase.ImportAsset(path, ImportAssetOptions.ForceUpdate);
@@ -187,6 +195,7 @@ namespace Novel
                 reorderableList.Select(currentIndex + 1);
 
                 RefreshFlowchart();
+                Debug.Log("<color=lightblue>コマンドをペーストしました</color>");
             }
         }
 
@@ -207,6 +216,7 @@ namespace Novel
                 drawElementCallback = OnDrawElement,
                 drawElementBackgroundCallback = DrawElementBackground,
                 elementHeightCallback = GetElementHeight,
+                multiSelect = true,
             };
 
             void Add(ReorderableList list)
@@ -276,11 +286,9 @@ namespace Novel
 
             string RemoveTag(string text)
             {
-                string myRegexString = @"\{.*?\}";
-                string richRegexString = @"\<.*?\>";
-                var myRegex = new Regex(myRegexString);
-                var richRegex = new Regex(richRegexString);
-                return richRegex.Replace(myRegex.Replace(text, string.Empty), string.Empty);
+                string regexString = @"\<.*?\>";
+                var regex = new Regex(regexString);
+                return regex.Replace(text, string.Empty);
             }
 
             void DrawElementBackground(Rect rect, int index, bool isActive, bool isFocused)

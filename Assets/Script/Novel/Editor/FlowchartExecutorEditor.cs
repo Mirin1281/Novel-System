@@ -52,6 +52,11 @@ namespace Novel
                 }
                 flowchart.SetCommandDataList(copiedCmdList);
             }
+
+            if(GUILayout.Button("CSVとしてエクスポートする"))
+            {
+                FlowchartCSVExporter.ExportFlowchartCommandData();
+            }
         }
     }
 }

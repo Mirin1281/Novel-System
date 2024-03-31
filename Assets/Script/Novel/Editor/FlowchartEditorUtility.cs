@@ -19,6 +19,7 @@ namespace Novel
         public static string GetExistFolderPath(Object obj)
         {
             var dataPath = AssetDatabase.GetAssetPath(obj.GetInstanceID());
+            if (string.IsNullOrEmpty(dataPath)) return null;
             var index = dataPath.LastIndexOf("/");
             return dataPath.Substring(0, index);
         }

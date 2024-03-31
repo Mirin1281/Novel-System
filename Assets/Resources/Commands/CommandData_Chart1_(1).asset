@@ -10,29 +10,25 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4399fbfc898731a4f96fd937ce84eeff, type: 3}
-  m_Name: CommandData_Chart1
+  m_Name: CommandData_Chart1_(1)
   m_EditorClassIdentifier: 
   <Enabled>k__BackingField: 1
   command:
-    rid: 6983526795518935040
+    rid: 6983526805096890368
   references:
     version: 2
     RefIds:
-    - rid: 6983526795518935040
+    - rid: 6983526805096890368
       type: {class: SayCommand, ns: Novel.Command, asm: Assembly-CSharp}
       data:
         <ParentFlowchart>k__BackingField:
           description: "\u8AAC\u660E"
           commandDataList:
-          - {fileID: 11400000, guid: 99628bdc47ad50a41b15e4e5cd5aa0e2, type: 2}
-          - {fileID: 11400000, guid: 02e486cde25a033418a0d1ccb6c0b779, type: 2}
-          - {fileID: 11400000, guid: 21bd5e94084d3be4bb70fc56c9acbad9, type: 2}
-          - {fileID: 11400000, guid: c1532df0d5fabe74f88c0dbd817eef65, type: 2}
+          - {fileID: 0}
           - {fileID: 11400000}
-          - {fileID: 11400000, guid: 93575ebe282236c4f9e1f0a439f0d878, type: 2}
-        <Index>k__BackingField: 4
-        character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
+        <Index>k__BackingField: 1
+        character: {fileID: 11400000, guid: 36e06002688543545a19e42b88b58c8b, type: 2}
         changeSprite: {fileID: 0}
-        storyText: "\u3048\uFF1F"
+        storyText: "\u3042\u3044\u3046\u3048\u304A\u3042\u3044\u3046\u3048\u304A\u3042\u3044\u3046\u3048\u304A"
         boxShowTime: 0
         flagKeys: []

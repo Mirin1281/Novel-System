@@ -2,11 +2,12 @@
 using UnityEngine.SceneManagement;
 using System;
 using System.Threading;
-using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 
 namespace Novel
 {
+    using LinkedBox = MessageBoxData.LinkedBox;
+
     // 【ふるまいの雑な説明】
     // メッセージボックスをBoxTypeに応じてプレハブから生成、提供します
     // 既にシーンの中にボックスがある場合はそれを使います(名前で検索してます)ので、オーバーライドできます
@@ -14,56 +15,7 @@ namespace Novel
     // 基本はデフォルトのボックスで、変化を加えたい場合はシーンに置いてできる設計です
     public class MessageBoxManager : SingletonMonoBehaviour<MessageBoxManager>
     {
-        [SerializeField, Tooltip(
-            "true時はシーン切り替え時に全メッセージボックスを生成します\n" +
-            "false時は受注生産方式でキャッシュします")]
-        bool createOnSceneChanged;
-
-        #region Data
-
-        [Header("右上の「︙」 > 「◆SetEnum」から列挙子を更新できます")]
-        [SerializeField] List<LinkedBox> linkedBoxList;
-
-        [Serializable]
-        class LinkedBox
-        {
-            [field: SerializeField, ReadOnly]
-            public BoxType Type { get; set; }
-
-            [field: SerializeField]
-            public MessageBox Prefab { get; private set; }
-
-            public MessageBox Box { get; set; }
-        }
-
-        /// <summary>
-        /// 列挙子を設定します
-        /// </summary>
-        [ContextMenu("◆SetEnum")]
-        void SetEnum()
-        {
-            int enumCount = Enum.GetValues(typeof(BoxType)).Length;
-            if (linkedBoxList == null) linkedBoxList = new();
-            int deltaCount = 1; // 仮置き
-            while (deltaCount != 0)
-            {
-                deltaCount = linkedBoxList.Count - enumCount;
-                if (deltaCount > 0)
-                {
-                    linkedBoxList.RemoveAt(enumCount);
-                }
-                else if (deltaCount < 0)
-                {
-                    linkedBoxList.Add(new LinkedBox());
-                }
-            }
-
-            for (int i = 0; i < enumCount; i++)
-            {
-                linkedBoxList[i].Type =(BoxType)i;
-            }
-        }
-        #endregion
+        [SerializeField] MessageBoxData data;
 
         protected override void Awake()
         {
@@ -78,7 +30,7 @@ namespace Novel
             int enumCount = Enum.GetValues(typeof(BoxType)).Length;
 
             // 登録数のチェック
-            if (linkedBoxList.Count != enumCount)
+            if (data.LinkedBoxList.Count != enumCount)
             {
                 Debug.LogWarning($"{nameof(MessageBoxManager)}に登録している数が{nameof(BoxType)}の数と合いません！");
             }
@@ -86,7 +38,7 @@ namespace Novel
             {
                 for (int i = 0; i < enumCount; i++)
                 {
-                    linkedBoxList[i].Type = (BoxType)i;
+                    data.LinkedBoxList[i].Type = (BoxType)i;
                 }
             }
         }
@@ -102,7 +54,7 @@ namespace Novel
 
             var existBoxes = FindObjectsByType<MessageBox>(
                     FindObjectsInactive.Include, FindObjectsSortMode.None);
-            foreach (var linkedBox in linkedBoxList)
+            foreach (var linkedBox in data.LinkedBoxList)
             {
                 linkedBox.Box = null;
                 foreach(var existBox in existBoxes)
@@ -115,7 +67,7 @@ namespace Novel
                     }
                 }
 
-                if (linkedBox.Box == null && createOnSceneChanged)
+                if (linkedBox.Box == null && data.CreateOnSceneChanged)
                 {
                     CreateAndAddBox(linkedBox);
                 }
@@ -137,7 +89,7 @@ namespace Novel
         /// </summary>
         public MessageBox CreateIfNotingBox(BoxType boxType)
         {
-            var linkedBox = linkedBoxList[(int)boxType];
+            var linkedBox = data.LinkedBoxList[(int)boxType];
             if (linkedBox.Box != null) return linkedBox.Box;
             return CreateAndAddBox(linkedBox);
         }
@@ -145,7 +97,7 @@ namespace Novel
         public async UniTask AllClearFadeAsync(
             float time = MyStatic.DefaultFadeTime, CancellationToken token = default)
         {
-            foreach(var linkedBox in linkedBoxList)
+            foreach(var linkedBox in data.LinkedBoxList)
             {
                 if (linkedBox.Box == null) continue;
                 linkedBox.Box.ClearFadeAsync(time, token).Forget();
@@ -155,7 +107,7 @@ namespace Novel
 
         public async UniTask OtherClearFadeAsync(BoxType boxType, float time = MyStatic.DefaultFadeTime)
         {
-            foreach (var linkedBox in linkedBoxList)
+            foreach (var linkedBox in data.LinkedBoxList)
             {
                 if (linkedBox.Box == null ||
                     linkedBox.Type == boxType) continue;
@@ -168,12 +120,5 @@ namespace Novel
         {
             SceneManager.activeSceneChanged -= OnSceneChanged;
         }
-    }
-
-    public enum BoxType
-    {
-        [InspectorName("デフォルト")] Default,
-        [InspectorName("下")] Type1,
-        [InspectorName("上")] Type2,
     }
 }

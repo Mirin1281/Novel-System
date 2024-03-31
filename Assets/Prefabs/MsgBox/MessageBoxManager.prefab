@@ -44,11 +44,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f15bcf803c19e8d4f845c5256c8f87d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  createOnSceneChanged: 1
-  linkedBoxList:
-  - <Type>k__BackingField: 0
-    <Prefab>k__BackingField: {fileID: 3517438053775606728, guid: d61be9789ac52e4438457865ed8aa12a, type: 3}
-  - <Type>k__BackingField: 1
-    <Prefab>k__BackingField: {fileID: 3966473258314235236, guid: 01f398ff4e924394181e7ebaa91b7e76, type: 3}
-  - <Type>k__BackingField: 2
-    <Prefab>k__BackingField: {fileID: 5228983518920981639, guid: 527be47de0893f14bb4548a36b3e3249, type: 3}
+  data: {fileID: 11400000, guid: 5c2913abb3a867e43adc06696d46de44, type: 2}
