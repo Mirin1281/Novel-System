@@ -96,14 +96,14 @@ namespace Novel.Command
 
         protected override Color GetCommandColor() => new Color32(235, 210, 225, 255);
 
-        protected override string GetCSVContent1() => character.CharacterName;
+        protected override string GetCSVContent1() => character?.CharacterName;
         protected override string GetCSVContent2() => storyText;
 
         public override void SetCSVContent1(string content)
         {
-            var characters = Resources.LoadAll<CharacterData>(NameContainer.CHARACTER_PATH);
+            var characters = Resources.LoadAll<CharacterData>("Characters");
             var meetChara = characters.Where(c => c.CharacterName == content).ToList();
-            if(meetChara.Count != 0)
+            if(meetChara.Count != 1)
             {
                 Debug.LogWarning($"キャラクターのカウントがおかしいです！: {meetChara.Count}");
             }

@@ -1,11 +1,13 @@
-using UnityEngine;
-using UnityEngine.SceneManagement;
-using System.Linq;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
 using UnityEditor;
-using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.SceneManagement;
 using Novel.Command;
+using System;
+using System.Reflection;
 
 namespace Novel
 {
@@ -24,13 +26,10 @@ namespace Novel
 
 			try
             {
-				sw.Write("SceneName,");
+				sw.Write("SceneName:,");
 				sw.WriteLine(sceneName);
 
-				var executors = Object.FindObjectsByType<FlowchartExecutor>(
-					FindObjectsInactive.Include, FindObjectsSortMode.None)
-					.ToList()
-					.OrderBy(f => f.name);
+				var executors = GetSortedFlowchartExecutors();
 
 				int maxFlowchartsCmdIndex = executors.Max(f => f.Flowchart.GetReadOnlyCommandDataList().Count);
 
@@ -76,128 +75,158 @@ namespace Novel
 		}
 
 		public static void ImportFlowchartCommandData()
-        {
-			var absolutePath = EditorUtility.OpenFilePanel("Open csv", Application.dataPath, "CSV");
-			if (string.IsNullOrEmpty(absolutePath)) return;
-			var relativePath = AbsoluteToAssetsPath(absolutePath);
+		{
+			var dataList = LoadCSV();
+			if (dataList == null) return;
+			int csvFlowchartCount = dataList[0].Length / (rowCount + 1);
 
-			var fs = new FileStream(relativePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
-			var encoding = Encoding.GetEncoding("shift_jis");
-			var reader = new StreamReader(fs, encoding);
-
-			var dataList = new List<string[]>();
-			while (reader.Peek() != -1)
-			{
-				string line = reader.ReadLine();
-				dataList.Add(line.Split(','));
-			}
-
-			reader.Close();
-
-
-
+			// シーン名のチェック
 			var currentSceneName = SceneManager.GetActiveScene().name;
-			if (currentSceneName != dataList[0][1])
-            {
-				Debug.LogError("シーンの名前が一致しません！");
+			var csvSceneName = dataList[0][1];
+			if (currentSceneName != csvSceneName)
+			{
+				Debug.LogError("シーンの名前が一致しません！\n" +
+					$"今のシーン名: {currentSceneName}, CSVのシーン名: {csvSceneName}");
 				return;
-            }
+			}
+			// もういらないのでこの行は削除する
 			dataList.RemoveAt(0);
 
-			var executors = Object.FindObjectsByType<FlowchartExecutor>(
-					FindObjectsInactive.Include, FindObjectsSortMode.None)
-					.OrderBy(f => f.name)
-					.ToList();
+			var executors = GetSortedFlowchartExecutors();
 
-			var columnCount = dataList.Count; // 6
-											  //var rowCount = ; // 3
+			// フローチャート名のチェック
+			for (int i = 0; i < csvFlowchartCount; i++)
+			{
+				var executorObjectName = executors[i].name;
+				var csvExecutorName = dataList[0][i * (rowCount + 1)];
+				if (executorObjectName != csvExecutorName)
+				{
+					Debug.LogWarning("次のフローチャートの名前が合いません！\n" +
+						$"Object: {executorObjectName}, CSV: {csvExecutorName}");
+					return;
+				}
+			}
+			dataList.RemoveAt(0);
 
-			int count = 0;
-			foreach(var executor in executors)
+			for (int i = 0; i < executors.Count; i++)
+			{
+				ImportByExecutor(executors[i], dataList, i * (rowCount + 1));
+				EditorUtility.SetDirty(executors[i]);
+			}
+			Debug.Log("<color=lightblue>CSVをインポートしました</color>");
+
+
+			// フォルダメニューを開き、CSVファイルを読み込みます
+			static List<string[]> LoadCSV()
             {
+				var absolutePath = EditorUtility.OpenFilePanel("Open csv", Application.dataPath, "csv");
+				if (string.IsNullOrEmpty(absolutePath)) return null;
+				var relativePath = FlowchartEditorUtility.AbsoluteToAssetsPath(absolutePath);
+
+				var fs = new FileStream(relativePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+				var encoding = Encoding.GetEncoding("shift_jis");
+				var reader = new StreamReader(fs, encoding);
+
+				var dataList = new List<string[]>();
+				while (reader.Peek() != -1)
+				{
+					string line = reader.ReadLine();
+					dataList.Add(line.Split(','));
+				}
+
+				reader.Close();
+				return dataList;
+			}
+
+			static void ImportByExecutor(FlowchartExecutor executor, List<string[]> csvList, int startX)
+			{
+				var columnCount = csvList.Count;
 				for (int i = 0; i < columnCount; i++)
 				{
 					string cmdName = null;
 					CommandBase cmdBase = null;
-					for (int k = count; k < rowCount + count; k++)
+					for (int k = startX; k < rowCount + startX; k++)
 					{
-						if (i == 0)
+						if (k == startX)
 						{
-							var executorName = dataList[0][0];
-							if (executorName != executor.name)
-							{
-								Debug.LogWarning("フローチャートの名前が合いませんでした！ " + executorName);
-							}
-							break;
-						}
-						else
-                        {
-							if(k == 0)
+							if (string.IsNullOrEmpty(csvList[i][k])) break;
+
+							var list = executor.Flowchart.GetCommandDataList();
+							if(list == null || list.Count == 0)
                             {
-								var cmdStatusList = executor.Flowchart.GetReadOnlyCommandDataList()
-									.Select(data => data.GetCommandStatus()).ToArray();
-								cmdBase = executor.Flowchart.GetReadOnlyCommandDataList()[i].GetCommandBase();
-								cmdName = dataList[i][k];
-								if (cmdName != cmdStatusList[i].Name)
-                                {
-									Debug.LogWarning($"コマンドの名前が合いませんでした！\n" +
-										$"csv: {dataList[i][k]}, object: {cmdStatusList[i].Name}");
-								}
-							}
-							else if(k == 1)
-                            {
-								if(cmdName == "Say")
-                                {
-									cmdBase.SetCSVContent1(dataList[i][k]);
-								}
+								Debug.Log("フローチャートがな～い");
+								continue;
                             }
-							else if(k == 2)
+
+							var cellName = csvList[i][k];
+							if (i >= list.Count)
                             {
-								if (cmdName == "Say")
+								var newCmdData = ScriptableObject.CreateInstance<CommandData>();
+								Type type = GetTypeByClassName($"{cellName}Command");
+								if(type == null)
+                                {
+									Debug.Log($"{cellName}というコマンドはありません！クラス名で指定してください！");
+									continue;
+								}
+								cmdName = cellName;
+								newCmdData.SetCommand(type);
+								cmdBase = newCmdData.GetCommandBase();
+								list.Insert(i, newCmdData);
+							}
+							else
+                            {
+								var cmdData = list[i];
+								if (cmdData == null) continue;
+								cmdName = cmdData.GetCommandStatus().Name;
+								cmdBase = cmdData.GetCommandBase();
+								
+								if (cmdName != cellName)
 								{
-									cmdBase.SetCSVContent2(dataList[i][k]);
+									Debug.LogWarning($"コマンドの名前が合いません！\n" +
+										$"Object: {cmdName}, CSV: {cellName}");
 								}
 							}
+							
 						}
-	
+						else if (k == startX + 1)
+						{
+							if (cmdName is "Say")
+							{
+								cmdBase.SetCSVContent1(csvList[i][k]);
+							}
+						}
+						else if (k == startX + 2)
+						{
+							if (cmdName is "Say")
+							{
+								cmdBase.SetCSVContent2(csvList[i][k]);
+							}
+						}
 					}
 				}
-				count += 4;
 			}
-			
+		}
 
-			/*for (int i = 0; i < columnCount; i++)
+		public static Type GetTypeByClassName(string className)
+		{
+			foreach (Assembly assembly in AppDomain.CurrentDomain.GetAssemblies())
 			{
-				if (i == 0) continue;
-				for(int k = 0; k < rowCount; k++)
+				foreach (Type type in assembly.GetTypes())
 				{
-					int count = 0;
-					if(i == 1)
-                    {
-						if (k % rowCount + 1 != 0) return;
-						var executorName = dataList[i][k];
-						if (executorName != executors[count].name)
-                        {
-							Debug.LogWarning("フローチャートの名前が合いませんでした！ " + executorName);
-                        }
-						count++;
-					}
-					else
-                    {
-						var cmdlist = executor.Flowchart.GetReadOnlyCommandDataList();
+					if (type.Name == className)
+					{
+						return type;
 					}
 				}
-			}*/
+			}
+			return null;
 		}
 
-		/// <summary>
-		/// 絶対パスから Assets/ パスに変換する
-		/// </summary>
-		public static string AbsoluteToAssetsPath(this string self)
-		{
-			return self.Replace("\\", "/").Replace(Application.dataPath, "Assets");
-		}
-
+		public static List<FlowchartExecutor> GetSortedFlowchartExecutors()
+			=> GameObject.FindObjectsByType<FlowchartExecutor>(
+					FindObjectsInactive.Include, FindObjectsSortMode.None)
+					.OrderBy(f => f.name)
+					.ToList();
 	}
 	
 	static class StringBuilderExtension

@@ -18,5 +18,7 @@ namespace Novel.Command
         {
             return labelName;
         }
+
+        public override void SetCSVContent1(string content) => labelName = content;
     }
 }

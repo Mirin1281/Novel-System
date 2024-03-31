@@ -1,7 +1,7 @@
-SceneName,Scene2
-Flowchart(Copied),,,,Flowchart(Copied)2,,,,Flowchart1,,,,
-Say,真白ノベル,1つめのテキストコピ,,Say,真白ノベル,ああああああああああああ,,Say,真白ノベル,1つめのテキスト,,
-Say,真白ノベル,2つめのテキストコピ,,Say,真白ノベル,いいいいいいいいいいいいいいい,,Say,真白ノベル,2つめのテキスト,,
-,,,,,,,,Say,河野修二,3つめのテキスト,,
-,,,,,,,,<Null>,,,,
-,,,,,,,,CallScript,,,,
+SceneName,Scene2,,,,,,,,,
+Flowchart(Copied),,,,Flowchart(Copied)2,,,,Flowchart1,,
+Say,河野修二,テスト1,,Say,真白ノベル,ああああああああああああ,,Say,真白ノベル,1つめのテキスト
+Say,真白ノベル,2つめのテキストコピ,,Say,真白ノベル,いいいいいいいいいいいいいいい,,Say,真白ノベル,改変テキスト2
+,,,,,,,,Say,真白ノベル,テスト2
+,,,,,,,,<Null>,,
+,,,,,,,,CallScript,,

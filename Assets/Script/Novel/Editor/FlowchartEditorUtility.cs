@@ -7,6 +7,14 @@ namespace Novel
 {
     public static class FlowchartEditorUtility
     {
+
+        /// <summary>
+		/// 絶対パスから Assets/のパスに変換する
+		/// </summary>
+		public static string AbsoluteToAssetsPath(string path)
+        {
+            return path.Replace("\\", "/").Replace(Application.dataPath, "Assets");
+        }
         public static void DestroyScritableObject(ScriptableObject obj)
         {
             var path = GetExistFolderPath(obj);

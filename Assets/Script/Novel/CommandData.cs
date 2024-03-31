@@ -43,5 +43,23 @@ namespace Novel.Command
             }
             return command.GetCommandStatus();
         }
+
+        /// <summary>
+        /// CSV用
+        /// </summary>
+        public void SetCommand<T>(string content1 = null, string content2 = null) where T : ICommand, new()
+        {
+            command = new T();
+            GetCommandBase().SetCSVContent1(content1);
+            GetCommandBase().SetCSVContent2(content2);
+        }
+
+        /// <summary>
+        /// CSV用
+        /// </summary>
+        public void SetCommand(Type type)
+        {
+            command = Activator.CreateInstance(type) as CommandBase;
+        }
     }
 }
