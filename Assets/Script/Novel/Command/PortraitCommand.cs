@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using Cysharp.Threading.Tasks;
+using System;
 
 namespace Novel.Command
 {
@@ -92,7 +93,22 @@ namespace Novel.Command
         }
 
         protected override Color GetCommandColor() => new Color32(213, 245, 215, 255);
-        protected override string GetCSVContent1() => character.CharacterName;
-        protected override string GetCSVContent2() => actionType.ToString();
+
+        public override string CSVContent1
+        {
+            get => character.CharacterName;
+            set
+            {
+                character = CharacterData.GetCharacter(value);
+            }
+        }
+        public override string CSVContent2
+        {
+            get => actionType.ToString();
+            set
+            {
+                actionType = Enum.Parse<ActionType>(value);
+            }
+        }
     }
 }

@@ -1,3 +1,4 @@
+using Novel.Command;
 using System.IO;
 using System.Linq;
 using UnityEditor;
@@ -7,7 +8,6 @@ namespace Novel
 {
     public static class FlowchartEditorUtility
     {
-
         /// <summary>
 		/// 絶対パスから Assets/のパスに変換する
 		/// </summary>
@@ -15,6 +15,7 @@ namespace Novel
         {
             return path.Replace("\\", "/").Replace(Application.dataPath, "Assets");
         }
+
         public static void DestroyScritableObject(ScriptableObject obj)
         {
             var path = GetExistFolderPath(obj);
@@ -55,6 +56,19 @@ namespace Novel
             var guids = AssetDatabase.FindAssets($"t:{typeof(T).Name}");
             var assetPaths = guids.Select(AssetDatabase.GUIDToAssetPath).ToArray();
             return assetPaths.Select(AssetDatabase.LoadAssetAtPath<T>).ToArray();
+        }
+
+        public static CommandData CreateCommandData(string path, string baseName)
+        {
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+            }
+            var name = GetFileName(path, baseName, "asset");
+            var cmdData = ScriptableObject.CreateInstance<CommandData>();
+            AssetDatabase.CreateAsset(cmdData, Path.Combine(path, name));
+            AssetDatabase.ImportAsset(path, ImportAssetOptions.ForceUpdate);
+            return cmdData;
         }
     }
 }

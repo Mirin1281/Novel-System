@@ -19,6 +19,10 @@ namespace Novel.Command
             return labelName;
         }
 
-        public override void SetCSVContent1(string content) => labelName = content;
+        public override string CSVContent1
+        {
+            get => labelName;
+            set => labelName = value;
+        }
     }
 }

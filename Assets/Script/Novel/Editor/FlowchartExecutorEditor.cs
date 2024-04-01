@@ -1,9 +1,11 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEditor;
 using System.Collections.Generic;
 
 namespace Novel
 {
+    using Cysharp.Threading.Tasks;
     using Novel.Command;
 
     [CustomEditor(typeof(FlowchartExecutor))]
@@ -11,23 +13,19 @@ namespace Novel
     {
         public override void OnInspectorGUI()
         {
-            base.OnInspectorGUI();
-
-            EditorGUILayout.Space(20);
-
             if (GUILayout.Button("フローチャートエディタを開く"))
             {
                 EditorWindow.GetWindow<FlowchartEditorWindow>("Flowchart Editor");
             }
 
+            base.OnInspectorGUI();
+
             EditorGUILayout.Space(10);
 
             EditorGUILayout.LabelField(
-                "【注意】\n" +
+                "◆◆注意\n" +
                 "下のボタンから複製をしてください。じゃないとバグります\n" +
-                "\n" +
-                "【もしもの対処】\n" +
-                "もしも普通に複製してしまったら、そのまま削除すれば大丈夫です"
+                "もし普通に複製してしまっても、そのまま削除すれば大丈夫です"
                 , EditorStyles.wordWrappedLabel);
 
             EditorGUILayout.Space(10);
@@ -44,7 +42,7 @@ namespace Novel
                 {
                     var copiedCmdData = Instantiate(cmdData);
                     var cmd = copiedCmdData.GetCommandBase();
-                    if(cmd != null)
+                    if (cmd != null)
                     {
                         cmd.SetFlowchart(flowchart);
                     }
@@ -53,14 +51,42 @@ namespace Novel
                 flowchart.SetCommandDataList(copiedCmdList);
             }
 
-            if(GUILayout.Button("CSVとしてエクスポートする"))
-            {
-                FlowchartCSVExporter.ExportFlowchartCommandData();
-            }
+            EditorGUILayout.Space(10);
 
-            if (GUILayout.Button("CSVをインポートする"))
+            EditorGUILayout.LabelField(
+                "◆◆CSVのエクスポートについて\n" +
+                "エクスポートすると、シーン内の全フローチャートのコマンドデータが書き込まれます\n" +
+                "ExcelやGoogleスプレッドシートで読み込めば確認や編集をすることができます\n" +
+                "CSVContent1, CSVContent2ゲッターをコマンド内にオーバーライドする\n" +
+                "ことで表示する内容を設定できます (全部はムリですが)\n" +
+                "\n" +
+                "◆◆CSVのインポートについて\n" +
+                "Excelでのデータ形式に準じています\n" +
+                "CSV内のシーン名、フローチャート名は変えないでください\n" +
+                "\n" +
+                "コマンド名は(コマンドのクラス名から\"Command\"を除いた文字列)で、増やすこともできます\n" +
+                "内容はCSVContent1, CSVContent2セッターをコマンド内にオーバーライドすると\n" +
+                "読み込む内容を設定できます。getterとsetterは相互変換を推奨します\n" +
+                "\n" +
+                "すでにあるコマンドをCSVから消す機能は現状実装していません"
+                , EditorStyles.wordWrappedLabel);
+
+            EditorGUILayout.Space(10);
+
+            using (new EditorGUILayout.HorizontalScope())
             {
-                FlowchartCSVExporter.ImportFlowchartCommandData();
+                if (GUILayout.Button("CSV形式でエクスポートする"))
+                {
+                    var sceneName = SceneManager.GetActiveScene().name;
+                    FlowchartCSVIO.ExportFlowchartCommandDataAsync(
+                        sceneName, FlowchartCSVIO.FlowchartType.Executor).Forget();
+                }
+                if (GUILayout.Button("CSVをインポートする"))
+                {
+                    var sceneName = SceneManager.GetActiveScene().name;
+                    FlowchartCSVIO.ImportFlowchartCommandDataAsync(
+                        sceneName, FlowchartCSVIO.FlowchartType.Executor).Forget();
+                }
             }
         }
     }

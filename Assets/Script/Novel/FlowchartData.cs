@@ -1,22 +1,23 @@
 ﻿using UnityEngine;
 using Cysharp.Threading.Tasks;
+using Novel.Command;
 
 namespace Novel
 {
-    using Novel.Command;
-
     [CreateAssetMenu(
         fileName = "FlowchartData",
         menuName = "ScriptableObject/FlowchartData")
     ]
-    public class FlowchartData : ScriptableObject
+    public class FlowchartData : ScriptableObject, IFlowchartObject
     {
         [SerializeField] Flowchart flowchart;
         public Flowchart Flowchart => flowchart;
 
+        public string Name => name;
+
         public async UniTask ExecuteAsync(int index = 0, FlowchartCallStatus callStatus = null)
         {
-            await flowchart.ExecuteAsync(index, callStatus);
+            await Flowchart.ExecuteAsync(index, callStatus);
         }
 
         /// <summary>
@@ -24,7 +25,7 @@ namespace Novel
         /// </summary>
         public bool IsUsed(CommandData targetData)
         {
-            foreach(var cmd in flowchart.GetReadOnlyCommandDataList())
+            foreach(var cmd in Flowchart.GetReadOnlyCommandDataList())
             {
                 if (cmd == targetData) return true;
             }

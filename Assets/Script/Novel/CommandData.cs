@@ -1,11 +1,10 @@
 ﻿using System;
 using UnityEngine;
 using Cysharp.Threading.Tasks;
+using CommandStatus = Novel.Command.CommandBase.CommandStatus;
 
 namespace Novel.Command
 {
-    using CommandStatus = CommandBase.CommandStatus;
-
     [Serializable]
     public class CommandData : ScriptableObject
     {
@@ -47,18 +46,13 @@ namespace Novel.Command
         /// <summary>
         /// CSV用
         /// </summary>
-        public void SetCommand<T>(string content1 = null, string content2 = null) where T : ICommand, new()
-        {
-            command = new T();
-            GetCommandBase().SetCSVContent1(content1);
-            GetCommandBase().SetCSVContent2(content2);
-        }
-
-        /// <summary>
-        /// CSV用
-        /// </summary>
         public void SetCommand(Type type)
         {
+            if (type == null)
+            {
+                command = null;
+                return;
+            }
             command = Activator.CreateInstance(type) as CommandBase;
         }
     }

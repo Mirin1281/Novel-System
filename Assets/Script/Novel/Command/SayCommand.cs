@@ -20,7 +20,7 @@ namespace Novel.Command
         float boxShowTime;
 
         [SerializeField, Tooltip(
-            "\"<item0>万円\"のように書くことで、文の中にフラグの値を入れ込むことができます\n" +
+            "\"<flag0>万円\"のように書くことで、文の中にフラグの値を入れ込むことができます\n" +
             "(FlagKeyの型はint型以外でもかまいません)")]
         FlagKeyDataBase[] flagKeys;
 
@@ -55,20 +55,20 @@ namespace Novel.Command
         }
 
         /// <summary>
-        /// "<item0>"などの部分をそこに対応する変数値に置き換えます
+        /// "<flag0>"などの部分をそこに対応する変数値に置き換えます
         /// </summary>
         string ReplaceFlagValue(string fullText, FlagKeyDataBase[] flagKeys)
         {
             for (int i = 0; i < flagKeys.Length; i++)
             {
-                if (fullText.Contains($"<item{i}>"))
+                if (fullText.Contains($"<flag{i}>"))
                 {
-                    fullText = fullText.Replace($"<item{i}>",
+                    fullText = fullText.Replace($"<flag{i}>",
                         FlagManager.GetFlagValueString(flagKeys[i]).valueStr);
                 }
                 else
                 {
-                    Debug.LogWarning($"<item{i}>がなかったよ");
+                    Debug.LogWarning($"<flag{i}>がなかったよ");
                 }
             }
             return fullText;
@@ -96,23 +96,17 @@ namespace Novel.Command
 
         protected override Color GetCommandColor() => new Color32(235, 210, 225, 255);
 
-        protected override string GetCSVContent1() => character?.CharacterName;
-        protected override string GetCSVContent2() => storyText;
-
-        public override void SetCSVContent1(string content)
+        public override string CSVContent1
         {
-            var characters = Resources.LoadAll<CharacterData>("Characters");
-            var meetChara = characters.Where(c => c.CharacterName == content).ToList();
-            if(meetChara.Count != 1)
-            {
-                Debug.LogWarning($"キャラクターのカウントがおかしいです！: {meetChara.Count}");
-            }
-            else
-            {
-                character = meetChara[0];
-            }
+            get => character == null ? null : character.CharacterName;
+            set => character = CharacterData.GetCharacter(value);
         }
-        public override void SetCSVContent2(string content) => storyText = content;
+
+        public override string CSVContent2
+        {
+            get => storyText;
+            set => storyText = value;
+        }
 
         #endregion
     }

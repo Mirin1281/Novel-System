@@ -1,0 +1,10 @@
+Name:,Scene2,,,,,,,,,
+Flowchart(Copied),,,,Flowchart(Copied)2,,,,Flowchart1,,
+Say,真白ノベル,1つめのテキストコピ,,Say,真白ノベル,ああああああああああああ,,Say,真白ノベル,1つめのテキスト
+Say,真白ノベル,2つめのテキストコピ,,Say,真白ノベル,いいいいいいいいいいいいいいい,,Portrait,,
+Say,河野修二,こんにちは,,<Null>,,,,Say,河野修二,3つめのテキスト
+,,,,<Null>,,,,<Null>,,
+,,,,TwoMenu,,,,CallScript,,
+,,,,,,,,Say,真白ノベル,あああ
+,,,,,,,,Say,河野修二,いいいい
+,,,,,,,,<Null>,,

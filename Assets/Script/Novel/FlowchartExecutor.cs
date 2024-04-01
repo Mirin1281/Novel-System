@@ -7,11 +7,13 @@ namespace Novel
     // MonoBehaviourはシーン内で参照が取れるためできることが多い
     // ScriptableObjectはどのシーンからでも呼べるので使い回しが効く
 
-    public class FlowchartExecutor : MonoBehaviour
+    public class FlowchartExecutor : MonoBehaviour, IFlowchartObject
     {
         [SerializeField] bool isStartExecute;
         [SerializeField] Flowchart flowchart;
         public Flowchart Flowchart => flowchart;
+
+        public string Name => name;
 
         void Start()
         {
@@ -20,7 +22,14 @@ namespace Novel
 
         public async UniTask ExecuteAsync(int index = 0, FlowchartCallStatus callStatus = null)
         {
-            await flowchart.ExecuteAsync(index, callStatus);
+            await Flowchart.ExecuteAsync(index, callStatus);
         }
+    }
+
+    public interface IFlowchartObject
+    {
+        public Flowchart Flowchart { get; }
+        public UniTask ExecuteAsync(int index = 0, FlowchartCallStatus callStatus = null);
+        public string Name { get; }
     }
 }

@@ -185,7 +185,8 @@ namespace Novel
                     {
                         path = NameContainer.COMMANDDATA_PATH;
                     }
-                    var name = FlowchartEditorUtility.GetFileName(path, $"CommandData_{activeFlowchartData.name}", "assets");
+                    var name = FlowchartEditorUtility.GetFileName(
+                        path, $"CommandData_{activeFlowchartData.name}", "asset");
                     AssetDatabase.CreateAsset(createCommand, Path.Combine(path, name));
                     AssetDatabase.ImportAsset(path, ImportAssetOptions.ForceUpdate);
                 }
@@ -225,7 +226,7 @@ namespace Novel
                 CommandData newCommandData = activeMode switch
                 {
                     ActiveMode.Executor => CreateInstance<CommandData>(),
-                    ActiveMode.Data => CreateCommandData(NameContainer.COMMANDDATA_PATH, $"CommandData_{activeFlowchartData.name}"),
+                    ActiveMode.Data => FlowchartEditorUtility.CreateCommandData(NameContainer.COMMANDDATA_PATH, $"CommandData_{activeFlowchartData.name}"),
                     _ => throw new Exception()
                 };
                 int insertIndex = list.index + 1;
@@ -319,19 +320,6 @@ namespace Novel
             {
                 return 30;
             }
-        }
-
-        CommandData CreateCommandData(string path, string baseName)
-        {
-            if (!Directory.Exists(path))
-            {
-                Directory.CreateDirectory(path);
-            }
-            var name = FlowchartEditorUtility.GetFileName(path, baseName, "assets");
-            var cmdData = CreateInstance<CommandData>();
-            AssetDatabase.CreateAsset(cmdData, Path.Combine(path, name));
-            AssetDatabase.ImportAsset(path, ImportAssetOptions.ForceUpdate);
-            return cmdData;
         }
 
         #endregion

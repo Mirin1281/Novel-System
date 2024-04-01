@@ -43,29 +43,23 @@ namespace Novel.Command
             readonly public string Summary;
             readonly public Color Color;
             readonly public string Info;
-            readonly public string Content1;
-            readonly public string Content2;
 
             public CommandStatus(
-                string name, string summary = null, Color color = default, string info = null, string content1 = null, string content2 = null)
+                string name, string summary = null, Color color = default, string info = null)
             {
                 Name = name;
                 Summary = summary ?? string.Empty;
                 Color = color == default ? new Color(0.9f, 0.9f, 0.9f, 1f) : color;
                 Info = info ?? string.Empty;
-                Content1 = content1 ?? string.Empty;
-                Content2 = content2 ?? string.Empty;
             }
         }
 
         CommandStatus ICommand.GetCommandStatus()
-            => new　(
+            => new(
                 GetName(),
                 GetSummary(),
                 GetCommandColor(),
-                GetCommandInfo(),
-                GetCSVContent1(),
-                GetCSVContent2());
+                GetCommandInfo());
 
         /// <summary>
         /// コマンド名を定義します
@@ -105,22 +99,12 @@ namespace Novel.Command
         /// <summary>
         /// CSV出力時の第一表示
         /// </summary>
-        protected virtual string GetCSVContent1() => null;
+        public virtual string CSVContent1 { get; set; } = string.Empty;
 
         /// <summary>
-        /// CSV出力時の第一表示
+        /// CSV出力時の第二表示
         /// </summary>
-        protected virtual string GetCSVContent2() => null;
-
-        /// <summary>
-        /// CSV出力時の第一表示
-        /// </summary>
-        public virtual void SetCSVContent1(string content) { }
-
-        /// <summary>
-        /// CSV出力時の第一表示
-        /// </summary>
-        public virtual void SetCSVContent2(string content) { }
+        public virtual string CSVContent2 { get; set; } = string.Empty;
 
         public void SetFlowchart(Flowchart f) => ParentFlowchart = f;
         public void SetIndex(int i) => Index = i;
