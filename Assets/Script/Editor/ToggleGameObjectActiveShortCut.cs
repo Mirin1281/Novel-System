@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEditor;
 using System.Reflection;
 
+// https://qiita.com/r-ngtm/items/ca5d4106e8c559275862
 [InitializeOnLoad]
 public class ToggleGameObjectActiveShortCut
 {

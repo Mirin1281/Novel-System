@@ -1,13 +1,17 @@
 ﻿using UnityEngine;
 using Cysharp.Threading.Tasks;
-using DG.Tweening;
+//using DG.Tweening;
 
 namespace Novel.Command
 {
-    [AddTypeMenu("MoveXPortrait"), System.Serializable]
+    [AddTypeMenu("MoveXPortrait(Missing)"), System.Serializable]
     public class MoveXPortraitCommand : CommandBase
     {
-        enum MoveType { Relative, Absolute }
+        protected override async UniTask EnterAsync()
+        {
+            await UniTask.CompletedTask;
+        }
+        /*enum MoveType { Relative, Absolute }
 
         [SerializeField] CharacterData character;
         [SerializeField] float movePosX;
@@ -45,7 +49,7 @@ namespace Novel.Command
                     _ = portTs.DOLocalMoveX(movePosX, time).SetEase(ease).WithCancellation(CallStatus.Token);
                 }
             }
-        }
+        }*/
     }
 }
 

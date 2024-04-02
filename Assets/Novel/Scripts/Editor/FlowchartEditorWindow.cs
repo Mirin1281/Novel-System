@@ -122,15 +122,17 @@ namespace Novel
                 if (e.keyCode == KeyCode.C && selectedCommand != null)
                 {
                     Copy(selectedCommand);
+                    Debug.Log("<color=lightblue>コマンドをコピーしました</color>");
                 }
                 else if (e.keyCode == KeyCode.V && copiedCommand != null)
                 {
                     Paste(copiedCommand);
+                    Debug.Log("<color=lightblue>コマンドをペーストしました</color>");
                 }
                 else if (e.keyCode == KeyCode.D && selectedCommand != null)
                 {
-                    Copy(selectedCommand);
-                    Paste(copiedCommand);
+                    Duplicate(selectedCommand);
+                    Debug.Log("<color=lightblue>コマンドを複製しました</color>");
                 }
             }
 
@@ -166,7 +168,6 @@ namespace Novel
             if (GUIUtility.keyboardControl > 0)
             {
                 copiedCommand = command;
-                Debug.Log("<color=lightblue>コマンドをコピーしました</color>");
             }
         }
         void Paste(CommandData copiedCommand)
@@ -196,8 +197,13 @@ namespace Novel
                 reorderableList.Select(currentIndex + 1);
 
                 RefreshFlowchart();
-                Debug.Log("<color=lightblue>コマンドをペーストしました</color>");
             }
+        }
+
+        void Duplicate(CommandData command)
+        {
+            Copy(command);
+            Paste(copiedCommand);
         }
 
         #region ReorderableList

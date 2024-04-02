@@ -15,7 +15,7 @@ namespace Novel
     public static class FlowchartCSVIO
     {
 		readonly static string outPutFileName = "FlowchartSheet";
-		readonly static string defaultPath = $"{Application.dataPath}/CSV";
+		readonly static string defaultPath = $"{NameContainer.NOVEL_PATH}/CSV";
 		readonly static int rowCount = 3;
 		readonly static bool isChangeIfDifferentCmdName = true;
 		readonly static FindObjectsInactive findMode = FindObjectsInactive.Include;
@@ -35,7 +35,7 @@ namespace Novel
 
 			try
             {
-				// 1行目は名前
+				/*// 1行目は名前
 				sw.Write("\"Name:\",");
 				sw.WriteLine($"\"{exportName}\",");
 
@@ -79,6 +79,74 @@ namespace Novel
 							.Append("\"").Append(content1).Append("\"").Append(",")
 							.Append("\"").Append(content2).Append("\"").Append(",")
 							.Skip(1);
+					}
+
+					sw.WriteLine(sb.ToString());
+					sb.Clear();*/
+
+				// 1行目は名前
+				sw.Write("Name:,");
+				sw.WriteLine($"{exportName},");
+
+				List<IFlowchartObject> chartObjs = GetSortedFlowchartObjects(type);
+				int maxFlowchartsCmdIndex = chartObjs.Max(f => f.Flowchart.GetReadOnlyCommandDataList().Count);
+
+				// 2行目は各フローチャートの名前
+				var sb = new StringBuilder();
+				foreach (var chart in chartObjs)
+                {
+					sb.Append(chart.Name).Append(",")
+						.Skip(rowCount);
+				}
+				sw.WriteLine(sb.ToString());
+				sb.Clear();
+
+				for (int i = 0; i < maxFlowchartsCmdIndex; i++)
+				{
+					foreach (var chart in chartObjs)
+					{
+						var list = chart.Flowchart.GetReadOnlyCommandDataList();
+						if (i >= list.Count)
+                        {
+							sb.Skip(rowCount + 1);
+							continue;
+						}
+						var cmdBase = list[i].GetCommandBase();
+
+						bool content1Quort = false;
+						var content1 = cmdBase?.CSVContent1;
+						if(content1 != null && (content1.Contains("\"") || content1.Contains(",") || content1.Contains("\n")))
+                        {
+							content1 = content1.Replace("\"", "\"\"");
+							content1Quort = true;
+						}
+
+						bool content2Quort = false;
+						var content2 = cmdBase?.CSVContent2;
+						if (content2 != null && (content2.Contains("\"") || content2.Contains(",") || content2.Contains("\n")))
+						{
+							content2 = content2.Replace("\"", "\"\"");
+							content2Quort = true;
+						}
+
+						sb.Append(GetCommandName(cmdBase)).Append(",");
+						if(content1Quort)
+                        {
+							sb.Append("\"").Append(content1).Append("\"").Append(",");
+						}
+						else
+                        {
+							sb.Append(content1).Append(",");
+						}
+						if (content2Quort)
+						{
+							sb.Append("\"").Append(content2).Append("\"").Append(",");
+						}
+						else
+						{
+							sb.Append(content2).Append(",");
+						}
+						sb.Skip(1);
 					}
 
 					sw.WriteLine(sb.ToString());
@@ -255,7 +323,7 @@ namespace Novel
                         }
                     }*/
 
-					return result;
+				return result;
 					
 
 					// 前後のダブルクォーテーションを削除し、2個連続するダブルクォーテーションを1個に置換する

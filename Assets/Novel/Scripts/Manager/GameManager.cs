@@ -13,7 +13,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
 #if UNITY_EDITOR
         Application.targetFrameRate = 60;
 #endif
-        LoadGameData();
+        //LoadGameData();
     }
 
     public float DefaultWriteSpeed { get; private set; } = 2;
@@ -23,7 +23,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
         MyStatic.ResetToken();
     }
 
-    void OnApplicationQuit()
+    /*void OnApplicationQuit()
     {
         SaveGameData();
     }
@@ -47,5 +47,5 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
         gameData.FlagDictionary = FlagManager.GetFlagDictionary();
         gameData.LogList = SayLogger.GetLog();
         SaveLoad.SaveDataImmediate(gameData, 0);
-    }
+    }*/
 }

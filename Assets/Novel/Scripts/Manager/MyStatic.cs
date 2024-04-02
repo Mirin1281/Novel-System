@@ -3,23 +3,9 @@ using UnityEngine.SceneManagement;
 using Cysharp.Threading.Tasks;
 using System;
 using System.Threading;
-using System.IO;
 #if UNITY_EDITOR
 using UnityEditor; // AssetDatabaseを使うために必要
 #endif
-using Object = UnityEngine.Object;
-
-/// <summary>
-/// 定数で名前を保管する
-/// </summary>
-public static class NameContainer
-{
-    public const string RESOURCES_PATH = "Assets/Resources";
-    public const string COMMANDDATA_PATH = RESOURCES_PATH + "/Commands";
-    public const string CHARACTER_PATH = RESOURCES_PATH + "/Characters";
-    public const string SUBMIT_KEYNAME = "Submit";
-    public const string CANCEL_KEYNAME = "Cancel";
-}
 
 public static class MyStatic
 {
