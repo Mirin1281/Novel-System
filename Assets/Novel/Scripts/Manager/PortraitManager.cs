@@ -20,8 +20,9 @@ namespace Novel
             OnSceneChanged();
         }
 
-        void OnDestroy()
+        protected override void OnDestroy()
         {
+            base.OnDestroy();
             SceneManager.activeSceneChanged -= OnSceneChanged;
         }
 

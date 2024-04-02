@@ -18,7 +18,7 @@ namespace Novel
         [SerializeField] MsgBoxInput input;
         float timePer100Charas; // 100文字表示するのにかかる時間(s)
         bool isSkipped;
-        float defaultSpeed => GameManager.Instance.DefaultWriteSpeed;
+        float defaultSpeed => NovelManager.Instance.DefaultWriteSpeed;
 
         void Awake()
         {
@@ -38,6 +38,7 @@ namespace Novel
             SetName(character);
             var (richText, tagDataList) = TagUtility.ExtractMyTag(fullText);
             isSkipped = false;
+            //tagDataList.ForEach(data => data.ShowTagStatus()); // デバッグ用
             await WriteStoryTextAsync(richText, tagDataList, null, token);
             SayLogger.AddLog(character, richText);
 
@@ -124,9 +125,11 @@ namespace Novel
                         planeText = storyTmpro.GetParsedText();
                         i = 0;
                         storyTmpro.maxVisibleCharacters = 0;
-                        foreach(var tagData in tagDataList)
+                        int delta = tag.IndexIgnoreAllTag;
+                        foreach (var tagData in tagDataList)
                         {
-                            tagData.IndexIgnoreAllTag -= tag.IndexIgnoreAllTag;
+                            tagData.IndexIgnoreAllTag -= delta;
+                            tagData.IndexIgnoreMyTag -= delta;
                         }
                     }
                     else if (type == TagType.RubyStart)

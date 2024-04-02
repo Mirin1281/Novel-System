@@ -56,15 +56,10 @@ namespace Novel.Command
 
         CommandStatus ICommand.GetCommandStatus()
             => new(
-                GetName(),
+                GetName(this),
                 GetSummary(),
                 GetCommandColor(),
                 GetCommandInfo());
-
-        /// <summary>
-        /// コマンド名を定義します
-        /// </summary>
-        protected virtual string GetName() => GetName(this);
 
         /// <summary>
         /// エディタのコマンドに状態を記述します(オーバーライド)

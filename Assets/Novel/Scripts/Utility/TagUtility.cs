@@ -32,7 +32,7 @@ namespace Novel
             /// <summary>
             /// 独自のタグを無視した時のタグの位置(語彙力)
             /// </summary>
-            public readonly int IndexIgnoreMyTag;
+            public int IndexIgnoreMyTag;
 
             /// <summary>
             /// リッチテキストを含む全てのタグを無視した時のタグの位置

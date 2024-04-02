@@ -50,11 +50,5 @@ namespace Novel.Command
             await MyStatic.WaitFrame(1, callStatus.Token);
             ParentFlowchart.ExecuteAsync(index, callStatus).Forget();
         }
-
-
-        protected override string GetName()
-        {
-            return "2Menu";
-        }
     }
 }

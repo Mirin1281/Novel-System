@@ -41,12 +41,6 @@ namespace Novel.Command
             }
         }
 
-
-        protected override string GetName()
-        {
-            return "Execute";
-        }
-
         protected override string GetSummary()
         {
             string objectName = string.Empty;

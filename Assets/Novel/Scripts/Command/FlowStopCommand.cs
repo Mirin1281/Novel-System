@@ -55,12 +55,6 @@ namespace Novel.Command
             }
         }
 
-
-        protected override string GetName()
-        {
-            return "Stop";
-        }
-
         protected override string GetSummary()
         {
             return stopType.ToString();

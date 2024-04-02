@@ -29,5 +29,13 @@ namespace Novel
             }
             instance = this as T;
         }
+
+        protected virtual void OnDestroy()
+        {
+            if (Instance == this)
+            {
+                instance = null;
+            }
+        }
     }
 }

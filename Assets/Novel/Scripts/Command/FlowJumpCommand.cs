@@ -37,12 +37,6 @@ namespace Novel.Command
             ParentFlowchart.ExecuteAsync(index, callStatus).Forget();
         }
 
-
-        protected override string GetName()
-        {
-            return "Jump";
-        }
-
         protected override string GetSummary()
         {
             int index = jumpType switch
