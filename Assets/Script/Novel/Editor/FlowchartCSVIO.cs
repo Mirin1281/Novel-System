@@ -153,8 +153,29 @@ namespace Novel
 			for (int i = 0; i < chartObjs.Count; i++)
 			{
 				ImportByExecutor(chartObjs[i], dataList, i * (rowCount + 1));
-				EditorUtility.SetDirty(chartObjs[i] as Object);
+
+				if (type == FlowchartType.Executor)
+				{
+					var chartExecutor = chartObjs[i] as FlowchartExecutor;
+					foreach (var cmdData in chartExecutor.Flowchart.GetCommandDataList())
+					{
+						EditorUtility.SetDirty(cmdData);
+					}
+					EditorUtility.SetDirty(chartExecutor);
+				}
+				else if (type == FlowchartType.Data)
+                {
+					var chartData = chartObjs[i] as FlowchartData;
+					foreach (var cmdData in chartData.Flowchart.GetCommandDataList())
+                    {
+						EditorUtility.SetDirty(cmdData);
+					}
+					EditorUtility.SetDirty(chartData);
+				}
+				
+				AssetDatabase.SaveAssets();
 			}
+			
 			Debug.Log("<color=lightblue>CSV‚ğ“Ç‚İ‚İ‚Ü‚µ‚½I</color>");
 
 

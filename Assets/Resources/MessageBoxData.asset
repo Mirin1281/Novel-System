@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad185e74d18d12b4f815265b8ccf1fda, type: 3}
   m_Name: MessageBoxData
   m_EditorClassIdentifier: 
-  CreateOnSceneChanged: 0
-  LinkedBoxList:
+  <CreateOnSceneChanged>k__BackingField: 0
+  <LinkedBoxList>k__BackingField:
   - <Type>k__BackingField: 0
     <Prefab>k__BackingField: {fileID: 3517438053775606728, guid: d61be9789ac52e4438457865ed8aa12a, type: 3}
   - <Type>k__BackingField: 1

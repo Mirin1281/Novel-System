@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4399fbfc898731a4f96fd937ce84eeff, type: 3}
-  m_Name: CommandData_Chart1_(3)
+  m_Name: CommandData_Chart2_(1)
   m_EditorClassIdentifier: 
   <Enabled>k__BackingField: 1
   command:
-    rid: 5499919935021776897
+    rid: 5499919935060836353
   references:
     version: 2
     RefIds:
-    - rid: 5499919935021776897
+    - rid: 5499919935060836353
       type: {class: SayCommand, ns: Novel.Command, asm: Assembly-CSharp}
       data:
         <ParentFlowchart>k__BackingField:
@@ -27,6 +27,6 @@ MonoBehaviour:
         <Index>k__BackingField: 0
         character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
         changeSprite: {fileID: 0}
-        storyText: "\u3066\u3059\u3068\u304A\u304A"
+        storyText: "\u30C6\u30B9\u30C8\u3063"
         boxShowTime: 0
         flagKeys: []

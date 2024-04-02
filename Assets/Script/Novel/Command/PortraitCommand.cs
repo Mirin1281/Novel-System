@@ -107,7 +107,12 @@ namespace Novel.Command
             get => actionType.ToString();
             set
             {
-                actionType = Enum.Parse<ActionType>(value);
+                if(value.TryParseToEnum(out ActionType type) == false)
+                {
+                    actionType = ActionType.Show;
+                    Debug.LogWarning("Portrait, ActionTypeの変換に失敗しました");
+                }
+                actionType = type;
             }
         }
     }

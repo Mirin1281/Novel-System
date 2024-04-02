@@ -7,18 +7,18 @@ namespace Novel
     // BoxTypeはこの下にあります
 
     [CreateAssetMenu(
-        fileName = "MessageBoxData",
-        menuName = "ScriptableObject/MessageBoxData")
+        fileName = "MessageBoxesData",
+        menuName = "ScriptableObject/MessageBoxesData")
     ]
-    public class MessageBoxData : ScriptableObject
+    public class MessageBoxesData : ScriptableObject
     {
         [field: SerializeField, Tooltip(
                 "true時はシーン切り替え時に全メッセージボックスを生成します\n" +
                 "false時は受注生産方式でキャッシュします")]
-        public bool CreateOnSceneChanged;
+        public bool CreateOnSceneChanged { get; private set; }
 
         [field: Header("右上の「︙」 > 「◆SetEnum」から列挙子を更新できます"), SerializeField]
-        public List<LinkedBox> LinkedBoxList;
+        public List<LinkedBox> LinkedBoxList { get; private set; }
 
         [Serializable]
         public class LinkedBox

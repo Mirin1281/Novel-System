@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94ac70fcc31edf246858120251834f81, type: 3}
+  m_Name: Chart2
+  m_EditorClassIdentifier: 
+  flowchart:
+    description: "\u8AAC\u660E"
+    commandDataList:
+    - {fileID: 11400000, guid: 8ab9200b0ddc9794dad817e5c7a3d304, type: 2}
+    - {fileID: 11400000, guid: e23cbe03e382751419fdfdb4f6d671ae, type: 2}

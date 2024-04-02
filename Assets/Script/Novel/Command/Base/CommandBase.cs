@@ -97,12 +97,12 @@ namespace Novel.Command
 
 #if UNITY_EDITOR
         /// <summary>
-        /// CSV出力時の第一表示
+        /// CSV出力時の第一表示(getは書き出し、setは読み込み)
         /// </summary>
         public virtual string CSVContent1 { get; set; } = string.Empty;
 
         /// <summary>
-        /// CSV出力時の第二表示
+        /// CSV出力時の第二表示(getは書き出し、setは読み込み)
         /// </summary>
         public virtual string CSVContent2 { get; set; } = string.Empty;
 

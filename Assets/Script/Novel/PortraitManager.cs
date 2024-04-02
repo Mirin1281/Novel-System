@@ -1,59 +1,16 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 using System;
-using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 
 namespace Novel
 {
+    using LinkedPortrait = PortraitsData.LinkedPortrait;
+
     // 基本的な実装はMessageBoxManagerと同じ
     public class PortraitManager : SingletonMonoBehaviour<PortraitManager>
     {
-        [SerializeField] bool createOnSceneChanged;
-
-        #region Data
-
-        [Header("右上の「︙」 > 「◆SetEnum」から列挙子を更新できます")]
-        [SerializeField] List<LinkedPortrait> linkedPortraitList;
-
-        [Serializable]
-        class LinkedPortrait
-        {
-            [field: SerializeField, ReadOnly]
-            public PortraitType Type { get; set; }
-            [field: SerializeField]
-            public Portrait Prefab;
-            public Portrait Portrait { get; set; }
-        }
-
-        /// <summary>
-        /// 列挙子を設定します
-        /// </summary>
-        [ContextMenu("◆SetEnum")]
-        void SetEnum()
-        {
-            int enumCount = Enum.GetValues(typeof(PortraitType)).Length;
-            if (linkedPortraitList == null) linkedPortraitList = new();
-            int deltaCount = 1; // 仮置き
-            while (deltaCount != 0)
-            {
-                deltaCount = linkedPortraitList.Count - enumCount;
-                if (deltaCount > 0)
-                {
-                    linkedPortraitList.RemoveAt(enumCount);
-                }
-                else if (deltaCount < 0)
-                {
-                    linkedPortraitList.Add(new LinkedPortrait());
-                }
-            }
-
-            for (int i = 0; i < enumCount; i++)
-            {
-                linkedPortraitList[i].Type =(PortraitType)i;
-            }
-        }
-        #endregion
+        [SerializeField] PortraitsData data;
 
         protected override void Awake()
         {
@@ -63,11 +20,16 @@ namespace Novel
             OnSceneChanged();
         }
 
+        void OnDestroy()
+        {
+            SceneManager.activeSceneChanged -= OnSceneChanged;
+        }
+
         void InitCheck()
         {
             int enumCount = Enum.GetValues(typeof(PortraitType)).Length;
 
-            if (linkedPortraitList.Count != enumCount)
+            if (data.LinkedPortraitList.Count != enumCount)
             {
                 Debug.LogWarning($"{nameof(PortraitManager)}に登録している数が{nameof(PortraitType)}の数と合いません！");
             }
@@ -75,7 +37,7 @@ namespace Novel
             {
                 for (int i = 0; i < enumCount; i++)
                 {
-                    linkedPortraitList[i].Type = (PortraitType)i;
+                    data.LinkedPortraitList[i].Type = (PortraitType)i;
                 }
             }
         }
@@ -90,7 +52,7 @@ namespace Novel
 
             var existPortraits = FindObjectsByType<Portrait>(
                     FindObjectsInactive.Include, FindObjectsSortMode.None);
-            foreach (var linkedPortrait in linkedPortraitList)
+            foreach (var linkedPortrait in data.LinkedPortraitList)
             {
                 linkedPortrait.Portrait = null;
                 foreach (var existPort in existPortraits)
@@ -103,7 +65,7 @@ namespace Novel
                     }
                 }
 
-                if (linkedPortrait.Portrait == null && createOnSceneChanged)
+                if (linkedPortrait.Portrait == null && data.CreateOnSceneChanged)
                 {
                     CreateAndAddPortrait(linkedPortrait);
                 }
@@ -125,31 +87,19 @@ namespace Novel
         /// </summary>
         public Portrait CreateIfNotingPortrait(PortraitType portraitType)
         {
-            var linkedPortrait = linkedPortraitList[(int)portraitType];
+            var linkedPortrait = data.LinkedPortraitList[(int)portraitType];
             if (linkedPortrait.Portrait != null) return linkedPortrait.Portrait;
             return CreateAndAddPortrait(linkedPortrait);
         }
 
         public async UniTask AllClearFadeAsync(float time = MyStatic.DefaultFadeTime)
         {
-            foreach (var linkedPortrait in linkedPortraitList)
+            foreach (var linkedPortrait in data.LinkedPortraitList)
             {
                 if (linkedPortrait.Portrait == null) continue;
                 linkedPortrait.Portrait.ClearFadeAsync(time).Forget();
             }
             await MyStatic.WaitSeconds(time, destroyCancellationToken);
         }
-
-        void OnDestroy()
-        {
-            SceneManager.activeSceneChanged -= OnSceneChanged;
-        }
-    }
-
-    public enum PortraitType
-    {
-        [InspectorName("デフォルト")] Default,
-        [InspectorName("真白ノベル")] Type1,
-        [InspectorName("河野修二")] Type2,
     }
 }

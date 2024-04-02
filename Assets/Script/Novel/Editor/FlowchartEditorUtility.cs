@@ -23,6 +23,7 @@ namespace Novel
             Object.DestroyImmediate(obj, true);
             File.Delete($"{path}/{deleteName}.asset");
             File.Delete($"{path}/{deleteName}.asset.meta");
+            AssetDatabase.Refresh(ImportAssetOptions.ForceUpdate);
         }
 
         public static string GetExistFolderPath(Object obj)

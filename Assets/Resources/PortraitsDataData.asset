@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ee52989829622f439dc67acf4c02c8c, type: 3}
+  m_Name: PortraitsDataData
+  m_EditorClassIdentifier: 
+  <CreateOnSceneChanged>k__BackingField: 0
+  <LinkedPortraitList>k__BackingField:
+  - <Type>k__BackingField: 0
+    <Prefab>k__BackingField: {fileID: 7814750389909729275, guid: ae42beb27884e144cbb6436323fde849, type: 3}
+  - <Type>k__BackingField: 1
+    <Prefab>k__BackingField: {fileID: 1429848974655328718, guid: b14c239ddd0b0f143a96ca939160d39a, type: 3}
+  - <Type>k__BackingField: 2
+    <Prefab>k__BackingField: {fileID: 1388870599145668447, guid: 8ee5e2264cdf4d3429aea5c379264631, type: 3}

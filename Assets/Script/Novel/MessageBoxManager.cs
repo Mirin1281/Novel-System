@@ -6,7 +6,7 @@ using Cysharp.Threading.Tasks;
 
 namespace Novel
 {
-    using LinkedBox = MessageBoxData.LinkedBox;
+    using LinkedBox = MessageBoxesData.LinkedBox;
 
     // 【ふるまいの雑な説明】
     // メッセージボックスをBoxTypeに応じてプレハブから生成、提供します
@@ -15,7 +15,7 @@ namespace Novel
     // 基本はデフォルトのボックスで、変化を加えたい場合はシーンに置いてできる設計です
     public class MessageBoxManager : SingletonMonoBehaviour<MessageBoxManager>
     {
-        [SerializeField] MessageBoxData data;
+        [SerializeField] MessageBoxesData data;
 
         protected override void Awake()
         {
@@ -23,6 +23,11 @@ namespace Novel
             InitCheck();
             SceneManager.activeSceneChanged += OnSceneChanged;
             OnSceneChanged(); // 一番最初は2回分呼ばれるので注意
+        }
+
+        void OnDestroy()
+        {
+            SceneManager.activeSceneChanged -= OnSceneChanged;
         }
 
         void InitCheck()
@@ -114,11 +119,6 @@ namespace Novel
                 linkedBox.Box.ClearFadeAsync(time).Forget();
             }
             await MyStatic.WaitSeconds(time, destroyCancellationToken);
-        }
-
-        void OnDestroy()
-        {
-            SceneManager.activeSceneChanged -= OnSceneChanged;
         }
     }
 }

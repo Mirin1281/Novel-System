@@ -450,6 +450,7 @@ MonoBehaviour:
     commandDataList:
     - {fileID: 351255281}
     - {fileID: 111467847}
+    - {fileID: 1960922119}
 --- !u!4 &519561476
 Transform:
   m_ObjectHideFlags: 0
@@ -1083,6 +1084,38 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1960922119
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4399fbfc898731a4f96fd937ce84eeff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <Enabled>k__BackingField: 1
+  command:
+    rid: 5499919935393234944
+  references:
+    version: 2
+    RefIds:
+    - rid: 5499919935393234944
+      type: {class: PortraitCommand, ns: Novel.Command, asm: Assembly-CSharp}
+      data:
+        <ParentFlowchart>k__BackingField:
+          description: "\u8AAC\u660E"
+          commandDataList: []
+        <Index>k__BackingField: 0
+        character: {fileID: 11400000, guid: 36e06002688543545a19e42b88b58c8b, type: 2}
+        actionType: 3
+        portraitSprite: {fileID: 0}
+        positionType: 0
+        overridePos: {x: 0, y: 0}
+        fadeTime: 0
+        isAwait: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
