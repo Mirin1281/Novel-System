@@ -8,39 +8,65 @@ using Novel.Command;
 
 namespace Novel
 {
-    [Serializable]
-    public class Flowchart
+    // FlowchartはMonoBehaviour型とScriptableObject型がある
+    // MonoBehaviourはシーン内で参照が取れるためできることが多い
+    // ScriptableObjectはどのシーンからでも呼べるので使い回しが効く
+    
+    [Serializable]　public class Flowchart
     {
         [SerializeField, TextArea]
         string description = "説明";
         public string Description => description;
 
+        [SerializeField]
+        bool isCheckZone = true;
+
         // シリアライズする
         [SerializeField, HideInInspector]
         List<CommandData> commandDataList = new();
-
-        public List<CommandData> GetCommandDataList() => commandDataList;
-
-        public List<CommandData> GetReadOnlyCommandDataList() => commandDataList;
-
-        /// <summary>
-        /// カスタムエディタ用
-        /// </summary>
-        public void SetCommandDataList(List<CommandData> list)
-        {
-            commandDataList = list;
-        }
+        public IReadOnlyList<CommandData> GetReadOnlyCommandDataList() => commandDataList;
 
         bool isStopped;
+
         CancellationTokenSource cts;
+
+        class ZoneStatus
+        {
+            public int BeginIndex;
+            public IZoneCommand ZoneCommand;
+        }
+
+        readonly List<ZoneStatus> zoneStatuses = new();
+
+        /// <summary>
+        /// ゾーンコマンドを調べてリストに記録しておきます
+        /// </summary>
+        public void RecordZoneIfValid()
+        {
+            if (isCheckZone == false) return;
+            for(int i = 0; i < commandDataList.Count; i++)
+            {
+                if(commandDataList[i].GetCommandBase() is IZoneCommand zoneCmd)
+                {
+                    var zoneStatus = new ZoneStatus()
+                    {
+                        BeginIndex = i,
+                        ZoneCommand = zoneCmd,
+                    };
+                    zoneStatuses.Add(zoneStatus);
+                }
+            }
+        }
 
         /// <summary>
         /// フローチャートを呼び出します
         /// </summary>
         /// <param name="index">リストの何番目から発火するか</param>
-        /// <param name="callStatus">他のフローチャートから呼び出された時の情報</param>
+        /// <param name="callStatus">他のフローチャートから呼び出された時に渡される情報</param>
         public async UniTask ExecuteAsync(int index, FlowchartCallStatus callStatus)
         {
+            if (isCheckZone) ApplyZone(index);
+
             var status = SetStatus(callStatus);
 
             while (commandDataList.Count > index && isStopped == false)
@@ -57,6 +83,17 @@ namespace Novel
             }
             isStopped = false;
 
+
+            void ApplyZone(int currentIndex)
+            {
+                foreach (var zoneStatus in zoneStatuses)
+                {
+                    if (zoneStatus.BeginIndex <= currentIndex)
+                    {
+                        zoneStatus.ZoneCommand.Call();
+                    }
+                }
+            }
 
             /// <summary>
             /// FlowchartCallStatusをctsに反映します。
@@ -93,6 +130,14 @@ namespace Novel
                 isStopped = true;
             }
         }
+
+#if UNITY_EDITOR
+        public List<CommandData> GetCommandDataList() => commandDataList;
+        public void SetCommandDataList(List<CommandData> list)
+        {
+            commandDataList = list;
+        }
+#endif
     }
 
     public enum FlowchartStopType
@@ -102,7 +147,7 @@ namespace Novel
     }
 
     /// <summary>
-    /// Token, TokenSourceと入れ子で呼ばれたかの3つの情報を格納します
+    /// Token, TokenSourceと"入れ子で呼ばれたか"の3つの情報を保持します
     /// </summary>
     public class FlowchartCallStatus
     {

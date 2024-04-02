@@ -22,7 +22,7 @@ namespace Novel
             float time = MyStatic.DefaultFadeTime, CancellationToken token = default)
         {
             gameObject.SetActive(true);
-            SetAlpha(0f);
+            image.SetAlpha(0f);
             await FadeAlphaAsync(1f, time, token);
         }
 
@@ -33,27 +33,22 @@ namespace Novel
             gameObject.SetActive(false);
         }
 
-        void SetAlpha(float a)
-        {
-            image.SetAlpha(a);
-        }
-
         async UniTask FadeAlphaAsync(float toAlpha, float time, CancellationToken token)
         {
             if (time == 0f)
             {
-                SetAlpha(toAlpha);
+                image.SetAlpha(toAlpha);
                 return;
             }
             var outQuad = new OutQuad(toAlpha, time, image.color.a);
             var t = 0f;
             while (t < time)
             {
-                SetAlpha(outQuad.Ease(t));
+                image.SetAlpha(outQuad.Ease(t));
                 t += Time.deltaTime;
                 await MyStatic.Yield(token == default ? destroyCancellationToken : token);
             }
-            SetAlpha(toAlpha);
+            image.SetAlpha(toAlpha);
         }
     }
 }

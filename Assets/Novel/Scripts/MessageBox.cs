@@ -17,16 +17,14 @@ namespace Novel
         public Writer Writer => writer; 
         public MsgBoxInput Input => input;
 
-        public async UniTask ShowFadeAsync(
-            float time = MyStatic.DefaultFadeTime, CancellationToken token = default)
+        public async UniTask ShowFadeAsync(float time = MyStatic.DefaultFadeTime, CancellationToken token = default)
         {
             gameObject.SetActive(true);
             SetAlpha(0f);
             await FadeAlphaAsync(1f, time, token);
         }
 
-        public async UniTask ClearFadeAsync(
-            float time = MyStatic.DefaultFadeTime, CancellationToken token = default)
+        public async UniTask ClearFadeAsync(float time = MyStatic.DefaultFadeTime, CancellationToken token = default)
         {
             await FadeAlphaAsync(0f, time, token);
             gameObject.SetActive(false);

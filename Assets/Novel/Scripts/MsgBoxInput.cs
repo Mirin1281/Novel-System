@@ -8,19 +8,32 @@ namespace Novel
     public class MsgBoxInput : MonoBehaviour
     {
         [SerializeField] AudioClip inputSE;
+        float onCancelKeyTime;
+        float seVolume;
+
         public event Action OnInputed;
-        //public event Action OnCancelStay;
 
         void Update()
         {
-            if (Input.GetButtonDown(NameContainer.SUBMIT_KEYNAME))
+            if (Input.GetButtonDown(NameContainer.SUBMIT_KEYNAME) || Input.GetButtonDown(NameContainer.CANCEL_KEYNAME))
             {
                 OnInputed?.Invoke();
             }
-            else if (Input.GetButton(NameContainer.CANCEL_KEYNAME))
+
+            if (Input.GetButton(NameContainer.CANCEL_KEYNAME))
+            {
+                onCancelKeyTime += Time.deltaTime;
+            }
+            else
+            {
+                onCancelKeyTime = 0f;
+            }
+
+            seVolume = 1f;
+            if (onCancelKeyTime > 0.7f)
             {
                 OnInputed?.Invoke();
-                //OnCancelStay?.Invoke();
+                seVolume = 0.3f;
             }
         }
 
@@ -45,7 +58,7 @@ namespace Novel
             await UniTask.WaitUntil(() => clicked, cancellationToken: token);
             if (inputSE != null)
             {
-                SEManager.Instance.PlaySE(inputSE);
+                SEManager.Instance.PlaySE(inputSE, seVolume);
             }
             OnInputed -= () => clicked = true;
             if (action != null)

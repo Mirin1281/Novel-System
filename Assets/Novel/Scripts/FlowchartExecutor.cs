@@ -3,10 +3,6 @@ using Cysharp.Threading.Tasks;
 
 namespace Novel
 {
-    // FlowchartはMonoBehaviour型とScriptableObject型がある
-    // MonoBehaviourはシーン内で参照が取れるためできることが多い
-    // ScriptableObjectはどのシーンからでも呼べるので使い回しが効く
-
     public class FlowchartExecutor : MonoBehaviour, IFlowchartObject
     {
         [SerializeField] bool isStartExecute;
@@ -17,6 +13,7 @@ namespace Novel
 
         void Start()
         {
+            Flowchart.RecordZoneIfValid();
             if (isStartExecute) ExecuteAsync().Forget();
         }
 
@@ -28,8 +25,8 @@ namespace Novel
 
     public interface IFlowchartObject
     {
+        public string Name { get; }
         public Flowchart Flowchart { get; }
         public UniTask ExecuteAsync(int index = 0, FlowchartCallStatus callStatus = null);
-        public string Name { get; }
     }
 }

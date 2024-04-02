@@ -36,7 +36,7 @@ namespace Novel
                 currentCount = createButtons.Count;
             }
 
-            if (createCount == currentCount)
+            if (createCount == currentCount) // 今ある子にいるボタンと必要なボタンの数が同じとき
             {
                 AllShowFadeAsync(createButtons, 0f).Forget();
                 SetNames(createButtons, texts);
@@ -86,8 +86,7 @@ namespace Novel
             await MyStatic.WaitSeconds(time, destroyCancellationToken);
         }
 
-        public async UniTask AllClearFadeAsync(
-            float time = MyStatic.DefaultFadeTime, CancellationToken token = default)
+        public async UniTask AllClearFadeAsync(float time = MyStatic.DefaultFadeTime, CancellationToken token = default)
         {
             foreach(var button in createButtons)
             {
