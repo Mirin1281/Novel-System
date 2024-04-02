@@ -3,7 +3,8 @@ using System;
 
 [CreateAssetMenu(
     fileName = "CreateManagerData",
-    menuName = "ScriptableObject/CreateManagerData")
+    menuName = "ScriptableObject/CreateManagerData",
+    order = 1)
 ]
 public class CreateManagerData : ScriptableObject
 {

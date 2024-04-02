@@ -372,7 +372,7 @@ MonoBehaviour:
       data:
         <ParentFlowchart>k__BackingField:
           description: "\"\u30B5\u30D6,\u306E\""
-          isCheckZone: 0
+          isCheckZone: 1
           commandDataList:
           - {fileID: 351255281}
           - {fileID: 1598890513}
@@ -426,7 +426,7 @@ MonoBehaviour:
       data:
         <ParentFlowchart>k__BackingField:
           description: "\"\u30B5\u30D6,\u306E\""
-          isCheckZone: 0
+          isCheckZone: 1
           commandDataList:
           - {fileID: 351255281}
           - {fileID: 1598890513}
@@ -642,7 +642,7 @@ MonoBehaviour:
       data:
         <ParentFlowchart>k__BackingField:
           description: "\"\u30B5\u30D6,\u306E\""
-          isCheckZone: 0
+          isCheckZone: 1
           commandDataList:
           - {fileID: 351255281}
           - {fileID: 1598890513}
@@ -2267,7 +2267,7 @@ MonoBehaviour:
       data:
         <ParentFlowchart>k__BackingField:
           description: "\"\u30B5\u30D6,\u306E\""
-          isCheckZone: 0
+          isCheckZone: 1
           commandDataList:
           - {fileID: 351255281}
           - {fileID: 1598890513}
@@ -2305,7 +2305,7 @@ MonoBehaviour:
       data:
         <ParentFlowchart>k__BackingField:
           description: "\"\u30B5\u30D6,\u306E\""
-          isCheckZone: 0
+          isCheckZone: 1
           commandDataList:
           - {fileID: 351255281}
           - {fileID: 1598890513}
@@ -2343,7 +2343,7 @@ MonoBehaviour:
       data:
         <ParentFlowchart>k__BackingField:
           description: "\"\u30B5\u30D6,\u306E\""
-          isCheckZone: 0
+          isCheckZone: 1
           commandDataList:
           - {fileID: 351255281}
           - {fileID: 1598890513}
@@ -3384,7 +3384,7 @@ MonoBehaviour:
       data:
         <ParentFlowchart>k__BackingField:
           description: "\"\u30B5\u30D6,\u306E\""
-          isCheckZone: 0
+          isCheckZone: 1
           commandDataList:
           - {fileID: 351255281}
           - {fileID: 1598890513}

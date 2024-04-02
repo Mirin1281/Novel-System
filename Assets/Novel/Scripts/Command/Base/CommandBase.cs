@@ -49,7 +49,7 @@ namespace Novel.Command
             {
                 Name = name;
                 Summary = summary ?? string.Empty;
-                Color = color == default ? new Color(0.9f, 0.9f, 0.9f, 1f) : color;
+                Color = color == default ? new Color(0.8f, 0.8f, 0.8f, 1f) : color;
                 Info = info ?? string.Empty;
             }
         }
@@ -74,7 +74,7 @@ namespace Novel.Command
         /// <summary>
         /// コマンドの色を設定します(オーバーライド)
         /// </summary>
-        protected virtual Color GetCommandColor() => default;
+        protected virtual Color GetCommandColor() => new Color(0.9f, 0.9f, 0.9f, 1f);
 
         /// <summary>
         /// 説明を記載します(オーバーライド)

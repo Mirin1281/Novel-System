@@ -325,7 +325,8 @@ namespace Novel
 														NameContainer.COMMANDDATA_PATH, $"CommandData_{chart.Name}"),
 									_ => throw new Exception(),
 								};
-								if (cellName is not "<Null>")
+								Debug.Log(cellName);
+								if (cellName is not ("<Null>" or "Null"))
 								{
 									Type type = GetTypeByClassName($"{cellName}Command");
 									if (type == null) break;
@@ -342,7 +343,7 @@ namespace Novel
 								var cmdName = GetCommandName(colomn_cmdBase);
 
 								if (cmdName == cellName) continue;
-								if (isChangeIfDifferentCmdName)
+								if (isChangeIfDifferentCmdName && (cellName != "Null" || cellName != "<Null>"))
                                 {
 									Debug.LogWarning(
 										$"コマンドの名前が合いませんので上書きされました\n" +
@@ -357,7 +358,7 @@ namespace Novel
 								}
 
 								colomn_importType = ImportType.Change;
-								if (existCell && cellName != "<Null>")
+								if (existCell && cellName is not ("<Null>" or "Null"))
                                 {
 									Type type = GetTypeByClassName($"{cellName}Command");
 									if (type == null) break;
