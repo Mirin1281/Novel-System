@@ -83,7 +83,7 @@ namespace Novel.Command
                 return WarningColorText();
             }
             int index = storyText.IndexOf("\n");
-            var charaName = character == null ? string.Empty : $"{character.CharacterName} ";
+            var charaName = character == null ? string.Empty : character.CharacterName;
             if (index == -1)
             {
                 return $"{charaName}\"{storyText}\"";
@@ -99,7 +99,12 @@ namespace Novel.Command
         public override string CSVContent1
         {
             get => character == null ? null : character.CharacterName;
-            set => character = CharacterData.GetCharacter(value);
+            set
+            {
+                var chara = CharacterData.GetCharacter(value);
+                if (chara == null) return;
+                character = chara;
+            }
         }
 
         public override string CSVContent2

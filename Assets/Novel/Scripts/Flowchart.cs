@@ -13,6 +13,7 @@ namespace Novel
     {
         [SerializeField, TextArea]
         string description = "説明";
+        public string Description => description;
 
         // シリアライズする
         [SerializeField, HideInInspector]

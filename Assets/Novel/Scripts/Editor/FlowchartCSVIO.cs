@@ -35,55 +35,6 @@ namespace Novel
 
 			try
             {
-				/*// 1行目は名前
-				sw.Write("\"Name:\",");
-				sw.WriteLine($"\"{exportName}\",");
-
-				List<IFlowchartObject> chartObjs = GetSortedFlowchartObjects(type);
-				int maxFlowchartsCmdIndex = chartObjs.Max(f => f.Flowchart.GetReadOnlyCommandDataList().Count);
-
-				// 2行目は各フローチャートの名前
-				var sb = new StringBuilder();
-				foreach (var chart in chartObjs)
-                {
-					sb.Append("\"").Append(chart.Name).Append("\"").Append(",")
-						.Skip(rowCount);
-				}
-				sw.WriteLine(sb.ToString());
-				sb.Clear();
-
-				for (int i = 0; i < maxFlowchartsCmdIndex; i++)
-				{
-					foreach (var chart in chartObjs)
-					{
-						var list = chart.Flowchart.GetReadOnlyCommandDataList();
-						if (i >= list.Count)
-                        {
-							sb.Skip(rowCount + 1);
-							continue;
-						}
-						var cmdBase = list[i].GetCommandBase();
-
-						var content1 = cmdBase?.CSVContent1;
-						if(content1 != null && content1.Contains("\""))
-                        {
-							content1 = content1.Replace("\"", "\"\"");
-						}
-						var content2 = cmdBase?.CSVContent2;
-						if (content2 != null && content2.Contains("\""))
-						{
-							content2 = content2.Replace("\"", "\"\"");
-						}
-
-						sb.Append("\"").Append(GetCommandName(cmdBase)).Append("\"").Append(",")
-							.Append("\"").Append(content1).Append("\"").Append(",")
-							.Append("\"").Append(content2).Append("\"").Append(",")
-							.Skip(1);
-					}
-
-					sw.WriteLine(sb.ToString());
-					sb.Clear();*/
-
 				// 1行目は名前
 				sw.Write("Name:,");
 				sw.WriteLine($"{exportName},");
@@ -91,12 +42,22 @@ namespace Novel
 				List<IFlowchartObject> chartObjs = GetSortedFlowchartObjects(type);
 				int maxFlowchartsCmdIndex = chartObjs.Max(f => f.Flowchart.GetReadOnlyCommandDataList().Count);
 
-				// 2行目は各フローチャートの名前
+				// 2行目は各フローチャートの名前とディスクリプション
 				var sb = new StringBuilder();
 				foreach (var chart in chartObjs)
                 {
-					sb.Append(chart.Name).Append(",")
-						.Skip(rowCount);
+					sb.Append(chart.Name).Append(",");
+					var des = chart.Flowchart.Description;
+					if (des != null && (des.Contains("\"") || des.Contains(",") || des.Contains("\n")))
+					{
+						des = des.Replace("\"", "\"\"");
+						sb.Append("\"").Append(des).Append("\"").Append(",");
+					}
+					else
+					{
+						sb.Append(des).Append(",");
+					}
+					sb.Skip(rowCount - 1);
 				}
 				sw.WriteLine(sb.ToString());
 				sb.Clear();
@@ -113,33 +74,26 @@ namespace Novel
 						}
 						var cmdBase = list[i].GetCommandBase();
 
-						bool content1Quort = false;
-						var content1 = cmdBase?.CSVContent1;
-						if(content1 != null && (content1.Contains("\"") || content1.Contains(",") || content1.Contains("\n")))
-                        {
-							content1 = content1.Replace("\"", "\"\"");
-							content1Quort = true;
-						}
-
-						bool content2Quort = false;
-						var content2 = cmdBase?.CSVContent2;
-						if (content2 != null && (content2.Contains("\"") || content2.Contains(",") || content2.Contains("\n")))
-						{
-							content2 = content2.Replace("\"", "\"\"");
-							content2Quort = true;
-						}
-
+						// コマンド名
 						sb.Append(GetCommandName(cmdBase)).Append(",");
-						if(content1Quort)
-                        {
+
+						// コンテント1
+						var content1 = cmdBase?.CSVContent1;
+						if (content1 != null && (content1.Contains("\"") || content1.Contains(",") || content1.Contains("\n")))
+						{
+							content1 = content1.Replace("\"", "\"\"");
 							sb.Append("\"").Append(content1).Append("\"").Append(",");
 						}
 						else
                         {
 							sb.Append(content1).Append(",");
 						}
-						if (content2Quort)
+
+						// コンテント2
+						var content2 = cmdBase?.CSVContent2;
+						if (content2 != null && (content2.Contains("\"") || content2.Contains(",") || content2.Contains("\n")))
 						{
+							content2 = content2.Replace("\"", "\"\"");
 							sb.Append("\"").Append(content2).Append("\"").Append(",");
 						}
 						else

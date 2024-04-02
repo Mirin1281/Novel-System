@@ -145,7 +145,7 @@ MonoBehaviour:
       type: {class: SayCommand, ns: Novel.Command, asm: Assembly-CSharp}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "\u8AAC\u660E"
+          description: "\u30E1\u30A4\u30F3\u306E"
           commandDataList:
           - {fileID: 1867056071}
           - {fileID: 1917366921}
@@ -189,7 +189,7 @@ MonoBehaviour:
       type: {class: SayCommand, ns: Novel.Command, asm: Assembly-CSharp}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "\u8AAC\u660E"
+          description: "\u30E1\u30A4\u30F3\u306E"
           commandDataList:
           - {fileID: 1867056071}
           - {fileID: 1917366921}
@@ -281,7 +281,7 @@ MonoBehaviour:
       type: {class: SayCommand, ns: Novel.Command, asm: Assembly-CSharp}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "\u8AAC\u660E"
+          description: "\u30E1\u30A4\u30F3\u306E"
           commandDataList:
           - {fileID: 1867056071}
           - {fileID: 1917366921}
@@ -357,7 +357,7 @@ MonoBehaviour:
       type: {class: SayCommand, ns: Novel.Command, asm: Assembly-CSharp}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "\u8AAC\u660E"
+          description: "\u30E1\u30A4\u30F3\u306E"
           commandDataList:
           - {fileID: 1867056071}
           - {fileID: 1917366921}
@@ -400,7 +400,7 @@ MonoBehaviour:
       type: {class: SayCommand, ns: Novel.Command, asm: Assembly-CSharp}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "\u8AAC\u660E"
+          description: "\u30E1\u30A4\u30F3\u306E"
           commandDataList:
           - {fileID: 1867056071}
           - {fileID: 1917366921}
@@ -452,7 +452,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isStartExecute: 0
   flowchart:
-    description: "\u8AAC\u660E"
+    description: "\"\u30B5\u30D6,\u306E\""
     commandDataList:
     - {fileID: 351255281}
     - {fileID: 111467847}
@@ -591,7 +591,7 @@ MonoBehaviour:
       type: {class: SayCommand, ns: Novel.Command, asm: Assembly-CSharp}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "\u8AAC\u660E"
+          description: "\u30E1\u30A4\u30F3\u306E"
           commandDataList:
           - {fileID: 1867056071}
           - {fileID: 1917366921}
@@ -702,7 +702,7 @@ MonoBehaviour:
       type: {class: SayCommand, ns: Novel.Command, asm: Assembly-CSharp}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "\u8AAC\u660E"
+          description: "\u30E1\u30A4\u30F3\u306E"
           commandDataList:
           - {fileID: 1867056071}
           - {fileID: 1917366921}
@@ -745,7 +745,7 @@ MonoBehaviour:
       type: {class: SayCommand, ns: Novel.Command, asm: Assembly-CSharp}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "\u8AAC\u660E"
+          description: "\u30E1\u30A4\u30F3\u306E"
           commandDataList:
           - {fileID: 1867056071}
           - {fileID: 1917366921}
@@ -797,7 +797,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isStartExecute: 1
   flowchart:
-    description: "\u8AAC\u660E"
+    description: "\u30E1\u30A4\u30F3\u306E"
     commandDataList:
     - {fileID: 1867056071}
     - {fileID: 1917366921}
@@ -849,7 +849,7 @@ MonoBehaviour:
       type: {class: SayCommand, ns: Novel.Command, asm: Assembly-CSharp}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "\u8AAC\u660E"
+          description: "\u30E1\u30A4\u30F3\u306E"
           commandDataList:
           - {fileID: 1867056071}
           - {fileID: 1917366921}
@@ -892,7 +892,7 @@ MonoBehaviour:
       type: {class: LabelCommand, ns: Novel.Command, asm: Assembly-CSharp}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "\u8AAC\u660E"
+          description: "\u30E1\u30A4\u30F3\u306E"
           commandDataList:
           - {fileID: 1867056071}
           - {fileID: 1917366921}
@@ -931,7 +931,7 @@ MonoBehaviour:
       type: {class: PortraitCommand, ns: Novel.Command, asm: Assembly-CSharp}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "\u8AAC\u660E"
+          description: "\u30E1\u30A4\u30F3\u306E"
           commandDataList:
           - {fileID: 1867056071}
           - {fileID: 1917366921}
@@ -976,7 +976,7 @@ MonoBehaviour:
       type: {class: SayCommand, ns: Novel.Command, asm: Assembly-CSharp}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "\u8AAC\u660E"
+          description: "\u30E1\u30A4\u30F3\u306E"
           commandDataList:
           - {fileID: 1867056071}
           - {fileID: 1917366921}
