@@ -301,8 +301,8 @@ namespace Novel
             void DrawElementBackground(Rect rect, int index, bool isActive, bool isFocused)
             {
                 if (index < 0 || commandList.Count <= index) return;
-                var cmd = commandList[index];
-                var color = cmd.GetCommandStatus().Color;
+                var cmdData = commandList[index];
+                var color = cmdData.GetCommandStatus().Color;
                 color.a = 1f;
                 if (isFocused)
                 {
@@ -310,7 +310,7 @@ namespace Novel
                 }
                 else
                 {
-                    if (cmd.Enabled == false)
+                    if (cmdData.Enabled == false)
                     {
                         color = new Color(0.7f, 0.7f, 0.7f, 1f);
                     }
