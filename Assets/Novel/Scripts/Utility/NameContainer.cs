@@ -11,13 +11,13 @@ namespace Novel
     public static class NameContainer
     {
         public static readonly string NOVEL_PATH = GetNovelPath();
-        public static readonly string RESOURCES_PATH = NOVEL_PATH + "/Resources";
-        public static readonly string COMMANDDATA_PATH = RESOURCES_PATH + "/Commands";
-        public static readonly string CHARACTER_PATH = RESOURCES_PATH + "/Characters";
+        public static readonly string COMMANDDATA_PATH = NOVEL_PATH + "/Scriptable/Commands";
+        public static readonly string CHARACTER_PATH = NOVEL_PATH + "/Scriptable/Characters";
+
         public static readonly string SUBMIT_KEYNAME = "Submit";
         public static readonly string CANCEL_KEYNAME = "Cancel";
 
-        public static string GetNovelPath()
+        static string GetNovelPath()
         {
             string selfFileName = $"{nameof(NameContainer)}.cs";
             string selfPath = Directory.GetFiles("Assets", "*", SearchOption.AllDirectories)
@@ -36,7 +36,6 @@ namespace Novel
                 if (i == depth - 1) break;
                 path += "/";
             }
-            Debug.Log(path);
             return path;
         }
     }

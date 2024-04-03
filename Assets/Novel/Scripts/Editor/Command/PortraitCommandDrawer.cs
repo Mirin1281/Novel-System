@@ -30,13 +30,9 @@ namespace Novel.Command
             // キャラクターの設定 //
             var charaProp = property.FindPropertyRelative("character");
 
-            // characterFolderPath内のキャラクターデータを取得
-            var characterArray = AssetDatabase.FindAssets(
-                "t:ScriptableObject", new string[] { NameContainer.CHARACTER_PATH })
-                .Select(c => AssetDatabase.GUIDToAssetPath(c))
-                .Select(c => AssetDatabase.LoadAssetAtPath<CharacterData>(c))
-                .Prepend(null)
-                .ToArray();
+            // 特定のフォルダ内のキャラクターデータを取得
+            var characterArray = FlowchartEditorUtility.GetAllScriptableObjects<CharacterData>(NameContainer.CHARACTER_PATH)
+                .Prepend(null).ToArray();
 
             int previousCharaIndex = Array.IndexOf(
                 characterArray, charaProp.objectReferenceValue as CharacterData);

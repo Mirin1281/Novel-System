@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   flowchart:
     description: "\u8AAC\u660E"
+    isCheckZone: 1
     commandDataList:
     - {fileID: 11400000, guid: 8ab9200b0ddc9794dad817e5c7a3d304, type: 2}
     - {fileID: 11400000, guid: e23cbe03e382751419fdfdb4f6d671ae, type: 2}

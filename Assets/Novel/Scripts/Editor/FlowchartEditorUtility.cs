@@ -52,9 +52,17 @@ namespace Novel
             return $"{targetName}.{extension}";
         }
 
-        public static T[] GetAllScriptableObjects<T>() where T : ScriptableObject
+        public static T[] GetAllScriptableObjects<T>(string folderName = null) where T : ScriptableObject
         {
-            var guids = AssetDatabase.FindAssets($"t:{typeof(T).Name}");
+            string[] guids = null;
+            if (folderName == null)
+            {
+                guids = AssetDatabase.FindAssets($"t:{typeof(T).Name}");
+            }
+            else
+            {
+                guids = AssetDatabase.FindAssets($"t:{typeof(T).Name}", new string[] { folderName });
+            }
             var assetPaths = guids.Select(AssetDatabase.GUIDToAssetPath).ToArray();
             return assetPaths.Select(AssetDatabase.LoadAssetAtPath<T>).ToArray();
         }

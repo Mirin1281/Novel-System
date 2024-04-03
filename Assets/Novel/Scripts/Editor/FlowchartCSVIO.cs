@@ -15,7 +15,7 @@ namespace Novel
     public static class FlowchartCSVIO
     {
 		readonly static string outPutFileName = "FlowchartSheet";
-		readonly static string defaultPath = $"{NameContainer.NOVEL_PATH}/CSV";
+		readonly static string csvFolderPath = $"{NameContainer.NOVEL_PATH}/CSV";
 		readonly static int rowCount = 3;
 		readonly static bool isChangeIfDifferentCmdName = true;
 		readonly static FindObjectsInactive findMode = FindObjectsInactive.Include;
@@ -30,8 +30,8 @@ namespace Novel
         {
 			await UniTask.Yield();
 			var name = FlowchartEditorUtility.GetFileName(
-				defaultPath, $"{exportName}_{outPutFileName}", "csv");
-			StreamWriter sw = new($"{defaultPath}/{name}", false, Encoding.GetEncoding("shift_jis"));
+				csvFolderPath, $"{exportName}_{outPutFileName}", "csv");
+			StreamWriter sw = new($"{csvFolderPath}/{name}", false, Encoding.GetEncoding("shift_jis"));
 
 			try
             {
@@ -108,7 +108,7 @@ namespace Novel
 				}
 
 				AssetDatabase.Refresh(ImportAssetOptions.ForceUpdate);
-				var path = FlowchartEditorUtility.AbsoluteToAssetsPath(defaultPath);
+				var path = FlowchartEditorUtility.AbsoluteToAssetsPath(csvFolderPath);
 				var csv = AssetDatabase.LoadAssetAtPath<TextAsset>($"{path}/{name}");
 				EditorGUIUtility.PingObject(csv);
 				Debug.Log("<color=lightblue>CSVを書き出しました！</color>");
@@ -204,7 +204,7 @@ namespace Novel
 			// フォルダメニューを開き、CSVファイルを読み込みます
 			static List<string[]> LoadCSV()
             {
-				var absolutePath = EditorUtility.OpenFilePanel("Open csv", Application.dataPath, "csv");
+				var absolutePath = EditorUtility.OpenFilePanel("Open csv", csvFolderPath, "csv");
 				if (string.IsNullOrEmpty(absolutePath)) return null;
 				var relativePath = FlowchartEditorUtility.AbsoluteToAssetsPath(absolutePath);
 

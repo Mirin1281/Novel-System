@@ -24,13 +24,9 @@ namespace Novel.Command
                 // キャラクターの設定 //
                 var charaProp = property.FindPropertyRelative("character");
 
-                // characterFolderPath内のキャラクターデータを取得
-                var characterArray = AssetDatabase.FindAssets(
-                    "t:ScriptableObject", new string[] { NameContainer.CHARACTER_PATH })
-                    .Select(c => AssetDatabase.GUIDToAssetPath(c))
-                    .Select(c => AssetDatabase.LoadAssetAtPath<CharacterData>(c))
-                    .Prepend(null)
-                    .ToArray();
+                // 特定のフォルダ内のキャラクターデータを取得
+                var characterArray = FlowchartEditorUtility.GetAllScriptableObjects<CharacterData>(NameContainer.CHARACTER_PATH)
+                    .Prepend(null).ToArray();
 
                 int previousCharaIndex = Array.IndexOf(
                     characterArray, charaProp.objectReferenceValue as CharacterData);
@@ -51,7 +47,7 @@ namespace Novel.Command
                     var portraitsArray = chara.Portraits.Prepend(null).ToArray();
                     int previousPortraitIndex = Array.IndexOf(
                         portraitsArray, portraitProp.objectReferenceValue as Sprite);
-                    int selectedPortraitIndex = EditorGUILayout.Popup("changeSprite", previousPortraitIndex,
+                    int selectedPortraitIndex = EditorGUILayout.Popup("ChangeSprite", previousPortraitIndex,
                         portraitsArray.Select(p => p == null ? "<Null>" : p.name).ToArray());
 
                     if (selectedPortraitIndex != previousPortraitIndex)

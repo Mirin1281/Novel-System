@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEditor;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -17,12 +18,10 @@ namespace Novel
         [SerializeField] Sprite[] portraits;
         public IEnumerable<Sprite> Portraits => portraits;
 
-        /// <summary>
-        /// エディタ用
-        /// </summary>
+#if UNITY_EDITOR
         public static CharacterData GetCharacter(string characterName)
         {
-            var characters = Resources.LoadAll<CharacterData>("Characters");
+            var characters = GetAllScriptableObjects<CharacterData>(NameContainer.CHARACTER_PATH);
             var meetChara = characters.Where(c => c.CharacterName == characterName).ToList();
             if (meetChara.Count == 0)
             {
@@ -39,5 +38,21 @@ namespace Novel
                 return null;
             }
         }
+
+        static T[] GetAllScriptableObjects<T>(string folderName = null) where T : ScriptableObject
+        {
+            string[] guids = null;
+            if(folderName == null)
+            {
+                guids = AssetDatabase.FindAssets($"t:{typeof(T).Name}");
+            }
+            else
+            {
+                guids = AssetDatabase.FindAssets($"t:{typeof(T).Name}", new string[] { folderName });
+            }
+            var assetPaths = guids.Select(AssetDatabase.GUIDToAssetPath).ToArray();
+            return assetPaths.Select(AssetDatabase.LoadAssetAtPath<T>).ToArray();
+        }
+#endif
     }
 }
