@@ -1,3 +1,8 @@
+using UnityEngine;
+using UnityEditor;
+using System.IO;
+using System.Linq;
+
 namespace Novel
 {
     /// <summary>
@@ -5,11 +10,34 @@ namespace Novel
     /// </summary>
     public static class NameContainer
     {
-        public const string NOVEL_PATH = "Assets/Novel";
-        public const string RESOURCES_PATH = NOVEL_PATH + "/Resources";
-        public const string COMMANDDATA_PATH = RESOURCES_PATH + "/Commands";
-        public const string CHARACTER_PATH = RESOURCES_PATH + "/Characters";
-        public const string SUBMIT_KEYNAME = "Submit";
-        public const string CANCEL_KEYNAME = "Cancel";
+        public static readonly string NOVEL_PATH = GetNovelPath();
+        public static readonly string RESOURCES_PATH = NOVEL_PATH + "/Resources";
+        public static readonly string COMMANDDATA_PATH = RESOURCES_PATH + "/Commands";
+        public static readonly string CHARACTER_PATH = RESOURCES_PATH + "/Characters";
+        public static readonly string SUBMIT_KEYNAME = "Submit";
+        public static readonly string CANCEL_KEYNAME = "Cancel";
+
+        public static string GetNovelPath()
+        {
+            string selfFileName = $"{nameof(NameContainer)}.cs";
+            string selfPath = Directory.GetFiles("Assets", "*", SearchOption.AllDirectories)
+                .FirstOrDefault(p => Path.GetFileName(p) == selfFileName)
+                .Replace("\\", "/")
+                .Replace($"/selfFileName", "");
+                
+            string[] directories = selfPath.Split('/');
+            // このスクリプトの場所は不変としてNovelフォルダのパスを求めている
+            // Novelフォルダの場所を変えたり、名前を変えても大丈夫です
+            int depth = directories.Length - 3;
+            string path = null;
+            for(int i = 0; i < depth; i++)
+            {
+                path += directories[i];
+                if (i == depth - 1) break;
+                path += "/";
+            }
+            Debug.Log(path);
+            return path;
+        }
     }
 }
