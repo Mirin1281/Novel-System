@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4399fbfc898731a4f96fd937ce84eeff, type: 3}
+  m_Name: CommandData_ChartSample_(1)
+  m_EditorClassIdentifier: 
+  <Enabled>k__BackingField: 1
+  command:
+    rid: 5499919990081716234
+  references:
+    version: 2
+    RefIds:
+    - rid: 5499919990081716234
+      type: {class: SayCommand, ns: Novel.Command, asm: Assembly-CSharp}
+      data:
+        <ParentFlowchart>k__BackingField:
+          description: "\u8AAC\u660E"
+          isCheckZone: 0
+          commandDataList:
+          - {fileID: 11400000, guid: ce115f8cbb19bb141b46e4002872a90f, type: 2}
+          - {fileID: 11400000, guid: 798cd879faa9ab049a2413ac2d32ca7f, type: 2}
+          - {fileID: 11400000}
+        <Index>k__BackingField: 2
+        character: {fileID: 11400000, guid: 36e06002688543545a19e42b88b58c8b, type: 2}
+        changeSprite: {fileID: 0}
+        storyText: "\u3044\u308D\u3093\u306A\u30B7\u30FC\u30F3\u3067\u540C\u3058\u30D5\u30ED\u30FC\u30C1\u30E3\u30FC\u30C8\u3092\u4F7F\u3044\u56DE\u3057\u305F\u3044\u6642\u3068\u304B\u304C\u3044\u3044\u3093\u3058\u3083\u306A\u3044\u304B\uFF1F\n<wic>\u307E\u3042\u3001\u5F53\u306E\u88FD\u4F5C\u8005\u304C\u3042\u3093\u307E\u308A\u6DF1\u304F\u8003\u3048\u3066\u306A\u3044\u307F\u305F\u3044\u3060\u3057\u3001\u3061\u3087\u3063\u3068\u7121\u7406\u3057\u3066\u5B9F\u88C5\u3057\u3066\u308B\u307F\u305F\u3044\u3060\u304B\u3089\u7121\u7406\u3057\u3066\u4F7F\u308F\u306A\u304F\u3066\u3082\u3044\u3044\u305C\uFF1F"
+        boxShowTime: 0
+        flagKeys: []
