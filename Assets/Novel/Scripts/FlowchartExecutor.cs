@@ -13,7 +13,6 @@ namespace Novel
 
         void Start()
         {
-            Flowchart.RecordZoneIfValid();
             if (isStartExecute) ExecuteAsync().Forget();
         }
 

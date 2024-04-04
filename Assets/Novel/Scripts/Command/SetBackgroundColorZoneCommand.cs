@@ -10,11 +10,16 @@ namespace Novel.Command
 
         protected override async UniTask EnterAsync()
         {
-            Call();
+            SetBackgroundColor(color);
             await UniTask.CompletedTask;
         }
 
-        public void Call()
+        void IZoneCommand.CallZone()
+        {
+            SetBackgroundColor(color);
+        }
+
+        void SetBackgroundColor(Color color)
         {
             Camera.main.backgroundColor = color;
         }

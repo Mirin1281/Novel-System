@@ -18,7 +18,6 @@ namespace Novel.Command
 
         protected override async UniTask EnterAsync()
         {
-            ParentFlowchart.Stop(FlowchartStopType.Single);
             int index = jumpType switch
             {
                 JumpType.Absolute => jumpIndex,
@@ -26,15 +25,9 @@ namespace Novel.Command
                 JumpType.DownRelative => Index + jumpIndex,
                 _ => throw new System.Exception()
             };
-            ExecuteSelf(index, CallStatus).Forget();
+            ParentFlowchart.CallIndex = index;
             await UniTask.CompletedTask;
             return;
-        }
-
-        async UniTask ExecuteSelf(int index, FlowchartCallStatus callStatus)
-        {
-            await MyStatic.WaitFrame(1, callStatus.Token);
-            ParentFlowchart.ExecuteAsync(index, callStatus).Forget();
         }
 
         protected override string GetSummary()

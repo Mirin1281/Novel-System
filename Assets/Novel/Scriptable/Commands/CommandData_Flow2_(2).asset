@@ -23,10 +23,15 @@ MonoBehaviour:
       data:
         <ParentFlowchart>k__BackingField:
           description: "\u8AAC\u660E"
+          isCheckZone: 1
           commandDataList:
           - {fileID: 11400000, guid: 99628bdc47ad50a41b15e4e5cd5aa0e2, type: 2}
           - {fileID: 11400000, guid: 02e486cde25a033418a0d1ccb6c0b779, type: 2}
           - {fileID: 11400000}
+          - {fileID: 11400000, guid: 526933a22eb0ffc478b81d6991624b2f, type: 2}
+          - {fileID: 11400000, guid: 93575ebe282236c4f9e1f0a439f0d878, type: 2}
+          - {fileID: 11400000, guid: e68ecdbdb6aa3f74a97dacfad741fcd7, type: 2}
+          - {fileID: 11400000, guid: cb00b9ce06de131418f1c6e0c1922cd5, type: 2}
         <Index>k__BackingField: 2
         jumpIndex: 0
         jumpType: 0

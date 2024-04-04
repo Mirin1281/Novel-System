@@ -39,6 +39,7 @@ namespace Novel.Command
                 flowchart.ExecuteAsync(commandIndex, null).Forget();
                 ParentFlowchart.Stop(FlowchartStopType.Single);
             }
+            Debug.Log(0);
         }
 
         protected override string GetSummary()

@@ -90,7 +90,6 @@ namespace Novel.Command
         protected string WarningColorText(string text = "Warning!!")
             => $"<color=#dc143c>{text}</color>";
 
-#if UNITY_EDITOR
         /// <summary>
         /// CSV出力時の第一表示(getは書き出し、setは読み込み)
         /// </summary>
@@ -101,6 +100,7 @@ namespace Novel.Command
         /// </summary>
         public virtual string CSVContent2 { get; set; } = string.Empty;
 
+#if UNITY_EDITOR
         public void SetFlowchart(Flowchart f) => ParentFlowchart = f;
         public void SetIndex(int i) => Index = i;
 #endif

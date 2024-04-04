@@ -30,33 +30,7 @@ namespace Novel
 
         CancellationTokenSource cts;
 
-        class ZoneStatus
-        {
-            public int BeginIndex;
-            public IZoneCommand ZoneCommand;
-        }
-
-        readonly List<ZoneStatus> zoneStatuses = new();
-
-        /// <summary>
-        /// ゾーンコマンドを調べてリストに記録しておきます
-        /// </summary>
-        public void RecordZoneIfValid()
-        {
-            if (isCheckZone == false) return;
-            for(int i = 0; i < commandDataList.Count; i++)
-            {
-                if(commandDataList[i].GetCommandBase() is IZoneCommand zoneCmd)
-                {
-                    var zoneStatus = new ZoneStatus()
-                    {
-                        BeginIndex = i,
-                        ZoneCommand = zoneCmd,
-                    };
-                    zoneStatuses.Add(zoneStatus);
-                }
-            }
-        }
+        public int CallIndex { get; set; }
 
         /// <summary>
         /// フローチャートを呼び出します
@@ -65,15 +39,16 @@ namespace Novel
         /// <param name="callStatus">他のフローチャートから呼び出された時に渡される情報</param>
         public async UniTask ExecuteAsync(int index, FlowchartCallStatus callStatus)
         {
-            if (isCheckZone) ApplyZone(index);
+            CallIndex = index;
+            if (isCheckZone) ApplyZone(CallIndex);
 
             var status = SetStatus(callStatus);
 
-            while (commandDataList.Count > index && isStopped == false)
+            while (commandDataList.Count > CallIndex && isStopped == false)
             {
-                var cmdData = commandDataList[index];
+                var cmdData = commandDataList[CallIndex];
                 await cmdData.ExecuteAsync(this, status);
-                index++;
+                CallIndex++;
             }
             bool isEndClearUI = isStopped == false && status.IsNestCalled == false;
             if (isEndClearUI)
@@ -84,21 +59,24 @@ namespace Novel
             isStopped = false;
 
 
+            // 呼び出し時のインデックスを見て、それよりも上に存在する
+            // IZoneCommandのついたコマンドを発火します
             void ApplyZone(int currentIndex)
             {
-                foreach (var zoneStatus in zoneStatuses)
+                for (int i = 0; i < commandDataList.Count; i++)
                 {
-                    if (zoneStatus.BeginIndex <= currentIndex)
+                    if (commandDataList[i].GetCommandBase() is IZoneCommand zoneCmd)
                     {
-                        zoneStatus.ZoneCommand.Call();
+                        if(i <= currentIndex)
+                        {
+                            zoneCmd.CallZone();
+                        }
                     }
                 }
             }
 
-            /// <summary>
-            /// FlowchartCallStatusをctsに反映します。
-            /// statusがnullだった場合は初期化をします
-            /// </summary>
+            // FlowchartCallStatusをctsに反映します。
+            // statusがnullだった場合は初期化をします
             FlowchartCallStatus SetStatus(FlowchartCallStatus callStatus)
             {
                 if (callStatus == null)

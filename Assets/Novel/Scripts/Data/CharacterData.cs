@@ -1,7 +1,9 @@
-﻿using UnityEngine;
-using UnityEditor;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 namespace Novel
 {
@@ -18,7 +20,6 @@ namespace Novel
         [SerializeField] Sprite[] portraits;
         public IEnumerable<Sprite> Portraits => portraits;
 
-#if UNITY_EDITOR
         public static CharacterData GetCharacter(string characterName)
         {
             var characters = GetAllScriptableObjects<CharacterData>(NameContainer.CHARACTER_PATH);
@@ -41,6 +42,7 @@ namespace Novel
 
         static T[] GetAllScriptableObjects<T>(string folderName = null) where T : ScriptableObject
         {
+#if UNITY_EDITOR
             string[] guids = null;
             if(folderName == null)
             {
@@ -52,7 +54,9 @@ namespace Novel
             }
             var assetPaths = guids.Select(AssetDatabase.GUIDToAssetPath).ToArray();
             return assetPaths.Select(AssetDatabase.LoadAssetAtPath<T>).ToArray();
-        }
+#else
+            return null;
 #endif
+        }
     }
 }
