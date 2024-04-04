@@ -1,3 +1,13 @@
+
+public enum EaseType
+{
+    None,
+    Linear,
+    InQuad,
+    OutQuad,
+    InOutQuad,
+}
+
 public interface IEasable
 {
     public float Ease(float time);

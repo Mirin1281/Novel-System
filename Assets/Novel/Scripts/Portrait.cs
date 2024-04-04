@@ -43,7 +43,7 @@ namespace Novel
             {
                 SetScaleX(outQuad.Ease(t));
                 t += Time.deltaTime;
-                await MyStatic.Yield(token == default ? destroyCancellationToken : token);
+                await MyStatic.Yield(token == default ? this.GetCancellationTokenOnDestroy() : token);
             }
             SetScaleX(endScaleX);
 
@@ -117,7 +117,7 @@ namespace Novel
             {
                 SetAlpha(outQuad.Ease(t));
                 t += Time.deltaTime;
-                await MyStatic.Yield(token == default ? destroyCancellationToken : token);
+                await MyStatic.Yield(token == default ? this.GetCancellationTokenOnDestroy() : token);
             }
             SetAlpha(toAlpha);
         }

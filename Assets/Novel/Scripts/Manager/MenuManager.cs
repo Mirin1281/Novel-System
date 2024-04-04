@@ -63,12 +63,5 @@ namespace Novel
             }
             return clickIndex;
         }
-
-        /*public async UniTask<int> ShowAndDisposeAsync(CancellationToken token, params string[] texts)
-        {
-            int index = await ShowAndWaitButtonClick(token, texts);
-            Destroy(gameObject, 0.2f);
-            return index;
-        }*/
     }
 }

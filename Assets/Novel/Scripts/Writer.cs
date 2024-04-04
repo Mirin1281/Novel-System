@@ -51,7 +51,7 @@ namespace Novel
                 var planeText = storyTmpro.GetParsedText();
 
                 timePer100Charas = timePerCharas ?? defaultSpeed;
-                token = token == default ? destroyCancellationToken : token;
+                token = token == default ? this.GetCancellationTokenOnDestroy() : token;
 
                 int insertIndex = -1;
                 if (tagDataList != null && tagDataList.Count != 0)
@@ -168,7 +168,7 @@ namespace Novel
             }
         }
 
-        public void SetName(CharacterData character)
+        void SetName(CharacterData character)
         {
             if (character != null)
             {
@@ -181,20 +181,19 @@ namespace Novel
             }
         }
 
-        public void SkipTextIfValid()
+        void SkipTextIfValid()
         {
             timePer100Charas = 0;
             isSkipped = true;
         }
 
-        /// <summary>
-        /// エディタ用
-        /// </summary>
+#if UNITY_EDITOR
         public void PreviewText(CharacterData character, string text)
         {
             var convertedText = TagUtility.ExtractMyTag(text).convertedText;
             storyTmpro.SetUneditedText(convertedText);
             SetName(character);
         }
+#endif
     }
 }

@@ -283,9 +283,9 @@ namespace Novel
                 GUI.color = Color.black;
 
                 var cmdStatus = commandList[index].GetCommandStatus();
-                EditorGUI.LabelField(rect, cmdStatus.Name, style);
+                EditorGUI.LabelField(rect, $"<size=12>{cmdStatus.Name}</size>", style);
                 EditorGUI.LabelField(new Rect(
-                    rect.x + 75, rect.y, rect.width, rect.height),
+                    rect.x + 90, rect.y, rect.width, rect.height),
                     $"<size=10>{RemoveTag(cmdStatus.Summary)}</size>", style);
 
                 GUI.color = tmpColor;

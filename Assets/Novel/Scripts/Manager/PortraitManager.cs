@@ -100,7 +100,7 @@ namespace Novel
                 if (linkedPortrait.Portrait == null) continue;
                 linkedPortrait.Portrait.ClearFadeAsync(time).Forget();
             }
-            await MyStatic.WaitSeconds(time, destroyCancellationToken);
+            await MyStatic.WaitSeconds(time, this.GetCancellationTokenOnDestroy());
         }
     }
 }

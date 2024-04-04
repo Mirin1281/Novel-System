@@ -86,11 +86,11 @@ namespace Novel.Command
             var charaName = character == null ? string.Empty : character.CharacterName;
             if (index == -1)
             {
-                return $"{charaName}\"{storyText}\"";
+                return $"{charaName} \"{storyText}\"";
             }
             else
             {
-                return $"{charaName}\"{storyText.Remove(index)}\"";
+                return $"{charaName} \"{storyText.Remove(index)}\"";
             }
         }
 

@@ -19,7 +19,7 @@ namespace Novel
         public string Description => description;
 
         [SerializeField]
-        bool isCheckZone = true;
+        bool isCheckZone;
 
         // シリアライズする
         [SerializeField, HideInInspector]
@@ -81,7 +81,7 @@ namespace Novel
             {
                 if (callStatus == null)
                 {
-                    cts = new CancellationTokenSource();
+                    cts = new();
                     cts = CancellationTokenSource.CreateLinkedTokenSource(
                             MyStatic.TokenOnSceneChange, cts.Token);
                     return new FlowchartCallStatus(cts.Token, cts, false);

@@ -32,7 +32,6 @@ namespace Novel.Command
             await EnterAsync();
         }
 
-        #region For Editor
 
         /// <summary>
         /// 名前、色、説明、状態を表す
@@ -105,6 +104,4 @@ namespace Novel.Command
         public void SetIndex(int i) => Index = i;
 #endif
     }
-
-    #endregion
 }

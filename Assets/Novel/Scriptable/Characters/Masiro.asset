@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Masiro
   m_EditorClassIdentifier: 
   <CharacterName>k__BackingField: "\u771F\u767D\u30CE\u30D9\u30EB"
-  <NameColor>k__BackingField: {r: 0.759434, g: 1, b: 0.9954291, a: 1}
+  <NameColor>k__BackingField: {r: 0.15819688, g: 0.745283, b: 0.73565865, a: 1}
   <BoxType>k__BackingField: 1
   <PortraitType>k__BackingField: 1
   portraits:

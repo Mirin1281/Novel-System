@@ -108,7 +108,7 @@ namespace Novel
                 if (linkedBox.Box == null) continue;
                 linkedBox.Box.ClearFadeAsync(time, token).Forget();
             }
-            await MyStatic.WaitSeconds(time, token == default ? destroyCancellationToken : token);
+            await MyStatic.WaitSeconds(time, token == default ? this.GetCancellationTokenOnDestroy() : token);
         }
 
         public async UniTask OtherClearFadeAsync(BoxType boxType, float time = MyStatic.DefaultFadeTime)
@@ -119,7 +119,7 @@ namespace Novel
                     linkedBox.Type == boxType) continue;
                 linkedBox.Box.ClearFadeAsync(time).Forget();
             }
-            await MyStatic.WaitSeconds(time, destroyCancellationToken);
+            await MyStatic.WaitSeconds(time, this.GetCancellationTokenOnDestroy());
         }
     }
 }

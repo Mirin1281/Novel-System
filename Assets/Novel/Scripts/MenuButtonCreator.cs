@@ -1,8 +1,8 @@
-﻿using UnityEngine;
+﻿using Cysharp.Threading.Tasks;
 using System.Collections.Generic;
-using Cysharp.Threading.Tasks;
-using System.Threading;
 using System.Linq;
+using System.Threading;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 namespace Novel
@@ -25,7 +25,6 @@ namespace Novel
 
         public IReadOnlyList<MenuButton> CreateShowButtons(params string[] texts)
         {
-            int createCount = texts.Length;
             int currentCount = 0;
             if (createButtons == null)
             {
@@ -36,6 +35,7 @@ namespace Novel
                 currentCount = createButtons.Count;
             }
 
+            int createCount = texts.Length;
             if (createCount == currentCount) // 今ある子にいるボタンと必要なボタンの数が同じとき
             {
                 AllShowFadeAsync(createButtons, 0f).Forget();
@@ -95,7 +95,7 @@ namespace Novel
                     button.ClearFadeAsync(time, token).Forget();
                 }
             }
-            await MyStatic.WaitSeconds(time, token == default ? destroyCancellationToken : token);
+            await MyStatic.WaitSeconds(time, token == default ? this.GetCancellationTokenOnDestroy() : token);
         }
     }
 }

@@ -20,8 +20,9 @@ namespace Novel
             await Flowchart.ExecuteAsync(index, callStatus);
         }
 
+#if UNITY_EDITOR
         /// <summary>
-        /// カスタムエディタ用。リストの中にあるか調べます
+        /// リストの中にCommandDataがあるか調べます
         /// </summary>
         public bool IsUsed(CommandData targetData)
         {
@@ -31,5 +32,6 @@ namespace Novel
             }
             return false;
         }
+#endif
     }
 }
