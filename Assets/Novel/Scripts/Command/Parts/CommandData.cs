@@ -1,7 +1,6 @@
 ﻿using System;
 using UnityEngine;
 using Cysharp.Threading.Tasks;
-using CommandStatus = Novel.Command.CommandBase.CommandStatus;
 
 namespace Novel.Command
 {

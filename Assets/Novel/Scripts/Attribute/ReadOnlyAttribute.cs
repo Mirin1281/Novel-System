@@ -4,18 +4,24 @@ using System;
 using UnityEditor;
 #endif
 
-[AttributeUsage(AttributeTargets.Field)]
-class ReadOnlyAttribute : PropertyAttribute { }
+namespace Novel
+{
+    [AttributeUsage(AttributeTargets.Field)]
+    class ReadOnlyAttribute : PropertyAttribute { }
+}
 
 #if UNITY_EDITOR
-[CustomPropertyDrawer(typeof(ReadOnlyAttribute))]
-public class ReadOnlyDrawer : PropertyDrawer
+namespace Novel.Editor
 {
-    public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
+    [CustomPropertyDrawer(typeof(ReadOnlyAttribute))]
+    public class ReadOnlyDrawer : PropertyDrawer
     {
-        EditorGUI.BeginDisabledGroup(true);
-        EditorGUI.PropertyField(position, property, label);
-        EditorGUI.EndDisabledGroup();
+        public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
+        {
+            EditorGUI.BeginDisabledGroup(true);
+            EditorGUI.PropertyField(position, property, label);
+            EditorGUI.EndDisabledGroup();
+        }
     }
 }
 #endif
