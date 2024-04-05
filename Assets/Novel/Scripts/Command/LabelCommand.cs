@@ -19,6 +19,8 @@ namespace Novel.Command
             return labelName;
         }
 
+        protected override string GetCommandInfo() => "デバッグ用です。このコマンドは何も起こりません";
+
         public override string CSVContent1
         {
             get => labelName;

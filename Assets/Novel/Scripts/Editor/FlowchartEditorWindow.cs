@@ -141,6 +141,25 @@ namespace Novel.Editor
                 }
             }
 
+            GenericMenu menu = new();
+            if (Event.current.type == EventType.ContextClick && Event.current.button == 1)
+            {
+                menu.AddItem(new GUIContent("Add"), false, () =>
+                {
+                    Add(reorderableList);
+                });
+                menu.AddItem(new GUIContent("Remove"), false, () =>
+                {
+                    Remove(reorderableList);
+                });
+            }
+
+            if (menu.GetItemCount() > 0)
+            {
+                menu.ShowAsContext();
+                Event.current.Use();
+            }
+
             using (GUILayout.ScrollViewScope scroll =
                 new(listScrollPos, EditorStyles.helpBox, GUILayout.Width(position.size.x / 2f)))
             {
@@ -177,7 +196,6 @@ namespace Novel.Editor
         }
         void Paste(CommandData copiedCommand)
         {
-            
             Undo.RecordObject(this, "Paste Command");
             int currentIndex = reorderableList.index;
             Event.current.Use();
@@ -228,51 +246,7 @@ namespace Novel.Editor
                 drawElementCallback = OnDrawElement,
                 drawElementBackgroundCallback = DrawElementBackground,
                 elementHeightCallback = GetElementHeight,
-                multiSelect = true,
             };
-
-            void Add(ReorderableList list)
-            {
-                Undo.RecordObject(this, "Add Command");
-                CommandData newCommandData = activeMode switch
-                {
-                    ActiveMode.Executor => CreateInstance<CommandData>(),
-                    ActiveMode.Data => FlowchartEditorUtility.CreateCommandData(NameContainer.COMMANDDATA_PATH, $"CommandData_{activeFlowchartData.name}"),
-                    _ => throw new Exception()
-                };
-                int insertIndex = list.index + 1;
-                if (commandList == null || commandList.Count == 0)
-                {
-                    insertIndex = 0;
-                }
-                commandList.Insert(insertIndex, newCommandData);
-                selectedCommand = newCommandData;
-                reorderableList.Select(insertIndex);
-            }
-
-            void Remove(ReorderableList list)
-            {
-                Undo.RecordObject(this, "Remove Command");
-                commandList.Remove(selectedCommand);
-                if (activeMode == ActiveMode.Data)
-                {
-                    FlowchartEditorUtility.DestroyScritableObject(selectedCommand);
-                }
-
-                int removeIndex = list.index;
-                bool isLastElementRemoved = removeIndex == commandList.Count;
-                if (isLastElementRemoved)
-                {
-                    if(commandList.Count == 0) return;
-                    selectedCommand = commandList[removeIndex - 1];
-                    reorderableList.Select(removeIndex - 1);
-                }
-                else
-                {
-                    selectedCommand = commandList[removeIndex];
-                    reorderableList.Select(removeIndex);
-                }
-            }
 
             void OnSelect(ReorderableList list)
             {
@@ -330,6 +304,49 @@ namespace Novel.Editor
             float GetElementHeight(int index)
             {
                 return 30;
+            }
+        }
+
+        public void Add(ReorderableList list)
+        {
+            Undo.RecordObject(this, "Add Command");
+            CommandData newCommandData = activeMode switch
+            {
+                ActiveMode.Executor => CreateInstance<CommandData>(),
+                ActiveMode.Data => FlowchartEditorUtility.CreateCommandData(NameContainer.COMMANDDATA_PATH, $"CommandData_{activeFlowchartData.name}"),
+                _ => throw new Exception()
+            };
+            int insertIndex = list.index + 1;
+            if (commandList == null || commandList.Count == 0)
+            {
+                insertIndex = 0;
+            }
+            commandList.Insert(insertIndex, newCommandData);
+            selectedCommand = newCommandData;
+            reorderableList.Select(insertIndex);
+        }
+
+        public void Remove(ReorderableList list)
+        {
+            Undo.RecordObject(this, "Remove Command");
+            commandList.Remove(selectedCommand);
+            if (activeMode == ActiveMode.Data)
+            {
+                FlowchartEditorUtility.DestroyScritableObject(selectedCommand);
+            }
+
+            int removeIndex = list.index;
+            bool isLastElementRemoved = removeIndex == commandList.Count;
+            if (isLastElementRemoved)
+            {
+                if (commandList.Count == 0) return;
+                selectedCommand = commandList[removeIndex - 1];
+                reorderableList.Select(removeIndex - 1);
+            }
+            else
+            {
+                selectedCommand = commandList[removeIndex];
+                reorderableList.Select(removeIndex);
             }
         }
 
