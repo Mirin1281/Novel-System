@@ -13,7 +13,7 @@ namespace Novel.Command
         protected override async UniTask EnterAsync()
         {
             var portrait = PortraitManager.Instance.CreateIfNotingPortrait(character.PortraitType);
-            if(isAwait)
+            if (isAwait)
             {
                 await portrait.TurnAsync(time, CallStatus.Token);
             }

@@ -137,15 +137,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Enabled>k__BackingField: 1
   command:
-    rid: 5499919988266106886
+    rid: 5499920007786397699
   references:
     version: 2
     RefIds:
-    - rid: 5499919988266106886
-      type: {class: SayCommand, ns: Novel.Command, asm: Assembly-CSharp}
+    - rid: 5499920007786397699
+      type: {class: SayCommand, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "Say\u30B3\u30DE\u30F3\u30C9\u306B\u95A2\u3059\u308B\u30B5\u30F3\u30D7\u30EB"
+          description: CommandSample
           isCheckZone: 0
           commandDataList:
           - {fileID: 927406852}
@@ -186,15 +186,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Enabled>k__BackingField: 1
   command:
-    rid: 5499919988266106882
+    rid: 5499920007786397697
   references:
     version: 2
     RefIds:
-    - rid: 5499919988266106882
-      type: {class: SayCommand, ns: Novel.Command, asm: Assembly-CSharp}
+    - rid: 5499920007786397697
+      type: {class: SayCommand, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "Say\u30B3\u30DE\u30F3\u30C9\u306B\u95A2\u3059\u308B\u30B5\u30F3\u30D7\u30EB"
+          description: CommandSample
           isCheckZone: 0
           commandDataList:
           - {fileID: 927406852}
@@ -217,7 +217,7 @@ MonoBehaviour:
           - {fileID: 528174515}
         <Index>k__BackingField: 2
         character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
-        changeSprite: {fileID: 21300000, guid: 24ea358cd0c6e7d48b3a06eaff46e833, type: 3}
+        changeSprite: {fileID: 0}
         storyText: "\u3053\u308C\u306FSay\u30B3\u30DE\u30F3\u30C9\u306E\u30B5\u30F3\u30D7\u30EB\u3067\u3059\uFF01"
         boxShowTime: 0
         flagKeys: []
@@ -252,7 +252,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isStartExecute: 1
   flowchart:
-    description: "Say\u30B3\u30DE\u30F3\u30C9\u306B\u95A2\u3059\u308B\u30B5\u30F3\u30D7\u30EB"
+    description: CommandSample
     isCheckZone: 0
     commandDataList:
     - {fileID: 927406852}
@@ -302,24 +302,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Enabled>k__BackingField: 1
   command:
-    rid: 5499919990081716235
+    rid: 5499920007786397700
   references:
     version: 2
     RefIds:
-    - rid: 5499919990081716235
-      type: {class: FlowExecuteCommand, ns: Novel.Command, asm: Assembly-CSharp}
+    - rid: 5499920007786397700
+      type: {class: FlowExecuteCommand, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "FlowchartData\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
+          description: FlowchartData Sample
           isCheckZone: 0
           commandDataList:
           - {fileID: 428837992}
         <Index>k__BackingField: 0
         flowchartType: 1
         flowchartExecutor: {fileID: 0}
-        flowchartData: {fileID: 11400000, guid: 193ae74773563984fafc0e4aa4840e13, type: 2}
+        flowchartData: {fileID: 11400000, guid: 131cca217c5b459439b1f510e506f1d8, type: 2}
         commandIndex: 0
-        isAwaitNest: 1
+        isAwaitNest: 0
 --- !u!114 &449778503
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -334,15 +334,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Enabled>k__BackingField: 1
   command:
-    rid: 5499919988266106884
+    rid: 5499920007786397713
   references:
     version: 2
     RefIds:
-    - rid: 5499919988266106884
-      type: {class: SayCommand, ns: Novel.Command, asm: Assembly-CSharp}
+    - rid: 5499920007786397713
+      type: {class: SayCommand, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "Say\u30B3\u30DE\u30F3\u30C9\u306B\u95A2\u3059\u308B\u30B5\u30F3\u30D7\u30EB"
+          description: CommandSample
           isCheckZone: 0
           commandDataList:
           - {fileID: 927406852}
@@ -383,15 +383,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Enabled>k__BackingField: 1
   command:
-    rid: 5499919988266106884
+    rid: 5499920007786397709
   references:
     version: 2
     RefIds:
-    - rid: 5499919988266106884
-      type: {class: SayCommand, ns: Novel.Command, asm: Assembly-CSharp}
+    - rid: 5499920007786397709
+      type: {class: SayCommand, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "Say\u30B3\u30DE\u30F3\u30C9\u306B\u95A2\u3059\u308B\u30B5\u30F3\u30D7\u30EB"
+          description: CommandSample
           isCheckZone: 0
           commandDataList:
           - {fileID: 927406852}
@@ -433,15 +433,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Enabled>k__BackingField: 1
   command:
-    rid: 5499919990081716232
+    rid: 5499920007786397711
   references:
     version: 2
     RefIds:
-    - rid: 5499919990081716232
-      type: {class: SayCommand, ns: Novel.Command, asm: Assembly-CSharp}
+    - rid: 5499920007786397711
+      type: {class: SayCommand, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "Say\u30B3\u30DE\u30F3\u30C9\u306B\u95A2\u3059\u308B\u30B5\u30F3\u30D7\u30EB"
+          description: CommandSample
           isCheckZone: 0
           commandDataList:
           - {fileID: 927406852}
@@ -464,7 +464,7 @@ MonoBehaviour:
           - {fileID: 528174515}
         <Index>k__BackingField: 17
         character: {fileID: 11400000, guid: 36e06002688543545a19e42b88b58c8b, type: 2}
-        changeSprite: {fileID: 0}
+        changeSprite: {fileID: 21300000, guid: dd4515359cbe69849bd537b781b51657, type: 3}
         storyText: "<size=150%>\u5F85\u3066\u2015\u2015\u3043\uFF01</size>"
         boxShowTime: 0
         flagKeys: []
@@ -642,15 +642,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Enabled>k__BackingField: 1
   command:
-    rid: 5499919990081716230
+    rid: 5499920007786397706
   references:
     version: 2
     RefIds:
-    - rid: 5499919990081716230
-      type: {class: SayCommand, ns: Novel.Command, asm: Assembly-CSharp}
+    - rid: 5499920007786397706
+      type: {class: SayCommand, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "Say\u30B3\u30DE\u30F3\u30C9\u306B\u95A2\u3059\u308B\u30B5\u30F3\u30D7\u30EB"
+          description: CommandSample
           isCheckZone: 0
           commandDataList:
           - {fileID: 927406852}
@@ -691,15 +691,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Enabled>k__BackingField: 1
   command:
-    rid: 5499919990081716229
+    rid: 5499920007786397708
   references:
     version: 2
     RefIds:
-    - rid: 5499919990081716229
-      type: {class: MoveXPortraitCommand, ns: Novel.Command, asm: Assembly-CSharp}
+    - rid: 5499920007786397708
+      type: {class: MoveXPortraitCommand, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "Say\u30B3\u30DE\u30F3\u30C9\u306B\u95A2\u3059\u308B\u30B5\u30F3\u30D7\u30EB"
+          description: CommandSample
           isCheckZone: 0
           commandDataList:
           - {fileID: 927406852}
@@ -723,7 +723,7 @@ MonoBehaviour:
         <Index>k__BackingField: 14
         character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
         moveType: 0
-        movePosX: -1500
+        movePosX: -1300
         time: 0.4
         isAwait: 0
 --- !u!1 &810719586
@@ -757,7 +757,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isStartExecute: 0
   flowchart:
-    description: "FlowchartData\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
+    description: FlowchartData Sample
     isCheckZone: 0
     commandDataList:
     - {fileID: 428837992}
@@ -790,15 +790,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Enabled>k__BackingField: 1
   command:
-    rid: 5499919988266106881
+    rid: 5499920007786397714
   references:
     version: 2
     RefIds:
-    - rid: 5499919988266106881
-      type: {class: PortraitCommand, ns: Novel.Command, asm: Assembly-CSharp}
+    - rid: 5499920007786397714
+      type: {class: PortraitCommand, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "Say\u30B3\u30DE\u30F3\u30C9\u306B\u95A2\u3059\u308B\u30B5\u30F3\u30D7\u30EB"
+          description: CommandSample
           isCheckZone: 0
           commandDataList:
           - {fileID: 927406852}
@@ -825,7 +825,7 @@ MonoBehaviour:
         portraitSprite: {fileID: 21300000, guid: 321b0bfb6c84b2e4ea411c3d1246c306, type: 3}
         positionType: 0
         overridePos: {x: 0, y: 0}
-        fadeTime: 0.5
+        fadeTime: 0.3
         isAwait: 1
 --- !u!114 &1057259554
 MonoBehaviour:
@@ -841,15 +841,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Enabled>k__BackingField: 1
   command:
-    rid: 5499919990081716229
+    rid: 5499920007786397707
   references:
     version: 2
     RefIds:
-    - rid: 5499919990081716229
-      type: {class: MoveXPortraitCommand, ns: Novel.Command, asm: Assembly-CSharp}
+    - rid: 5499920007786397707
+      type: {class: MoveXPortraitCommand, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "Say\u30B3\u30DE\u30F3\u30C9\u306B\u95A2\u3059\u308B\u30B5\u30F3\u30D7\u30EB"
+          description: CommandSample
           isCheckZone: 0
           commandDataList:
           - {fileID: 927406852}
@@ -890,15 +890,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Enabled>k__BackingField: 1
   command:
-    rid: 5499919990081716229
+    rid: 5499920007786397703
   references:
     version: 2
     RefIds:
-    - rid: 5499919990081716229
-      type: {class: MoveXPortraitCommand, ns: Novel.Command, asm: Assembly-CSharp}
+    - rid: 5499920007786397703
+      type: {class: MoveXPortraitCommand, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "Say\u30B3\u30DE\u30F3\u30C9\u306B\u95A2\u3059\u308B\u30B5\u30F3\u30D7\u30EB"
+          description: CommandSample
           isCheckZone: 0
           commandDataList:
           - {fileID: 927406852}
@@ -922,7 +922,7 @@ MonoBehaviour:
         <Index>k__BackingField: 11
         character: {fileID: 11400000, guid: 36e06002688543545a19e42b88b58c8b, type: 2}
         moveType: 0
-        movePosX: -600
+        movePosX: -800
         time: 0.4
         isAwait: 0
 --- !u!114 &1161883805
@@ -939,15 +939,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Enabled>k__BackingField: 1
   command:
-    rid: 5499919988266106884
+    rid: 5499920007786397705
   references:
     version: 2
     RefIds:
-    - rid: 5499919988266106884
-      type: {class: SayCommand, ns: Novel.Command, asm: Assembly-CSharp}
+    - rid: 5499920007786397705
+      type: {class: SayCommand, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "Say\u30B3\u30DE\u30F3\u30C9\u306B\u95A2\u3059\u308B\u30B5\u30F3\u30D7\u30EB"
+          description: CommandSample
           isCheckZone: 0
           commandDataList:
           - {fileID: 927406852}
@@ -988,15 +988,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Enabled>k__BackingField: 1
   command:
-    rid: 5499919988266106883
+    rid: 5499920007786397698
   references:
     version: 2
     RefIds:
-    - rid: 5499919988266106883
-      type: {class: SayCommand, ns: Novel.Command, asm: Assembly-CSharp}
+    - rid: 5499920007786397698
+      type: {class: SayCommand, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "Say\u30B3\u30DE\u30F3\u30C9\u306B\u95A2\u3059\u308B\u30B5\u30F3\u30D7\u30EB"
+          description: CommandSample
           isCheckZone: 0
           commandDataList:
           - {fileID: 927406852}
@@ -1019,7 +1019,7 @@ MonoBehaviour:
           - {fileID: 528174515}
         <Index>k__BackingField: 3
         character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
-        changeSprite: {fileID: 0}
+        changeSprite: {fileID: 21300000, guid: 24ea358cd0c6e7d48b3a06eaff46e833, type: 3}
         storyText: "<sp=0.5>\u30C6\u30AD\u30B9\u30C8\u306E\u30B9\u30D4\u30FC\u30C9\u3092\u5909\u66F4\u3057\u305F\u308A</sp>"
         boxShowTime: 0
         flagKeys: []
@@ -1037,15 +1037,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Enabled>k__BackingField: 1
   command:
-    rid: 5499919988266106881
+    rid: 5499920007786397702
   references:
     version: 2
     RefIds:
-    - rid: 5499919988266106881
-      type: {class: PortraitCommand, ns: Novel.Command, asm: Assembly-CSharp}
+    - rid: 5499920007786397702
+      type: {class: PortraitCommand, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "Say\u30B3\u30DE\u30F3\u30C9\u306B\u95A2\u3059\u308B\u30B5\u30F3\u30D7\u30EB"
+          description: CommandSample
           isCheckZone: 0
           commandDataList:
           - {fileID: 927406852}
@@ -1071,7 +1071,7 @@ MonoBehaviour:
         actionType: 0
         portraitSprite: {fileID: 21300000, guid: 3acf519915df4db4dbc821f975a6eb0f, type: 3}
         positionType: 3
-        overridePos: {x: 1300, y: -100}
+        overridePos: {x: 1500, y: -100}
         fadeTime: 0
         isAwait: 0
 --- !u!114 &1419440009
@@ -1088,15 +1088,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Enabled>k__BackingField: 1
   command:
-    rid: 5499919988266106885
+    rid: 5499920007786397710
   references:
     version: 2
     RefIds:
-    - rid: 5499919988266106885
-      type: {class: SetIntFlagCommand, ns: Novel.Command, asm: Assembly-CSharp}
+    - rid: 5499920007786397710
+      type: {class: SetIntFlagCommand, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "Say\u30B3\u30DE\u30F3\u30C9\u306B\u95A2\u3059\u308B\u30B5\u30F3\u30D7\u30EB"
+          description: CommandSample
           isCheckZone: 0
           commandDataList:
           - {fileID: 927406852}
@@ -1134,15 +1134,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Enabled>k__BackingField: 1
   command:
-    rid: 5499919988266106880
+    rid: 5499920007786397704
   references:
     version: 2
     RefIds:
-    - rid: 5499919988266106880
-      type: {class: SayCommand, ns: Novel.Command, asm: Assembly-CSharp}
+    - rid: 5499920007786397704
+      type: {class: SayCommand, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "Say\u30B3\u30DE\u30F3\u30C9\u306B\u95A2\u3059\u308B\u30B5\u30F3\u30D7\u30EB"
+          description: CommandSample
           isCheckZone: 0
           commandDataList:
           - {fileID: 927406852}
@@ -1165,7 +1165,7 @@ MonoBehaviour:
           - {fileID: 528174515}
         <Index>k__BackingField: 1
         character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
-        changeSprite: {fileID: 21300000, guid: 217884d24e46f54418eb8fbf3008481d, type: 3}
+        changeSprite: {fileID: 21300000, guid: 24ea358cd0c6e7d48b3a06eaff46e833, type: 3}
         storyText: "\u3053\u3093\u306B\u3061\u306F\uFF01"
         boxShowTime: 0.3
         flagKeys: []
@@ -1183,15 +1183,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Enabled>k__BackingField: 1
   command:
-    rid: 5499919990081716228
+    rid: 5499920007786397696
   references:
     version: 2
     RefIds:
-    - rid: 5499919990081716228
-      type: {class: SayCommand, ns: Novel.Command, asm: Assembly-CSharp}
+    - rid: 5499920007786397696
+      type: {class: SayCommand, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "Say\u30B3\u30DE\u30F3\u30C9\u306B\u95A2\u3059\u308B\u30B5\u30F3\u30D7\u30EB"
+          description: CommandSample
           isCheckZone: 0
           commandDataList:
           - {fileID: 927406852}
@@ -1232,15 +1232,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Enabled>k__BackingField: 1
   command:
-    rid: 5499919988266106884
+    rid: 5499920007786397712
   references:
     version: 2
     RefIds:
-    - rid: 5499919988266106884
-      type: {class: SayCommand, ns: Novel.Command, asm: Assembly-CSharp}
+    - rid: 5499920007786397712
+      type: {class: SayCommand, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "Say\u30B3\u30DE\u30F3\u30C9\u306B\u95A2\u3059\u308B\u30B5\u30F3\u30D7\u30EB"
+          description: CommandSample
           isCheckZone: 0
           commandDataList:
           - {fileID: 927406852}
@@ -1281,15 +1281,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Enabled>k__BackingField: 1
   command:
-    rid: 5499919990081716231
+    rid: 5499920007786397701
   references:
     version: 2
     RefIds:
-    - rid: 5499919990081716231
-      type: {class: PortraitCommand, ns: Novel.Command, asm: Assembly-CSharp}
+    - rid: 5499920007786397701
+      type: {class: PortraitCommand, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "Say\u30B3\u30DE\u30F3\u30C9\u306B\u95A2\u3059\u308B\u30B5\u30F3\u30D7\u30EB"
+          description: CommandSample
           isCheckZone: 0
           commandDataList:
           - {fileID: 927406852}

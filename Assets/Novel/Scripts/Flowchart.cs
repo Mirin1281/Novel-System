@@ -46,6 +46,7 @@ namespace Novel
 
             while (commandDataList.Count > CallIndex && isStopped == false)
             {
+                //Debug.Log(CallIndex + ", " + commandDataList[CallIndex].GetCommandStatus().Name);
                 var cmdData = commandDataList[CallIndex];
                 await cmdData.ExecuteAsync(this, status);
                 CallIndex++;

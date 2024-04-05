@@ -10,27 +10,29 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4399fbfc898731a4f96fd937ce84eeff, type: 3}
-  m_Name: CommandData_ChartSample
+  m_Name: CommandData_ChartDataSample
   m_EditorClassIdentifier: 
   <Enabled>k__BackingField: 1
   command:
-    rid: 5499919990081716233
+    rid: 5499920007786397715
   references:
     version: 2
     RefIds:
-    - rid: 5499919990081716233
-      type: {class: SayCommand, ns: Novel.Command, asm: Assembly-CSharp}
+    - rid: 5499920007786397715
+      type: {class: PortraitCommand, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
           description: "\u8AAC\u660E"
           isCheckZone: 0
           commandDataList:
-          - {fileID: 11400000, guid: ce115f8cbb19bb141b46e4002872a90f, type: 2}
           - {fileID: 11400000}
-          - {fileID: 11400000, guid: 71e2422594fd5da43a13fa5aa4a0e17c, type: 2}
-        <Index>k__BackingField: 1
+          - {fileID: 11400000, guid: 22ed5d71603f509419b9a083c7ab74ec, type: 2}
+          - {fileID: 11400000, guid: e8794d4d0d0f5644cb70cceffaae488e, type: 2}
+        <Index>k__BackingField: 0
         character: {fileID: 11400000, guid: 36e06002688543545a19e42b88b58c8b, type: 2}
-        changeSprite: {fileID: 0}
-        storyText: "\"FlowchartData\"\u306EScriptableObject\u3092\u4F7F\u3048\u3070\u3001\u30C7\u30FC\u30BF\u3068\u3057\u3066\u30D5\u30ED\u30FC\u30C1\u30E3\u30FC\u30C8\u3092\u7BA1\u7406\u3059\u308B\u3053\u3068\u3082\u3067\u304D\u308B\u305C"
-        boxShowTime: 0.3
-        flagKeys: []
+        actionType: 0
+        portraitSprite: {fileID: 21300000, guid: dd4515359cbe69849bd537b781b51657, type: 3}
+        positionType: 2
+        overridePos: {x: 0, y: 0}
+        fadeTime: 0.3
+        isAwait: 1

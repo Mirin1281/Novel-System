@@ -25,7 +25,7 @@ namespace Novel.Command
                 JumpType.DownRelative => Index + jumpIndex,
                 _ => throw new System.Exception()
             };
-            ParentFlowchart.CallIndex = index;
+            ParentFlowchart.CallIndex = index - 1;
             await UniTask.CompletedTask;
             return;
         }

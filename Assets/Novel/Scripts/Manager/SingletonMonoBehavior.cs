@@ -11,7 +11,7 @@ namespace Novel
             get
             {
                 if (instance != null) return instance;
-                instance = FindObjectOfType<T>();
+                instance = FindAnyObjectByType<T>();
                 if (instance == null)
                 {
                     Debug.LogWarning(typeof(T) + " is nothing");

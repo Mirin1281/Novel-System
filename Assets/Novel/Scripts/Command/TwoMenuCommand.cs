@@ -28,27 +28,23 @@ namespace Novel.Command
 
             if(actionType == ActionType.Jump)
             {
-                ParentFlowchart.Stop(FlowchartStopType.Single);
+                int index;
                 // Reverseを考えない場合、上を選んだ
                 if (select)
                 {
-                    ExecuteSelf(Index + 1, CallStatus).Forget();
+                    index = Index;
+                    Debug.Log(0);
                 }
                 else
                 {
-                    ExecuteSelf(Index + 2, CallStatus).Forget();
+                    index = Index + 1;
                 }
+                ParentFlowchart.CallIndex = index;
             }
             else if (actionType == ActionType.SetFlag)
             {
                 FlagManager.SetFlagValue(flagKey, select);
             }
-        }
-
-        async UniTask ExecuteSelf(int index, FlowchartCallStatus callStatus)
-        {
-            await MyStatic.WaitFrame(1, callStatus.Token);
-            ParentFlowchart.ExecuteAsync(index, callStatus).Forget();
         }
     }
 }

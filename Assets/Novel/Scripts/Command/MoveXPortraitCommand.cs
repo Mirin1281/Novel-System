@@ -49,6 +49,7 @@ namespace Novel.Command
 
         protected override string GetSummary()
         {
+            if (character == null) return WarningColorText();
             return character.CharacterName;
         }
     }

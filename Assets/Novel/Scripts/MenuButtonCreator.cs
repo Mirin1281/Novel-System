@@ -83,7 +83,7 @@ namespace Novel
             {
                 button.ShowFadeAsync(time).Forget();
             }
-            await MyStatic.WaitSeconds(time, destroyCancellationToken);
+            await MyStatic.WaitSeconds(time, this.GetCancellationTokenOnDestroy());
         }
 
         public async UniTask AllClearFadeAsync(float time = MyStatic.DefaultFadeTime, CancellationToken token = default)

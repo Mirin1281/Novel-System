@@ -223,6 +223,7 @@ MonoBehaviour:
   isStartExecute: 1
   flowchart:
     description: "RPG\u306ENPC\u304C\u3088\u304F\u3084\u308B\u3084\u3064"
+    isCheckZone: 0
     commandDataList:
     - {fileID: 1571157907}
     - {fileID: 1758943309}
@@ -232,7 +233,6 @@ MonoBehaviour:
     - {fileID: 398368274}
     - {fileID: 963140770}
     - {fileID: 1848595418}
-    - {fileID: 774803274}
 --- !u!4 &187121800
 Transform:
   m_ObjectHideFlags: 0
@@ -271,6 +271,7 @@ MonoBehaviour:
       data:
         <ParentFlowchart>k__BackingField:
           description: "RPG\u306ENPC\u304C\u3088\u304F\u3084\u308B\u3084\u3064"
+          isCheckZone: 0
           commandDataList:
           - {fileID: 1571157907}
           - {fileID: 1758943309}
@@ -280,7 +281,6 @@ MonoBehaviour:
           - {fileID: 398368274}
           - {fileID: 963140770}
           - {fileID: 1848595418}
-          - {fileID: 774803274}
         <Index>k__BackingField: 3
         jumpIndex: 2
         jumpType: 2
@@ -307,6 +307,7 @@ MonoBehaviour:
       data:
         <ParentFlowchart>k__BackingField:
           description: "RPG\u306ENPC\u304C\u3088\u304F\u3084\u308B\u3084\u3064"
+          isCheckZone: 0
           commandDataList:
           - {fileID: 1571157907}
           - {fileID: 1758943309}
@@ -316,7 +317,6 @@ MonoBehaviour:
           - {fileID: 398368274}
           - {fileID: 963140770}
           - {fileID: 1848595418}
-          - {fileID: 774803274}
         <Index>k__BackingField: 5
         topSelectionText: "\u306F\u3044"
         bottomSelectionText: "\u3044\u3084\u3060"
@@ -346,6 +346,7 @@ MonoBehaviour:
       data:
         <ParentFlowchart>k__BackingField:
           description: "RPG\u306ENPC\u304C\u3088\u304F\u3084\u308B\u3084\u3064"
+          isCheckZone: 0
           commandDataList:
           - {fileID: 1571157907}
           - {fileID: 1758943309}
@@ -355,49 +356,12 @@ MonoBehaviour:
           - {fileID: 398368274}
           - {fileID: 963140770}
           - {fileID: 1848595418}
-          - {fileID: 774803274}
         <Index>k__BackingField: 2
         character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
         changeSprite: {fileID: 0}
         storyText: "\u3042\u306A\u305F\u304C\u9B54\u738B\u3092\u5012\u3057\u3066\u304F\u3060\u3055\u308B\u306E\u3067\u3059\u304B\uFF1F"
         boxShowTime: 0.2
         flagKeys: []
---- !u!114 &774803274
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4399fbfc898731a4f96fd937ce84eeff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  <Enabled>k__BackingField: 0
-  command:
-    rid: 6983526783263178753
-  references:
-    version: 2
-    RefIds:
-    - rid: 6983526783263178753
-      type: {class: LoadSceneCommand, ns: Novel.Command, asm: Assembly-CSharp}
-      data:
-        <ParentFlowchart>k__BackingField:
-          description: "RPG\u306ENPC\u304C\u3088\u304F\u3084\u308B\u3084\u3064"
-          commandDataList:
-          - {fileID: 1571157907}
-          - {fileID: 1758943309}
-          - {fileID: 589748438}
-          - {fileID: 228053330}
-          - {fileID: 1214609753}
-          - {fileID: 398368274}
-          - {fileID: 963140770}
-          - {fileID: 1848595418}
-          - {fileID: 774803274}
-        <Index>k__BackingField: 8
-        sceneName: NovelScene
-        fadeTime: 0.5
 --- !u!114 &963140770
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -421,6 +385,7 @@ MonoBehaviour:
       data:
         <ParentFlowchart>k__BackingField:
           description: "RPG\u306ENPC\u304C\u3088\u304F\u3084\u308B\u3084\u3064"
+          isCheckZone: 0
           commandDataList:
           - {fileID: 1571157907}
           - {fileID: 1758943309}
@@ -430,7 +395,6 @@ MonoBehaviour:
           - {fileID: 398368274}
           - {fileID: 963140770}
           - {fileID: 1848595418}
-          - {fileID: 774803274}
         <Index>k__BackingField: 6
         jumpIndex: 2
         jumpType: 1
@@ -549,6 +513,7 @@ MonoBehaviour:
       data:
         <ParentFlowchart>k__BackingField:
           description: "RPG\u306ENPC\u304C\u3088\u304F\u3084\u308B\u3084\u3064"
+          isCheckZone: 0
           commandDataList:
           - {fileID: 1571157907}
           - {fileID: 1758943309}
@@ -558,7 +523,6 @@ MonoBehaviour:
           - {fileID: 398368274}
           - {fileID: 963140770}
           - {fileID: 1848595418}
-          - {fileID: 774803274}
         <Index>k__BackingField: 4
         character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
         changeSprite: {fileID: 21300000, guid: 2cac55ee056facd45994581fb90084cf, type: 3}
@@ -746,6 +710,7 @@ MonoBehaviour:
   flowchartExecutor: {fileID: 187121799}
   intFlag: {fileID: 11400000, guid: 336a77b8191751b4d839cd998c380fa1, type: 2}
   stringFlag: {fileID: 11400000, guid: 6ef3452a3a8407d419f3970737476135, type: 2}
+  saveButtonGroup: {fileID: 0}
 --- !u!4 &1335622934
 Transform:
   m_ObjectHideFlags: 0
@@ -784,6 +749,7 @@ MonoBehaviour:
       data:
         <ParentFlowchart>k__BackingField:
           description: "RPG\u306ENPC\u304C\u3088\u304F\u3084\u308B\u3084\u3064"
+          isCheckZone: 0
           commandDataList:
           - {fileID: 1571157907}
           - {fileID: 1758943309}
@@ -793,14 +759,13 @@ MonoBehaviour:
           - {fileID: 398368274}
           - {fileID: 963140770}
           - {fileID: 1848595418}
-          - {fileID: 774803274}
         <Index>k__BackingField: 0
         character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
         actionType: 0
         portraitSprite: {fileID: 21300000, guid: 855f9004ee0d1af44a9142b63035d451, type: 3}
         positionType: 0
         overridePos: {x: 0, y: 0}
-        fadeTime: 0
+        fadeTime: 0.5
         isAwait: 1
 --- !u!114 &1758943309
 MonoBehaviour:
@@ -825,6 +790,7 @@ MonoBehaviour:
       data:
         <ParentFlowchart>k__BackingField:
           description: "RPG\u306ENPC\u304C\u3088\u304F\u3084\u308B\u3084\u3064"
+          isCheckZone: 0
           commandDataList:
           - {fileID: 1571157907}
           - {fileID: 1758943309}
@@ -834,11 +800,10 @@ MonoBehaviour:
           - {fileID: 398368274}
           - {fileID: 963140770}
           - {fileID: 1848595418}
-          - {fileID: 774803274}
         <Index>k__BackingField: 1
         character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
         changeSprite: {fileID: 0}
-        storyText: "<s=0.5>\u30C6\u30B9\u30C8\u3067\u3059</s>"
+        storyText: "\u30C6\u30B9\u30C8\u3067\u3059"
         boxShowTime: 0
         flagKeys: []
 --- !u!114 &1848595418
@@ -864,6 +829,7 @@ MonoBehaviour:
       data:
         <ParentFlowchart>k__BackingField:
           description: "RPG\u306ENPC\u304C\u3088\u304F\u3084\u308B\u3084\u3064"
+          isCheckZone: 0
           commandDataList:
           - {fileID: 1571157907}
           - {fileID: 1758943309}
@@ -873,11 +839,10 @@ MonoBehaviour:
           - {fileID: 398368274}
           - {fileID: 963140770}
           - {fileID: 1848595418}
-          - {fileID: 774803274}
         <Index>k__BackingField: 7
         character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
         changeSprite: {fileID: 21300000, guid: 217884d24e46f54418eb8fbf3008481d, type: 3}
-        storyText: "\u3042\u308A\u304C\u3068\u3046\u3054\u3056\u3044\u307E\u3059\uFF01\uFF01\uFF01\n\u6A2A\u9808\u8CC0\uFF01\uFF01\uFF01"
+        storyText: "\u3042\u308A\u304C\u3068\u3046\u3054\u3056\u3044\u307E\u3059\uFF01\uFF01\uFF01"
         boxShowTime: 0
         flagKeys: []
 --- !u!1 &2061781012

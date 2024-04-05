@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4399fbfc898731a4f96fd937ce84eeff, type: 3}
+  m_Name: CommandData_ChartDataSample_(8)
+  m_EditorClassIdentifier: 
+  <Enabled>k__BackingField: 1
+  command:
+    rid: 5499920007786397719
+  references:
+    version: 2
+    RefIds:
+    - rid: 5499920007786397719
+      type: {class: WaitCommand, ns: Novel.Command, asm: Novel}
+      data:
+        <ParentFlowchart>k__BackingField:
+          description: "\u8AAC\u660E"
+          isCheckZone: 0
+          commandDataList:
+          - {fileID: 11400000, guid: 4d795ecdfa2d9304a9cb911d35849d6f, type: 2}
+          - {fileID: 11400000, guid: f06a56c078ec51a4d8fa857f448b7f69, type: 2}
+          - {fileID: 11400000}
+          - {fileID: 11400000, guid: 60d9b74b337fd274585a26648b2117f7, type: 2}
+          - {fileID: 11400000, guid: 69417c3c0459b754885a4d0fdcdee954, type: 2}
+          - {fileID: 11400000, guid: 22ed5d71603f509419b9a083c7ab74ec, type: 2}
+          - {fileID: 11400000, guid: e8794d4d0d0f5644cb70cceffaae488e, type: 2}
+        <Index>k__BackingField: 2
+        waitSeconds: 0.2
