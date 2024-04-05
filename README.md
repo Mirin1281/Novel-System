@@ -7,11 +7,13 @@ Testと付いている通り安全な動作はまだ保証できませんが、G
 
 
 # Novelエディター
-自分用につくったノベル制作ツールです
+自分用につくったUnityのノベル制作ツールアセットです
 
 元々Fungusという有名なフリーアセット(https://github.com/snozbot/fungus) があるのですが、それを自家製で作ってみました。
 
 使い方もFungusに準じている所が多いです
+
+より軽量で、より扱いやすいものを目指しました
 <br>
 <br>
 
@@ -117,7 +119,7 @@ If I'm doing something I shouldn't, please let me know.
 
 
 # Novel editor
-This is a novel creation tool I created for myself.
+This is a novel creation UnityAssets I created for myself.
 
 Originally, there is a famous free asset called Fungus(https://github.com/snozbot/fungus) , but I made it by myself.
 
