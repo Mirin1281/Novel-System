@@ -9,7 +9,7 @@ Testと付いている通り安全な動作はまだ保証できませんが、G
 # Novelエディター
 自分用につくったノベル制作ツールです
 
-元々Fungusという有名なフリーアセットがあるのですが、それを自家製で作ってみました。
+元々Fungusという有名なフリーアセット(https://github.com/snozbot/fungus) があるのですが、それを自家製で作ってみました。
 
 使い方もFungusに準じている所が多いです
 <br>
@@ -119,7 +119,7 @@ If I'm doing something I shouldn't, please let me know.
 # Novel editor
 This is a novel creation tool I created for myself.
 
-Originally, there is a famous free asset called Fungus, but I made it by myself.
+Originally, there is a famous free asset called Fungus(https://github.com/snozbot/fungus) , but I made it by myself.
 
 The usage of this tool is similar to Fungus.
 <br>
@@ -210,7 +210,6 @@ You can also freely add more commands in the vertical columns.
 
 We have not implemented a function to erase already existing commands from CSV. If you want to disable it for now, please enter "\<Null\>" or just "Null".
 
-Note: If you want to delete a command from the CSV file, please enter "\<Null\>" or simply "Null".
-You may change the CSV file name, but please do not change the data in the first and second lines of the CSV.
+Note: You may change the CSV file name, but please do not change the data in the first and second lines of the CSV.
 
 
