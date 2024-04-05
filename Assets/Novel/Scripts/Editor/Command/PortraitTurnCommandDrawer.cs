@@ -2,8 +2,9 @@
 using UnityEditor;
 using System;
 using System.Linq;
+using Novel.Command;
 
-namespace Novel.Command
+namespace Novel.Editor
 {
     [CustomPropertyDrawer(typeof(PortraitTurnCommand))]
     public class PortraitTurnCommandDrawer : PropertyDrawer
@@ -16,7 +17,7 @@ namespace Novel.Command
             var charaProp = property.FindPropertyRelative("character");
 
             // 特定のフォルダ内のキャラクターデータを取得
-            var characterArray = FlowchartEditorUtility.GetAllScriptableObjects<CharacterData>(NameContainer.CHARACTER_PATH)
+            var characterArray = FlowchartEditorUtility.GetAllScriptableObjects<CharacterData>()
                 .Prepend(null).ToArray();
 
             int previousCharaIndex = Array.IndexOf(

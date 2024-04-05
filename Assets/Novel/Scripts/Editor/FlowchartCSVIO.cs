@@ -10,15 +10,17 @@ using UnityEngine;
 using Object = UnityEngine.Object;
 using Cysharp.Threading.Tasks;
 
-namespace Novel
+namespace Novel.Editor
 {
     public static class FlowchartCSVIO
     {
-		readonly static string outPutFileName = "FlowchartSheet";
-		readonly static string csvFolderPath = $"{NameContainer.NOVEL_PATH}/CSV";
+		/*readonly static string outPutFileName = "FlowchartSheet";
+
+		// ここを変更すればデフォルトで開くフォルダを変更できます
+		readonly static string csvFolderPath = Application.dataPath;
 		readonly static int rowCount = 3;
 		readonly static bool isChangeIfDifferentCmdName = true;
-		readonly static FindObjectsInactive findMode = FindObjectsInactive.Include;
+		readonly static FindObjectsInactive findMode = FindObjectsInactive.Include;*/
 		public enum FlowchartType
         {
 			None,
@@ -29,9 +31,11 @@ namespace Novel
 		public static async UniTask ExportFlowchartCommandDataAsync(string exportName, FlowchartType type)
         {
 			await UniTask.Yield();
+
+			CSVIOSettingsData settingsData = GetSettingsData();
 			var name = FlowchartEditorUtility.GetFileName(
-				csvFolderPath, $"{exportName}_{outPutFileName}", "csv");
-			StreamWriter sw = new($"{csvFolderPath}/{name}", false, Encoding.GetEncoding("shift_jis"));
+				settingsData.CSVFolderPath, $"{exportName}_{settingsData.ExportFileName}", "csv");
+			StreamWriter sw = new($"{settingsData.CSVFolderPath}/{name}", false, Encoding.GetEncoding("shift_jis"));
 
 			try
             {
@@ -39,7 +43,7 @@ namespace Novel
 				sw.Write("Name:,");
 				sw.WriteLine($"{exportName},");
 
-				List<IFlowchartObject> chartObjs = GetSortedFlowchartObjects(type);
+				List<IFlowchartObject> chartObjs = GetSortedFlowchartObjects(type, settingsData.FlowchartFindMode);
 				int maxFlowchartsCmdIndex = chartObjs.Max(f => f.Flowchart.GetReadOnlyCommandDataList().Count);
 
 				// 2行目は各フローチャートの名前とディスクリプション
@@ -57,7 +61,7 @@ namespace Novel
 					{
 						sb.Append(des).Append(",");
 					}
-					sb.Skip(rowCount - 1);
+					sb.Skip(settingsData.RowCountPerOne - 1);
 				}
 				sw.WriteLine(sb.ToString());
 				sb.Clear();
@@ -69,7 +73,7 @@ namespace Novel
 						var list = chart.Flowchart.GetReadOnlyCommandDataList();
 						if (i >= list.Count)
                         {
-							sb.Skip(rowCount + 1);
+							sb.Skip(settingsData.RowCountPerOne + 1);
 							continue;
 						}
 						var cmdBase = list[i].GetCommandBase();
@@ -100,7 +104,7 @@ namespace Novel
 						{
 							sb.Append(content2).Append(",");
 						}
-						sb.Skip(1);
+						sb.Skip(settingsData.RowCountPerOne - 2);
 					}
 
 					sw.WriteLine(sb.ToString());
@@ -108,7 +112,7 @@ namespace Novel
 				}
 
 				AssetDatabase.Refresh(ImportAssetOptions.ForceUpdate);
-				var path = FlowchartEditorUtility.AbsoluteToAssetsPath(csvFolderPath);
+				var path = FlowchartEditorUtility.AbsoluteToAssetsPath(settingsData.CSVFolderPath);
 				var csv = AssetDatabase.LoadAssetAtPath<TextAsset>($"{path}/{name}");
 				EditorGUIUtility.PingObject(csv);
 				Debug.Log("<color=lightblue>CSVを書き出しました！</color>");
@@ -117,6 +121,20 @@ namespace Novel
             {
 				sw.Flush();
 				sw.Close();
+			}
+		}
+
+		static CSVIOSettingsData GetSettingsData()
+        {
+			var settingsDatas = FlowchartEditorUtility.GetAllScriptableObjects<CSVIOSettingsData>();
+			if (settingsDatas == null || settingsDatas.Length == 0)
+			{
+				Debug.LogWarning($"{nameof(CSVIOSettingsData)}が見つかりませんでした");
+				return ScriptableObject.CreateInstance<CSVIOSettingsData>();
+			}
+			else
+			{
+				return settingsDatas[0];
 			}
 		}
 
@@ -132,6 +150,7 @@ namespace Novel
 		public static async UniTask ImportFlowchartCommandDataAsync(string importName, FlowchartType type)
 		{
 			await UniTask.Yield();
+			CSVIOSettingsData settingsData = GetSettingsData();
 			var dataList = LoadCSV();
 			if (dataList == null) return;
 
@@ -145,7 +164,7 @@ namespace Novel
 			}
 			dataList.RemoveAt(0); // もういらないのでこの行は削除する
 
-			var chartObjs = GetSortedFlowchartObjects(type);
+			var chartObjs = GetSortedFlowchartObjects(type, settingsData.FlowchartFindMode);
 
 			// フローチャート名のチェック
 			int j = 0;
@@ -153,12 +172,12 @@ namespace Novel
 			while(j < chartObjs.Count)
 			{
 				var executorObjectName = chartObjs[j].Name;
-				if (k * (rowCount + 1) >= dataList[0].Length)
+				if (k * (settingsData.RowCountPerOne + 1) >= dataList[0].Length)
                 {
 					j++;
 					continue;
 				}
-				var csvExecutorName = dataList[0][k * (rowCount + 1)];
+				var csvExecutorName = dataList[0][k * (settingsData.RowCountPerOne + 1)];
 				if (executorObjectName == csvExecutorName)
                 {
 					j++;
@@ -174,7 +193,7 @@ namespace Novel
 
 			for (int i = 0; i < chartObjs.Count; i++)
 			{
-				ImportByExecutor(chartObjs[i], dataList, i * (rowCount + 1));
+				ImportByExecutor(chartObjs[i], dataList, i * (settingsData.RowCountPerOne + 1));
 
 				if (type == FlowchartType.Executor)
 				{
@@ -202,9 +221,9 @@ namespace Novel
 
 
 			// フォルダメニューを開き、CSVファイルを読み込みます
-			static List<string[]> LoadCSV()
+			List<string[]> LoadCSV()
             {
-				var absolutePath = EditorUtility.OpenFilePanel("Open csv", csvFolderPath, "csv");
+				var absolutePath = EditorUtility.OpenFilePanel("Open csv", settingsData.CSVFolderPath, "csv");
 				if (string.IsNullOrEmpty(absolutePath)) return null;
 				var relativePath = FlowchartEditorUtility.AbsoluteToAssetsPath(absolutePath);
 
@@ -302,7 +321,7 @@ namespace Novel
 					ImportType colomn_importType = ImportType.None;
 					var colomn_array = csvList[i];
 					// 列(縦)をスライド
-					for (int k = startX; k < rowCount + startX; k++)
+					for (int k = startX; k < settingsData.RowCountPerOne + startX; k++)
 					{
 						// コマンドの名前を見る
 						if (k == startX)
@@ -343,7 +362,7 @@ namespace Novel
 								var cmdName = GetCommandName(colomn_cmdBase);
 
 								if (cmdName == cellName) continue;
-								if (isChangeIfDifferentCmdName && (cellName != "Null" || cellName != "<Null>"))
+								if (settingsData.IsChangeIfDifferentCmdName && (cellName != "Null" || cellName != "<Null>"))
                                 {
 									Debug.LogWarning(
 										$"コマンドの名前が合いませんので上書きされました\n" +
@@ -409,7 +428,7 @@ namespace Novel
 			return null;
 		}
 
-		static List<IFlowchartObject> GetSortedFlowchartObjects(FlowchartType type)
+		static List<IFlowchartObject> GetSortedFlowchartObjects(FlowchartType type, FindObjectsInactive findMode)
         {
 			return type switch
 			{

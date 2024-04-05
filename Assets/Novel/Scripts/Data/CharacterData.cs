@@ -22,7 +22,7 @@ namespace Novel
 
         public static CharacterData GetCharacter(string characterName)
         {
-            var characters = GetAllScriptableObjects<CharacterData>(NameContainer.CHARACTER_PATH);
+            var characters = GetAllScriptableObjects<CharacterData>();
             var meetChara = characters.Where(c => c.CharacterName == characterName).ToList();
             if (meetChara.Count == 0)
             {

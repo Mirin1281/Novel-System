@@ -14,6 +14,7 @@ public class Test : MonoBehaviour
     {
         await Wait(1f);
         await saveButtonGroup.ShowAndWaitButtonClick(SaveLoadType.Save, default);
+
         /*await Wait(1f);
         Destroy(MessageBoxManager.Instance.gameObject);
         await Wait(1f);

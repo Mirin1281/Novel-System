@@ -2,8 +2,9 @@
 using UnityEditor;
 using System;
 using System.Linq;
+using Novel.Command;
 
-namespace Novel.Command
+namespace Novel.Editor
 {
     using ActionType = PortraitCommand.ActionType;
 
@@ -14,24 +15,11 @@ namespace Novel.Command
         {
             GUILayout.Space(-10);
 
-            var c = GUI.color;
-            GUI.color = new Color(0.2f, 0.08f, 0.2f, 0.3f); // 紫色
-            var style = new GUIStyle
-            {
-                normal =
-                {
-                    background = Texture2D.whiteTexture
-                }
-            };
-
-            EditorGUILayout.BeginVertical(style);
-            GUI.color = c;
-
             // キャラクターの設定 //
             var charaProp = property.FindPropertyRelative("character");
 
             // 特定のフォルダ内のキャラクターデータを取得
-            var characterArray = FlowchartEditorUtility.GetAllScriptableObjects<CharacterData>(NameContainer.CHARACTER_PATH)
+            var characterArray = FlowchartEditorUtility.GetAllScriptableObjects<CharacterData>()
                 .Prepend(null).ToArray();
 
             int previousCharaIndex = Array.IndexOf(
@@ -94,8 +82,6 @@ namespace Novel.Command
                 var isAwaitProp = property.FindPropertyRelative("isAwait");
                 EditorGUILayout.PropertyField(isAwaitProp, new GUIContent("IsAwait"));
             }
-
-            EditorGUILayout.EndVertical();
         }
     }
 }

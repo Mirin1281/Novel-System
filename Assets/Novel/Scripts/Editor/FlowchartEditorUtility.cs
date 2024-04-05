@@ -4,7 +4,7 @@ using System.Linq;
 using UnityEditor;
 using UnityEngine;
 
-namespace Novel
+namespace Novel.Editor
 {
     public static class FlowchartEditorUtility
     {

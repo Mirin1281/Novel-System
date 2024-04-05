@@ -5,10 +5,10 @@ using System.IO;
 using Cysharp.Threading.Tasks;
 using Novel.Command;
 
-namespace Novel
+namespace Novel.Editor
 {
     [CustomEditor(typeof(FlowchartData))]
-    public class FlowchartDataEditor : Editor
+    public class FlowchartDataEditor : UnityEditor.Editor
     {
         public override void OnInspectorGUI()
         {

@@ -7,7 +7,7 @@ using UnityEditor;
 using UnityEditorInternal;
 using UnityEngine;
 
-namespace Novel
+namespace Novel.Editor
 {
     public class FlowchartEditorWindow : EditorWindow
     {
@@ -43,6 +43,11 @@ namespace Novel
             {
                 var flowchartExecutor = activeExecutorObj.GetComponent<FlowchartExecutor>();
                 activeFlowchart = flowchartExecutor.Flowchart;
+                commandList = activeFlowchart.GetCommandDataList();
+            }
+            else if(activeMode == ActiveMode.Data && activeFlowchartData != null)
+            {
+                activeFlowchart = activeFlowchartData.Flowchart;
                 commandList = activeFlowchart.GetCommandDataList();
             }
             reorderableList = CreateReorderableList();
@@ -152,7 +157,7 @@ namespace Novel
 
                 if (selectedCommand == null) return;
 
-                Editor.CreateEditor(selectedCommand).DrawDefaultInspector();
+                UnityEditor.Editor.CreateEditor(selectedCommand).DrawDefaultInspector();
 
                 var infoText = selectedCommand.GetCommandStatus().Info;
                 if (string.IsNullOrEmpty(infoText) == false)

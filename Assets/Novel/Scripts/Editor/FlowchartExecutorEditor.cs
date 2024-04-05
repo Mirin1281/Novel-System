@@ -2,14 +2,13 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEditor;
 using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
+using Novel.Command;
 
-namespace Novel
+namespace Novel.Editor
 {
-    using Cysharp.Threading.Tasks;
-    using Novel.Command;
-
     [CustomEditor(typeof(FlowchartExecutor))]
-    public class FlowchartExecutorEditor : Editor
+    public class FlowchartExecutorEditor : UnityEditor.Editor
     {
         public override void OnInspectorGUI()
         {

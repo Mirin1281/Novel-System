@@ -1,7 +1,8 @@
 using UnityEngine;
 using UnityEditor;
+using Novel.Command;
 
-namespace Novel.Command
+namespace Novel.Editor
 {
     using FlowchartType = FlowExecuteCommand.FlowchartType;
 
