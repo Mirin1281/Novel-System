@@ -77,16 +77,16 @@ namespace Novel
             }
         }
 
-        async UniTask AllShowFadeAsync(List<MenuButton> buttons, float time = MyStatic.DefaultFadeTime)
+        async UniTask AllShowFadeAsync(List<MenuButton> buttons, float time = ConstContainer.DefaultFadeTime)
         {
             foreach (var button in buttons)
             {
                 button.ShowFadeAsync(time).Forget();
             }
-            await MyStatic.WaitSeconds(time, this.GetCancellationTokenOnDestroy());
+            await Wait.Seconds(time, this.GetCancellationTokenOnDestroy());
         }
 
-        public async UniTask AllClearFadeAsync(float time = MyStatic.DefaultFadeTime, CancellationToken token = default)
+        public async UniTask AllClearFadeAsync(float time = ConstContainer.DefaultFadeTime, CancellationToken token = default)
         {
             foreach(var button in createButtons)
             {
@@ -95,7 +95,7 @@ namespace Novel
                     button.ClearFadeAsync(time, token).Forget();
                 }
             }
-            await MyStatic.WaitSeconds(time, token == default ? this.GetCancellationTokenOnDestroy() : token);
+            await Wait.Seconds(time, token == default ? this.GetCancellationTokenOnDestroy() : token);
         }
     }
 }

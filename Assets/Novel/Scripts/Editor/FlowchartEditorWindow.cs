@@ -207,7 +207,7 @@ namespace Novel.Editor
                     var path = FlowchartEditorUtility.GetExistFolderPath(copiedCommand);
                     if(path == null)
                     {
-                        path = NameContainer.COMMANDDATA_PATH;
+                        path = ConstContainer.COMMANDDATA_PATH;
                     }
                     var name = FlowchartEditorUtility.GetFileName(
                         path, $"CommandData_{activeFlowchartData.name}", "asset");
@@ -268,13 +268,14 @@ namespace Novel.Editor
                     $"<size=10>{RemoveTag(cmdStatus.Summary)}</size>", style);
 
                 GUI.color = tmpColor;
-            }
 
-            string RemoveTag(string text)
-            {
-                string regexString = @"\<.*?\>";
-                var regex = new Regex(regexString);
-                return regex.Replace(text, string.Empty);
+
+                static string RemoveTag(string text)
+                {
+                    string regexString = @"\<.*?\>";
+                    var regex = new Regex(regexString);
+                    return regex.Replace(text, string.Empty);
+                }
             }
 
             void DrawElementBackground(Rect rect, int index, bool isActive, bool isFocused)
@@ -313,7 +314,7 @@ namespace Novel.Editor
             CommandData newCommandData = activeMode switch
             {
                 ActiveMode.Executor => CreateInstance<CommandData>(),
-                ActiveMode.Data => FlowchartEditorUtility.CreateCommandData(NameContainer.COMMANDDATA_PATH, $"CommandData_{activeFlowchartData.name}"),
+                ActiveMode.Data => FlowchartEditorUtility.CreateCommandData(ConstContainer.COMMANDDATA_PATH, $"CommandData_{activeFlowchartData.name}"),
                 _ => throw new Exception()
             };
             int insertIndex = list.index + 1;

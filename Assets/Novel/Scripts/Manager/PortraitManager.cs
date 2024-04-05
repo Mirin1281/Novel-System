@@ -93,14 +93,14 @@ namespace Novel
             return CreateAndAddPortrait(linkedPortrait);
         }
 
-        public async UniTask AllClearFadeAsync(float time = MyStatic.DefaultFadeTime)
+        public async UniTask AllClearFadeAsync(float time = ConstContainer.DefaultFadeTime)
         {
             foreach (var linkedPortrait in data.LinkedPortraitList)
             {
                 if (linkedPortrait.Portrait == null) continue;
                 linkedPortrait.Portrait.ClearFadeAsync(time).Forget();
             }
-            await MyStatic.WaitSeconds(time, this.GetCancellationTokenOnDestroy());
+            await Wait.Seconds(time, this.GetCancellationTokenOnDestroy());
         }
     }
 }

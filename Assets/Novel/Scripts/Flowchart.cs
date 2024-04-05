@@ -84,7 +84,7 @@ namespace Novel
                 {
                     cts = new();
                     cts = CancellationTokenSource.CreateLinkedTokenSource(
-                            MyStatic.TokenOnSceneChange, cts.Token);
+                            StaticToken.TokenOnSceneChange, cts.Token);
                     return new FlowchartCallStatus(cts.Token, cts, false);
                 }
                 else

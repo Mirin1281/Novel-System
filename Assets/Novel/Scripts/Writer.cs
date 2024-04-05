@@ -82,7 +82,7 @@ namespace Novel
                             }
                         }
                     }
-                    await MyStatic.WaitSeconds(timePer100Charas / 100f, token);
+                    await Wait.Seconds(timePer100Charas / 100f, token);
                     i++;
                 }
 
@@ -152,7 +152,7 @@ namespace Novel
                     while (t < time && isSkipped == false)
                     {
                         t += Time.deltaTime;
-                        await MyStatic.Yield(token);
+                        await Wait.Yield(token);
                     }
                 }
 

@@ -341,7 +341,7 @@ namespace Novel.Editor
 								{
 									FlowchartType.Executor => ScriptableObject.CreateInstance<CommandData>(),
 									FlowchartType.Data => FlowchartEditorUtility.CreateCommandData(
-														NameContainer.COMMANDDATA_PATH, $"CommandData_{chart.Name}"),
+														ConstContainer.COMMANDDATA_PATH, $"CommandData_{chart.Name}"),
 									_ => throw new Exception(),
 								};
 								Debug.Log(cellName);

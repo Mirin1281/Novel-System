@@ -43,7 +43,7 @@ namespace Novel
             {
                 SetScaleX(outQuad.Ease(t));
                 t += Time.deltaTime;
-                await MyStatic.Yield(token == default ? this.GetCancellationTokenOnDestroy() : token);
+                await Wait.Yield(token == default ? this.GetCancellationTokenOnDestroy() : token);
             }
             SetScaleX(endScaleX);
 
@@ -85,7 +85,7 @@ namespace Novel
         }
 
         public async UniTask ShowFadeAsync(
-            float time = MyStatic.DefaultFadeTime, CancellationToken token = default)
+            float time = ConstContainer.DefaultFadeTime, CancellationToken token = default)
         {
             gameObject.SetActive(true);
             SetAlpha(0f);
@@ -93,7 +93,7 @@ namespace Novel
         }
 
         public async UniTask ClearFadeAsync(
-            float time = MyStatic.DefaultFadeTime, CancellationToken token = default)
+            float time = ConstContainer.DefaultFadeTime, CancellationToken token = default)
         {
             await FadeAlphaAsync(0f, time, token);
             gameObject.SetActive(false);
@@ -117,7 +117,7 @@ namespace Novel
             {
                 SetAlpha(outQuad.Ease(t));
                 t += Time.deltaTime;
-                await MyStatic.Yield(token == default ? this.GetCancellationTokenOnDestroy() : token);
+                await Wait.Yield(token == default ? this.GetCancellationTokenOnDestroy() : token);
             }
             SetAlpha(toAlpha);
         }

@@ -15,12 +15,12 @@ namespace Novel
 
         void Update()
         {
-            if (Input.GetButtonDown(NameContainer.SUBMIT_KEYNAME) || Input.GetButtonDown(NameContainer.CANCEL_KEYNAME))
+            if (Input.GetButtonDown(ConstContainer.SUBMIT_KEYNAME) || Input.GetButtonDown(ConstContainer.CANCEL_KEYNAME))
             {
                 OnInputed?.Invoke();
             }
 
-            if (Input.GetButton(NameContainer.CANCEL_KEYNAME))
+            if (Input.GetButton(ConstContainer.CANCEL_KEYNAME))
             {
                 onCancelKeyTime += Time.deltaTime;
             }

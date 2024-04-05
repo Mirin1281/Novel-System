@@ -17,14 +17,14 @@ namespace Novel
         public Writer Writer => writer; 
         public MsgBoxInput Input => input;
 
-        public async UniTask ShowFadeAsync(float time = MyStatic.DefaultFadeTime, CancellationToken token = default)
+        public async UniTask ShowFadeAsync(float time = ConstContainer.DefaultFadeTime, CancellationToken token = default)
         {
             gameObject.SetActive(true);
             SetAlpha(0f);
             await FadeAlphaAsync(1f, time, token);
         }
 
-        public async UniTask ClearFadeAsync(float time = MyStatic.DefaultFadeTime, CancellationToken token = default)
+        public async UniTask ClearFadeAsync(float time = ConstContainer.DefaultFadeTime, CancellationToken token = default)
         {
             await FadeAlphaAsync(0f, time, token);
             gameObject.SetActive(false);
@@ -45,7 +45,7 @@ namespace Novel
             {
                 SetAlpha(outQuad.Ease(t));
                 t += Time.deltaTime;
-                await MyStatic.Yield(token == default ? this.GetCancellationTokenOnDestroy() : token);
+                await Wait.Yield(token == default ? this.GetCancellationTokenOnDestroy() : token);
             }
             SetAlpha(toAlpha);
         }

@@ -19,7 +19,7 @@ namespace Novel
         }
 
         public async UniTask ShowFadeAsync(
-            float time = MyStatic.DefaultFadeTime, CancellationToken token = default)
+            float time = ConstContainer.DefaultFadeTime, CancellationToken token = default)
         {
             gameObject.SetActive(true);
             image.SetAlpha(0f);
@@ -27,7 +27,7 @@ namespace Novel
         }
 
         public async UniTask ClearFadeAsync(
-            float time = MyStatic.DefaultFadeTime, CancellationToken token = default)
+            float time = ConstContainer.DefaultFadeTime, CancellationToken token = default)
         {
             await FadeAlphaAsync(0f, time, token);
             gameObject.SetActive(false);
@@ -46,7 +46,7 @@ namespace Novel
             {
                 image.SetAlpha(outQuad.Ease(t));
                 t += Time.deltaTime;
-                await MyStatic.Yield(token == default ? this.GetCancellationTokenOnDestroy() : token);
+                await Wait.Yield(token == default ? this.GetCancellationTokenOnDestroy() : token);
             }
             image.SetAlpha(toAlpha);
         }

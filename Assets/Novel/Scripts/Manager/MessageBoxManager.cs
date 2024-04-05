@@ -101,17 +101,17 @@ namespace Novel
         }
 
         public async UniTask AllClearFadeAsync(
-            float time = MyStatic.DefaultFadeTime, CancellationToken token = default)
+            float time = ConstContainer.DefaultFadeTime, CancellationToken token = default)
         {
             foreach(var linkedBox in data.LinkedBoxList)
             {
                 if (linkedBox.Box == null) continue;
                 linkedBox.Box.ClearFadeAsync(time, token).Forget();
             }
-            await MyStatic.WaitSeconds(time, token == default ? this.GetCancellationTokenOnDestroy() : token);
+            await Wait.Seconds(time, token == default ? this.GetCancellationTokenOnDestroy() : token);
         }
 
-        public async UniTask OtherClearFadeAsync(BoxType boxType, float time = MyStatic.DefaultFadeTime)
+        public async UniTask OtherClearFadeAsync(BoxType boxType, float time = ConstContainer.DefaultFadeTime)
         {
             foreach (var linkedBox in data.LinkedBoxList)
             {
@@ -119,7 +119,7 @@ namespace Novel
                     linkedBox.Type == boxType) continue;
                 linkedBox.Box.ClearFadeAsync(time).Forget();
             }
-            await MyStatic.WaitSeconds(time, this.GetCancellationTokenOnDestroy());
+            await Wait.Seconds(time, this.GetCancellationTokenOnDestroy());
         }
     }
 }

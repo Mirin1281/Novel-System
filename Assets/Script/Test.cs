@@ -12,7 +12,6 @@ public class Test : MonoBehaviour
 
     async UniTask Start()
     {
-        await Wait(1f);
         await saveButtonGroup.ShowAndWaitButtonClick(SaveLoadType.Save, default);
 
         /*await Wait(1f);
@@ -24,8 +23,5 @@ public class Test : MonoBehaviour
         //FlagManager.SetFlagValue(intFlag, 256);
         //FlagManager.SetFlagValue(stringFlag, "‚¨‚ñ‚¨‚ñ");
     }
-
-    UniTask Wait(float time)
-        => MyStatic.WaitSeconds(time, default);
 
 }

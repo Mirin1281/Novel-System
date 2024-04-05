@@ -5,7 +5,7 @@ namespace Novel
 {
     public interface IFadable
     {
-        UniTask ShowFadeAsync(float time = MyStatic.DefaultFadeTime, CancellationToken token = default);
-        UniTask ClearFadeAsync(float time = MyStatic.DefaultFadeTime, CancellationToken token = default);
+        UniTask ShowFadeAsync(float time = ConstContainer.DefaultFadeTime, CancellationToken token = default);
+        UniTask ClearFadeAsync(float time = ConstContainer.DefaultFadeTime, CancellationToken token = default);
     }
 }

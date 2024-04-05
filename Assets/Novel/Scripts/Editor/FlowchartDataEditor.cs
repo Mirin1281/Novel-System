@@ -26,7 +26,7 @@ namespace Novel.Editor
             EditorGUILayout.LabelField(
                 "◆◆注意\n" +
                 "下のボタンから複製や削除をしてください。特に複製はデータが共有されるので注意\n" +
-                $"また、{NameContainer.COMMANDDATA_PATH} のデータは基本的に直接いじらないでください\n" +
+                $"また、{ConstContainer.COMMANDDATA_PATH} のデータは基本的に直接いじらないでください\n" +
                 "\n" +
                 "◆◆もしもの対処\n" +
                 "もし普通に複製してしまったも、そのまま削除すれば大丈夫です\n" +

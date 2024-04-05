@@ -7,13 +7,13 @@ namespace Novel
         protected override void Awake()
         {
             base.Awake();
-            MyStatic.Init();
+            StaticToken.Init();
         }
 
         protected override void OnDestroy()
         {
             base.OnDestroy();
-            MyStatic.ResetToken();
+            StaticToken.ResetToken();
         }
 
         public float DefaultWriteSpeed { get; private set; } = 2;
