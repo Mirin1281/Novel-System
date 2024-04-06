@@ -5,7 +5,7 @@ using System.Threading;
 
 namespace Novel
 {
-    public enum PortraitPositionType
+    public enum PortraitPosType
     {
         Left,
         Center,
@@ -13,18 +13,20 @@ namespace Novel
         Custom,
     }
 
-    public class Portrait : MonoBehaviour, IFadable
+    public class Portrait : FadableMonoBehaviour
     {
         [SerializeField] PortraitType type;
         [SerializeField] Image portraitImage;
-        [SerializeField] Vector2 leftPosition = new(-400, 0);
-        [SerializeField] Vector2 centerPosition = new(0, 0);
-        [SerializeField] Vector2 rightPosition = new(400, 0);
-
-        public PortraitType Type => type;
-        public Image PortraitImage => portraitImage;
+        [SerializeField] Vector2 leftPosition = new(-400, -100);
+        [SerializeField] Vector2 centerPosition = new(0, -100);
+        [SerializeField] Vector2 rightPosition = new(400, -100);
 
         readonly Color hideColor = new Color(0.5f, 0.5f, 0.5f, 0.8f);
+
+
+        public bool IsMeetType(PortraitType type) => this.type == type;
+
+        public Transform PortraitImageTs => portraitImage.transform;
 
         public async UniTask TurnAsync(float time, CancellationToken token = default)
         {
@@ -43,7 +45,7 @@ namespace Novel
             {
                 SetScaleX(outQuad.Ease(t));
                 t += Time.deltaTime;
-                await Wait.Yield(token == default ? this.GetCancellationTokenOnDestroy() : token);
+                await UniTask.Yield(token == default ? this.GetCancellationTokenOnDestroy() : token);
             }
             SetScaleX(endScaleX);
 
@@ -53,13 +55,13 @@ namespace Novel
             }
         }
 
-        public void SetPos(PortraitPositionType posType)
+        public void SetPos(PortraitPosType posType)
         {
             var pos = posType switch
             {
-                PortraitPositionType.Left => leftPosition,
-                PortraitPositionType.Center => centerPosition,
-                PortraitPositionType.Right => rightPosition,
+                PortraitPosType.Left => leftPosition,
+                PortraitPosType.Center => centerPosition,
+                PortraitPosType.Right => rightPosition,
                 _ => throw new System.Exception()
             };
             portraitImage.transform.localPosition = pos;
@@ -84,42 +86,11 @@ namespace Novel
             portraitImage.color = Color.white;
         }
 
-        public async UniTask ShowFadeAsync(
-            float time = ConstContainer.DefaultFadeTime, CancellationToken token = default)
-        {
-            gameObject.SetActive(true);
-            SetAlpha(0f);
-            await FadeAlphaAsync(1f, time, token);
-        }
+        protected override float GetAlpha() => portraitImage.color.a;
 
-        public async UniTask ClearFadeAsync(
-            float time = ConstContainer.DefaultFadeTime, CancellationToken token = default)
+        protected override void SetAlpha(float a)
         {
-            await FadeAlphaAsync(0f, time, token);
-            gameObject.SetActive(false);
-        }
-
-        void SetAlpha(float a)
-        {
-            portraitImage.SetAlpha(a);
-        }
-
-        async UniTask FadeAlphaAsync(float toAlpha, float time, CancellationToken token)
-        {
-            if (time == 0f)
-            {
-                SetAlpha(toAlpha);
-                return;
-            }
-            var outQuad = new OutQuad(toAlpha, time, portraitImage.color.a);
-            var t = 0f;
-            while (t < time)
-            {
-                SetAlpha(outQuad.Ease(t));
-                t += Time.deltaTime;
-                await Wait.Yield(token == default ? this.GetCancellationTokenOnDestroy() : token);
-            }
-            SetAlpha(toAlpha);
+            portraitImage.SetAlpha(a); ;
         }
     }
 }

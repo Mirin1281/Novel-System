@@ -8,8 +8,8 @@ using UnityEditor;
 namespace Novel
 {
     [CreateAssetMenu(
-        fileName = "CharacterData",
-        menuName = "ScriptableObject/CharacterData")
+        fileName = "Character",
+        menuName = "ScriptableObject/Character")
     ]
     public class CharacterData : ScriptableObject
     {
@@ -20,6 +20,9 @@ namespace Novel
         [SerializeField] Sprite[] portraits;
         public IEnumerable<Sprite> Portraits => portraits;
 
+        /// <summary>
+        /// エディタ用
+        /// </summary>
         public static CharacterData GetCharacter(string characterName)
         {
             var characters = GetAllScriptableObjects<CharacterData>();

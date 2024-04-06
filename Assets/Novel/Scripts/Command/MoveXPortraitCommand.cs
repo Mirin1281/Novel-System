@@ -17,7 +17,7 @@ namespace Novel.Command
         protected override async UniTask EnterAsync()
         {
             var portrait = PortraitManager.Instance.CreateIfNotingPortrait(character.PortraitType);
-            var imageTs = portrait.PortraitImage.transform;
+            var imageTs = portrait.PortraitImageTs;
             if(isAwait)
             {
                 await Move(imageTs);

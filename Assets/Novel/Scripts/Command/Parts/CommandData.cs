@@ -22,7 +22,7 @@ namespace Novel.Command
         }
 
         /// <summary>
-        /// コマンドをキャストして返します
+        /// CommandBaseをキャストして返します
         /// </summary>
         public CommandBase GetCommandBase()
         {
@@ -30,9 +30,7 @@ namespace Novel.Command
             return command as CommandBase;
         }
 
-        /// <summary>
-        /// カスタムエディタ用
-        /// </summary>
+#if UNITY_EDITOR
         public CommandStatus GetCommandStatus()
         {
             if(command == null)
@@ -54,5 +52,6 @@ namespace Novel.Command
             }
             command = Activator.CreateInstance(type) as CommandBase;
         }
+#endif
     }
 }

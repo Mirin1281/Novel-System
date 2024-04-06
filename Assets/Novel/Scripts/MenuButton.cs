@@ -1,54 +1,28 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
-using Cysharp.Threading.Tasks;
 using TMPro;
+using Cysharp.Threading.Tasks;
 using System.Threading;
 
 namespace Novel
 {
-    public class MenuButton : MonoBehaviour, IFadable
+    public class MenuButton : FadableMonoBehaviour
     {
         [SerializeField] Image image;
         [SerializeField] TMP_Text tmpro;
         [SerializeField] Button button;
-        public Button Button => button;
+        public UniTask OnClickAsync(CancellationToken token) => button.OnClickAsync(token);
 
         public void SetText(string s)
         {
             tmpro.SetText(s);
         }
 
-        public async UniTask ShowFadeAsync(
-            float time = ConstContainer.DefaultFadeTime, CancellationToken token = default)
-        {
-            gameObject.SetActive(true);
-            image.SetAlpha(0f);
-            await FadeAlphaAsync(1f, time, token);
-        }
+        protected override float GetAlpha() => image.color.a;
 
-        public async UniTask ClearFadeAsync(
-            float time = ConstContainer.DefaultFadeTime, CancellationToken token = default)
+        protected override void SetAlpha(float a)
         {
-            await FadeAlphaAsync(0f, time, token);
-            gameObject.SetActive(false);
-        }
-
-        async UniTask FadeAlphaAsync(float toAlpha, float time, CancellationToken token)
-        {
-            if (time == 0f)
-            {
-                image.SetAlpha(toAlpha);
-                return;
-            }
-            var outQuad = new OutQuad(toAlpha, time, image.color.a);
-            var t = 0f;
-            while (t < time)
-            {
-                image.SetAlpha(outQuad.Ease(t));
-                t += Time.deltaTime;
-                await Wait.Yield(token == default ? this.GetCancellationTokenOnDestroy() : token);
-            }
-            image.SetAlpha(toAlpha);
+            image.SetAlpha(a);
         }
     }
 }

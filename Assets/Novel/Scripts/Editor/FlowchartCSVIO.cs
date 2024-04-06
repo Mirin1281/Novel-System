@@ -14,13 +14,6 @@ namespace Novel.Editor
 {
     public static class FlowchartCSVIO
     {
-		/*readonly static string outPutFileName = "FlowchartSheet";
-
-		// ここを変更すればデフォルトで開くフォルダを変更できます
-		readonly static string csvFolderPath = Application.dataPath;
-		readonly static int rowCount = 3;
-		readonly static bool isChangeIfDifferentCmdName = true;
-		readonly static FindObjectsInactive findMode = FindObjectsInactive.Include;*/
 		public enum FlowchartType
         {
 			None,
@@ -318,7 +311,6 @@ namespace Novel.Editor
 				for (int i = 0; i < columnCount; i++)
 				{
 					CommandBase colomn_cmdBase = null;
-					ImportType colomn_importType = ImportType.None;
 					var colomn_array = csvList[i];
 					// 列(縦)をスライド
 					for (int k = startX; k < settingsData.RowCountPerOne + startX; k++)
@@ -336,7 +328,6 @@ namespace Novel.Editor
 							if (i >= list.Count)
 							{
 								if (existCell == false) break;
-								colomn_importType = ImportType.New;
 								var newCmdData = type switch
 								{
 									FlowchartType.Executor => ScriptableObject.CreateInstance<CommandData>(),
@@ -356,7 +347,6 @@ namespace Novel.Editor
 							}
 							else // コマンドがある場合、名前が一致してるか調べる
 							{
-								colomn_importType = ImportType.Override;
 								var cmdData = list[i];
 								colomn_cmdBase = cmdData.GetCommandBase();
 								var cmdName = GetCommandName(colomn_cmdBase);
@@ -376,7 +366,6 @@ namespace Novel.Editor
 									break;
 								}
 
-								colomn_importType = ImportType.Change;
 								if (existCell && cellName is not ("<Null>" or "Null"))
                                 {
 									Type type = GetTypeByClassName($"{cellName}Command");
@@ -390,15 +379,11 @@ namespace Novel.Editor
 								}
 							}
 						}
-						else if (k == startX + 1 &&
-							colomn_importType != ImportType.None &&
-							colomn_cmdBase != null)
+						else if (k == startX + 1 && colomn_cmdBase != null)
 						{
 							colomn_cmdBase.CSVContent1 = colomn_array[k];
 						}
-						else if (k == startX + 2 &&
-							colomn_importType != ImportType.None &&
-							colomn_cmdBase != null)
+						else if (k == startX + 2 && colomn_cmdBase != null)
 						{
 							colomn_cmdBase.CSVContent2 = colomn_array[k];
 						}

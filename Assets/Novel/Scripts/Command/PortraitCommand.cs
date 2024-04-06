@@ -19,7 +19,7 @@ namespace Novel.Command
         [SerializeField] CharacterData character;
         [SerializeField] ActionType actionType;
         [SerializeField] Sprite portraitSprite;
-        [SerializeField] PortraitPositionType positionType;
+        [SerializeField] PortraitPosType positionType;
         [SerializeField] Vector2 overridePos;
         [SerializeField] float fadeTime;
         [SerializeField] bool isAwait;
@@ -65,7 +65,7 @@ namespace Novel.Command
 
         async UniTask ShowAsync(Portrait portrait)
         {
-            if(positionType == PortraitPositionType.Custom)
+            if(positionType == PortraitPosType.Custom)
             {
                 portrait.SetPos(overridePos);
             }

@@ -2,15 +2,13 @@
 using Cysharp.Threading.Tasks;
 using TMPro;
 using System;
-using System.Linq;
 using System.Threading;
 using System.Collections.Generic;
+using TagType = Novel.TagUtility.TagType;
+using TagData = Novel.TagUtility.TagData;
 
 namespace Novel
 {
-    using TagType = TagUtility.TagType;
-    using TagData = TagUtility.TagData;
-
     public class Writer : MonoBehaviour
     {
         [SerializeField] TMP_Text nameTmpro;
@@ -18,7 +16,7 @@ namespace Novel
         [SerializeField] MsgBoxInput input;
         float timePer100Charas; // 100文字表示するのにかかる時間(s)
         bool isSkipped;
-        float defaultSpeed => NovelManager.Instance.DefaultWriteSpeed;
+        float DefaultSpeed => NovelManager.Instance.DefaultWriteSpeed;
 
         void Awake()
         {
@@ -33,25 +31,23 @@ namespace Novel
         }
 
         public async UniTask WriteAsync(
-            CharacterData character, string fullText, CancellationToken token)
+            CharacterData character, string fullText, CancellationToken token, bool wholeShow = false)
         {
             SetName(character);
             var (richText, tagDataList) = TagUtility.ExtractMyTag(fullText);
             isSkipped = false;
             //tagDataList.ForEach(data => data.ShowTagStatus()); // デバッグ用
-            await WriteStoryTextAsync(richText, tagDataList, null, token);
+            timePer100Charas = wholeShow ? 0 : DefaultSpeed;
+            await WriteStoryTextAsync(richText, tagDataList, token);
             SayLogger.AddLog(character, richText);
 
 
             async UniTask WriteStoryTextAsync(
-                string richText, List<TagData> tagDataList = null, float? timePerCharas = null, CancellationToken token = default)
+                string richText, List<TagData> tagDataList, CancellationToken token)
             {
                 storyTmpro.SetUneditedText(richText);
                 storyTmpro.ForceMeshUpdate();
                 var planeText = storyTmpro.GetParsedText();
-
-                timePer100Charas = timePerCharas ?? defaultSpeed;
-                token = token == default ? this.GetCancellationTokenOnDestroy() : token;
 
                 int insertIndex = -1;
                 if (tagDataList != null && tagDataList.Count != 0)
@@ -105,7 +101,7 @@ namespace Novel
                     {
                         if (isSkipped == false)
                         {
-                            timePer100Charas = defaultSpeed;
+                            timePer100Charas = DefaultSpeed;
                         }
                     }
                     else if (type == TagType.WaitSeconds)
@@ -152,7 +148,7 @@ namespace Novel
                     while (t < time && isSkipped == false)
                     {
                         t += Time.deltaTime;
-                        await Wait.Yield(token);
+                        await UniTask.Yield(token);
                     }
                 }
 
@@ -160,7 +156,7 @@ namespace Novel
                 {
                     await input.WaitInput(() =>
                     {
-                        timePer100Charas = defaultSpeed;
+                        timePer100Charas = DefaultSpeed;
                         isSkipped = false;
                     },
                     token);

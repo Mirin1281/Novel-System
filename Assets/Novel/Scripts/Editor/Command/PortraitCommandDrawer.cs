@@ -63,7 +63,7 @@ namespace Novel.Editor
                 var positionTypeProp = property.FindPropertyRelative("positionType");
                 EditorGUILayout.PropertyField(positionTypeProp, new GUIContent("PositionType"));
 
-                if ((PortraitPositionType)positionTypeProp.enumValueIndex == PortraitPositionType.Custom)
+                if ((PortraitPosType)positionTypeProp.enumValueIndex == PortraitPosType.Custom)
                 {
                     // 上書きポジションの設定 //
                     var overridePosProp = property.FindPropertyRelative("overridePos");

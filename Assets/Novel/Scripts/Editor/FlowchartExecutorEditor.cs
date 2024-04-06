@@ -12,12 +12,14 @@ namespace Novel.Editor
     {
         public override void OnInspectorGUI()
         {
+            base.OnInspectorGUI();
+
+            EditorGUILayout.Space(20);
+
             if (GUILayout.Button("フローチャートエディタを開く"))
             {
                 EditorWindow.GetWindow<FlowchartEditorWindow>("Flowchart Editor");
             }
-
-            base.OnInspectorGUI();
 
             EditorGUILayout.Space(10);
 

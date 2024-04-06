@@ -18,8 +18,5 @@ namespace Novel
                 return UniTask.CompletedTask;
             }
         }
-
-        public static UniTask Yield(CancellationToken token)
-            => UniTask.Yield(token == default ? StaticToken.TokenOnSceneChange : token);
     }
 }

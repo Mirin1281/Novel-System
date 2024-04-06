@@ -5,8 +5,8 @@ using Novel.Command;
 namespace Novel
 {
     [CreateAssetMenu(
-        fileName = "FlowchartData",
-        menuName = "ScriptableObject/FlowchartData")
+        fileName = "Flowchart",
+        menuName = "ScriptableObject/Flowchart")
     ]
     public class FlowchartData : ScriptableObject, IFlowchartObject
     {

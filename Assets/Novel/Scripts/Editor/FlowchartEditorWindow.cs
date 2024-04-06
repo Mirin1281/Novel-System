@@ -109,7 +109,8 @@ namespace Novel.Editor
                 cmd.SetFlowchart(activeFlowchart);
                 cmd.SetIndex(i);
             }
-            if (activeMode == ActiveMode.Data)
+            
+           if (activeMode == ActiveMode.Data)
             {
                 EditorUtility.SetDirty(activeFlowchartData);
             }
@@ -243,7 +244,8 @@ namespace Novel.Editor
                 onAddCallback = Add,
                 onRemoveCallback = Remove,
                 onSelectCallback = OnSelect,
-                drawElementCallback = OnDrawElement,
+                onReorderCallback = OnReorder,
+                drawElementCallback = DrawElement,
                 drawElementBackgroundCallback = DrawElementBackground,
                 elementHeightCallback = GetElementHeight,
             };
@@ -253,7 +255,15 @@ namespace Novel.Editor
                 selectedCommand = commandList[list.index];
             }
 
-            void OnDrawElement(Rect rect, int index, bool isActive, bool isFocused)
+            void OnReorder(ReorderableList list)
+            {
+                if (activeMode == ActiveMode.Executor)
+                {
+                    EditorUtility.SetDirty(activeExecutorObj);
+                }
+            }
+
+            void DrawElement(Rect rect, int index, bool isActive, bool isFocused)
             {
                 if (index < 0 || commandList.Count <= index) return;
                 var style = new GUIStyle(EditorStyles.label);

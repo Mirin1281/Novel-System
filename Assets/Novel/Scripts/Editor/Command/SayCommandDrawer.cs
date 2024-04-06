@@ -77,7 +77,7 @@ namespace Novel.Editor
                     bool isMatch = false;
                     foreach (var box in boxes)
                     {
-                        if (box.Type == chara.BoxType)
+                        if (box.IsMeetType(chara.BoxType))
                         {
                             box.Writer.PreviewText(chara, text);
                             isMatch = true;

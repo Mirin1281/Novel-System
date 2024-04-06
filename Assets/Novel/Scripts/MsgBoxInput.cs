@@ -33,10 +33,13 @@ namespace Novel
             if (onCancelKeyTime > 0.7f)
             {
                 OnInputed?.Invoke();
-                seVolume = 0.3f;
+                seVolume = 0.2f;
             }
         }
 
+        /// <summary>
+        /// EventTriggerで発火
+        /// </summary>
         public void OnScreenClicked()
         {
             OnInputed?.Invoke();
@@ -55,7 +58,9 @@ namespace Novel
             {
                 OnInputed += action;
             }
+
             await UniTask.WaitUntil(() => clicked, cancellationToken: token);
+
             if (inputSE != null)
             {
                 SEManager.Instance.PlaySE(inputSE, seVolume);

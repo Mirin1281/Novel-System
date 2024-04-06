@@ -24,7 +24,7 @@ namespace Novel
             var tasks = new UniTask[buttons.Count];
             for (int i = 0; i < buttons.Count; i++)
             {
-                tasks[i] = buttons[i].Button.OnClickAsync(token);
+                tasks[i] = buttons[i].OnClickAsync(token);
             }
             EventSystem.current.SetSelectedGameObject(buttons[0].gameObject);
             int clickIndex = await UniTask.WhenAny(tasks);

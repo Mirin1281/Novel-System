@@ -1,11 +1,9 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
-using Cysharp.Threading.Tasks;
-using System.Threading;
 
 namespace Novel
 {
-    public class MessageBox : MonoBehaviour, IFadable
+    public class MessageBox : FadableMonoBehaviour
     {
         [SerializeField] BoxType type;
         [SerializeField] CanvasGroup canvasGroup;
@@ -13,41 +11,16 @@ namespace Novel
         [SerializeField] Writer writer;
         [SerializeField] MsgBoxInput input;
 
-        public BoxType Type => type;
         public Writer Writer => writer; 
         public MsgBoxInput Input => input;
 
-        public async UniTask ShowFadeAsync(float time = ConstContainer.DefaultFadeTime, CancellationToken token = default)
-        {
-            gameObject.SetActive(true);
-            SetAlpha(0f);
-            await FadeAlphaAsync(1f, time, token);
-        }
+        public bool IsMeetType(BoxType type) => this.type == type;
 
-        public async UniTask ClearFadeAsync(float time = ConstContainer.DefaultFadeTime, CancellationToken token = default)
-        {
-            await FadeAlphaAsync(0f, time, token);
-            gameObject.SetActive(false);
-        }
+        protected override float GetAlpha() => canvasGroup.alpha;
 
-        void SetAlpha(float a) => canvasGroup.alpha = a;
-
-        async UniTask FadeAlphaAsync(float toAlpha, float time, CancellationToken token)
+        protected override void SetAlpha(float a)
         {
-            if (time == 0f)
-            {
-                SetAlpha(toAlpha);
-                return;
-            }
-            var outQuad = new OutQuad(toAlpha, time, canvasGroup.alpha);
-            var t = 0f;
-            while (t < time)
-            {
-                SetAlpha(outQuad.Ease(t));
-                t += Time.deltaTime;
-                await Wait.Yield(token == default ? this.GetCancellationTokenOnDestroy() : token);
-            }
-            SetAlpha(toAlpha);
+            canvasGroup.alpha = a;
         }
     }
 }

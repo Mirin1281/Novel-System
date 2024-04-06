@@ -3,8 +3,8 @@ using UnityEngine;
 namespace Novel.Editor
 {
     [CreateAssetMenu(
-        fileName = "CSVIOSettingsData",
-        menuName = "ScriptableObject/CSVIOSettingsData")
+        fileName = "CSVIOSettings",
+        menuName = "ScriptableObject/CSVIOSettings")
     ]
     public class CSVIOSettingsData : ScriptableObject
     {

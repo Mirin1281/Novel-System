@@ -7,8 +7,8 @@ namespace Novel
     // BoxTypeはこの下にあります
 
     [CreateAssetMenu(
-        fileName = "MessageBoxesData",
-        menuName = "ScriptableObject/MessageBoxesData")
+        fileName = "MessageBoxes",
+        menuName = "ScriptableObject/MessageBoxes")
     ]
     public class MessageBoxesData : ScriptableObject
     {

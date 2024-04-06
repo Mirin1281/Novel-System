@@ -5,8 +5,8 @@ using UnityEngine;
 namespace Novel
 {
     [CreateAssetMenu(
-            fileName = "PortraitsDataData",
-            menuName = "ScriptableObject/PortraitsDataData")
+            fileName = "Portraits",
+            menuName = "ScriptableObject/Portraits")
     ]
     public class PortraitsData : ScriptableObject
     {
