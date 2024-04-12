@@ -17,5 +17,7 @@ namespace Novel
         }
 
         public float DefaultWriteSpeed { get; private set; } = 2;
+
+        public bool IsUseRuby { get; private set; } = true;
     }
 }

@@ -110,7 +110,7 @@ namespace Novel.Editor
                 cmd.SetIndex(i);
             }
             
-           if (activeMode == ActiveMode.Data)
+            if (activeMode == ActiveMode.Data)
             {
                 EditorUtility.SetDirty(activeFlowchartData);
             }
@@ -145,14 +145,42 @@ namespace Novel.Editor
             GenericMenu menu = new();
             if (Event.current.type == EventType.ContextClick && Event.current.button == 1)
             {
-                menu.AddItem(new GUIContent("Add"), false, () =>
+                if(reorderableList.HasKeyboardControl())
                 {
-                    Add(reorderableList);
-                });
-                menu.AddItem(new GUIContent("Remove"), false, () =>
+                    menu.AddItem(new GUIContent("Add"), false, () =>
+                    {
+                        Add(reorderableList);
+                    });
+                    menu.AddItem(new GUIContent("Remove"), false, () =>
+                    {
+                        Remove(reorderableList);
+                    });
+                    menu.AddItem(new GUIContent("Copy"), false, () =>
+                    {
+                        Copy(selectedCommand);
+                        Debug.Log("<color=lightblue>コマンドをコピーしました</color>");
+                    });
+
+                    if (copiedCommand == null)
+                    {
+                        menu.AddDisabledItem(new GUIContent("Paste"));
+                    }
+                    else
+                    {
+                        menu.AddItem(new GUIContent("Paste"), false, () =>
+                        {
+                            Paste(copiedCommand);
+                            Debug.Log("<color=lightblue>コマンドをペーストしました</color>");
+                        });
+                    }
+                }
+                else
                 {
-                    Remove(reorderableList);
-                });
+                    menu.AddDisabledItem(new GUIContent("Add"));
+                    menu.AddDisabledItem(new GUIContent("Remove"));
+                    menu.AddDisabledItem(new GUIContent("Copy"));
+                    menu.AddDisabledItem(new GUIContent("Paste"));
+                }
             }
 
             if (menu.GetItemCount() > 0)
@@ -189,7 +217,7 @@ namespace Novel.Editor
 
         void Copy(CommandData command)
         {
-            Event.current.Use();
+            Event.current?.Use();
             if (GUIUtility.keyboardControl > 0)
             {
                 copiedCommand = command;
@@ -199,7 +227,7 @@ namespace Novel.Editor
         {
             Undo.RecordObject(this, "Paste Command");
             int currentIndex = reorderableList.index;
-            Event.current.Use();
+            Event.current?.Use();
             if (GUIUtility.keyboardControl > 0)
             {
                 var createCommand = Instantiate(copiedCommand);

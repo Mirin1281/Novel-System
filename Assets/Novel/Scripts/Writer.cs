@@ -6,6 +6,7 @@ using System.Threading;
 using System.Collections.Generic;
 using TagType = Novel.TagUtility.TagType;
 using TagData = Novel.TagUtility.TagData;
+using System.Text.RegularExpressions;
 
 namespace Novel
 {
@@ -34,6 +35,10 @@ namespace Novel
             CharacterData character, string fullText, CancellationToken token, bool wholeShow = false)
         {
             SetName(character);
+            if(NovelManager.Instance.IsUseRuby == false)
+            {
+                fullText = RemoveRubyText(fullText);
+            }
             var (richText, tagDataList) = TagUtility.ExtractMyTag(fullText);
             isSkipped = false;
             //tagDataList.ForEach(data => data.ShowTagStatus()); // デバッグ用
@@ -162,6 +167,14 @@ namespace Novel
                     token);
                 }
             }
+        }
+
+        string RemoveRubyText(string text)
+        {
+            string regexString1 = @"\<r=.*?\>";
+            text = Regex.Replace(text, regexString1, string.Empty);
+            text = text.Replace("</r>", string.Empty);
+            return text;
         }
 
         void SetName(CharacterData character)

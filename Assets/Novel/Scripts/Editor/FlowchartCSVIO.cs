@@ -335,7 +335,6 @@ namespace Novel.Editor
 														ConstContainer.COMMANDDATA_PATH, $"CommandData_{chart.Name}"),
 									_ => throw new Exception(),
 								};
-								Debug.Log(cellName);
 								if (cellName is not ("<Null>" or "Null"))
 								{
 									Type type = GetTypeByClassName($"{cellName}Command");
