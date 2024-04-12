@@ -80,6 +80,17 @@ Novel/Scriptable/Commands内にあるデータは基本的に直接操作しな�
 <br>
 <br>
 
+## メッセージボックス等について
+ゲーム開始時に`CreateManagerData`によって`MessageBoxManager`を生成します。
+必要がなければ削除してもかまいませんし、プレハブを使って後から生成することもできます
+
+既にシーン内に該当するメッセージボックスが存在する場合はそれが使用されます。(オーバーライドのように扱えます)
+
+また、ポートレート(立ち絵)についてもメッセージボックスと同様です。
+例えば立ち絵を追加したい場合は、DefaultPortraitプレハブを基にして(Prefab Variant推奨)ポートレートオブジェクトを作成、`PortraitType`の項目を増やしてからPortraitsDataにセットしてください
+<br>
+<br>
+
 
 ## フラグについて
 ※ここでいうフラグは`bool`値以外も含むものとします。
@@ -189,6 +200,18 @@ Also, be sure to use `~~Command` as the class name of the command.
 If you only see the command name and `Enable` in the inspector, click on the label part of the command name.
 <br>
 <br>
+
+## About message boxes, etc.
+`MessageBoxManager` is created at the start of the game by `CreateManagerData`.
+You can delete it if you don't need it, or you can create it later using prefabrication.
+
+If the corresponding message box already exists in the scene, it will be used. (This can be handled like an override)
+
+Portraits (standing pictures) can be created in the same way as message boxes.
+For example, if you want to add a standing portrait, create a portrait object based on the DefaultPortrait prefab (Prefab Variant is recommended), increase the `PortraitType` field, and set it to PortraitsData.
+<br>
+<br>
+
 
 ## About flags
 Flags here include values other than `bool` values.
