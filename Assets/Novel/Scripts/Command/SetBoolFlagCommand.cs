@@ -19,11 +19,11 @@ namespace Novel.Command
         {
             if(flagKey == null)
             {
-                return WarningColorText();
+                return WarningText();
             }
             if (flagKey.name.Contains("bool") == false)
             {
-                return WarningColorText("FlagName don't contains \"bool\"");
+                return WarningText("FlagName don't contains \"bool\"");
             }
             return flagKey.name;
         }

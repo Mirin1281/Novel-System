@@ -19,11 +19,11 @@ namespace Novel.Command
         {
             if (flagKey == null)
             {
-                return WarningColorText();
+                return WarningText();
             }
             if (flagKey.name.Contains("int") == false)
             {
-                return WarningColorText("FlagName don't contains \"int\"");
+                return WarningText("FlagName don't contains \"int\"");
             }
             return $"{flagKey.name} = {value}";
         }

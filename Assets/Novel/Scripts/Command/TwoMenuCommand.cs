@@ -32,14 +32,14 @@ namespace Novel.Command
                 // Reverseを考えない場合、上を選んだ
                 if (select)
                 {
-                    index = Index;
+                    index = Index + 1;
                     Debug.Log(0);
                 }
                 else
                 {
-                    index = Index + 1;
+                    index = Index + 2;
                 }
-                ParentFlowchart.CallIndex = index;
+                ParentFlowchart.SetIndex(index, true);
             }
             else if (actionType == ActionType.SetFlag)
             {

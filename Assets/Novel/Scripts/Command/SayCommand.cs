@@ -80,7 +80,7 @@ namespace Novel.Command
         {
             if(string.IsNullOrEmpty(storyText))
             {
-                return WarningColorText();
+                return WarningText();
             }
             int index = storyText.IndexOf("\n");
             var charaName = character == null ? string.Empty : character.CharacterName;

@@ -11,27 +11,35 @@ namespace Novel.Editor
     {
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
-            GUILayout.Space(-10);
+            position.y += GetHeight(10);
+            EditorGUI.BeginProperty(position, label, property);
 
             var flowchartTypeProp = property.FindPropertyRelative("flowchartType");
-            EditorGUILayout.PropertyField(flowchartTypeProp, new GUIContent("FlowchartType"));
+            EditorGUI.PropertyField(position, flowchartTypeProp, new GUIContent("FlowchartType"));
+            position.y += GetHeight();
 
-            if((FlowchartType)flowchartTypeProp.enumValueIndex == FlowchartType.Executor)
+            if ((FlowchartType)flowchartTypeProp.enumValueIndex == FlowchartType.Executor)
             {
                 var flowchartExecutorProp = property.FindPropertyRelative("flowchartExecutor");
-                EditorGUILayout.PropertyField(flowchartExecutorProp, new GUIContent("FlowchartExecutor"));
+                EditorGUI.PropertyField(position, flowchartExecutorProp, new GUIContent("FlowchartExecutor"));
             }
             else if((FlowchartType)flowchartTypeProp.enumValueIndex == FlowchartType.Data)
             {
                 var flowchartDataProp = property.FindPropertyRelative("flowchartData");
-                EditorGUILayout.PropertyField(flowchartDataProp, new GUIContent("FlowchartData"));
+                EditorGUI.PropertyField(position, flowchartDataProp, new GUIContent("FlowchartData"));
             }
+            position.y += GetHeight();
 
             var commandIndexProp = property.FindPropertyRelative("commandIndex");
-            EditorGUILayout.PropertyField(commandIndexProp, new GUIContent("CommandIndex"));
+            EditorGUI.PropertyField(position, commandIndexProp, new GUIContent("CommandIndex"));
+            position.y += GetHeight();
 
             var isAwaitNestProp = property.FindPropertyRelative("isAwaitNest");
-            EditorGUILayout.PropertyField(isAwaitNestProp, new GUIContent("IsAwaitNest"));
+            EditorGUI.PropertyField(position, isAwaitNestProp, new GUIContent("IsAwaitNest"));
+
+            EditorGUI.EndProperty();
         }
+
+        float GetHeight(float? height = null) => height ?? EditorGUIUtility.singleLineHeight;
     }
 }

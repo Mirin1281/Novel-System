@@ -4,7 +4,6 @@ using System;
 using System.Threading;
 using System.Collections.Generic;
 using Novel.Command;
-#pragma warning disable 0414 // descriptionの"value is never used"警告を消すため
 
 namespace Novel
 {
@@ -16,7 +15,6 @@ namespace Novel
     {
         [SerializeField, TextArea]
         string description = "説明";
-        public string Description => description;
 
         [SerializeField]
         bool isCheckZone;
@@ -30,7 +28,19 @@ namespace Novel
 
         CancellationTokenSource cts;
 
-        public int CallIndex { get; set; }
+        int callIndex;
+
+        public void SetIndex(int index, bool calledInCommand)
+        {
+            if(calledInCommand)
+            {
+                callIndex = index - 1;
+            }
+            else
+            {
+                callIndex = index;
+            }
+        }
 
         /// <summary>
         /// フローチャートを呼び出します
@@ -39,17 +49,16 @@ namespace Novel
         /// <param name="callStatus">他のフローチャートから呼び出された時に渡される情報</param>
         public async UniTask ExecuteAsync(int index, FlowchartCallStatus callStatus)
         {
-            CallIndex = index;
-            if (isCheckZone) ApplyZone(CallIndex);
+            SetIndex(index, false);
+            if (isCheckZone) ApplyZone(callIndex);
 
             var status = SetStatus(callStatus);
 
-            while (commandDataList.Count > CallIndex && isStopped == false)
+            while (commandDataList.Count > callIndex && isStopped == false)
             {
-                //Debug.Log(CallIndex + ", " + commandDataList[CallIndex].GetCommandStatus().Name);
-                var cmdData = commandDataList[CallIndex];
+                var cmdData = commandDataList[callIndex];
                 await cmdData.ExecuteAsync(this, status);
-                CallIndex++;
+                callIndex++;
             }
             bool isEndClearUI = isStopped == false && status.IsNestCalled == false;
             if (isEndClearUI)
@@ -66,11 +75,11 @@ namespace Novel
             {
                 for (int i = 0; i < commandDataList.Count; i++)
                 {
-                    if (commandDataList[i].GetCommandBase() is IZoneCommand zoneCmd)
+                    if (commandDataList[i].GetCommandBase() is IZoneCommand zoneCommand)
                     {
-                        if(i <= currentIndex)
+                        if(i < currentIndex)
                         {
-                            zoneCmd.CallZone();
+                            zoneCommand.CallZone();
                         }
                     }
                 }
@@ -111,6 +120,7 @@ namespace Novel
         }
 
 #if UNITY_EDITOR
+        public string Description => description;
         public List<CommandData> GetCommandDataList() => commandDataList;
         public void SetCommandDataList(List<CommandData> list)
         {

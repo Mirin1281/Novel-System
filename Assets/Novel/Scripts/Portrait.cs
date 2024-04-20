@@ -30,8 +30,8 @@ namespace Novel
 
         public async UniTask TurnAsync(float time, CancellationToken token = default)
         {
-            var startScaleX = portraitImage.transform.localScale.x;
-            var startScaleY = portraitImage.transform.localScale.y;
+            var startScaleX = PortraitImageTs.localScale.x;
+            var startScaleY = PortraitImageTs.localScale.y;
             var endScaleX = -startScaleX;
 
             if (time == 0f)
@@ -51,7 +51,7 @@ namespace Novel
 
             void SetScaleX(float x)
             {
-                portraitImage.transform.localScale = new Vector3(x, startScaleY);
+                PortraitImageTs.localScale = new Vector3(x, startScaleY);
             }
         }
 
@@ -64,11 +64,11 @@ namespace Novel
                 PortraitPosType.Right => rightPosition,
                 _ => throw new System.Exception()
             };
-            portraitImage.transform.localPosition = pos;
+            PortraitImageTs.localPosition = pos;
         }
         public void SetPos(Vector2 pos)
         {
-            portraitImage.transform.localPosition = pos;
+            PortraitImageTs.localPosition = pos;
         }
 
         public void SetSprite(Sprite sprite)
@@ -76,14 +76,9 @@ namespace Novel
             portraitImage.sprite = sprite;
         }
 
-        public void HideOn()
+        public void SetHide(bool enable)
         {
-            portraitImage.color = hideColor;
-        }
-
-        public void HideOff()
-        {
-            portraitImage.color = Color.white;
+            portraitImage.color = enable ? hideColor : Color.white;
         }
 
         protected override float GetAlpha() => portraitImage.color.a;

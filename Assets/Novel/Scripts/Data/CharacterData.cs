@@ -46,17 +46,12 @@ namespace Novel
         static T[] GetAllScriptableObjects<T>(string folderName = null) where T : ScriptableObject
         {
 #if UNITY_EDITOR
-            string[] guids = null;
-            if(folderName == null)
-            {
-                guids = AssetDatabase.FindAssets($"t:{typeof(T).Name}");
-            }
-            else
-            {
-                guids = AssetDatabase.FindAssets($"t:{typeof(T).Name}", new string[] { folderName });
-            }
-            var assetPaths = guids.Select(AssetDatabase.GUIDToAssetPath).ToArray();
-            return assetPaths.Select(AssetDatabase.LoadAssetAtPath<T>).ToArray();
+            string[] guids = folderName　== null
+                ? AssetDatabase.FindAssets($"t:{typeof(T).Name}")
+                : AssetDatabase.FindAssets($"t:{typeof(T).Name}", new string[] { folderName });
+            return guids
+                .Select(guid => AssetDatabase.LoadAssetAtPath<T>(AssetDatabase.GUIDToAssetPath(guid)))
+                .ToArray();
 #else
             return null;
 #endif

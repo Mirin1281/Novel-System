@@ -6,7 +6,7 @@ namespace Novel.Command
     [AddTypeMenu("PortraitTurn"), System.Serializable]
     public class PortraitTurnCommand : CommandBase
     {
-        [SerializeField] CharacterData character;
+        [SerializeField, DropDownCharacter] CharacterData character;
         [SerializeField] float time;
         [SerializeField] bool isAwait;
 
@@ -27,7 +27,7 @@ namespace Novel.Command
         {
             if (character == null)
             {
-                return WarningColorText();
+                return WarningText();
             }
             return $"{character.CharacterName} {time}s";
         }

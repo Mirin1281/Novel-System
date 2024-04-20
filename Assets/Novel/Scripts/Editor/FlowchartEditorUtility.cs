@@ -1,20 +1,23 @@
 using Novel.Command;
+using System;
 using System.IO;
 using System.Linq;
 using UnityEditor;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace Novel.Editor
 {
     public static class FlowchartEditorUtility
     {
         /// <summary>
-		/// 絶対パスから Assets/のパスに変換する
-		/// </summary>
-		public static string AbsoluteToAssetsPath(string path)
+        /// 絶対パスから Assets/のパスに変換する
+        /// </summary>
+        public static string AbsoluteToAssetsPath(string path)
         {
             return path.Replace("\\", "/").Replace(Application.dataPath, "Assets");
         }
+
 
         public static void DestroyScritableObject(ScriptableObject obj)
         {
@@ -26,6 +29,7 @@ namespace Novel.Editor
             AssetDatabase.Refresh(ImportAssetOptions.ForceUpdate);
         }
 
+        // プロジェクト上にあるアセットのパスを返します
         public static string GetExistFolderPath(Object obj)
         {
             var dataPath = AssetDatabase.GetAssetPath(obj.GetInstanceID());
@@ -38,7 +42,7 @@ namespace Novel.Editor
         /// ファイル名を重複を考慮して付けます
         /// </summary>
         /// <param name="path">パス</param>
-        /// <param name="name">名前(拡張子を除く)</param>
+        /// <param name="name">名前(拡張子は除く)</param>
         /// <param name="extension">拡張子(.は除く)</param>
         /// <returns></returns>
         public static string GetFileName(string path, string name, string extension)
@@ -54,19 +58,20 @@ namespace Novel.Editor
 
         public static T[] GetAllScriptableObjects<T>(string folderName = null) where T : ScriptableObject
         {
-            string[] guids = null;
-            if (folderName == null)
-            {
-                guids = AssetDatabase.FindAssets($"t:{typeof(T).Name}");
-            }
-            else
-            {
-                guids = AssetDatabase.FindAssets($"t:{typeof(T).Name}", new string[] { folderName });
-            }
-            var assetPaths = guids.Select(AssetDatabase.GUIDToAssetPath).ToArray();
-            return assetPaths.Select(AssetDatabase.LoadAssetAtPath<T>).ToArray();
+            string[] guids = folderName == null
+                ? AssetDatabase.FindAssets($"t:{typeof(T).Name}")
+                : AssetDatabase.FindAssets($"t:{typeof(T).Name}", new string[] { folderName });
+            return guids
+                .Select(guid => AssetDatabase.LoadAssetAtPath<T>(AssetDatabase.GUIDToAssetPath(guid)))
+                .ToArray();
         }
 
+        /// <summary>
+        /// CommandDataを作成します
+        /// </summary>
+        /// <param name="path">生成するフォルダのパス</param>
+        /// <param name="baseName">名前</param>
+        /// <returns></returns>
         public static CommandData CreateCommandData(string path, string baseName)
         {
             if (!Directory.Exists(path))
@@ -78,6 +83,36 @@ namespace Novel.Editor
             AssetDatabase.CreateAsset(cmdData, Path.Combine(path, name));
             AssetDatabase.ImportAsset(path, ImportAssetOptions.ForceUpdate);
             return cmdData;
+        }
+
+        /// <summary>
+        /// (カスタムエディタ)CharacterDataのドロップダウンリストを表示します
+        /// </summary>
+        /// <param name="position"></param>
+        /// <param name="property"></param>
+        /// <returns></returns>
+        public static CharacterData DropDownCharacterList(Rect position, SerializedProperty property)
+        {
+            var characterProp = property.FindPropertyRelative("character");
+            var characterArray = GetAllScriptableObjects<CharacterData>()
+                .Prepend(null).ToArray();
+
+            if (characterProp == null)
+            {
+                characterProp = property;
+            }
+            int previousCharaIndex = Array.IndexOf(
+                characterArray, characterProp.objectReferenceValue as CharacterData);
+            int selectedCharaIndex = EditorGUI.Popup(position, "Character", previousCharaIndex,
+                characterArray.Select(c => c == null ? "<Null>" : c.CharacterName).ToArray());
+            var chara = characterArray[selectedCharaIndex];
+
+            if (previousCharaIndex != selectedCharaIndex)
+            {
+                characterProp.objectReferenceValue = chara;
+                characterProp.serializedObject.ApplyModifiedProperties();
+            }
+            return chara;
         }
     }
 }

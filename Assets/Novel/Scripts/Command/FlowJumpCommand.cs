@@ -25,9 +25,8 @@ namespace Novel.Command
                 JumpType.DownRelative => Index + jumpIndex,
                 _ => throw new System.Exception()
             };
-            ParentFlowchart.CallIndex = index - 1;
+            ParentFlowchart.SetIndex(index, true);
             await UniTask.CompletedTask;
-            return;
         }
 
         protected override string GetSummary()
@@ -41,9 +40,9 @@ namespace Novel.Command
             };
             
             var cmdDataList = ParentFlowchart.GetReadOnlyCommandDataList();
-            if (index < 0 || index >= cmdDataList.Count || index == Index) return WarningColorText();
+            if (index < 0 || index >= cmdDataList.Count || index == Index) return WarningText();
             var cmd = cmdDataList[index].GetCommandBase();
-            if(cmd == null || cmdDataList[index].Enabled == false) return WarningColorText();
+            if(cmd == null || cmdDataList[index].Enabled == false) return WarningText();
             if(Index < index)
             {
                 return $"<color=#000080>▽ [ {GetName(cmd)} ] ▽</color>";

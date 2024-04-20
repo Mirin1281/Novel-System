@@ -13,32 +13,18 @@ namespace Novel.Editor
     {
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
-            GUILayout.Space(-10);
+            position.y += GetHeight(10);
+            EditorGUI.BeginProperty(position, label, property);
 
-            // キャラクターの設定 //
-            var charaProp = property.FindPropertyRelative("character");
-
-            // 特定のフォルダ内のキャラクターデータを取得
-            var characterArray = FlowchartEditorUtility.GetAllScriptableObjects<CharacterData>()
-                .Prepend(null).ToArray();
-
-            int previousCharaIndex = Array.IndexOf(
-                characterArray, charaProp.objectReferenceValue as CharacterData);
-            int selectedCharaIndex = EditorGUILayout.Popup("Character", previousCharaIndex,
-                characterArray.Select(c => c == null ? "<Null>" : c.CharacterName).ToArray());
-            var chara = characterArray[selectedCharaIndex];
-
-            if (selectedCharaIndex != previousCharaIndex)
-            {
-                charaProp.objectReferenceValue = chara;
-                charaProp.serializedObject.ApplyModifiedProperties();
-            }
+            CharacterData chara = FlowchartEditorUtility.DropDownCharacterList(position, property);
+            position.y += GetHeight();
 
             // アクションの設定 //
             var actionTypeProp = property.FindPropertyRelative("actionType");
-            EditorGUILayout.PropertyField(actionTypeProp, new GUIContent("ActionType"));
+            EditorGUI.PropertyField(position, actionTypeProp, new GUIContent("ActionType"));
+            position.y += GetHeight();
 
-            if((chara != null && chara.Portraits != null && chara.Portraits.Count() != 0) &&
+            if ((chara != null && chara.Portraits != null && chara.Portraits.Count() != 0) &&
                 (ActionType)actionTypeProp.enumValueIndex == ActionType.Show ||
                 (ActionType)actionTypeProp.enumValueIndex == ActionType.Change)
             {
@@ -47,7 +33,7 @@ namespace Novel.Editor
                 var portraitsArray = chara.Portraits.Prepend(null).ToArray();
                 int previousPortraitIndex = Array.IndexOf(
                     portraitsArray, portraitSpriteProp.objectReferenceValue as Sprite);
-                int selectedPortraitIndex = EditorGUILayout.Popup("PortraitSprite", previousPortraitIndex,
+                int selectedPortraitIndex = EditorGUI.Popup(position, "PortraitSprite", previousPortraitIndex,
                     portraitsArray.Select(p => p == null ? "<Null>" : p.name).ToArray());
 
                 if (selectedPortraitIndex != previousPortraitIndex)
@@ -55,33 +41,40 @@ namespace Novel.Editor
                     portraitSpriteProp.objectReferenceValue = portraitsArray[selectedPortraitIndex];
                     portraitSpriteProp.serializedObject.ApplyModifiedProperties();
                 }
+                position.y += GetHeight();
             }
 
             if ((ActionType)actionTypeProp.enumValueIndex == ActionType.Show)
             {
                 // ポジションの設定 //
                 var positionTypeProp = property.FindPropertyRelative("positionType");
-                EditorGUILayout.PropertyField(positionTypeProp, new GUIContent("PositionType"));
+                EditorGUI.PropertyField(position, positionTypeProp, new GUIContent("PositionType"));
 
                 if ((PortraitPosType)positionTypeProp.enumValueIndex == PortraitPosType.Custom)
                 {
                     // 上書きポジションの設定 //
                     var overridePosProp = property.FindPropertyRelative("overridePos");
-                    EditorGUILayout.PropertyField(overridePosProp, new GUIContent("OverridePos"));
+                    EditorGUI.PropertyField(position, overridePosProp, new GUIContent("OverridePos"));
+                    position.y += GetHeight();
                 }
+                position.y += GetHeight();
             }
 
-            if((ActionType)actionTypeProp.enumValueIndex == ActionType.Show ||
+            if ((ActionType)actionTypeProp.enumValueIndex == ActionType.Show ||
                 (ActionType)actionTypeProp.enumValueIndex == ActionType.Clear)
             {
                 // フェード時間の設定 //
                 var fadeTimeProp = property.FindPropertyRelative("fadeTime");
-                EditorGUILayout.PropertyField(fadeTimeProp, new GUIContent("FadeTime"));
+                EditorGUI.PropertyField(position, fadeTimeProp, new GUIContent("FadeTime"));
+                position.y += GetHeight();
 
                 // 待機するかの設定 //
                 var isAwaitProp = property.FindPropertyRelative("isAwait");
-                EditorGUILayout.PropertyField(isAwaitProp, new GUIContent("IsAwait"));
+                EditorGUI.PropertyField(position, isAwaitProp, new GUIContent("IsAwait"));
             }
+            EditorGUI.EndProperty();
         }
+
+        float GetHeight(float? height = null) => height ?? EditorGUIUtility.singleLineHeight;
     }
 }

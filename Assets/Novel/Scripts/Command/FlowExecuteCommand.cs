@@ -46,12 +46,12 @@ namespace Novel.Command
             string objectName = string.Empty;
             if(flowchartType == FlowchartType.Executor)
             {
-                if (flowchartExecutor == null) return WarningColorText();
+                if (flowchartExecutor == null) return WarningText();
                 objectName = flowchartExecutor.name;
             }
             else if(flowchartType == FlowchartType.Data)
             {
-                if (flowchartData == null) return WarningColorText();
+                if (flowchartData == null) return WarningText();
                 objectName = flowchartData.name;
             }
             var nest = isAwaitNest ? "Nest" : string.Empty;

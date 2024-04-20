@@ -62,14 +62,13 @@ namespace Novel.Command
         /// </summary>
         protected string GetName(CommandBase commandBase)
             => commandBase.ToString()
-                .Replace("Novel.Command.", string.Empty)
-                .Replace("Command", string.Empty);
+                .Replace($"{nameof(Novel)}.{nameof(Command)}.", string.Empty)
+                .Replace(nameof(Command), string.Empty);
 
         /// <summary>
-        /// 警告文を色付きで返します
+        /// 警告文を返します(デフォルトは"Warning!!")
         /// </summary>
-        protected string WarningColorText(string text = "Warning!!")
-            => $"<color=#dc143c>{text}</color>";
+        protected string WarningText(string text = "Warning!!") => text;
 
 #if UNITY_EDITOR
         public void SetFlowchart(Flowchart f) => ParentFlowchart = f;

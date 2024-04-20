@@ -55,11 +55,11 @@ namespace Novel.Command
             }
             else if(actionType == ActionType.HideOn)
             {
-                portrait.HideOn();
+                portrait.SetHide(true);
             }
             else if (actionType == ActionType.HideOff)
             {
-                portrait.HideOff();
+                portrait.SetHide(false);
             }
         }
 
@@ -83,11 +83,11 @@ namespace Novel.Command
         {
             if (character == null)
             {
-                return WarningColorText();
+                return WarningText();
             }
             if(portraitSprite == null && (actionType == ActionType.Show || actionType == ActionType.Change))
             {
-                return WarningColorText();
+                return WarningText();
             }
             return $"{character.CharacterName} {actionType}: {fadeTime}s";
         }

@@ -11,26 +11,11 @@ namespace Novel.Editor
     {
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
-            GUILayout.Space(-10);
-
-            // キャラクターの設定 //
-            var charaProp = property.FindPropertyRelative("character");
-
-            // 特定のフォルダ内のキャラクターデータを取得
-            var characterArray = FlowchartEditorUtility.GetAllScriptableObjects<CharacterData>()
-                .Prepend(null).ToArray();
-
-            int previousCharaIndex = Array.IndexOf(
-                characterArray, charaProp.objectReferenceValue as CharacterData);
-            int selectedCharaIndex = EditorGUILayout.Popup("Character", previousCharaIndex,
-                characterArray.Select(c => c == null ? "<Null>" : c.CharacterName).ToArray());
-            var chara = characterArray[selectedCharaIndex];
-
-            if (selectedCharaIndex != previousCharaIndex)
-            {
-                charaProp.objectReferenceValue = chara;
-                charaProp.serializedObject.ApplyModifiedProperties();
-            }
+            position.y += GetHeight(10);
+            EditorGUI.BeginProperty(position, label, property);
+            
+            CharacterData chara = FlowchartEditorUtility.DropDownCharacterList(position, property);
+            position.y += GetHeight();
 
             if (chara != null && chara.Portraits != null && chara.Portraits.Count() != 0)
             {
@@ -39,7 +24,7 @@ namespace Novel.Editor
                 var portraitsArray = chara.Portraits.Prepend(null).ToArray();
                 int previousPortraitIndex = Array.IndexOf(
                     portraitsArray, portraitProp.objectReferenceValue as Sprite);
-                int selectedPortraitIndex = EditorGUILayout.Popup("ChangeSprite", previousPortraitIndex,
+                int selectedPortraitIndex = EditorGUI.Popup(position, "ChangeSprite", previousPortraitIndex,
                     portraitsArray.Select(p => p == null ? "<Null>" : p.name).ToArray());
 
                 if (selectedPortraitIndex != previousPortraitIndex)
@@ -47,24 +32,28 @@ namespace Novel.Editor
                     portraitProp.objectReferenceValue = portraitsArray[selectedPortraitIndex];
                     portraitProp.serializedObject.ApplyModifiedProperties();
                 }
+                position.y += GetHeight();
             }
 
             // テキストの設定 //
             var storyTextProp = property.FindPropertyRelative("storyText");
-            EditorGUILayout.PropertyField(storyTextProp, new GUIContent("StoryText"),
-                new GUILayoutOption[] { GUILayout.Height(70) });
+            EditorGUI.PropertyField(GetRect(position, 70),
+                storyTextProp, new GUIContent("StoryText"));
+            position.y += GetHeight(70);
 
             // ボックスフェード時間の設定 //
             var boxShowTimeProp = property.FindPropertyRelative("boxShowTime");
-            EditorGUILayout.PropertyField(boxShowTimeProp, new GUIContent("BoxShowTime"));
+            EditorGUI.PropertyField(position, boxShowTimeProp, new GUIContent("BoxShowTime"));
+            position.y += GetHeight();
 
             // フラグキーの設定 //
             var flagKeysProp = property.FindPropertyRelative("flagKeys");
-            EditorGUILayout.PropertyField(flagKeysProp, new GUIContent("FlagKeys"));
+            EditorGUI.PropertyField(position, flagKeysProp, new GUIContent("FlagKeys"));
+            position.y += GetArrayHeight(flagKeysProp);
 
             GUILayout.Space(10);
 
-            if (GUILayout.Button("テキストをプレビュー", GUILayout.Height(30)))
+            if (GUI.Button(GetRect(position, 30), "テキストをプレビュー"))
             {
                 var text = storyTextProp.stringValue;
                 var boxes = GameObject.FindObjectsByType<MessageBox>(FindObjectsInactive.Exclude, FindObjectsSortMode.None);
@@ -90,6 +79,7 @@ namespace Novel.Editor
                     }
                 }
             }
+            position.y += GetHeight(30);
 
             var tooltipText =
                 "【タグについて】\n" +
@@ -115,7 +105,37 @@ namespace Novel.Editor
                 "◆<wic>\n" +
                 "　入力があるまで待機し、\n" +
                 "　それまでの文を消してから次を表示します\n";
-            EditorGUILayout.LabelField(new GUIContent("◆タグについて(ホバーで表示)", tooltipText));
+            EditorGUI.LabelField(position, new GUIContent("◆タグについて(ホバーで表示)", tooltipText));
+            EditorGUI.EndProperty();
         }
+
+        float GetHeight(float? height = null) => height ?? EditorGUIUtility.singleLineHeight;
+
+        float GetArrayHeight(SerializedProperty property)
+        {
+            if(property.isArray == false)
+            {
+                Debug.LogWarning("プロパティが配列ではありません！");
+                return EditorGUIUtility.singleLineHeight;
+            }
+            if(property.isExpanded == false)
+            {
+                return EditorGUIUtility.singleLineHeight * 1.5f;
+            }
+            int length = property.arraySize;
+            if (length is 0 or 1)
+            {
+                return EditorGUIUtility.singleLineHeight * 4f;
+            }
+            else
+            {
+                return (length + 3) * EditorGUIUtility.singleLineHeight;
+            }
+        }
+
+        Rect GetRect(Rect rect, float? height = null) =>
+            new Rect(
+                rect.x, rect.y,
+                rect.width, height ?? EditorGUIUtility.singleLineHeight);
     }
 }

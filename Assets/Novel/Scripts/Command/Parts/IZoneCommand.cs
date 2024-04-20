@@ -1,23 +1,24 @@
-namespace Novel.Command
+﻿namespace Novel.Command
 {
     /// <summary>
-    /// ���̃C���^�[�t�F�[�X�������R�}���h�́A����������Ŕ��΂��ꂽ�ۂ�CallZone()���Ăяo����܂�
+    /// このインターフェースがついたコマンドは、それよりも下で発火された際にCallZone()が呼び出されます
     /// </summary>
     public interface IZoneCommand
     {
         void CallZone();
     }
 
-    /* Zone�R�}���h�ɂ���
-    ����͎�ɃR�}���h���ɃZ�[�u�A���[�h������ۂɗ��p���邱�Ƃ�z�肵���@�\�ł�
-    IZoneCommand�C���^�[�t�F�C�X���p������R�}���h�́A�u���̃R�}���h��ʂ����甭�΂���v�ɉ����A
-    �u���̃R�}���h��艺����Execute�����ꍇ�����m����v�Ƃ����U��܂����ǉ�����܂�
+    /* Zoneコマンドについて
+    これは主にコマンド中にセーブ、ロードをする際に利用することを想定した機能です
+    IZoneCommandインターフェイスを継承するコマンドは、「そのコマンドを通ったら発火する」に加え、
+    「そのコマンドより下からExecuteした場合を検知する」という振るまいが追加されます
 
-    ��̓I�Ȏg�p��Ƃ��āABGM�̕ύX���������܂�
-    �]���̃R�}���h���ƁA���[�h�Ȃǂɂ��ABGM���Đ�����R�}���h��艺����Execute���ꂽ�ꍇ�ɁA
-    BGM�̍Đ�������Ȃ���Ԃł����AZone�R�}���h���g���΂�������m�ł��A�ȒP�ɐ����������������ł��܂�
+    具体的な使用例として、BGMの変更が挙げられます
+    従来のコマンドだと、ロードなどにより、BGMを再生するコマンドより下からExecuteされた場合に、
+    BGMの再生がされない状態ですが、Zoneコマンドを使えばそれを検知でき、簡単に正しい挙動を実現できます
 
-    �Ȃ��A�R�}���h�̃N���X���́���ZoneCommand�𐄏����܂�
-    Flowchart.isCheckZone��false�ɂ��邱�ƂŁAZone�R�}���h���g�p���Ȃ��ꍇ�͏������J�b�g�ł��܂�
+    なお、コマンドのクラス名は○○ZoneCommandを推奨します
+    Flowchart.isCheckZoneをtrueにしないと検知されないので注意してください
+    頻繫に使用することが予想される場合はデフォルト値をtrueにすることを推奨します
     */
 }
