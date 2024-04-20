@@ -20,6 +20,8 @@ Testと付いている通り安全な動作はまだ保証できませんが、G
 
 
 # 環境
+Windows10, 11
+
 Unity2022.3.20f1で制作しましたが、2021〜2023で動作することを確認しています。
 
 前提としてUniTask、SubclassSelector、RubyTextMeshPro(とTMPro)の3つの外部アセットをインポートする必要があります
