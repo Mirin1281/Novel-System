@@ -18,7 +18,8 @@ namespace Novel.Editor
 
             if (GUILayout.Button("フローチャートエディタを開く"))
             {
-                EditorWindow.GetWindow<FlowchartEditorWindow>("Flowchart Editor");
+                EditorWindow.GetWindow<FlowchartEditorWindow>(
+                    "Flowchart Editor", typeof(SceneView));
             }
 
             EditorGUILayout.Space(10);

@@ -7,7 +7,7 @@ namespace Novel
 {
     public static class TagUtility
     {
-        const string RegexString = @"\<.*?\>";
+        public const string REGEX_STRING = @"\<.*?\>";
 
         // 【タグの増やし方】
         // 1. TagTypeの項目を増やす
@@ -60,7 +60,7 @@ namespace Novel
         /// <returns>(タグを取り除いたテキスト, TagDataの配列)</returns>
         public static (string convertedText, List<TagData> tagDataList) ExtractMyTag(string text)
         {
-            var regex = new Regex(RegexString);
+            var regex = new Regex(REGEX_STRING);
             var matches = regex.Matches(text);
             if (matches.Count == 0) return (text, null);
 
@@ -92,12 +92,12 @@ namespace Novel
 
                 TagType tagType = TagType.None;
                 float value = 0f;
-                if (content.StartsWith("sp=", StringComparison.Ordinal))
+                if (content.StartsWith("s=", StringComparison.Ordinal))
                 {
                     tagType = TagType.SpeedStart;
-                    value = float.Parse(content.Replace("sp=", string.Empty));
+                    value = float.Parse(content.Replace("s=", string.Empty));
                 }
-                else if (content == "/sp")
+                else if (content == "/s")
                 {
                     tagType = TagType.SpeedEnd;
                 }

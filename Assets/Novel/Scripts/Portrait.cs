@@ -5,7 +5,7 @@ using System.Threading;
 
 namespace Novel
 {
-    public enum PortraitPosType
+    public enum PortraitPositionType
     {
         Left,
         Center,
@@ -55,13 +55,13 @@ namespace Novel
             }
         }
 
-        public void SetPos(PortraitPosType posType)
+        public void SetPos(PortraitPositionType posType)
         {
             var pos = posType switch
             {
-                PortraitPosType.Left => leftPosition,
-                PortraitPosType.Center => centerPosition,
-                PortraitPosType.Right => rightPosition,
+                PortraitPositionType.Left => leftPosition,
+                PortraitPositionType.Center => centerPosition,
+                PortraitPositionType.Right => rightPosition,
                 _ => throw new System.Exception()
             };
             PortraitImageTs.localPosition = pos;

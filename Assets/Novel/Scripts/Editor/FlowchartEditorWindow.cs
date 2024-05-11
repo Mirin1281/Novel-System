@@ -24,7 +24,7 @@ namespace Novel.Editor
         FlowchartData activeFlowchartData;
         GameObject activeExecutorObj;
 
-        [SerializeField] List<CommandData> commandList;
+        [SerializeField] List<CommandData> commandList = new();
         ReorderableList reorderableList;
         CommandData lastSelectedCommand;
 
@@ -38,10 +38,10 @@ namespace Novel.Editor
         void OnEnable()
         {
             reorderableList = CreateReorderableList();
-            commandList = new();
             selectedCommandList = new();
             copiedCommandList = new();
             beforeSelectedIndices = new();
+            OnSelectionChange();
         }
 
         void OnFocus()
@@ -301,6 +301,7 @@ namespace Novel.Editor
                 displayAddButton: true,
                 displayRemoveButton: true)
             {
+                multiSelect = true,
                 onAddCallback = Add,
                 onRemoveCallback = Remove,
                 onSelectCallback = OnSelect,
@@ -308,7 +309,6 @@ namespace Novel.Editor
                 drawElementCallback = DrawElement,
                 drawElementBackgroundCallback = DrawElementBackground,
                 elementHeightCallback = GetElementHeight,
-                multiSelect = true,
             };
 
             void OnSelect(ReorderableList list)
@@ -357,15 +357,24 @@ namespace Novel.Editor
                 EditorGUI.LabelField(rect, $"<size=12>{cmdStatus.Name}</size>", style);
                 EditorGUI.LabelField(new Rect(
                     rect.x + 90, rect.y, rect.width, rect.height),
-                    $"<size=10>{RemoveTag(cmdStatus.Summary)}</size>", style);
+                    $"<size=10>{RemoveSizeTag(cmdStatus.Summary)}</size>", style);
 
                 GUI.color = tmpColor;
 
-
-                static string RemoveTag(string text)
+                static string RemoveSizeTag(string text)
                 {
-                    var regex = new Regex(@"\<.*?\>");
-                    return regex.Replace(text, string.Empty);
+                    var matches = Regex.Matches(text, TagUtility.REGEX_STRING);
+                    if (matches.Count == 0) return text;
+                    var match = matches[0];
+                    while(match.Success)
+                    {
+                        if(match.Value == "</size>" || match.Value.StartsWith("<size="))
+                        {
+                            text = text.Replace(match.Value, string.Empty);
+                        }
+                        match = match.NextMatch();
+                    }
+                    return text;
                 }
             }
 

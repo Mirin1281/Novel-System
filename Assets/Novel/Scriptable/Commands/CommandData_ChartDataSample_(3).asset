@@ -14,11 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Enabled>k__BackingField: 1
   command:
-    rid: 5499920007786397716
+    rid: 5499920351545262093
   references:
     version: 2
     RefIds:
-    - rid: 5499920007786397716
+    - rid: 5499920351545262093
       type: {class: SayCommand, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
@@ -26,15 +26,12 @@ MonoBehaviour:
           isCheckZone: 0
           commandDataList:
           - {fileID: 11400000, guid: 4d795ecdfa2d9304a9cb911d35849d6f, type: 2}
-          - {fileID: 11400000, guid: f06a56c078ec51a4d8fa857f448b7f69, type: 2}
-          - {fileID: 11400000, guid: 5c83669d95cb6974dae5efed9a7cf846, type: 2}
-          - {fileID: 11400000, guid: 60d9b74b337fd274585a26648b2117f7, type: 2}
-          - {fileID: 11400000}
           - {fileID: 11400000, guid: 22ed5d71603f509419b9a083c7ab74ec, type: 2}
           - {fileID: 11400000, guid: e8794d4d0d0f5644cb70cceffaae488e, type: 2}
-        <Index>k__BackingField: 4
+          - {fileID: 11400000}
+        <Index>k__BackingField: 3
         character: {fileID: 11400000, guid: 36e06002688543545a19e42b88b58c8b, type: 2}
         changeSprite: {fileID: 0}
-        storyText: "\u2026\u2026\u5931\u793C\u3001\u53D6\u308A\u4E71\u3057\u305F\u306A\n<wi>\u8AAC\u660E\u3092\u7D9A\u3051\u308B\u305C"
+        storyText: "\u30B3\u30DE\u30F3\u30C9\u306F\u5404\u81EA\u3067\u62E1\u5F35\u3059\u308B\u3053\u3068\u3092\u524D\u63D0\u3067\u4F5C\u3063\u3066\u308B\u305C\n\u8A73\u3057\u304F\u306FSampleCommand\u3068\u304B\u3092\u53C2\u8003\u306B\u3057\u3066\u304F\u308C"
         boxShowTime: 0
         flagKeys: []

@@ -192,9 +192,9 @@ GameObject:
   m_Component:
   - component: {fileID: 6597232439757595453}
   - component: {fileID: 6530857151227716853}
-  - component: {fileID: 758287790021543516}
+  - component: {fileID: 40201647590404662}
   m_Layer: 0
-  m_Name: NameText (TMP)
+  m_Name: NameText (RubyTMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -216,7 +216,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 60}
+  m_AnchoredPosition: {x: -20, y: 60}
   m_SizeDelta: {x: 1120, y: 250}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6530857151227716853
@@ -227,7 +227,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5110062463239508609}
   m_CullTransparentMesh: 1
---- !u!114 &758287790021543516
+--- !u!114 &40201647590404662
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -236,20 +236,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 5110062463239508609}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Script: {fileID: 11500000, guid: 0d07049f6d216504ca6e1d9c13e6d41b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 0
+  m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Name
-
-'
+  m_text: Name
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -318,6 +316,12 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+  _rubyVerticalOffset: 1em
+  _rubyScale: 0.5
+  _rubyLineHeight: 
+  _uneditedText: Name
+  _rubyShowType: 0
+  _rubyMargin: 10
 --- !u!1 &7776359622832343048
 GameObject:
   m_ObjectHideFlags: 0
@@ -451,7 +455,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 0
   canvasGroup: {fileID: 2092034954901032457}
-  boxImage: {fileID: 5799746655330449718}
   writer: {fileID: 5539272393634635440}
   input: {fileID: 8917495195089842385}
 --- !u!114 &5539272393634635440
@@ -466,7 +469,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35970d36f518be04abe6e246b1848651, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nameTmpro: {fileID: 758287790021543516}
+  nameTmpro: {fileID: 40201647590404662}
   storyTmpro: {fileID: 7050408090009731663}
   input: {fileID: 8917495195089842385}
 --- !u!114 &8917495195089842385

@@ -12,9 +12,9 @@ namespace Novel
 {
     public class Writer : MonoBehaviour
     {
-        [SerializeField] TMP_Text nameTmpro;
+        [SerializeField] RubyTextMeshProUGUI nameTmpro;
         [SerializeField] RubyTextMeshProUGUI storyTmpro;
-        [SerializeField] MsgBoxInput input;
+        [SerializeField] MessageBoxInput input;
         float timePer100Charas; // 100文字表示するのにかかる時間(s)
         bool isSkipped;
         float DefaultSpeed => NovelManager.Instance.DefaultWriteSpeed;
@@ -34,7 +34,12 @@ namespace Novel
         public async UniTask WriteAsync(
             CharacterData character, string fullText, CancellationToken token, bool wholeShow = false)
         {
-            SetName(character);
+            await WriteAsync(character, character.CharacterName, fullText, token, wholeShow);
+        }
+        public async UniTask WriteAsync(
+            CharacterData character, string nameText, string fullText, CancellationToken token, bool wholeShow = false)
+        {
+            SetName(character, nameText);
             if(NovelManager.Instance.IsUseRuby == false)
             {
                 fullText = RemoveRubyText(fullText);
@@ -44,11 +49,10 @@ namespace Novel
             //tagDataList.ForEach(data => data.ShowTagStatus()); // デバッグ用
             timePer100Charas = wholeShow ? 0 : DefaultSpeed;
             await WriteStoryTextAsync(richText, tagDataList, token);
-            SayLogger.AddLog(character, richText);
+            SayLogger.AddLog(character.CharacterName, richText);
 
 
-            async UniTask WriteStoryTextAsync(
-                string richText, List<TagData> tagDataList, CancellationToken token)
+            async UniTask WriteStoryTextAsync(string richText, List<TagData> tagDataList, CancellationToken token)
             {
                 storyTmpro.SetUneditedText(richText);
                 storyTmpro.ForceMeshUpdate();
@@ -171,23 +175,28 @@ namespace Novel
 
         string RemoveRubyText(string text)
         {
-            string regexString1 = @"\<r=.*?\>";
-            text = Regex.Replace(text, regexString1, string.Empty);
+            string regexString = @"\<r=.*?\>";
+            text = Regex.Replace(text, regexString, string.Empty);
             text = text.Replace("</r>", string.Empty);
             return text;
         }
 
-        void SetName(CharacterData character)
+        void SetName(CharacterData character, string nameText)
         {
+            string name = null;
             if (character != null)
             {
                 nameTmpro.color = character.NameColor;
-                nameTmpro.SetText(character.CharacterName);
+                if (NovelManager.Instance != null && NovelManager.Instance.IsUseRuby == false)
+                {
+                    name = RemoveRubyText(nameText);
+                }
+                else
+                {
+                    name = nameText;
+                }
             }
-            else
-            {
-                nameTmpro.SetText(string.Empty);
-            }
+            nameTmpro.SetUneditedText(name);
         }
 
         void SkipTextIfValid()
@@ -199,9 +208,9 @@ namespace Novel
 #if UNITY_EDITOR
         public void PreviewText(CharacterData character, string text)
         {
-            var convertedText = TagUtility.ExtractMyTag(text).convertedText;
-            storyTmpro.SetUneditedText(convertedText);
-            SetName(character);
+            var richText = TagUtility.ExtractMyTag(text).convertedText;
+            storyTmpro.SetUneditedText(richText);
+            SetName(character, character.NameIncludeRuby);
         }
 #endif
     }

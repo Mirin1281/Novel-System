@@ -26,9 +26,9 @@ namespace Novel.Editor
 			await UniTask.Yield();
 
 			CSVIOSettingsData settingsData = GetSettingsData();
-			var name = FlowchartEditorUtility.GetFileName(
+			var sheetName = FlowchartEditorUtility.GetFileName(
 				settingsData.CSVFolderPath, $"{exportName}_{settingsData.ExportFileName}", "csv");
-			StreamWriter sw = new($"{settingsData.CSVFolderPath}/{name}", false, Encoding.GetEncoding("shift_jis"));
+			StreamWriter sw = new($"{settingsData.CSVFolderPath}/{sheetName}", false, Encoding.GetEncoding("shift_jis"));
 
 			try
             {
@@ -43,18 +43,9 @@ namespace Novel.Editor
 				var sb = new StringBuilder();
 				foreach (var chart in chartObjs)
                 {
-					sb.Append(chart.Name).Append(",");
-					var des = chart.Flowchart.Description;
-					if (des != null && (des.Contains("\"") || des.Contains(",") || des.Contains("\n")))
-					{
-						des = des.Replace("\"", "\"\"");
-						sb.Append("\"").Append(des).Append("\"").Append(",");
-					}
-					else
-					{
-						sb.Append(des).Append(",");
-					}
-					sb.Skip(settingsData.RowCountPerOne - 1);
+					sb.AddCell(chart.Name)
+						.AddCell(chart.Flowchart.Description)
+						.Skip(settingsData.RowCount - 1);
 				}
 				sw.WriteLine(sb.ToString());
 				sb.Clear();
@@ -66,38 +57,23 @@ namespace Novel.Editor
 						var list = chart.Flowchart.GetReadOnlyCommandDataList();
 						if (i >= list.Count)
                         {
-							sb.Skip(settingsData.RowCountPerOne + 1);
+							sb.Skip(settingsData.RowCount + 1);
 							continue;
 						}
 						var cmdBase = list[i].GetCommandBase();
 
 						// コマンド名
-						sb.Append(GetCommandName(cmdBase)).Append(",");
+						sb.AddCell(GetCommandName(cmdBase));
 
 						// コンテント1
 						var content1 = cmdBase?.CSVContent1;
-						if (content1 != null && (content1.Contains("\"") || content1.Contains(",") || content1.Contains("\n")))
-						{
-							content1 = content1.Replace("\"", "\"\"");
-							sb.Append("\"").Append(content1).Append("\"").Append(",");
-						}
-						else
-                        {
-							sb.Append(content1).Append(",");
-						}
+						sb.AddCell(content1);
 
 						// コンテント2
 						var content2 = cmdBase?.CSVContent2;
-						if (content2 != null && (content2.Contains("\"") || content2.Contains(",") || content2.Contains("\n")))
-						{
-							content2 = content2.Replace("\"", "\"\"");
-							sb.Append("\"").Append(content2).Append("\"").Append(",");
-						}
-						else
-						{
-							sb.Append(content2).Append(",");
-						}
-						sb.Skip(settingsData.RowCountPerOne - 2);
+						sb.AddCell(content2);
+
+						sb.Skip(settingsData.RowCount - 2);
 					}
 
 					sw.WriteLine(sb.ToString());
@@ -106,7 +82,7 @@ namespace Novel.Editor
 
 				AssetDatabase.Refresh(ImportAssetOptions.ForceUpdate);
 				var path = FlowchartEditorUtility.AbsoluteToAssetsPath(settingsData.CSVFolderPath);
-				var csv = AssetDatabase.LoadAssetAtPath<TextAsset>($"{path}/{name}");
+				var csv = AssetDatabase.LoadAssetAtPath<TextAsset>($"{path}/{sheetName}");
 				EditorGUIUtility.PingObject(csv);
 				Debug.Log("<color=lightblue>CSVを書き出しました！</color>");
 			}
@@ -115,29 +91,6 @@ namespace Novel.Editor
 				sw.Flush();
 				sw.Close();
 			}
-		}
-
-		static CSVIOSettingsData GetSettingsData()
-        {
-			var settingsDatas = FlowchartEditorUtility.GetAllScriptableObjects<CSVIOSettingsData>();
-			if (settingsDatas == null || settingsDatas.Length == 0)
-			{
-				Debug.LogWarning($"{nameof(CSVIOSettingsData)}が見つかりませんでした");
-				return ScriptableObject.CreateInstance<CSVIOSettingsData>();
-			}
-			else
-			{
-				return settingsDatas[0];
-			}
-		}
-
-
-		enum ImportType
-		{
-			None,
-			New,
-			Change,
-			Override,
 		}
 
 		public static async UniTask ImportFlowchartCommandDataAsync(string importName, FlowchartType type)
@@ -165,12 +118,12 @@ namespace Novel.Editor
 			while(j < chartObjs.Count)
 			{
 				var executorObjectName = chartObjs[j].Name;
-				if (k * (settingsData.RowCountPerOne + 1) >= dataList[0].Length)
+				if (k * (settingsData.RowCount + 1) >= dataList[0].Length)
                 {
 					j++;
 					continue;
 				}
-				var csvExecutorName = dataList[0][k * (settingsData.RowCountPerOne + 1)];
+				var csvExecutorName = dataList[0][k * (settingsData.RowCount + 1)];
 				if (executorObjectName == csvExecutorName)
                 {
 					j++;
@@ -186,7 +139,7 @@ namespace Novel.Editor
 
 			for (int i = 0; i < chartObjs.Count; i++)
 			{
-				ImportByExecutor(chartObjs[i], dataList, i * (settingsData.RowCountPerOne + 1));
+				ImportByExecutor(chartObjs[i], dataList, i * (settingsData.RowCount + 1));
 
 				if (type == FlowchartType.Executor)
 				{
@@ -313,7 +266,7 @@ namespace Novel.Editor
 					CommandBase colomn_cmdBase = null;
 					var colomn_array = csvList[i];
 					// 列(縦)をスライド
-					for (int k = startX; k < settingsData.RowCountPerOne + startX; k++)
+					for (int k = startX; k < settingsData.RowCount + startX; k++)
 					{
 						// コマンドの名前を見る
 						if (k == startX)
@@ -391,12 +344,26 @@ namespace Novel.Editor
 			}
 		}
 
+		static CSVIOSettingsData GetSettingsData()
+		{
+			var settingsDatas = FlowchartEditorUtility.GetAllScriptableObjects<CSVIOSettingsData>();
+			if (settingsDatas == null || settingsDatas.Length == 0)
+			{
+				Debug.LogWarning($"{nameof(CSVIOSettingsData)}が見つかりませんでした");
+				return ScriptableObject.CreateInstance<CSVIOSettingsData>();
+			}
+			else
+			{
+				return settingsDatas[0];
+			}
+		}
+
 		static string GetCommandName(CommandBase commandBase)
 		{
 			if (commandBase == null) return "<Null>";
 			return commandBase.ToString()
-				.Replace("Novel.Command.", string.Empty)
-				.Replace("Command", string.Empty);
+				.Replace($"{nameof(Novel)}.{nameof(Command)}.", string.Empty)
+				.Replace($"{nameof(Command)}", string.Empty);
 		}
 
 		static Type GetTypeByClassName(string className)
@@ -414,19 +381,13 @@ namespace Novel.Editor
 
 		static List<IFlowchartObject> GetSortedFlowchartObjects(FlowchartType type, FindObjectsInactive findMode)
         {
-			return type switch
+			IFlowchartObject[] flowchartObjects = type switch
 			{
-				FlowchartType.Executor => Object.FindObjectsByType<FlowchartExecutor>(
-											findMode, FindObjectsSortMode.None)
-											.OrderBy(f => f.name)
-											.Select(f => f as IFlowchartObject)
-											.ToList(),
-				FlowchartType.Data => FlowchartEditorUtility.GetAllScriptableObjects<FlowchartData>()
-											.OrderBy(f => f.name)
-											.Select(f => f as IFlowchartObject)
-											.ToList(),
+				FlowchartType.Executor => Object.FindObjectsByType<FlowchartExecutor>(findMode, FindObjectsSortMode.None),
+				FlowchartType.Data => FlowchartEditorUtility.GetAllScriptableObjects<FlowchartData>(),
 				_ => throw new Exception(),
 			};
+			return flowchartObjects.OrderBy(f => f.Name).ToList();
 		}
 	}
 	
@@ -436,7 +397,21 @@ namespace Novel.Editor
         {
 			for(int i = 0; i < count; i++)
             {
-				sb.Append(string.Empty).Append(",");
+				sb.Append(",");
+			}
+			return sb;
+		}
+
+		public static StringBuilder AddCell(this StringBuilder sb, string content)
+		{
+			if (content != null && (content.Contains("\"") || content.Contains(",") || content.Contains("\n")))
+			{
+				content = content.Replace("\"", "\"\"");
+				sb.Append("\"").Append(content).Append("\"").Append(",");
+			}
+			else
+			{
+				sb.Append(content).Append(",");
 			}
 			return sb;
 		}

@@ -5,7 +5,7 @@ using System.Threading;
 
 namespace Novel
 {
-    public class MsgBoxInput : MonoBehaviour
+    public class MessageBoxInput : MonoBehaviour
     {
         [SerializeField] AudioClip inputSE;
         float onCancelKeyTime;

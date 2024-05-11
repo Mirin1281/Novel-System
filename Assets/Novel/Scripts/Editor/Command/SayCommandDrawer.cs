@@ -9,11 +9,19 @@ namespace Novel.Editor
     [CustomPropertyDrawer(typeof(SayCommand))]
     public class SayCommandDrawer : PropertyDrawer
     {
+        const int storyTextArea = 70;
+        const int buttonHeight = 30;
+
+        /// <summary>
+        /// SayAdvancedCommandDrawerでoverrideする
+        /// </summary>
+        protected virtual float DrawExtraContents(Rect position, SerializedProperty property, GUIContent label)
+            => position.y;
+
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
             position.y += GetHeight(10);
-            EditorGUI.BeginProperty(position, label, property);
-            
+
             CharacterData chara = FlowchartEditorUtility.DropDownCharacterList(position, property);
             position.y += GetHeight();
 
@@ -34,28 +42,23 @@ namespace Novel.Editor
                 }
                 position.y += GetHeight();
             }
-
             // テキストの設定 //
             var storyTextProp = property.FindPropertyRelative("storyText");
-            EditorGUI.PropertyField(GetRect(position, 70),
+            EditorGUI.PropertyField(GetRect(position, storyTextArea),
                 storyTextProp, new GUIContent("StoryText"));
-            position.y += GetHeight(70);
+            position.y += GetHeight(storyTextArea);
 
-            // ボックスフェード時間の設定 //
-            var boxShowTimeProp = property.FindPropertyRelative("boxShowTime");
-            EditorGUI.PropertyField(position, boxShowTimeProp, new GUIContent("BoxShowTime"));
-            position.y += GetHeight();
+            position.y = DrawExtraContents(position, property, label);
 
-            // フラグキーの設定 //
-            var flagKeysProp = property.FindPropertyRelative("flagKeys");
-            EditorGUI.PropertyField(position, flagKeysProp, new GUIContent("FlagKeys"));
-            position.y += GetArrayHeight(flagKeysProp);
+            DrawHelp(position, storyTextProp, chara);
+        }
 
-            GUILayout.Space(10);
-
-            if (GUI.Button(GetRect(position, 30), "テキストをプレビュー"))
+        protected void DrawHelp(Rect position, SerializedProperty textProp, CharacterData chara)
+        {
+            position.y += GetHeight(10);
+            if (GUI.Button(GetRect(position, buttonHeight), "テキストをプレビュー"))
             {
-                var text = storyTextProp.stringValue;
+                var text = textProp.stringValue;
                 var boxes = GameObject.FindObjectsByType<MessageBox>(FindObjectsInactive.Exclude, FindObjectsSortMode.None);
                 if (boxes == null || boxes.Length == 0)
                 {
@@ -79,7 +82,7 @@ namespace Novel.Editor
                     }
                 }
             }
-            position.y += GetHeight(30);
+            position.y += GetHeight(buttonHeight);
 
             var tooltipText =
                 "【タグについて】\n" +
@@ -93,7 +96,7 @@ namespace Novel.Editor
                 "　フラグの値を表示します\n" +
                 "　FlagKeysの配列の要素と対応しています\n\n" +
 
-                "◆<sp=2.5>オタクの早口</s>\n" +
+                "◆<s=2.5>オタクの早口</s>\n" +
                 "　表示スピードを数値倍します\n\n" +
 
                 "◆<w=1>\n" +
@@ -106,32 +109,9 @@ namespace Novel.Editor
                 "　入力があるまで待機し、\n" +
                 "　それまでの文を消してから次を表示します\n";
             EditorGUI.LabelField(position, new GUIContent("◆タグについて(ホバーで表示)", tooltipText));
-            EditorGUI.EndProperty();
         }
 
-        float GetHeight(float? height = null) => height ?? EditorGUIUtility.singleLineHeight;
-
-        float GetArrayHeight(SerializedProperty property)
-        {
-            if(property.isArray == false)
-            {
-                Debug.LogWarning("プロパティが配列ではありません！");
-                return EditorGUIUtility.singleLineHeight;
-            }
-            if(property.isExpanded == false)
-            {
-                return EditorGUIUtility.singleLineHeight * 1.5f;
-            }
-            int length = property.arraySize;
-            if (length is 0 or 1)
-            {
-                return EditorGUIUtility.singleLineHeight * 4f;
-            }
-            else
-            {
-                return (length + 3) * EditorGUIUtility.singleLineHeight;
-            }
-        }
+        protected float GetHeight(float? height = null) => height ?? EditorGUIUtility.singleLineHeight;
 
         Rect GetRect(Rect rect, float? height = null) =>
             new Rect(

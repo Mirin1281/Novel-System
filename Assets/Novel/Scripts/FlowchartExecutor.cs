@@ -24,8 +24,8 @@ namespace Novel
 
     public interface IFlowchartObject
     {
-        public string Name { get; }
-        public Flowchart Flowchart { get; }
-        public UniTask ExecuteAsync(int index = 0, FlowchartCallStatus callStatus = null);
+        string Name { get; }
+        Flowchart Flowchart { get; }
+        UniTask ExecuteAsync(int index = 0, FlowchartCallStatus callStatus = null);
     }
 }

@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using Cysharp.Threading.Tasks;
-using System.Linq;
 
 namespace Novel.Command
 {
@@ -16,21 +15,16 @@ namespace Novel.Command
         [SerializeField, TextArea]
         string storyText;
 
-        [SerializeField]
-        float boxShowTime;
-
-        [SerializeField, Tooltip(
-            "\"<flag0>万円\"のように書くことで、文の中にフラグの値を入れ込むことができます\n" +
-            "(FlagKeyの型はint型以外でもかまいません)")]
-        FlagKeyDataBase[] flagKeys;
-
         // キャラクターが設定されない時に使われるメッセージボックスのタイプ
         const BoxType DefaultType = BoxType.Default;
 
         protected override async UniTask EnterAsync()
         {
-            var convertedText = ReplaceFlagValue(storyText, flagKeys);
+            await SayAsync(storyText);
+        }
 
+        protected virtual async UniTask SayAsync(string text, string characterName = null, float boxShowTime = 0f)
+        {
             // 立ち絵の変更 
             // 表示とかはPortraitでやって、こっちはチェンジだけって感じ
             if (changeSprite != null && character != null)
@@ -46,32 +40,15 @@ namespace Novel.Command
             BoxType boxType = character == null ? DefaultType : character.BoxType;
             MessageBoxManager.Instance.OtherClearFadeAsync(boxType, 0f).Forget();
             var msgBox = MessageBoxManager.Instance.CreateIfNotingBox(boxType);
-            if(msgBox.gameObject.activeInHierarchy == false)
+            if (msgBox.gameObject.activeInHierarchy == false)
             {
                 await msgBox.ShowFadeAsync(boxShowTime, CallStatus.Token);
             }
-            await msgBox.Writer.WriteAsync(character, convertedText, CallStatus.Token);
+            var charaName = string.IsNullOrEmpty(characterName) ? 
+                character.CharacterName :
+                characterName;
+            await msgBox.Writer.WriteAsync(character, charaName, text, CallStatus.Token);
             await msgBox.Input.WaitInput(token: CallStatus.Token);
-        }
-
-        /// <summary>
-        /// "<flag0>"などの部分をそこに対応する変数値に置き換えます
-        /// </summary>
-        string ReplaceFlagValue(string fullText, FlagKeyDataBase[] flagKeys)
-        {
-            for (int i = 0; i < flagKeys.Length; i++)
-            {
-                if (fullText.Contains($"<flag{i}>"))
-                {
-                    fullText = fullText.Replace($"<flag{i}>",
-                        FlagManager.GetFlagValueString(flagKeys[i]).valueStr);
-                }
-                else
-                {
-                    Debug.LogWarning($"<flag{i}>がなかったよ");
-                }
-            }
-            return fullText;
         }
 
         #region For EditorWindow

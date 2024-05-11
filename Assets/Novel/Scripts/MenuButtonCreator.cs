@@ -25,15 +25,11 @@ namespace Novel
 
         public IReadOnlyList<MenuButton> CreateShowButtons(params string[] texts)
         {
-            int currentCount = 0;
             if (createButtons == null)
             {
                 createButtons = new();
             }
-            else
-            {
-                currentCount = createButtons.Count;
-            }
+            int currentCount = createButtons.Count;
 
             int createCount = texts.Length;
             if (createCount == currentCount) // 今ある子にいるボタンと必要なボタンの数が同じとき
@@ -58,10 +54,10 @@ namespace Novel
             else
             {
                 var buttons = new List<MenuButton>(createCount);
-                for (int i = 0; i < createCount; i++)
+                foreach(var button in createButtons)
                 {
-                    buttons.Add(createButtons[i]);
-                    createButtons[i].ShowFadeAsync(0f).Forget();
+                    buttons.Add(button);
+                    button.ShowFadeAsync(0f).Forget();
                 }
                 AllShowFadeAsync(buttons, 0f).Forget();
                 SetNames(buttons, texts);

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3834b961353a93d4d8fe9288be68374b, type: 3}
   m_Name: Kouno
   m_EditorClassIdentifier: 
-  <CharacterName>k__BackingField: "\u6CB3\u91CE\u4FEE\u4E8C"
+  characterName: "\u6CB3\u91CE\u4FEE\u4E8C"
   <NameColor>k__BackingField: {r: 0.745283, g: 0.3543725, b: 0.27772337, a: 1}
   <BoxType>k__BackingField: 2
   <PortraitType>k__BackingField: 2

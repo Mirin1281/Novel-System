@@ -30,6 +30,7 @@ namespace Novel
 
         int callIndex;
 
+        // コマンド内で呼ばれた際は抜ける際にindexを+1するので、その分予め引いておく
         public void SetIndex(int index, bool calledInCommand)
         {
             if(calledInCommand)
@@ -50,9 +51,8 @@ namespace Novel
         public async UniTask ExecuteAsync(int index, FlowchartCallStatus callStatus)
         {
             SetIndex(index, false);
-            if (isCheckZone) ApplyZone(callIndex);
-
-            var status = SetStatus(callStatus);
+            if (isCheckZone) ApplyZone(commandDataList, callIndex);
+            var status = SetStatus(callStatus, ref cts);
 
             while (commandDataList.Count > callIndex && isStopped == false)
             {
@@ -60,6 +60,7 @@ namespace Novel
                 await cmdData.ExecuteAsync(this, status);
                 callIndex++;
             }
+
             bool isEndClearUI = isStopped == false && status.IsNestCalled == false;
             if (isEndClearUI)
             {
@@ -70,8 +71,8 @@ namespace Novel
 
 
             // 呼び出し時のインデックスを見て、それよりも上に存在する
-            // IZoneCommandのついたコマンドを発火します
-            void ApplyZone(int currentIndex)
+            // IZoneCommandのついたコマンドを発火します(詳しくはIZoneCommand参照)
+            static void ApplyZone(IList<CommandData> commandDataList, int currentIndex)
             {
                 for (int i = 0; i < commandDataList.Count; i++)
                 {
@@ -87,7 +88,7 @@ namespace Novel
 
             // FlowchartCallStatusをctsに反映します。
             // statusがnullだった場合は初期化をします
-            FlowchartCallStatus SetStatus(FlowchartCallStatus callStatus)
+            static FlowchartCallStatus SetStatus(FlowchartCallStatus callStatus, ref CancellationTokenSource cts)
             {
                 if (callStatus == null)
                 {

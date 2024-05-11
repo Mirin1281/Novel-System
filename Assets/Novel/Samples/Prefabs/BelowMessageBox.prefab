@@ -8,6 +8,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 40201647590404662, guid: d61be9789ac52e4438457865ed8aa12a, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 70ec4c822d195f042aa249cc7c48faf4, type: 2}
+    - target: {fileID: 40201647590404662, guid: d61be9789ac52e4438457865ed8aa12a, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: -4499502242528382866, guid: 70ec4c822d195f042aa249cc7c48faf4, type: 2}
+    - target: {fileID: 40201647590404662, guid: d61be9789ac52e4438457865ed8aa12a, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 758287790021543516, guid: d61be9789ac52e4438457865ed8aa12a, type: 3}
       propertyPath: m_text
       value: "\u771F\u767D\u30CE\u30D9\u30EB"
@@ -130,7 +142,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7776359622832343048, guid: d61be9789ac52e4438457865ed8aa12a, type: 3}
       propertyPath: m_Name
-      value: BelowMessageBox Variant
+      value: BelowMessageBox
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

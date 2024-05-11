@@ -13,6 +13,10 @@ namespace Novel
         {
             logList.Add((character.CharacterName, text));
         }
+        public static void AddLog(string nameText, string text)
+        {
+            logList.Add((nameText, text));
+        }
 
         public static List<(string, string)> GetLog() => logList;
         public static void SetLog(List<(string, string)> list) => logList = list;

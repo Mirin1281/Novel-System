@@ -66,9 +66,10 @@ namespace Novel.Command
                 .Replace(nameof(Command), string.Empty);
 
         /// <summary>
-        /// 警告文を返します(デフォルトは"Warning!!")
+        /// 警告文を色付きで返します(デフォルトは"Warning!!")
         /// </summary>
-        protected string WarningText(string text = "Warning!!") => text;
+        protected string WarningText(string text = "Warning!!")
+            => $"<color=#dc143c>{text}</color>";
 
 #if UNITY_EDITOR
         public void SetFlowchart(Flowchart f) => ParentFlowchart = f;

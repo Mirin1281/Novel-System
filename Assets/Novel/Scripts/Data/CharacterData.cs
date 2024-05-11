@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using System.Text.RegularExpressions;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -13,12 +14,26 @@ namespace Novel
     ]
     public class CharacterData : ScriptableObject
     {
-        [field: SerializeField] public string CharacterName { get; private set; }
+        [SerializeField] string characterName;
+        /// <summary>
+        /// ルビは消去されます(ルビが欲しい場合はNameIncludeRubyを使う)
+        /// </summary>
+        public string CharacterName => RemoveRubyText(characterName);
+        public string NameIncludeRuby => characterName;
+
         [field: SerializeField] public Color NameColor { get; private set; } = Color.white;
         [field: SerializeField] public BoxType BoxType { get; private set; }
         [field: SerializeField] public PortraitType PortraitType { get; private set; }
         [SerializeField] Sprite[] portraits;
         public IEnumerable<Sprite> Portraits => portraits;
+
+        string RemoveRubyText(string text)
+        {
+            string regexString = @"\<r=.*?\>";
+            text = Regex.Replace(text, regexString, string.Empty);
+            text = text.Replace("</r>", string.Empty);
+            return text;
+        }
 
         /// <summary>
         /// エディタ用

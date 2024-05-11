@@ -7,12 +7,11 @@ namespace Novel
     {
         [SerializeField] BoxType type;
         [SerializeField] CanvasGroup canvasGroup;
-        [SerializeField] Image boxImage;
         [SerializeField] Writer writer;
-        [SerializeField] MsgBoxInput input;
+        [SerializeField] MessageBoxInput input;
 
         public Writer Writer => writer; 
-        public MsgBoxInput Input => input;
+        public MessageBoxInput Input => input;
 
         public bool IsMeetType(BoxType type) => this.type == type;
 
