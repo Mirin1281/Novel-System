@@ -48,7 +48,7 @@ namespace Novel
         /// </summary>
         /// <param name="index">リストの何番目から発火するか</param>
         /// <param name="callStatus">他のフローチャートから呼び出された時に渡される情報</param>
-        public async UniTask ExecuteAsync(int index, FlowchartCallStatus callStatus)
+        public async UniTask ExecuteAsync(int index, FlowchartCallStatus callStatus = null)
         {
             SetIndex(index, false);
             if (isCheckZone) ApplyZone(commandDataList, callIndex);

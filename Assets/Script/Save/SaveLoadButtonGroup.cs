@@ -13,7 +13,9 @@ public enum SaveLoadType
 public class SaveLoadButtonGroup : MonoBehaviour
 {
     [SerializeField] Canvas canvas;
+    [SerializeField] AudioSource audioSource;
     [SerializeField] AudioClip selectSE;
+    [SerializeField] float seVolume = 1f;
     SaveLoadButton[] buttons;
     bool isFirstShow = true;
 
@@ -42,7 +44,7 @@ public class SaveLoadButtonGroup : MonoBehaviour
         canvas.gameObject.SetActive(false);
         if (selectSE != null)
         {
-            SEManager.Instance.PlaySE(selectSE);
+            audioSource.PlayOneShot(selectSE, seVolume);
         }
 
         if(type == SaveLoadType.Save)

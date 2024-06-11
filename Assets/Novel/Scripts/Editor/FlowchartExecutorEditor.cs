@@ -61,9 +61,9 @@ namespace Novel.Editor
                 "インポートすると、出力した形式でデータを取り込むことができます\n" +
                 "Excelでのデータ形式に準じていますので、そのまま扱えます\n" +
                 "\n" +
-                "出力するデータや入力するデータを設定したい場合は、CommandBase内のCSVContent1やCSVContent2プロパティを派生コマンド内にオーバーライドしてください。ゲッターとセッターは相互変換を推奨します\n" +
+                "出力するデータや入力するデータを設定したい場合は、CommandBase内のCSVContent1やCSVContent2プロパティを派生コマンド内にオーバーライドしてください。ゲッターとセッターは相互変換できるようにしてください\n" +
                 "\n" +
-                "また、縦の列のコマンドを自由に増やすこともできます。コマンドを自作する場合、クラス名を\"～Command\"としてください\n" +
+                "また、縦の列のコマンドを自由に増やすこともできます\n" +
                 "すでにあるコマンドをCSVから消す機能は実装していません。とりあえず無効にしたい場合は\"<Null>\"または単に\"Null\"を入れてください\n" +
                 "\n" +
                 "注意点として、ファイル名は変更してもかまいませんが、CSV内の1行目と2行目のデータは基本的に変えないでください"
@@ -75,15 +75,11 @@ namespace Novel.Editor
             {
                 if (GUILayout.Button("CSV形式でエクスポートする"))
                 {
-                    var sceneName = SceneManager.GetActiveScene().name;
-                    FlowchartCSVIO.ExportFlowchartCommandDataAsync(
-                        sceneName, FlowchartCSVIO.FlowchartType.Executor).Forget();
+                    FlowchartCSVIO.ExportFlowchartCommandDataAsync(FlowchartCSVIO.FlowchartType.Executor).Forget();
                 }
                 if (GUILayout.Button("CSVをインポートする"))
                 {
-                    var sceneName = SceneManager.GetActiveScene().name;
-                    FlowchartCSVIO.ImportFlowchartCommandDataAsync(
-                        sceneName, FlowchartCSVIO.FlowchartType.Executor).Forget();
+                    FlowchartCSVIO.ImportFlowchartCommandDataAsync(FlowchartCSVIO.FlowchartType.Executor).Forget();
                 }
             }
         }

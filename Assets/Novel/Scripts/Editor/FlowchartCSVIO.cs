@@ -9,6 +9,7 @@ using UnityEditor;
 using UnityEngine;
 using Object = UnityEngine.Object;
 using Cysharp.Threading.Tasks;
+using UnityEngine.SceneManagement;
 
 namespace Novel.Editor
 {
@@ -21,14 +22,16 @@ namespace Novel.Editor
 			Data,
         }
 
-		public static async UniTask ExportFlowchartCommandDataAsync(string exportName, FlowchartType type)
+		public static async UniTask ExportFlowchartCommandDataAsync(FlowchartType type)
         {
 			await UniTask.Yield();
 
 			CSVIOSettingsData settingsData = GetSettingsData();
+			var exportName = GetIOName(type);
 			var sheetName = FlowchartEditorUtility.GetFileName(
 				settingsData.CSVFolderPath, $"{exportName}_{settingsData.ExportFileName}", "csv");
-			StreamWriter sw = new($"{settingsData.CSVFolderPath}/{sheetName}", false, Encoding.GetEncoding("shift_jis"));
+			StreamWriter sw = new StreamWriter($"{settingsData.CSVFolderPath}/{sheetName}",
+				false, Encoding.GetEncoding("shift_jis"));
 
 			try
             {
@@ -36,20 +39,27 @@ namespace Novel.Editor
 				sw.Write("Name:,");
 				sw.WriteLine($"{exportName},");
 
+				// 2行目は空白
+				sw.WriteLine();
+
 				List<IFlowchartObject> chartObjs = GetSortedFlowchartObjects(type, settingsData.FlowchartFindMode);
 				int maxFlowchartsCmdIndex = chartObjs.Max(f => f.Flowchart.GetReadOnlyCommandDataList().Count);
 
-				// 2行目は各フローチャートの名前とディスクリプション
+				// 3行目は各フローチャートの名前とディスクリプション
 				var sb = new StringBuilder();
 				foreach (var chart in chartObjs)
                 {
 					sb.AddCell(chart.Name)
 						.AddCell(chart.Flowchart.Description)
-						.Skip(settingsData.RowCount - 1);
+						.Skip(settingsData.RowCount - 2);
 				}
 				sw.WriteLine(sb.ToString());
 				sb.Clear();
 
+				// 3行目は空白
+				sw.WriteLine();
+
+				// 4行目以降はコマンドデータ
 				for (int i = 0; i < maxFlowchartsCmdIndex; i++)
 				{
 					foreach (var chart in chartObjs)
@@ -57,7 +67,7 @@ namespace Novel.Editor
 						var list = chart.Flowchart.GetReadOnlyCommandDataList();
 						if (i >= list.Count)
                         {
-							sb.Skip(settingsData.RowCount + 1);
+							sb.Skip(settingsData.RowCount);
 							continue;
 						}
 						var cmdBase = list[i].GetCommandBase();
@@ -73,7 +83,7 @@ namespace Novel.Editor
 						var content2 = cmdBase?.CSVContent2;
 						sb.AddCell(content2);
 
-						sb.Skip(settingsData.RowCount - 2);
+						sb.Skip(settingsData.RowCount - 3);
 					}
 
 					sw.WriteLine(sb.ToString());
@@ -93,57 +103,41 @@ namespace Novel.Editor
 			}
 		}
 
-		public static async UniTask ImportFlowchartCommandDataAsync(string importName, FlowchartType type)
+		public static async UniTask ImportFlowchartCommandDataAsync(FlowchartType type)
 		{
 			await UniTask.Yield();
 			CSVIOSettingsData settingsData = GetSettingsData();
 			var dataList = LoadCSV();
 			if (dataList == null) return;
 
-			// 名前のチェック
+			// 名前のチェック 
+			var importName = GetIOName(type);
 			var csvName = dataList[0][1];
 			if (importName != csvName)
 			{
-				Debug.LogError("名前が一致しません！\n" +
-					$"現在の名前: {importName}, CSVの名前: {csvName}");
+				Debug.LogError("名前が一致しません！");
+				Debug.LogError($"現在の名前: {importName}, CSVの名前: {csvName}");
 				return;
 			}
 			dataList.RemoveAt(0); // もういらないのでこの行は削除する
+			dataList.RemoveAt(1); // もういらないので次の行も削除する
 
 			var chartObjs = GetSortedFlowchartObjects(type, settingsData.FlowchartFindMode);
 
-			// フローチャート名のチェック
-			int j = 0;
-			int k = 0;
-			while(j < chartObjs.Count)
-			{
-				var executorObjectName = chartObjs[j].Name;
-				if (k * (settingsData.RowCount + 1) >= dataList[0].Length)
-                {
-					j++;
-					continue;
-				}
-				var csvExecutorName = dataList[0][k * (settingsData.RowCount + 1)];
-				if (executorObjectName == csvExecutorName)
-                {
-					j++;
-					k++;
-                }
-				else
-				{
-					chartObjs.Remove(chartObjs[j]);
-					k++;
-				}
-			}
-			dataList.RemoveAt(0);
+			var dataFlowchartCount = Mathf.RoundToInt((dataList[0].Length + 1) / settingsData.RowCount);
+			for (int i = 0; i < dataFlowchartCount; i++)
+            {
+				var startX = i * settingsData.RowCount;
+				var csvExecutorName = dataList[0][startX];
+				var meetFlowchart = chartObjs.Where(flowchart => flowchart.Name == csvExecutorName).FirstOrDefault();
+				if (meetFlowchart == null) continue;
 
-			for (int i = 0; i < chartObjs.Count; i++)
-			{
-				ImportByExecutor(chartObjs[i], dataList, i * (settingsData.RowCount + 1));
+				Import(meetFlowchart, dataList, startX);
 
+				// セーブ
 				if (type == FlowchartType.Executor)
 				{
-					var chartExecutor = chartObjs[i] as FlowchartExecutor;
+					var chartExecutor = meetFlowchart as FlowchartExecutor;
 					foreach (var cmdData in chartExecutor.Flowchart.GetCommandDataList())
 					{
 						EditorUtility.SetDirty(cmdData);
@@ -151,18 +145,16 @@ namespace Novel.Editor
 					EditorUtility.SetDirty(chartExecutor);
 				}
 				else if (type == FlowchartType.Data)
-                {
-					var chartData = chartObjs[i] as FlowchartData;
+				{
+					var chartData = meetFlowchart as FlowchartData;
 					foreach (var cmdData in chartData.Flowchart.GetCommandDataList())
-                    {
+					{
 						EditorUtility.SetDirty(cmdData);
 					}
 					EditorUtility.SetDirty(chartData);
 				}
-				
 				AssetDatabase.SaveAssets();
 			}
-			
 			Debug.Log("<color=lightblue>CSVを読み込みました！</color>");
 
 
@@ -249,7 +241,7 @@ namespace Novel.Editor
 					static string to_str(StringBuilder p_str)
 					{
 						string l_val = p_str.ToString().Replace("\"\"", "\"");
-						int l_start = (l_val.StartsWith("\"")) ? 1 : 0;
+						int l_start = l_val.StartsWith("\"") ? 1 : 0;
 						int l_end = l_val.EndsWith("\"") ? 1 : 0;
 						return l_val.Substring(l_start, l_val.Length - l_start - l_end);
 					}
@@ -257,22 +249,25 @@ namespace Novel.Editor
 			}
 
 			// CSVの各情報をフローチャートに反映します
-			void ImportByExecutor(IFlowchartObject chart, List<string[]> csvList, int startX)
+			void Import(IFlowchartObject chart, List<string[]> csvList, int startX)
 			{
-				var columnCount = csvList.Count;
+				var copiedCsvList = new List<string[]>(csvList);
+				copiedCsvList.RemoveAt(0);
+				copiedCsvList.RemoveAt(1);
+				var columnCount = copiedCsvList.Count;
 				// 行(横)をスライド
 				for (int i = 0; i < columnCount; i++)
 				{
 					CommandBase colomn_cmdBase = null;
-					var colomn_array = csvList[i];
+					var colomn_array = copiedCsvList[i];
 					// 列(縦)をスライド
-					for (int k = startX; k < settingsData.RowCount + startX; k++)
+					for (int k = startX; k < startX + settingsData.RowCount; k++)
 					{
 						// コマンドの名前を見る
 						if (k == startX)
 						{
-							var cellName = colomn_array[k];
-							bool existCell = string.IsNullOrEmpty(cellName) == false;
+							string cellName = colomn_array[k];
+							bool notExistCell = string.IsNullOrEmpty(cellName);
 							
 							var list = chart.Flowchart.GetCommandDataList();
 							if (list == null) list = new();
@@ -280,7 +275,7 @@ namespace Novel.Editor
 							// CSVにコマンドがあるのにフローチャートにはない場合、名前から新しくつくる
 							if (i >= list.Count)
 							{
-								if (existCell == false) break;
+								if (notExistCell) break;
 								var newCmdData = type switch
 								{
 									FlowchartType.Executor => ScriptableObject.CreateInstance<CommandData>(),
@@ -290,12 +285,12 @@ namespace Novel.Editor
 								};
 								if (cellName is not ("<Null>" or "Null"))
 								{
-									Type type = GetTypeByClassName($"{cellName}Command");
+									Type type = GetTypeByClassName(cellName);
 									if (type == null) break;
 									newCmdData.SetCommand(type);
 									colomn_cmdBase = newCmdData.GetCommandBase();
 								}
-								list.Insert(i, newCmdData);
+								list.Add(newCmdData);
 							}
 							else // コマンドがある場合、名前が一致してるか調べる
 							{
@@ -318,9 +313,9 @@ namespace Novel.Editor
 									break;
 								}
 
-								if (existCell && cellName is not ("<Null>" or "Null"))
+								if (notExistCell == false && cellName is not ("<Null>" or "Null"))
                                 {
-									Type type = GetTypeByClassName($"{cellName}Command");
+									Type type = GetTypeByClassName(cellName);
 									if (type == null) break;
 									cmdData.SetCommand(type);
 									colomn_cmdBase = cmdData.GetCommandBase();
@@ -344,17 +339,27 @@ namespace Novel.Editor
 			}
 		}
 
+		static string GetIOName(FlowchartType type)
+        {
+			return type switch
+			{
+				FlowchartType.Executor => SceneManager.GetActiveScene().name,
+				FlowchartType.Data => "ScriptableObjects",
+				_ => throw new Exception()
+			};
+		}
+
 		static CSVIOSettingsData GetSettingsData()
 		{
-			var settingsDatas = FlowchartEditorUtility.GetAllScriptableObjects<CSVIOSettingsData>();
-			if (settingsDatas == null || settingsDatas.Length == 0)
+			var settingsData = FlowchartEditorUtility.GetAllScriptableObjects<CSVIOSettingsData>().FirstOrDefault();
+			if (settingsData == null)
 			{
 				Debug.LogWarning($"{nameof(CSVIOSettingsData)}が見つかりませんでした");
-				return ScriptableObject.CreateInstance<CSVIOSettingsData>();
+				throw new FileNotFoundException();
 			}
 			else
 			{
-				return settingsDatas[0];
+				return settingsData;
 			}
 		}
 
@@ -362,20 +367,28 @@ namespace Novel.Editor
 		{
 			if (commandBase == null) return "<Null>";
 			return commandBase.ToString()
-				.Replace($"{nameof(Novel)}.{nameof(Command)}.", string.Empty)
-				.Replace($"{nameof(Command)}", string.Empty);
+				.Replace($"{nameof(Novel)}.{nameof(Command)}.", string.Empty);
 		}
 
 		static Type GetTypeByClassName(string className)
 		{
 			foreach (Assembly assembly in AppDomain.CurrentDomain.GetAssemblies())
 			{
-				foreach (var type in assembly.GetTypes())
+				/*var assemblyName = assembly.GetName().Name;
+				if (assemblyName.Contains("Unity") ||
+					assemblyName.Contains("System") ||
+					assemblyName.Contains("CSharp")) continue;*/
+				foreach (Type type in assembly.GetTypes())
 				{
-					if (type.Name == className) return type;
+					if (type.Name == className && 
+						type.Namespace == "Novel.Command")
+					{
+						return type;
+					}
 				}
 			}
-			Debug.Log($"{className}クラスが見つかりませんでした！");
+			Debug.LogWarning($"{className}クラスが見つかりませんでした！\n" +
+				$"タイポもしくは{className}クラスが名前空間\"Novel.Command\"内に存在しない可能性があります");
 			return null;
 		}
 

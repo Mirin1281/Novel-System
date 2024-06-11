@@ -8,7 +8,8 @@ namespace Novel.Command
     public class CommandData : ScriptableObject
     {
         [field: SerializeField]
-        public bool Enabled { get; private set; } = true;
+        bool enabled = true;
+        public bool Enabled => enabled;
 
         [SerializeField, SerializeReference, SubclassSelector]
         ICommand command;

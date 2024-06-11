@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 namespace Novel
@@ -7,18 +8,31 @@ namespace Novel
     /// </summary>
     public static class SayLogger
     {
-        static List<(string, string)> logList = new();
+        static List<Log> logList = new();
 
         public static void AddLog(CharacterData character, string text)
         {
-            logList.Add((character.CharacterName, text));
+            logList.Add(new Log(character.NameIncludeRuby, text));
         }
         public static void AddLog(string nameText, string text)
         {
-            logList.Add((nameText, text));
+            logList.Add(new Log(nameText, text));
         }
 
-        public static List<(string, string)> GetLog() => logList;
-        public static void SetLog(List<(string, string)> list) => logList = list;
+        public static List<Log> GetLogList() => logList;
+        public static void SetLog(List<Log> list) => logList = list;
+    }
+
+    [Serializable]
+    public readonly struct Log
+    {
+        public readonly string Name;
+        public readonly string Text;
+
+        public Log(string name, string text)
+        {
+            Name = name;
+            Text = text;
+        }
     }
 }

@@ -61,9 +61,10 @@ namespace Novel.Command
         /// コマンド名を取得します
         /// </summary>
         protected string GetName(CommandBase commandBase)
-            => commandBase.ToString()
-                .Replace($"{nameof(Novel)}.{nameof(Command)}.", string.Empty)
-                .Replace(nameof(Command), string.Empty);
+        {
+            var tmpArray = commandBase.ToString().Split('.');
+            return tmpArray[tmpArray.Length - 1];
+        }
 
         /// <summary>
         /// 警告文を色付きで返します(デフォルトは"Warning!!")

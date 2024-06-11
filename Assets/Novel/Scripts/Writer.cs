@@ -6,7 +6,6 @@ using System.Threading;
 using System.Collections.Generic;
 using TagType = Novel.TagUtility.TagType;
 using TagData = Novel.TagUtility.TagData;
-using System.Text.RegularExpressions;
 
 namespace Novel
 {
@@ -21,6 +20,10 @@ namespace Novel
 
         void Awake()
         {
+            if(input == null)
+            {
+                GetComponent<MessageBoxInput>();
+            }
             nameTmpro.SetText(string.Empty);
             storyTmpro.SetUneditedText(string.Empty);
             input.OnInputed += SkipTextIfValid;
@@ -30,26 +33,28 @@ namespace Novel
         {
             input.OnInputed -= SkipTextIfValid;
         }
-
-        public async UniTask WriteAsync(
-            CharacterData character, string fullText, CancellationToken token, bool wholeShow = false)
-        {
-            await WriteAsync(character, character.CharacterName, fullText, token, wholeShow);
-        }
         public async UniTask WriteAsync(
             CharacterData character, string nameText, string fullText, CancellationToken token, bool wholeShow = false)
         {
-            SetName(character, nameText);
+            nameText = string.IsNullOrEmpty(nameText) ? character?.NameIncludeRuby : nameText;
+            var nameColor = character == null ? Color.white : character.NameColor;
+
+            if (NovelManager.Instance != null && NovelManager.Instance.IsUseRuby == false)
+            {
+                nameText = TagUtility.RemoveRubyText(nameText);
+            }
+            SetName(nameColor, nameText);
+
             if(NovelManager.Instance.IsUseRuby == false)
             {
-                fullText = RemoveRubyText(fullText);
+                fullText = TagUtility.RemoveRubyText(fullText);
             }
             var (richText, tagDataList) = TagUtility.ExtractMyTag(fullText);
             isSkipped = false;
             //tagDataList.ForEach(data => data.ShowTagStatus()); // デバッグ用
             timePer100Charas = wholeShow ? 0 : DefaultSpeed;
             await WriteStoryTextAsync(richText, tagDataList, token);
-            SayLogger.AddLog(character.CharacterName, richText);
+            SayLogger.AddLog(nameText, richText);
 
 
             async UniTask WriteStoryTextAsync(string richText, List<TagData> tagDataList, CancellationToken token)
@@ -103,19 +108,19 @@ namespace Novel
                     {
                         if (isSkipped == false)
                         {
-                            timePer100Charas /= tag.Value;
+                            timePer100Charas = wholeShow ? 0 : timePer100Charas / tag.Value;
                         }
                     }
                     else if (type == TagType.SpeedEnd)
                     {
                         if (isSkipped == false)
                         {
-                            timePer100Charas = DefaultSpeed;
+                            timePer100Charas = wholeShow ? 0 : DefaultSpeed;
                         }
                     }
                     else if (type == TagType.WaitSeconds)
                     {
-                        await WaitSecondsSkippable(tag.Value);
+                        await WaitSecondsSkippable(wholeShow ? 0 : tag.Value);
                     }
                     else if (type == TagType.WaitInput)
                     {
@@ -165,7 +170,7 @@ namespace Novel
                 {
                     await input.WaitInput(() =>
                     {
-                        timePer100Charas = DefaultSpeed;
+                        timePer100Charas = wholeShow ? 0 : DefaultSpeed;
                         isSkipped = false;
                     },
                     token);
@@ -173,30 +178,10 @@ namespace Novel
             }
         }
 
-        string RemoveRubyText(string text)
+        void SetName(Color nameColor, string nameText)
         {
-            string regexString = @"\<r=.*?\>";
-            text = Regex.Replace(text, regexString, string.Empty);
-            text = text.Replace("</r>", string.Empty);
-            return text;
-        }
-
-        void SetName(CharacterData character, string nameText)
-        {
-            string name = null;
-            if (character != null)
-            {
-                nameTmpro.color = character.NameColor;
-                if (NovelManager.Instance != null && NovelManager.Instance.IsUseRuby == false)
-                {
-                    name = RemoveRubyText(nameText);
-                }
-                else
-                {
-                    name = nameText;
-                }
-            }
-            nameTmpro.SetUneditedText(name);
+            nameTmpro.color = nameColor;
+            nameTmpro.SetUneditedText(nameText);
         }
 
         void SkipTextIfValid()
@@ -206,11 +191,11 @@ namespace Novel
         }
 
 #if UNITY_EDITOR
-        public void PreviewText(CharacterData character, string text)
+        public void PreviewText(Color nameColor, string nameText, string text)
         {
             var richText = TagUtility.ExtractMyTag(text).convertedText;
             storyTmpro.SetUneditedText(richText);
-            SetName(character, character.NameIncludeRuby);
+            SetName(nameColor, nameText);
         }
 #endif
     }

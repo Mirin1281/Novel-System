@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Text.RegularExpressions;
 using UnityEditor;
 using UnityEditorInternal;
 using UnityEngine;
@@ -34,6 +33,8 @@ namespace Novel.Editor
 
         Vector2 listScrollPos;
         Vector2 commandScrollPos;
+
+        static readonly float SplitMenuRatio = 0.5f;
 
         void OnEnable()
         {
@@ -123,6 +124,10 @@ namespace Novel.Editor
             {
                 EditorUtility.SetDirty(activeFlowchartData);
             }
+            else if(activeMode == ActiveMode.Executor)
+            {
+                EditorUtility.SetDirty(activeExecutorObj);
+            }
         }
 
         void UpdateCommandList()
@@ -151,7 +156,11 @@ namespace Novel.Editor
             GenericMenu menu = new();
             if (Event.current.type == EventType.ContextClick && Event.current.button == 1)
             {
-                if(reorderableList.HasKeyboardControl())
+                var mousePos = Event.current.mousePosition;
+                var buttonRect = new Rect(0, 0, position.size.x * SplitMenuRatio, position.size.y);
+                if(buttonRect.Contains(mousePos) == false) return;
+
+                if (reorderableList.HasKeyboardControl())
                 {
                     menu.AddItem(new GUIContent("Add"), false, () =>
                     {
@@ -194,7 +203,7 @@ namespace Novel.Editor
             }
 
             using (GUILayout.ScrollViewScope scroll =
-                new(listScrollPos, EditorStyles.helpBox, GUILayout.Width(position.size.x / 2f)))
+                new(listScrollPos, EditorStyles.helpBox, GUILayout.Width(position.size.x * SplitMenuRatio)))
             {
                 listScrollPos = scroll.scrollPosition;
                 reorderableList.DoLayoutList();
@@ -209,7 +218,7 @@ namespace Novel.Editor
 
                 if (lastSelectedCommand == null) return;
 
-                UnityEditor.Editor.CreateEditor(lastSelectedCommand).DrawDefaultInspector();
+                UnityEditor.Editor.CreateEditor(lastSelectedCommand).OnInspectorGUI();
 
                 var infoText = lastSelectedCommand.GetCommandStatus().Info;
                 if (string.IsNullOrEmpty(infoText) == false)
@@ -357,25 +366,9 @@ namespace Novel.Editor
                 EditorGUI.LabelField(rect, $"<size=12>{cmdStatus.Name}</size>", style);
                 EditorGUI.LabelField(new Rect(
                     rect.x + 90, rect.y, rect.width, rect.height),
-                    $"<size=10>{RemoveSizeTag(cmdStatus.Summary)}</size>", style);
+                    $"<size=10>{TagUtility.RemoveSizeTag(cmdStatus.Summary)}</size>", style);
 
                 GUI.color = tmpColor;
-
-                static string RemoveSizeTag(string text)
-                {
-                    var matches = Regex.Matches(text, TagUtility.REGEX_STRING);
-                    if (matches.Count == 0) return text;
-                    var match = matches[0];
-                    while(match.Success)
-                    {
-                        if(match.Value == "</size>" || match.Value.StartsWith("<size="))
-                        {
-                            text = text.Replace(match.Value, string.Empty);
-                        }
-                        match = match.NextMatch();
-                    }
-                    return text;
-                }
             }
 
             void DrawElementBackground(Rect rect, int index, bool isActive, bool isFocused)

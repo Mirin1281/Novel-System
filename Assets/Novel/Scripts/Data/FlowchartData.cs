@@ -15,20 +15,24 @@ namespace Novel
 
         public string Name => name;
 
-        public async UniTask ExecuteAsync(int index = 0, FlowchartCallStatus callStatus = null)
+        public void Execute(int index = 0)
         {
-            await Flowchart.ExecuteAsync(index, callStatus);
+            Flowchart.ExecuteAsync(index).Forget();
+        }
+        public async UniTask ExecuteAsync(int index = 0)
+        {
+            await Flowchart.ExecuteAsync(index);
         }
 
 #if UNITY_EDITOR
         /// <summary>
-        /// リストの中にCommandDataがあるか調べます
+        /// リストの中に特定のCommandDataがあるか調べます
         /// </summary>
         public bool IsUsed(CommandData targetData)
         {
-            foreach(var cmd in Flowchart.GetReadOnlyCommandDataList())
+            foreach(var commandData in Flowchart.GetReadOnlyCommandDataList())
             {
-                if (cmd == targetData) return true;
+                if (commandData == targetData) return true;
             }
             return false;
         }

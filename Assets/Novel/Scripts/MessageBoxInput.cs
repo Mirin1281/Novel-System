@@ -5,13 +5,22 @@ using System.Threading;
 
 namespace Novel
 {
+    [RequireComponent(typeof(AudioSource))]
     public class MessageBoxInput : MonoBehaviour
     {
+        [SerializeField] AudioSource audioSource;
         [SerializeField] AudioClip inputSE;
-        float onCancelKeyTime;
         float seVolume;
 
         public event Action OnInputed;
+
+        void Awake()
+        {
+            if(audioSource == null)
+            {
+                audioSource.GetComponent<AudioSource>();
+            }
+        }
 
         void Update()
         {
@@ -22,15 +31,15 @@ namespace Novel
 
             if (Input.GetButton(ConstContainer.CANCEL_KEYNAME))
             {
-                onCancelKeyTime += Time.deltaTime;
+                NovelManager.Instance.CancelKeyDownTime += Time.deltaTime;
             }
             else
             {
-                onCancelKeyTime = 0f;
+                NovelManager.Instance.CancelKeyDownTime = 0f;
             }
 
             seVolume = 1f;
-            if (onCancelKeyTime > 0.7f)
+            if (NovelManager.Instance.CancelKeyDownTime > 0.7f)
             {
                 OnInputed?.Invoke();
                 seVolume = 0.2f;
@@ -63,7 +72,7 @@ namespace Novel
 
             if (inputSE != null)
             {
-                SEManager.Instance.PlaySE(inputSE, seVolume);
+                audioSource.PlayOneShot(inputSE, seVolume);
             }
             OnInputed -= () => clicked = true;
             if (action != null)

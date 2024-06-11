@@ -8,7 +8,18 @@ namespace Novel
     public class MenuManager : SingletonMonoBehaviour<MenuManager>
     {
         [SerializeField] MenuButtonCreator buttonCreator;
+        [SerializeField] AudioSource audioSource;
         [SerializeField] AudioClip selectSE;
+        [SerializeField] float seVolume = 1f;
+
+        protected override void Awake()
+        {
+            base.Awake();
+            if(audioSource == null)
+            {
+                audioSource = GetComponent<AudioSource>();
+            }
+        }
 
         /// <summary>
         /// ボタングループを表示して押されるまで待機します
@@ -31,7 +42,7 @@ namespace Novel
             buttonCreator.AllClearFadeAsync(0.1f, token).Forget();
             if(selectSE != null)
             {
-                SEManager.Instance.PlaySE(selectSE);
+                audioSource.PlayOneShot(selectSE, seVolume);
             }
             
             return clickIndex;
@@ -55,11 +66,11 @@ namespace Novel
             var se = ses[clickIndex];
             if (se != null)
             {
-                SEManager.Instance.PlaySE(se);
+                audioSource.PlayOneShot(se, seVolume);
             }
             else if (selectSE != null)
             {
-                SEManager.Instance.PlaySE(selectSE);
+                audioSource.PlayOneShot(selectSE, seVolume);
             }
             return clickIndex;
         }

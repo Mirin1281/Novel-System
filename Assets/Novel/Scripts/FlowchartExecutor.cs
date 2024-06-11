@@ -13,12 +13,16 @@ namespace Novel
 
         void Start()
         {
-            if (isStartExecute) ExecuteAsync().Forget();
+            if (isStartExecute) Execute();
         }
 
-        public async UniTask ExecuteAsync(int index = 0, FlowchartCallStatus callStatus = null)
+        public void Execute(int index = 0)
         {
-            await Flowchart.ExecuteAsync(index, callStatus);
+            Flowchart.ExecuteAsync(index).Forget();
+        }
+        public async UniTask ExecuteAsync(int index = 0)
+        {
+            await Flowchart.ExecuteAsync(index);
         }
     }
 
@@ -26,6 +30,6 @@ namespace Novel
     {
         string Name { get; }
         Flowchart Flowchart { get; }
-        UniTask ExecuteAsync(int index = 0, FlowchartCallStatus callStatus = null);
+        UniTask ExecuteAsync(int index = 0);
     }
 }

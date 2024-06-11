@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3834b961353a93d4d8fe9288be68374b, type: 3}
   m_Name: Masiro
   m_EditorClassIdentifier: 
-  characterName: "<r=\u307E\u3057\u308D>\u771F\u767D</r>\u30CE\u30D9\u30EB"
+  characterName: "\u771F\u767D\u30CE\u30D9\u30EB"
   <NameColor>k__BackingField: {r: 0.15819688, g: 0.745283, b: 0.73565865, a: 1}
   <BoxType>k__BackingField: 1
   <PortraitType>k__BackingField: 1

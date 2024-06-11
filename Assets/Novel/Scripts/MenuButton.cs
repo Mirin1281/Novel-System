@@ -6,11 +6,13 @@ using System.Threading;
 
 namespace Novel
 {
+    [RequireComponent(typeof(Image), typeof(Button))]
     public class MenuButton : FadableMonoBehaviour
     {
         [SerializeField] Image image;
-        [SerializeField] TMP_Text tmpro;
         [SerializeField] Button button;
+        [SerializeField] TMP_Text tmpro;
+        
         public UniTask OnClickAsync(CancellationToken token) => button.OnClickAsync(token);
 
         public void SetText(string s)
@@ -23,6 +25,18 @@ namespace Novel
         protected override void SetAlpha(float a)
         {
             image.SetAlpha(a);
+        }
+
+        void Awake()
+        {
+            if(image == null)
+            {
+                image = GetComponent<Image>();
+            }
+            if (button == null)
+            {
+                button = GetComponent<Button>();
+            }
         }
     }
 }

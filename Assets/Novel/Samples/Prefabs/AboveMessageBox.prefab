@@ -148,6 +148,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: AboveMessageBox
       objectReference: {fileID: 0}
+    - target: {fileID: 8917495195089842385, guid: d61be9789ac52e4438457865ed8aa12a, type: 3}
+      propertyPath: inputSE
+      value: 
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

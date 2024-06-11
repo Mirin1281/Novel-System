@@ -7,7 +7,7 @@ namespace Novel
 {
     public static class TagUtility
     {
-        public const string REGEX_STRING = @"\<.*?\>";
+        const string RegexString = @"\<.*?\>";
 
         // 【タグの増やし方】
         // 1. TagTypeの項目を増やす
@@ -53,6 +53,30 @@ namespace Novel
             }
         }
 
+        public static string RemoveRubyText(string text)
+        {
+            string regexString = @"\<r=.*?\>";
+            text = Regex.Replace(text, regexString, string.Empty);
+            text = text.Replace("</r>", string.Empty);
+            return text;
+        }
+
+        public static string RemoveSizeTag(string text)
+        {
+            var matches = Regex.Matches(text, RegexString);
+            if (matches.Count == 0) return text;
+            var match = matches[0];
+            while (match.Success)
+            {
+                if (match.Value == "</size>" || match.Value.StartsWith("<size="))
+                {
+                    text = text.Replace(match.Value, string.Empty);
+                }
+                match = match.NextMatch();
+            }
+            return text;
+        }
+
         /// <summary>
         /// テキストからタグを抽出します
         /// </summary>
@@ -60,7 +84,7 @@ namespace Novel
         /// <returns>(タグを取り除いたテキスト, TagDataの配列)</returns>
         public static (string convertedText, List<TagData> tagDataList) ExtractMyTag(string text)
         {
-            var regex = new Regex(REGEX_STRING);
+            var regex = new Regex(RegexString);
             var matches = regex.Matches(text);
             if (matches.Count == 0) return (text, null);
 

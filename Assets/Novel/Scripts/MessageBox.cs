@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
-using UnityEngine.UI;
 
 namespace Novel
 {
+    [RequireComponent(typeof(CanvasGroup), typeof(Writer), typeof(MessageBoxInput))]
     public class MessageBox : FadableMonoBehaviour
     {
         [SerializeField] BoxType type;
@@ -20,6 +20,22 @@ namespace Novel
         protected override void SetAlpha(float a)
         {
             canvasGroup.alpha = a;
+        }
+
+        void Awake()
+        {
+            if(canvasGroup == null)
+            {
+                canvasGroup = GetComponent<CanvasGroup>();
+            }
+            if(writer == null)
+            {
+                writer = GetComponent<Writer>();
+            }
+            if (canvasGroup == null)
+            {
+                input = GetComponent<MessageBoxInput>();
+            }
         }
     }
 }

@@ -9,11 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 94ac70fcc31edf246858120251834f81, type: 3}
-  m_Name: ChartDataSample
+  m_Script: {fileID: 11500000, guid: 886c09105f1663a4c8ec1081dea97681, type: 3}
+  m_Name: bool_sample1
   m_EditorClassIdentifier: 
-  flowchart:
-    description: "\u8AAC\u660E"
-    isCheckZone: 0
-    commandDataList:
-    - {fileID: 11400000, guid: 4d795ecdfa2d9304a9cb911d35849d6f, type: 2}
+  overrideFlagName: 
+  <Description>k__BackingField: "\u8AAC\u660E"

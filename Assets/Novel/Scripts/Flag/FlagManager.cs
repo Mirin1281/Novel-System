@@ -51,9 +51,9 @@ namespace Novel
                 var (result, value) = GetFlagValue(stringKey);
                 return (result, value);
             }
-            /*else if (flagKey is FlagKey_Int intKey)
+            /*else if (flagKey is FlagKey_Float floatKey)
             {
-                var (result, i) = GetFlagValue(intKey);
+                var (result, i) = GetFlagValue(floatKey);
                 return (result, i.ToString());
             }*/
 
