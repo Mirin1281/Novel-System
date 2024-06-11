@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4399fbfc898731a4f96fd937ce84eeff, type: 3}
+  m_Name: CommandData_ChartDataSample_(2)
+  m_EditorClassIdentifier: 
+  enabled: 1
+  command:
+    rid: 3802097108980596741
+  references:
+    version: 2
+    RefIds:
+    - rid: 3802097108980596741
+      type: {class: Say, ns: Novel.Command, asm: Novel}
+      data:
+        <ParentFlowchart>k__BackingField:
+          description: "\u8AAC\u660E"
+          isCheckZone: 0
+          commandDataList:
+          - {fileID: 11400000, guid: 4d795ecdfa2d9304a9cb911d35849d6f, type: 2}
+          - {fileID: 11400000, guid: b9563cbbd0a7e314eb0f88921446cf4f, type: 2}
+          - {fileID: 11400000}
+          - {fileID: 11400000, guid: b3259318cda9a1848a02fa3cb5083f3a, type: 2}
+          - {fileID: 11400000, guid: 629f426fd27dfc34b86e995de5bd3f2f, type: 2}
+          - {fileID: 11400000, guid: 006733b1ca6557a41a2cb3261a671cc4, type: 2}
+          - {fileID: 11400000, guid: afeac4dbe4face442a9ed94dc1c99875, type: 2}
+        <Index>k__BackingField: 2
+        character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
+        changeSprite: {fileID: 21300000, guid: 162e8f67bd2b1e742a97c68a93ba3fff, type: 3}
+        storyText: "\u305D\u306E\u4EE3\u308F\u308A\u3001\u30B7\u30FC\u30F3\u5185\u306E\u53C2\u7167\u306F\u57FA\u672C\u7684\u306B\u53D6\u308C\u307E\u305B\u3093"

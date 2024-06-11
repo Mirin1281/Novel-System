@@ -17,3 +17,9 @@ MonoBehaviour:
     isCheckZone: 0
     commandDataList:
     - {fileID: 11400000, guid: 4d795ecdfa2d9304a9cb911d35849d6f, type: 2}
+    - {fileID: 11400000, guid: b9563cbbd0a7e314eb0f88921446cf4f, type: 2}
+    - {fileID: 11400000, guid: 7614f70fbd63fe14a8a9f57e880c4efe, type: 2}
+    - {fileID: 11400000, guid: b3259318cda9a1848a02fa3cb5083f3a, type: 2}
+    - {fileID: 11400000, guid: 629f426fd27dfc34b86e995de5bd3f2f, type: 2}
+    - {fileID: 11400000, guid: 006733b1ca6557a41a2cb3261a671cc4, type: 2}
+    - {fileID: 11400000, guid: afeac4dbe4face442a9ed94dc1c99875, type: 2}
