@@ -96,10 +96,17 @@ namespace Novel.Command
 
         public override string CSVContent1
         {
-            get => character.CharacterName;
+            get => character == null ? "Null" : character.CharacterName;
             set
             {
-                character = CharacterData.GetCharacter(value);
+                if (value == "Null")
+                {
+                    character = null;
+                    return;
+                }
+                var chara = CharacterData.GetCharacter(value);
+                if (chara == null) return;
+                character = chara;
             }
         }
         public override string CSVContent2

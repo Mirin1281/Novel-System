@@ -6,18 +6,19 @@ namespace Novel.Command
     [AddTypeMenu("Sample"), System.Serializable]
     public class Sample : CommandBase
     {
-        [SerializeField, DropDownCharacter, Space(10)]
+        [SerializeField, DropDownCharacter(nameof(character)), Space(10)]
         CharacterData character;
 
         [SerializeField]
-        string summaryText;
+        string summaryText = "Summary";
 
         [SerializeField]
-        string infoText;
+        string infoText = "Info";
 
         [SerializeField]
-        Color color;
+        Color color = Color.white;
 
+        // フローチャート上で呼ばれた際に呼ばれます
         protected override async UniTask EnterAsync()
         {
             Debug.Log($"キャラクターの名前: {character.CharacterName}");
@@ -33,11 +34,17 @@ namespace Novel.Command
 
         protected override string GetCommandInfo() => infoText;
 
+
         public override string CSVContent1
         {
-            get => character == null ? null : character.CharacterName;
+            get => character == null ? "Null" : character.CharacterName;
             set
             {
+                if (value == "Null")
+                {
+                    character = null;
+                    return;
+                }
                 var chara = CharacterData.GetCharacter(value);
                 if (chara == null) return;
                 character = chara;

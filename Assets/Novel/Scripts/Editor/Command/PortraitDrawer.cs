@@ -2,7 +2,6 @@
 using UnityEditor;
 using System;
 using System.Linq;
-using Novel.Command;
 
 namespace Novel.Editor
 {
@@ -20,7 +19,8 @@ namespace Novel.Editor
             position.y += GetHeight(10);
             EditorGUI.BeginProperty(position, label, property);
 
-            CharacterData chara = FlowchartEditorUtility.DropDownCharacterList(position, property);
+            // キャラクターの設定 //
+            CharacterData chara = CommandDrawerUtility.DropDownCharacterList(position, property, "character");
             position.y += GetHeight();
 
             // アクションの設定 //
@@ -29,24 +29,11 @@ namespace Novel.Editor
             position.y += GetHeight();
             ActionType actionType = (ActionType)actionTypeProp.enumValueIndex;
 
-            SerializedProperty portraitSpriteProp = null;
-
-            if ((chara != null && chara.Portraits != null && chara.Portraits.Count() != 0) &&
-                (actionType == ActionType.Show || actionType == ActionType.Change))
+            // 立ち絵の設定 //
+            Sprite sprite = null;
+            if(actionType == ActionType.Show || actionType == ActionType.Change)
             {
-                // 立ち絵の設定 //
-                portraitSpriteProp = property.FindPropertyRelative("portraitSprite");
-                var portraitsArray = chara.Portraits.Prepend(null).ToArray();
-                int previousPortraitIndex = Array.IndexOf(
-                    portraitsArray, portraitSpriteProp.objectReferenceValue as Sprite);
-                int selectedPortraitIndex = EditorGUI.Popup(position, "PortraitSprite", previousPortraitIndex,
-                    portraitsArray.Select(p => p == null ? "<Null>" : p.name).ToArray());
-
-                if (selectedPortraitIndex != previousPortraitIndex)
-                {
-                    portraitSpriteProp.objectReferenceValue = portraitsArray[selectedPortraitIndex];
-                    portraitSpriteProp.serializedObject.ApplyModifiedProperties();
-                }
+                sprite = CommandDrawerUtility.DropDownSpriteList(position, property, chara, "portraitSprite");
                 position.y += GetHeight();
             }
 
@@ -86,7 +73,6 @@ namespace Novel.Editor
             if (actionType == ActionType.Show || actionType == ActionType.Change)
             {
                 // 立ち絵のプレビュー //
-                Sprite sprite = portraitSpriteProp?.objectReferenceValue as Sprite;
                 if(sprite != null && sprite.texture != null)
                 {
                     EditorGUI.LabelField(

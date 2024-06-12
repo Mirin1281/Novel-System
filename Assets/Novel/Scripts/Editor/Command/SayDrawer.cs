@@ -22,27 +22,18 @@ namespace Novel.Editor
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
             position.y += GetHeight(10);
-
-            CharacterData chara = FlowchartEditorUtility.DropDownCharacterList(position, property);
+            
+            // キャラクターの設定 //
+            CharacterData chara = CommandDrawerUtility.DropDownCharacterList(position, property, "character");
             position.y += GetHeight();
 
-            if (chara != null && chara.Portraits != null && chara.Portraits.Count() != 0)
+            if(chara != null)
             {
                 // 立ち絵の設定 //
-                var portraitProp = property.FindPropertyRelative("changeSprite");
-                var portraitsArray = chara.Portraits.Prepend(null).ToArray();
-                int previousPortraitIndex = Array.IndexOf(
-                    portraitsArray, portraitProp.objectReferenceValue as Sprite);
-                int selectedPortraitIndex = EditorGUI.Popup(position, "ChangeSprite", previousPortraitIndex,
-                    portraitsArray.Select(p => p == null ? "<Null>" : p.name).ToArray());
-
-                if (selectedPortraitIndex != previousPortraitIndex)
-                {
-                    portraitProp.objectReferenceValue = portraitsArray[selectedPortraitIndex];
-                    portraitProp.serializedObject.ApplyModifiedProperties();
-                }
+                CommandDrawerUtility.DropDownSpriteList(position, property, chara, "changeSprite");
                 position.y += GetHeight();
             }
+
             // テキストの設定 //
             var storyTextProp = property.FindPropertyRelative("storyText");
             EditorGUI.PropertyField(new Rect(
