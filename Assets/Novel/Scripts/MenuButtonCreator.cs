@@ -38,7 +38,7 @@ namespace Novel
                 SetNames(createButtons, texts);
                 return createButtons;
             }
-            else if (createCount > currentCount)
+            else if (createCount > currentCount) // 子のボタンより必要なボタンの数の方が多いとき
             {
                 for (int i = 0; i < createCount; i++)
                 {

@@ -86,6 +86,7 @@ namespace Novel.Editor
                 }
             }
             reorderableList = CreateReorderableList();
+            beforeSelectedIndices = new();
             Repaint();
         }
 

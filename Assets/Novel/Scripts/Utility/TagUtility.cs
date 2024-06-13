@@ -10,7 +10,7 @@ namespace Novel
         const string RegexString = @"\<.*?\>";
 
         // 【タグの増やし方】
-        // 1. TagTypeの項目を増やす
+        // 1. 直下のTagTypeの項目を増やす
         // 2. 下部のGetTagStatus()の中に条件を増やす
         // 3. Writerクラス内の処理を増やす
         public enum TagType
@@ -45,11 +45,6 @@ namespace Novel
                 Value = value;
                 IndexIgnoreMyTag = indexIgnoreMyTag;
                 IndexIgnoreAllTag = indexIgnoreAllTag;
-            }
-
-            public void ShowTagStatus()
-            {
-                Debug.Log($"type: {TagType}, allIndex: {IndexIgnoreAllTag}");
             }
         }
 

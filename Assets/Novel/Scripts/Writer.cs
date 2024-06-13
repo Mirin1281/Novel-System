@@ -51,7 +51,9 @@ namespace Novel
             }
             var (richText, tagDataList) = TagUtility.ExtractMyTag(fullText);
             isSkipped = false;
-            //tagDataList.ForEach(data => data.ShowTagStatus()); // デバッグ用
+            /*tagDataList.ForEach(data => 
+                Debug.Log($"type: {data.TagType}, allIndex: {data.IndexIgnoreAllTag}"););
+            */
             timePer100Charas = wholeShow ? 0 : DefaultSpeed;
             await WriteStoryTextAsync(richText, tagDataList, token);
             SayLogger.AddLog(nameText, richText);
@@ -129,12 +131,16 @@ namespace Novel
                     else if (type == TagType.WaitInputClear)
                     {
                         await WaitInput();
-                        richText = richText.Remove(0, tag.IndexIgnoreMyTag);
+                        richText = richText.Remove(0, tag.IndexIgnoreMyTag); // それまでのテキストを削除
+
+                        // 初期化
                         storyTmpro.SetUneditedText(richText);
                         storyTmpro.ForceMeshUpdate();
                         planeText = storyTmpro.GetParsedText();
                         i = 0;
                         storyTmpro.maxVisibleCharacters = 0;
+
+                        // タグがズレるので修正
                         int delta = tag.IndexIgnoreAllTag;
                         foreach (var tagData in tagDataList)
                         {
@@ -144,6 +150,7 @@ namespace Novel
                     }
                     else if (type == TagType.RubyStart)
                     {
+                        // "</r>"の分ずらす
                         foreach (var tagData in tagDataList)
                         {
                             tagData.IndexIgnoreAllTag -= 4;

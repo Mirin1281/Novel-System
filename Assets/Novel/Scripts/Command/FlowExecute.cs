@@ -29,15 +29,14 @@ namespace Novel.Command
                 FlowchartType.Data => flowchartData.Flowchart,
                 _ => throw new System.Exception()
             };
-            FlowchartCallStatus status = new(CallStatus.Token, CallStatus.Cts, isAwaitNest);
-            if (isAwaitNest)
+
+            var isAwait = (isAwaitNest == false && CallStatus != null && CallStatus.IsNestCalled) || isAwaitNest;
+            FlowchartCallStatus status = new(CallStatus.Token, CallStatus.Cts, isAwait);
+            
+            await flowchart.ExecuteAsync(commandIndex, status);
+            if (isAwaitNest == false)
             {
-                await flowchart.ExecuteAsync(commandIndex, status);
-            }
-            else
-            {
-                flowchart.ExecuteAsync(commandIndex, null).Forget();
-                ParentFlowchart.Stop(FlowchartStopType.Single);
+                ParentFlowchart.Stop(Flowchart.StopType.Single);
             }
         }
 

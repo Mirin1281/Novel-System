@@ -3,10 +3,12 @@ using Cysharp.Threading.Tasks;
 
 namespace Novel.Command
 {
+    using StopType = Flowchart.StopType;
+
     [AddTypeMenu("FlowStop"), System.Serializable]
     public class FlowStop : CommandBase
     {
-        [SerializeField] FlowchartStopType stopType;
+        [SerializeField] StopType stopType;
         [SerializeField] bool hideMsgBoxes = true;
         [SerializeField] bool hidePortraits = true;
         [SerializeField] bool checkLog = true;
@@ -22,10 +24,11 @@ namespace Novel.Command
                 return;
 #endif
             }
+
 #if UNITY_EDITOR
             if (checkLog)
             {
-                if (CallStatus.IsNestCalled == false && stopType == FlowchartStopType.All)
+                if (CallStatus.IsNestCalled == false && stopType == StopType.All)
                 {
                     Debug.LogWarning("入れ子で呼び出していません！");
                 }

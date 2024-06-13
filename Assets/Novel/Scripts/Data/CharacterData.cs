@@ -35,7 +35,7 @@ namespace Novel
             var meetChara = characters.Where(c => c.CharacterName == characterName).ToList();
             if (meetChara.Count == 0)
             {
-                Debug.LogWarning($"キャラクターが見つかりませんでした");
+                Debug.LogWarning($"キャラクターが見つかりませんでした\n名前: {characterName}");
                 return null;
             }
             else if(meetChara.Count == 1)

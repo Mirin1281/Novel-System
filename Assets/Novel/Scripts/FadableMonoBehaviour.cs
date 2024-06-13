@@ -42,11 +42,12 @@ namespace Novel
             }
             var outQuad = new OutQuad(toAlpha, time, GetAlpha());
             var t = 0f;
+            CancellationToken tkn = token == default ? this.GetCancellationTokenOnDestroy() : token;
             while (t < time)
             {
                 SetAlpha(outQuad.Ease(t));
                 t += Time.deltaTime;
-                await UniTask.Yield(token == default ? this.GetCancellationTokenOnDestroy() : token);
+                await UniTask.Yield(tkn);
             }
             SetAlpha(toAlpha);
         }

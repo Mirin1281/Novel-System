@@ -33,7 +33,6 @@ namespace Novel.Command
                 if (select)
                 {
                     index = Index + 1;
-                    Debug.Log(0);
                 }
                 else
                 {

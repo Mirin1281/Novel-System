@@ -16,7 +16,7 @@ namespace Novel
         [SerializeField, TextArea]
         string description = "説明";
 
-        [SerializeField]
+        [SerializeField, Tooltip("Zoneコマンドを使用する場合のみtrueにしてください")]
         bool isCheckZone;
 
         // シリアライズする
@@ -105,16 +105,22 @@ namespace Novel
             }
         }
 
+        public enum StopType
+        {
+            [InspectorName("このフローチャートのみ")] Single,
+            [InspectorName("入れ子の親も含む全て")] All,
+        }
+
         /// <summary>
         /// コマンドリストの切れ目でフローチャートを停止します
         /// </summary>
-        public void Stop(FlowchartStopType stopType)
+        public void Stop(StopType stopType)
         {
-            if (stopType == FlowchartStopType.All)
+            if (stopType == StopType.All)
             {
                 cts?.Cancel();
             }
-            else if (stopType == FlowchartStopType.Single)
+            else if (stopType == StopType.Single)
             {
                 isStopped = true;
             }
@@ -130,10 +136,11 @@ namespace Novel
 #endif
     }
 
-    public enum FlowchartStopType
+    public interface IFlowchartObject
     {
-        [InspectorName("このフローチャートのみ")] Single,
-        [InspectorName("入れ子の親も含む全て")] All,
+        string Name { get; }
+        Flowchart Flowchart { get; }
+        UniTask ExecuteAsync(int index = 0);
     }
 
     /// <summary>

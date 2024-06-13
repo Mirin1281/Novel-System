@@ -31,15 +31,15 @@ namespace Novel
 
             if (Input.GetButton(ConstContainer.CANCEL_KEYNAME))
             {
-                NovelManager.Instance.CancelKeyDownTime += Time.deltaTime;
+                NovelManager.Instance.OnCancelKeyDown = true;
             }
             else
             {
-                NovelManager.Instance.CancelKeyDownTime = 0f;
+                NovelManager.Instance.OnCancelKeyDown = false;
             }
 
             seVolume = 1f;
-            if (NovelManager.Instance.CancelKeyDownTime > 0.7f)
+            if (NovelManager.Instance.OnSkip)
             {
                 OnInputed?.Invoke();
                 seVolume = 0.2f;

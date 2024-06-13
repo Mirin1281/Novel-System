@@ -68,12 +68,28 @@ namespace Novel
 
         #endregion
 
+        void Update()
+        {
+            if(OnCancelKeyDown)
+            {
+                cancelKeyDownTime += Time.deltaTime;
+            }
+            else
+            {
+                cancelKeyDownTime = 0f;
+            }
+        }
+
         public float DefaultWriteSpeed { get; private set; } = 2;
 
         public bool IsUseRuby { get; private set; } = true;
 
         public bool IsWholeShowText { get; private set; } = false;
 
-        public float CancelKeyDownTime { get; set; }
+        public bool OnCancelKeyDown { get; set; }
+
+        float cancelKeyDownTime;
+
+        public bool OnSkip => 0.7f < cancelKeyDownTime;
     }
 }

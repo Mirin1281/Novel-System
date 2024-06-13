@@ -120,7 +120,7 @@ namespace Novel.Editor
 				return;
 			}
 			dataList.RemoveAt(0); // もういらないのでこの行は削除する
-			dataList.RemoveAt(1); // もういらないので次の行も削除する
+			dataList.RemoveAt(0); // もういらないので次の行も削除する
 
 			var chartObjs = GetSortedFlowchartObjects(type, settingsData.FlowchartFindMode);
 
@@ -130,8 +130,11 @@ namespace Novel.Editor
 				var startX = i * settingsData.RowCount;
 				var csvExecutorName = dataList[0][startX];
 				var meetFlowchart = chartObjs.Where(flowchart => flowchart.Name == csvExecutorName).FirstOrDefault();
-				if (meetFlowchart == null) continue;
-
+				if (meetFlowchart == null)
+                {
+					Debug.LogWarning($"{csvExecutorName}という名前のフローチャートがシーン上に存在しませんでした");
+					continue;
+                }
 				Import(meetFlowchart, dataList, startX);
 
 				// セーブ
@@ -253,7 +256,7 @@ namespace Novel.Editor
 			{
 				var copiedCsvList = new List<string[]>(csvList);
 				copiedCsvList.RemoveAt(0);
-				copiedCsvList.RemoveAt(1);
+				copiedCsvList.RemoveAt(0);
 				var columnCount = copiedCsvList.Count;
 				// 行(横)をスライド
 				for (int i = 0; i < columnCount; i++)
@@ -302,14 +305,14 @@ namespace Novel.Editor
 								if (settingsData.IsChangeIfDifferentCmdName && (cellName != "Null" || cellName != "<Null>"))
                                 {
 									Debug.LogWarning(
-										$"コマンドの名前が合いませんので上書きされました\n" +
-										$"Object: {cmdName}, CSV: {cellName}");
+										$"コマンドの名前が合いませんので上書きします\n" +
+										$"Before: {cmdName}, After: {cellName}");
 								}
 								else
                                 {
 									Debug.LogWarning(
 										$"コマンドの名前が合いませんのでスキップされました\n" +
-										$"Object: {cmdName}, CSV: {cellName}");
+										$"Before: {cmdName}, After: {cellName}");
 									break;
 								}
 

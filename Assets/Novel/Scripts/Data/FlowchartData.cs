@@ -12,16 +12,15 @@ namespace Novel
     {
         [SerializeField] Flowchart flowchart;
         public Flowchart Flowchart => flowchart;
-
         public string Name => name;
 
         public void Execute(int index = 0)
         {
             Flowchart.ExecuteAsync(index).Forget();
         }
-        public async UniTask ExecuteAsync(int index = 0)
+        public UniTask ExecuteAsync(int index = 0)
         {
-            await Flowchart.ExecuteAsync(index);
+            return Flowchart.ExecuteAsync(index);
         }
 
 #if UNITY_EDITOR
