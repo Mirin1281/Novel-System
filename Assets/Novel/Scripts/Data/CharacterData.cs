@@ -7,6 +7,9 @@ using UnityEditor;
 
 namespace Novel
 {
+    /// <summary>
+    /// キャラクターの情報を格納するScriptableObject
+    /// </summary>
     [CreateAssetMenu(
         fileName = "Character",
         menuName = "ScriptableObject/Character")
@@ -27,7 +30,7 @@ namespace Novel
         public IEnumerable<Sprite> Portraits => portraits;
 
         /// <summary>
-        /// エディタ用
+        /// (コマンド用)名前からキャラクターを取得します
         /// </summary>
         public static CharacterData GetCharacter(string characterName)
         {
@@ -47,20 +50,21 @@ namespace Novel
                 Debug.LogWarning($"キャラクターのヒット数が多いです!: {meetChara.Count}");
                 return null;
             }
-        }
 
-        static T[] GetAllScriptableObjects<T>(string folderName = null) where T : ScriptableObject
-        {
+
+            static T[] GetAllScriptableObjects<T>(string folderName = null) where T : ScriptableObject
+            {
 #if UNITY_EDITOR
-            string[] guids = folderName　== null
-                ? AssetDatabase.FindAssets($"t:{typeof(T).Name}")
-                : AssetDatabase.FindAssets($"t:{typeof(T).Name}", new string[] { folderName });
-            return guids
-                .Select(guid => AssetDatabase.LoadAssetAtPath<T>(AssetDatabase.GUIDToAssetPath(guid)))
-                .ToArray();
+                string[] guids = folderName == null
+                    ? AssetDatabase.FindAssets($"t:{typeof(T).Name}")
+                    : AssetDatabase.FindAssets($"t:{typeof(T).Name}", new string[] { folderName });
+                return guids
+                    .Select(guid => AssetDatabase.LoadAssetAtPath<T>(AssetDatabase.GUIDToAssetPath(guid)))
+                    .ToArray();
 #else
             return null;
 #endif
+            }
         }
     }
 }

@@ -10,8 +10,7 @@ namespace Novel
         {
             if (waitTime > 0)
             {
-                return UniTask.Delay(TimeSpan.FromSeconds(waitTime),
-                    cancellationToken: token == default ? StaticToken.TokenOnSceneChange : token);
+                return UniTask.Delay(TimeSpan.FromSeconds(waitTime), cancellationToken: token);
             }
             else
             {

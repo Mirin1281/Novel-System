@@ -285,6 +285,7 @@ namespace Novel.Editor
                     lastSelectedCommand = createCommand;
                 }
             }
+            beforeSelectedIndices = new();
 
             RefreshFlowchart();
             if (callLog)

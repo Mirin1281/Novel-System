@@ -36,7 +36,11 @@ namespace Novel
         public async UniTask WriteAsync(
             CharacterData character, string nameText, string fullText, CancellationToken token, bool wholeShow = false)
         {
-            nameText = string.IsNullOrEmpty(nameText) ? character?.NameIncludeRuby : nameText;
+            nameText = string.IsNullOrEmpty(nameText) ? 
+                (character == null ? 
+                    null : 
+                    character.NameIncludeRuby) : 
+                nameText;
             var nameColor = character == null ? Color.white : character.NameColor;
 
             if (NovelManager.Instance != null && NovelManager.Instance.IsUseRuby == false)
@@ -102,11 +106,7 @@ namespace Novel
                 async UniTask ApplyTag(TagData tag)
                 {
                     var type = tag.TagType;
-                    if (type == TagType.None)
-                    {
-
-                    }
-                    else if (type == TagType.SpeedStart)
+                    if (type == TagType.SpeedStart)
                     {
                         if (isSkipped == false)
                         {
@@ -128,26 +128,6 @@ namespace Novel
                     {
                         await WaitInput();
                     }
-                    else if (type == TagType.WaitInputClear)
-                    {
-                        await WaitInput();
-                        richText = richText.Remove(0, tag.IndexIgnoreMyTag); // それまでのテキストを削除
-
-                        // 初期化
-                        storyTmpro.SetUneditedText(richText);
-                        storyTmpro.ForceMeshUpdate();
-                        planeText = storyTmpro.GetParsedText();
-                        i = 0;
-                        storyTmpro.maxVisibleCharacters = 0;
-
-                        // タグがズレるので修正
-                        int delta = tag.IndexIgnoreAllTag;
-                        foreach (var tagData in tagDataList)
-                        {
-                            tagData.IndexIgnoreAllTag -= delta;
-                            tagData.IndexIgnoreMyTag -= delta;
-                        }
-                    }
                     else if (type == TagType.RubyStart)
                     {
                         // "</r>"の分ずらす
@@ -158,7 +138,7 @@ namespace Novel
                     }
                     else
                     {
-                        throw new Exception();
+                        Debug.LogWarning("タグが存在しませんでした");
                     }
                 }
 

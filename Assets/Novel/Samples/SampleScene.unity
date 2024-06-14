@@ -287,7 +287,7 @@ MonoBehaviour:
           description: "\u3053\u306E\u30A2\u30BB\u30C3\u30C8\u306B\u3064\u3044\u3066\u306E\u3056\u3063\u304F\u308A\u3068\u3057\u305F\u8AAC\u660E"
           isCheckZone: 0
           commandDataList:
-          - {fileID: 2105967396}
+          - {fileID: 1241715583}
           - {fileID: 1031978188}
           - {fileID: 1748428382}
           - {fileID: 2010310231}
@@ -334,7 +334,7 @@ MonoBehaviour:
           description: "\u3053\u306E\u30A2\u30BB\u30C3\u30C8\u306B\u3064\u3044\u3066\u306E\u3056\u3063\u304F\u308A\u3068\u3057\u305F\u8AAC\u660E"
           isCheckZone: 0
           commandDataList:
-          - {fileID: 2105967396}
+          - {fileID: 1241715583}
           - {fileID: 1031978188}
           - {fileID: 1748428382}
           - {fileID: 2010310231}
@@ -563,7 +563,7 @@ MonoBehaviour:
           description: "\u3053\u306E\u30A2\u30BB\u30C3\u30C8\u306B\u3064\u3044\u3066\u306E\u3056\u3063\u304F\u308A\u3068\u3057\u305F\u8AAC\u660E"
           isCheckZone: 0
           commandDataList:
-          - {fileID: 2105967396}
+          - {fileID: 1241715583}
           - {fileID: 1031978188}
           - {fileID: 1748428382}
           - {fileID: 2010310231}
@@ -806,6 +806,45 @@ MonoBehaviour:
         character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
         changeSprite: {fileID: 0}
         storyText: "Portrait\u3082\u5B8C\u5168\u306B\u540C\u3058\u306A\u306E\u3067\u5272\u611B\u3057\u307E\u3059\u3002Menu\u306F\u6A19\u6E96\u3067\u306F\u8907\u6570\u306E\u3082\u306E\u3092\u4F7F\u3044\u5206\u3051\u308B\u3088\u3046\u306B\u306F\u3057\u3066\u3044\u307E\u305B\u3093(\u3084\u308D\u3046\u3068\u601D\u3048\u3070\u3067\u304D\u307E\u3059\u304C\u3001\u9700\u8981\u3092\u8003\u3048\u3066\u306A\u304F\u3057\u307E\u3057\u305F)"
+--- !u!114 &329032718
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4399fbfc898731a4f96fd937ce84eeff, type: 3}
+  m_Name: (Clone)(Clone)
+  m_EditorClassIdentifier: 
+  enabled: 1
+  command:
+    rid: 3802097126054297673
+  references:
+    version: 2
+    RefIds:
+    - rid: 3802097126054297673
+      type: {class: Say, ns: Novel.Command, asm: Novel}
+      data:
+        <ParentFlowchart>k__BackingField:
+          description: "SayCommand\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
+          isCheckZone: 0
+          commandDataList:
+          - {fileID: 1391726535}
+          - {fileID: 1961789263}
+          - {fileID: 1678415072}
+          - {fileID: 612959505}
+          - {fileID: 1823036095}
+          - {fileID: 1651393349}
+          - {fileID: 1808321825}
+          - {fileID: 1541263003}
+          - {fileID: 1556375358}
+          - {fileID: 329032718}
+        <Index>k__BackingField: 9
+        character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
+        changeSprite: {fileID: 21300000, guid: 24ea358cd0c6e7d48b3a06eaff46e833, type: 3}
+        storyText: "\u4EE5\u4E0A\u3067\u3059"
 --- !u!114 &333986188
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -930,7 +969,7 @@ MonoBehaviour:
           description: "\u3053\u306E\u30A2\u30BB\u30C3\u30C8\u306B\u3064\u3044\u3066\u306E\u3056\u3063\u304F\u308A\u3068\u3057\u305F\u8AAC\u660E"
           isCheckZone: 0
           commandDataList:
-          - {fileID: 2105967396}
+          - {fileID: 1241715583}
           - {fileID: 1031978188}
           - {fileID: 1748428382}
           - {fileID: 2010310231}
@@ -1067,7 +1106,7 @@ MonoBehaviour:
           description: "\u3053\u306E\u30A2\u30BB\u30C3\u30C8\u306B\u3064\u3044\u3066\u306E\u3056\u3063\u304F\u308A\u3068\u3057\u305F\u8AAC\u660E"
           isCheckZone: 0
           commandDataList:
-          - {fileID: 2105967396}
+          - {fileID: 1241715583}
           - {fileID: 1031978188}
           - {fileID: 1748428382}
           - {fileID: 2010310231}
@@ -1499,7 +1538,7 @@ MonoBehaviour:
           description: "\u3053\u306E\u30A2\u30BB\u30C3\u30C8\u306B\u3064\u3044\u3066\u306E\u3056\u3063\u304F\u308A\u3068\u3057\u305F\u8AAC\u660E"
           isCheckZone: 0
           commandDataList:
-          - {fileID: 2105967396}
+          - {fileID: 1241715583}
           - {fileID: 1031978188}
           - {fileID: 1748428382}
           - {fileID: 2010310231}
@@ -1800,8 +1839,9 @@ MonoBehaviour:
           - {fileID: 1823036095}
           - {fileID: 1651393349}
           - {fileID: 1808321825}
-          - {fileID: 2024725747}
           - {fileID: 1541263003}
+          - {fileID: 1556375358}
+          - {fileID: 329032718}
         <Index>k__BackingField: 3
         character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
         changeSprite: {fileID: 21300000, guid: 321b0bfb6c84b2e4ea411c3d1246c306, type: 3}
@@ -1890,7 +1930,7 @@ MonoBehaviour:
           description: "\u3053\u306E\u30A2\u30BB\u30C3\u30C8\u306B\u3064\u3044\u3066\u306E\u3056\u3063\u304F\u308A\u3068\u3057\u305F\u8AAC\u660E"
           isCheckZone: 0
           commandDataList:
-          - {fileID: 2105967396}
+          - {fileID: 1241715583}
           - {fileID: 1031978188}
           - {fileID: 1748428382}
           - {fileID: 2010310231}
@@ -2317,7 +2357,7 @@ MonoBehaviour:
           description: "\u3053\u306E\u30A2\u30BB\u30C3\u30C8\u306B\u3064\u3044\u3066\u306E\u3056\u3063\u304F\u308A\u3068\u3057\u305F\u8AAC\u660E"
           isCheckZone: 0
           commandDataList:
-          - {fileID: 2105967396}
+          - {fileID: 1241715583}
           - {fileID: 1031978188}
           - {fileID: 1748428382}
           - {fileID: 2010310231}
@@ -2584,7 +2624,7 @@ MonoBehaviour:
     description: "\u3053\u306E\u30A2\u30BB\u30C3\u30C8\u306B\u3064\u3044\u3066\u306E\u3056\u3063\u304F\u308A\u3068\u3057\u305F\u8AAC\u660E"
     isCheckZone: 0
     commandDataList:
-    - {fileID: 2105967396}
+    - {fileID: 1241715583}
     - {fileID: 1031978188}
     - {fileID: 1748428382}
     - {fileID: 2010310231}
@@ -2786,7 +2826,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7cf50fdd8e070440a24501548002687, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  executeOnStart: 0
+  executeOnStart: 1
   flowchart:
     description: "\u30D5\u30E9\u30B0\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
     isCheckZone: 0
@@ -2990,7 +3030,7 @@ MonoBehaviour:
           description: "\u3053\u306E\u30A2\u30BB\u30C3\u30C8\u306B\u3064\u3044\u3066\u306E\u3056\u3063\u304F\u308A\u3068\u3057\u305F\u8AAC\u660E"
           isCheckZone: 0
           commandDataList:
-          - {fileID: 2105967396}
+          - {fileID: 1241715583}
           - {fileID: 1031978188}
           - {fileID: 1748428382}
           - {fileID: 2010310231}
@@ -3136,7 +3176,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7cf50fdd8e070440a24501548002687, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  executeOnStart: 0
+  executeOnStart: 1
   flowchart:
     description: "\u7D30\u304B\u3044\u4ED5\u69D8\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
     isCheckZone: 1
@@ -3338,7 +3378,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7cf50fdd8e070440a24501548002687, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  executeOnStart: 0
+  executeOnStart: 1
   flowchart:
     description: "SayCommand\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
     isCheckZone: 0
@@ -3350,8 +3390,9 @@ MonoBehaviour:
     - {fileID: 1823036095}
     - {fileID: 1651393349}
     - {fileID: 1808321825}
-    - {fileID: 2024725747}
     - {fileID: 1541263003}
+    - {fileID: 1556375358}
+    - {fileID: 329032718}
 --- !u!4 &1231829956
 Transform:
   m_ObjectHideFlags: 0
@@ -3367,6 +3408,57 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1902416913}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1241715583
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4399fbfc898731a4f96fd937ce84eeff, type: 3}
+  m_Name: (Clone)(Clone)
+  m_EditorClassIdentifier: 
+  enabled: 1
+  command:
+    rid: 3802097126054297681
+  references:
+    version: 2
+    RefIds:
+    - rid: 3802097126054297681
+      type: {class: SayAdvanced, ns: Novel.Command, asm: Novel}
+      data:
+        <ParentFlowchart>k__BackingField:
+          description: "\u3053\u306E\u30A2\u30BB\u30C3\u30C8\u306B\u3064\u3044\u3066\u306E\u3056\u3063\u304F\u308A\u3068\u3057\u305F\u8AAC\u660E"
+          isCheckZone: 0
+          commandDataList:
+          - {fileID: 1241715583}
+          - {fileID: 1031978188}
+          - {fileID: 1748428382}
+          - {fileID: 2010310231}
+          - {fileID: 1310842020}
+          - {fileID: 1355851298}
+          - {fileID: 567793046}
+          - {fileID: 419699166}
+          - {fileID: 643241747}
+          - {fileID: 104790287}
+          - {fileID: 1925792844}
+          - {fileID: 1679523569}
+          - {fileID: 385271804}
+          - {fileID: 1736597546}
+          - {fileID: 1878890039}
+          - {fileID: 52388454}
+          - {fileID: 38965964}
+          - {fileID: 814690927}
+        <Index>k__BackingField: 0
+        character: {fileID: 0}
+        changeSprite: {fileID: 0}
+        storyText: "Say\u306E\u30B5\u30F3\u30D7\u30EB\u3067\u3059 (\u30AF\u30EA\u30C3\u30AF\u304BEnter\u30AD\u30FC\u3067\u6B21\u3078)"
+        boxType: 0
+        boxShowTime: 0.3
+        characterName: 
+        flagKeys: []
 --- !u!114 &1242842376
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3495,7 +3587,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7cf50fdd8e070440a24501548002687, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  executeOnStart: 0
+  executeOnStart: 1
   flowchart:
     description: "CSV\u5165\u51FA\u529B\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
     isCheckZone: 0
@@ -3596,7 +3688,7 @@ MonoBehaviour:
           description: "\u3053\u306E\u30A2\u30BB\u30C3\u30C8\u306B\u3064\u3044\u3066\u306E\u3056\u3063\u304F\u308A\u3068\u3057\u305F\u8AAC\u660E"
           isCheckZone: 0
           commandDataList:
-          - {fileID: 2105967396}
+          - {fileID: 1241715583}
           - {fileID: 1031978188}
           - {fileID: 1748428382}
           - {fileID: 2010310231}
@@ -3785,7 +3877,7 @@ MonoBehaviour:
           description: "\u3053\u306E\u30A2\u30BB\u30C3\u30C8\u306B\u3064\u3044\u3066\u306E\u3056\u3063\u304F\u308A\u3068\u3057\u305F\u8AAC\u660E"
           isCheckZone: 0
           commandDataList:
-          - {fileID: 2105967396}
+          - {fileID: 1241715583}
           - {fileID: 1031978188}
           - {fileID: 1748428382}
           - {fileID: 2010310231}
@@ -3839,8 +3931,9 @@ MonoBehaviour:
           - {fileID: 1823036095}
           - {fileID: 1651393349}
           - {fileID: 1808321825}
-          - {fileID: 2024725747}
           - {fileID: 1541263003}
+          - {fileID: 1556375358}
+          - {fileID: 329032718}
         <Index>k__BackingField: 0
         character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
         actionType: 0
@@ -3999,7 +4092,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7cf50fdd8e070440a24501548002687, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  executeOnStart: 0
+  executeOnStart: 1
   flowchart:
     description: "\u81EA\u4F5C\u30B3\u30DE\u30F3\u30C9\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
     isCheckZone: 0
@@ -4091,12 +4184,52 @@ MonoBehaviour:
           - {fileID: 1823036095}
           - {fileID: 1651393349}
           - {fileID: 1808321825}
-          - {fileID: 2024725747}
           - {fileID: 1541263003}
-        <Index>k__BackingField: 8
+          - {fileID: 1556375358}
+          - {fileID: 329032718}
+        <Index>k__BackingField: 7
         character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
         changeSprite: {fileID: 21300000, guid: 217884d24e46f54418eb8fbf3008481d, type: 3}
         storyText: "\u30E1\u30C3\u30BB\u30FC\u30B8\u30DC\u30C3\u30AF\u30B9\u3092\u30D2\u30A8\u30E9\u30EB\u30AD\u30FC\u306B\u7F6E\u3044\u3066\u304A\u3051\u3070\u3001<w=0.3>\r\n\u30C6\u30AD\u30B9\u30C8\u3092\u8A66\u3057\u306B\u8868\u793A\u3059\u308B\u3053\u3068\u3082\u3067\u304D\u307E\u3059\u3088\uFF01"
+--- !u!114 &1556375358
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4399fbfc898731a4f96fd937ce84eeff, type: 3}
+  m_Name: (Clone)
+  m_EditorClassIdentifier: 
+  enabled: 1
+  command:
+    rid: 3802097126054297673
+  references:
+    version: 2
+    RefIds:
+    - rid: 3802097126054297673
+      type: {class: Say, ns: Novel.Command, asm: Novel}
+      data:
+        <ParentFlowchart>k__BackingField:
+          description: "SayCommand\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
+          isCheckZone: 0
+          commandDataList:
+          - {fileID: 1391726535}
+          - {fileID: 1961789263}
+          - {fileID: 1678415072}
+          - {fileID: 612959505}
+          - {fileID: 1823036095}
+          - {fileID: 1651393349}
+          - {fileID: 1808321825}
+          - {fileID: 1541263003}
+          - {fileID: 1556375358}
+          - {fileID: 329032718}
+        <Index>k__BackingField: 8
+        character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
+        changeSprite: {fileID: 21300000, guid: 24ea358cd0c6e7d48b3a06eaff46e833, type: 3}
+        storyText: "\u3061\u306A\u307F\u306B\u3001\u30AD\u30E3\u30F3\u30BB\u30EB\u30AD\u30FC(\u30C7\u30D5\u30A9\u30EB\u30C8\u3067\u306FEsc\u30AD\u30FC)\u3092\u9577\u62BC\u3057\u3059\u308B\u3068\u30BB\u30EA\u30D5\u3092\u98DB\u3070\u3059\u3053\u3068\u3082\u3067\u304D\u307E\u3059"
 --- !u!114 &1576803877
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4313,8 +4446,9 @@ MonoBehaviour:
           - {fileID: 1823036095}
           - {fileID: 1651393349}
           - {fileID: 1808321825}
-          - {fileID: 2024725747}
           - {fileID: 1541263003}
+          - {fileID: 1556375358}
+          - {fileID: 329032718}
         <Index>k__BackingField: 5
         character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
         changeSprite: {fileID: 21300000, guid: 24ea358cd0c6e7d48b3a06eaff46e833, type: 3}
@@ -4392,8 +4526,9 @@ MonoBehaviour:
           - {fileID: 1823036095}
           - {fileID: 1651393349}
           - {fileID: 1808321825}
-          - {fileID: 2024725747}
           - {fileID: 1541263003}
+          - {fileID: 1556375358}
+          - {fileID: 329032718}
         <Index>k__BackingField: 2
         character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
         changeSprite: {fileID: 21300000, guid: 217884d24e46f54418eb8fbf3008481d, type: 3}
@@ -4423,7 +4558,7 @@ MonoBehaviour:
           description: "\u3053\u306E\u30A2\u30BB\u30C3\u30C8\u306B\u3064\u3044\u3066\u306E\u3056\u3063\u304F\u308A\u3068\u3057\u305F\u8AAC\u660E"
           isCheckZone: 0
           commandDataList:
-          - {fileID: 2105967396}
+          - {fileID: 1241715583}
           - {fileID: 1031978188}
           - {fileID: 1748428382}
           - {fileID: 2010310231}
@@ -4474,7 +4609,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7cf50fdd8e070440a24501548002687, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  executeOnStart: 0
+  executeOnStart: 1
   flowchart:
     description: "MessageBox\u3084Portrait\u306A\u3069\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
     isCheckZone: 0
@@ -4713,7 +4848,7 @@ MonoBehaviour:
           description: "\u3053\u306E\u30A2\u30BB\u30C3\u30C8\u306B\u3064\u3044\u3066\u306E\u3056\u3063\u304F\u308A\u3068\u3057\u305F\u8AAC\u660E"
           isCheckZone: 0
           commandDataList:
-          - {fileID: 2105967396}
+          - {fileID: 1241715583}
           - {fileID: 1031978188}
           - {fileID: 1748428382}
           - {fileID: 2010310231}
@@ -4760,7 +4895,7 @@ MonoBehaviour:
           description: "\u3053\u306E\u30A2\u30BB\u30C3\u30C8\u306B\u3064\u3044\u3066\u306E\u3056\u3063\u304F\u308A\u3068\u3057\u305F\u8AAC\u660E"
           isCheckZone: 0
           commandDataList:
-          - {fileID: 2105967396}
+          - {fileID: 1241715583}
           - {fileID: 1031978188}
           - {fileID: 1748428382}
           - {fileID: 2010310231}
@@ -4854,8 +4989,9 @@ MonoBehaviour:
           - {fileID: 1823036095}
           - {fileID: 1651393349}
           - {fileID: 1808321825}
-          - {fileID: 2024725747}
           - {fileID: 1541263003}
+          - {fileID: 1556375358}
+          - {fileID: 329032718}
         <Index>k__BackingField: 6
         character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
         changeSprite: {fileID: 21300000, guid: 24ea358cd0c6e7d48b3a06eaff46e833, type: 3}
@@ -5047,8 +5183,9 @@ MonoBehaviour:
           - {fileID: 1823036095}
           - {fileID: 1651393349}
           - {fileID: 1808321825}
-          - {fileID: 2024725747}
           - {fileID: 1541263003}
+          - {fileID: 1556375358}
+          - {fileID: 329032718}
         <Index>k__BackingField: 4
         character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
         changeSprite: {fileID: 21300000, guid: 321b0bfb6c84b2e4ea411c3d1246c306, type: 3}
@@ -5244,7 +5381,7 @@ MonoBehaviour:
           description: "\u3053\u306E\u30A2\u30BB\u30C3\u30C8\u306B\u3064\u3044\u3066\u306E\u3056\u3063\u304F\u308A\u3068\u3057\u305F\u8AAC\u660E"
           isCheckZone: 0
           commandDataList:
-          - {fileID: 2105967396}
+          - {fileID: 1241715583}
           - {fileID: 1031978188}
           - {fileID: 1748428382}
           - {fileID: 2010310231}
@@ -5330,7 +5467,7 @@ MonoBehaviour:
           description: "\u3053\u306E\u30A2\u30BB\u30C3\u30C8\u306B\u3064\u3044\u3066\u306E\u3056\u3063\u304F\u308A\u3068\u3057\u305F\u8AAC\u660E"
           isCheckZone: 0
           commandDataList:
-          - {fileID: 2105967396}
+          - {fileID: 1241715583}
           - {fileID: 1031978188}
           - {fileID: 1748428382}
           - {fileID: 2010310231}
@@ -5428,8 +5565,9 @@ MonoBehaviour:
           - {fileID: 1823036095}
           - {fileID: 1651393349}
           - {fileID: 1808321825}
-          - {fileID: 2024725747}
           - {fileID: 1541263003}
+          - {fileID: 1556375358}
+          - {fileID: 329032718}
         <Index>k__BackingField: 1
         character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
         changeSprite: {fileID: 21300000, guid: 217884d24e46f54418eb8fbf3008481d, type: 3}
@@ -5613,7 +5751,7 @@ MonoBehaviour:
           description: "\u3053\u306E\u30A2\u30BB\u30C3\u30C8\u306B\u3064\u3044\u3066\u306E\u3056\u3063\u304F\u308A\u3068\u3057\u305F\u8AAC\u660E"
           isCheckZone: 0
           commandDataList:
-          - {fileID: 2105967396}
+          - {fileID: 1241715583}
           - {fileID: 1031978188}
           - {fileID: 1748428382}
           - {fileID: 2010310231}
@@ -5690,44 +5828,6 @@ MonoBehaviour:
         character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
         changeSprite: {fileID: 21300000, guid: 24ea358cd0c6e7d48b3a06eaff46e833, type: 3}
         storyText: "\u666E\u901A\u3053\u3046\u3044\u3063\u305F\u30B3\u30DE\u30F3\u30C9\u306F\u901A\u3063\u305F\u77AC\u9593\u306B\u767A\u52D5\u3059\u308B\u3060\u3051\u3067\u3059\u304C\u3001Zone\u30B3\u30DE\u30F3\u30C9\u306F\u3001\u300C\u3053\u306E\u30B3\u30DE\u30F3\u30C9\u3088\u308A\u4E0B\u304B\u3089Execute\u3055\u308C\u305F\u3053\u3068\u3092\u691C\u77E5\u3067\u304D\u308B\u300D\u3068\u3044\u3046\u4ED5\u69D8\u304C\u5B9F\u88C5\u3055\u308C\u3066\u3044\u307E\u3059"
---- !u!114 &2024725747
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4399fbfc898731a4f96fd937ce84eeff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enabled: 1
-  command:
-    rid: 3802097126054297674
-  references:
-    version: 2
-    RefIds:
-    - rid: 3802097126054297674
-      type: {class: Say, ns: Novel.Command, asm: Novel}
-      data:
-        <ParentFlowchart>k__BackingField:
-          description: "SayCommand\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
-          isCheckZone: 0
-          commandDataList:
-          - {fileID: 1391726535}
-          - {fileID: 1961789263}
-          - {fileID: 1678415072}
-          - {fileID: 612959505}
-          - {fileID: 1823036095}
-          - {fileID: 1651393349}
-          - {fileID: 1808321825}
-          - {fileID: 2024725747}
-          - {fileID: 1541263003}
-        <Index>k__BackingField: 7
-        character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
-        changeSprite: {fileID: 21300000, guid: 855f9004ee0d1af44a9142b63035d451, type: 3}
-        storyText: "1\u3064\u306ESay\u30B3\u30DE\u30F3\u30C9\u3067\u3001\n<wic>\u4F55\u56DE\u3082\u3001\n<wic>\u7E70\u308A\u8FD4\u3057\u8868\u793A\u3059\u308B\u3053\u3068\u3082\u3067\u304D\u3061\u3083\u3046"
 --- !u!114 &2032352414
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5827,57 +5927,6 @@ MonoBehaviour:
         character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
         changeSprite: {fileID: 21300000, guid: 321b0bfb6c84b2e4ea411c3d1246c306, type: 3}
         storyText: "3\u884C\u76EE\u306F\u5404\u30D5\u30ED\u30FC\u30C1\u30E3\u30FC\u30C8\u540D\u3068Description\u304C\u5165\u308A\u307E\u3059\n\u30A4\u30F3\u30DD\u30FC\u30C8\u6642\u306F\u540D\u524D\u306E\u307F\u5408\u308F\u305B\u308B\u5FC5\u8981\u304C\u3042\u308A\u307E\u3059"
---- !u!114 &2105967396
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4399fbfc898731a4f96fd937ce84eeff, type: 3}
-  m_Name: (Clone)
-  m_EditorClassIdentifier: 
-  enabled: 1
-  command:
-    rid: 3802097126054297681
-  references:
-    version: 2
-    RefIds:
-    - rid: 3802097126054297681
-      type: {class: SayAdvanced, ns: Novel.Command, asm: Novel}
-      data:
-        <ParentFlowchart>k__BackingField:
-          description: "\u3053\u306E\u30A2\u30BB\u30C3\u30C8\u306B\u3064\u3044\u3066\u306E\u3056\u3063\u304F\u308A\u3068\u3057\u305F\u8AAC\u660E"
-          isCheckZone: 0
-          commandDataList:
-          - {fileID: 2105967396}
-          - {fileID: 1031978188}
-          - {fileID: 1748428382}
-          - {fileID: 2010310231}
-          - {fileID: 1310842020}
-          - {fileID: 1355851298}
-          - {fileID: 567793046}
-          - {fileID: 419699166}
-          - {fileID: 643241747}
-          - {fileID: 104790287}
-          - {fileID: 1925792844}
-          - {fileID: 1679523569}
-          - {fileID: 385271804}
-          - {fileID: 1736597546}
-          - {fileID: 1878890039}
-          - {fileID: 52388454}
-          - {fileID: 38965964}
-          - {fileID: 814690927}
-        <Index>k__BackingField: 0
-        character: {fileID: 0}
-        changeSprite: {fileID: 0}
-        storyText: "Say\u306E\u30B5\u30F3\u30D7\u30EB\u3067\u3059 (\u30AF\u30EA\u30C3\u30AF\u304BZ\u30AD\u30FC\u3067\u6B21\u3078)"
-        boxType: 0
-        boxShowTime: 0.3
-        characterName: 
-        flagKeys: []
 --- !u!1 &2119949306
 GameObject:
   m_ObjectHideFlags: 0
@@ -5907,7 +5956,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7cf50fdd8e070440a24501548002687, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  executeOnStart: 0
+  executeOnStart: 1
   flowchart:
     description: "ScriptableObject\u306E\u30D5\u30ED\u30FC\u30C1\u30E3\u30FC\u30C8\u306E\u8AAC\u660E"
     isCheckZone: 0

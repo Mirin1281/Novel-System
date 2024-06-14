@@ -20,30 +20,23 @@ namespace Novel
             SpeedEnd,
             WaitSeconds,
             WaitInput,
-            WaitInputClear,
             RubyStart,
         }
 
         public class TagData
         {
-            public TagType TagType;
-            public float Value;
-
-            /// <summary>
-            /// 独自のタグを無視した時のタグの位置(語彙力)
-            /// </summary>
-            public int IndexIgnoreMyTag;
+            public readonly TagType TagType;
+            public readonly float Value;
 
             /// <summary>
             /// リッチテキストを含む全てのタグを無視した時のタグの位置
             /// </summary>
             public int IndexIgnoreAllTag;
 
-            public TagData(TagType tagType, float value, int indexIgnoreMyTag, int indexIgnoreAllTag)
+            public TagData(TagType tagType, float value, int indexIgnoreAllTag)
             {
                 TagType = tagType;
                 Value = value;
-                IndexIgnoreMyTag = indexIgnoreMyTag;
                 IndexIgnoreAllTag = indexIgnoreAllTag;
             }
         }
@@ -94,7 +87,7 @@ namespace Novel
 
                 if (tagType != TagType.None)
                 {
-                    tagDataList.Add(new TagData(tagType, value, match.Index - myTagsLength, match.Index - allTagsLength));
+                    tagDataList.Add(new TagData(tagType, value, match.Index - allTagsLength));
                     if (tagType == TagType.RubyStart) continue;
                     text = text.Replace(match.Value, string.Empty);
                     myTagsLength += tag.Length;
@@ -128,10 +121,6 @@ namespace Novel
                 else if (content == "wi")
                 {
                     tagType = TagType.WaitInput;
-                }
-                else if (content == "wic")
-                {
-                    tagType = TagType.WaitInputClear;
                 }
                 else if (content.StartsWith("r=", StringComparison.Ordinal))
                 {

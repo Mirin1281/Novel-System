@@ -11,7 +11,8 @@ namespace Novel
     // MonoBehaviourはシーン内で参照が取れるためできることが多い
     // ScriptableObjectはどのシーンからでも呼べるので使い回しが効く
     
-    [Serializable]　public class Flowchart
+    [Serializable]
+    public class Flowchart
     {
         [SerializeField, TextArea]
         string description = "説明";
@@ -29,6 +30,11 @@ namespace Novel
         CancellationTokenSource cts;
 
         int callIndex;
+
+        /// <summary>
+        /// 現在呼ばれているフローチャートのリスト
+        /// </summary>
+        public static List<Flowchart> CurrentExecutingFlowcharts;
 
         // コマンド内で呼ばれた際は抜ける際にindexを+1するので、その分予め引いておく
         public void SetIndex(int index, bool calledInCommand)
@@ -50,6 +56,11 @@ namespace Novel
         /// <param name="callStatus">他のフローチャートから呼び出された時に渡される情報</param>
         public async UniTask ExecuteAsync(int index, FlowchartCallStatus callStatus = null)
         {
+            if(CurrentExecutingFlowcharts == null)
+            {
+                CurrentExecutingFlowcharts = new(3);
+            }
+            CurrentExecutingFlowcharts.Add(this);
             SetIndex(index, false);
             if (isCheckZone) ApplyZone(commandDataList, callIndex);
             var status = SetStatus(callStatus, ref cts);
@@ -68,6 +79,7 @@ namespace Novel
                 PortraitManager.Instance.AllClearFadeAsync().Forget();
             }
             isStopped = false;
+            CurrentExecutingFlowcharts.Remove(this);
 
 
             // 呼び出し時のインデックスを見て、それよりも上に存在する
@@ -93,8 +105,6 @@ namespace Novel
                 if (callStatus == null)
                 {
                     cts = new();
-                    cts = CancellationTokenSource.CreateLinkedTokenSource(
-                            StaticToken.TokenOnSceneChange, cts.Token);
                     return new FlowchartCallStatus(cts.Token, cts, false);
                 }
                 else

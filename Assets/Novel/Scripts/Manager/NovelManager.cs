@@ -54,18 +54,6 @@ namespace Novel
             public bool IsInactiveOnAwake { get; private set; }
         }
 
-        protected override void Awake()
-        {
-            base.Awake();
-            StaticToken.Init();
-        }
-
-        protected override void OnDestroy()
-        {
-            base.OnDestroy();
-            StaticToken.ResetToken();
-        }
-
         #endregion
 
         void Update()

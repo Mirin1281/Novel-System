@@ -6,7 +6,7 @@ using Cysharp.Threading.Tasks;
 
 namespace Novel
 {
-    using LinkedBox = MessageBoxesData.LinkedBox;
+    using LinkedBox = MessageBoxesData.LinkedObject;
 
     // 【ふるまいの雑な説明】
     // メッセージボックスをBoxTypeに応じてプレハブから生成、提供します
@@ -36,7 +36,7 @@ namespace Novel
             int enumCount = Enum.GetValues(typeof(BoxType)).Length;
 
             // 登録数のチェック
-            if (data.LinkedBoxList.Count != enumCount)
+            if (data.GetListCount() != enumCount)
             {
                 Debug.LogWarning($"{nameof(MessageBoxManager)}に登録している数が{nameof(BoxType)}の数と合いません！");
             }
@@ -44,7 +44,7 @@ namespace Novel
             {
                 for (int i = 0; i < enumCount; i++)
                 {
-                    data.LinkedBoxList[i].Type = (BoxType)i;
+                    data.GetLinkedObject(i).SetType((BoxType)i);
                 }
             }
         }
@@ -60,20 +60,20 @@ namespace Novel
 
             var existBoxes = FindObjectsByType<MessageBox>(
                     FindObjectsInactive.Include, FindObjectsSortMode.None);
-            foreach (var linkedBox in data.LinkedBoxList)
+            foreach (var linkedBox in data.GetLinkedObjectEnumerable())
             {
-                linkedBox.Box = null;
+                linkedBox.Object = null;
                 foreach(var existBox in existBoxes)
                 {
                     if (existBox.IsMeetType(linkedBox.Type))
                     {
                         existBox.gameObject.SetActive(false);
-                        linkedBox.Box = existBox;
+                        linkedBox.Object = existBox;
                         break;
                     }
                 }
 
-                if (linkedBox.Box == null && data.CreateOnSceneChanged)
+                if (linkedBox.Object == null && data.CreateOnSceneChanged)
                 {
                     CreateAndAddBox(linkedBox);
                 }
@@ -86,7 +86,7 @@ namespace Novel
             var newBox = Instantiate(linkedBox.Prefab, transform);
             newBox.gameObject.SetActive(false);
             newBox.name = linkedBox.Prefab.name;
-            linkedBox.Box = newBox;
+            linkedBox.Object = newBox;
             return newBox;
         }
 
@@ -95,29 +95,29 @@ namespace Novel
         /// </summary>
         public MessageBox CreateIfNotingBox(BoxType boxType)
         {
-            var linkedBox = data.LinkedBoxList[(int)boxType];
-            if (linkedBox.Box != null) return linkedBox.Box;
+            var linkedBox = data.GetLinkedObject((int)boxType);
+            if (linkedBox.Object != null) return linkedBox.Object;
             return CreateAndAddBox(linkedBox);
         }
 
         public async UniTask AllClearFadeAsync(
             float time = ConstContainer.DefaultFadeTime, CancellationToken token = default)
         {
-            foreach(var linkedBox in data.LinkedBoxList)
+            foreach(var linkedBox in data.GetLinkedObjectEnumerable())
             {
-                if (linkedBox.Box == null) continue;
-                linkedBox.Box.ClearFadeAsync(time, token).Forget();
+                if (linkedBox.Object == null) continue;
+                linkedBox.Object.ClearFadeAsync(time, token).Forget();
             }
             await Wait.Seconds(time, token == default ? this.GetCancellationTokenOnDestroy() : token);
         }
 
         public async UniTask OtherClearFadeAsync(BoxType boxType, float time = ConstContainer.DefaultFadeTime)
         {
-            foreach (var linkedBox in data.LinkedBoxList)
+            foreach (var linkedBox in data.GetLinkedObjectEnumerable())
             {
-                if (linkedBox.Box == null ||
+                if (linkedBox.Object == null ||
                     linkedBox.Type == boxType) continue;
-                linkedBox.Box.ClearFadeAsync(time).Forget();
+                linkedBox.Object.ClearFadeAsync(time).Forget();
             }
             await Wait.Seconds(time, this.GetCancellationTokenOnDestroy());
         }
