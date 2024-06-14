@@ -9,7 +9,7 @@ Testと付いている通り安全な動作はまだ保証できませんが、G
 # Novelエディター
 自分用につくったUnityのノベル制作ツールアセットです
 
-元々Fungusという有名なフリーアセット(https://github.com/snozbot/fungus) があるのですが、それを自家製で作ってみました。
+元々Fungusという有名なフリーアセット(https://github.com/snozbot/fungus) があるのですが、それを自家製で作ってみました
 
 使い方もFungusに準じている所が多いです
 
@@ -22,7 +22,7 @@ Testと付いている通り安全な動作はまだ保証できませんが、G
 # 環境
 Windows10, 11
 
-Unity2022.3.20f1で制作しましたが、2021〜2023で動作することを確認しています。
+Unity2022.3.20f1で制作しましたが、2021〜2023で動作することを確認しています
 
 前提としてUniTask、SubclassSelector、RubyTextMeshPro(とTMPro)の3つの外部アセットをインポートする必要があります
 
@@ -46,6 +46,7 @@ ReleasesからNovel.unitypackageをダウンロードして、プロジェクト
 
 # サンプルについて
 Novel/Sample/SampleScene内にそのまま動くサンプルを載せています
+詳しくはそちらをご覧ください
 
 なおフォントは源の角ゴシック、イラストは「らぬきの立ち絵保管庫」様のをお借りしました
 <br>
@@ -59,8 +60,8 @@ Novelフォルダは場所を変えたり、名前を変えても大丈夫です
 
 
 ## フローチャートについて
-`FlowchartExecutor`コンポーネントを使うことで会話フローを呼び出すことができます。
-コマンドの操作は、インスペクターからFlowchartEditorWindowを表示して行ってください。
+`FlowchartExecutor`コンポーネントを使うことで会話フローを呼び出すことができます
+コマンドの操作は、インスペクターからFlowchartEditorWindowを表示して行ってください
 シーン間で共有などをしたい場合は`FlowchartData`で生成されるScriptableObjectを用いることができます
 
 ※注意:
@@ -70,35 +71,34 @@ Novelフォルダは場所を変えたり、名前を変えても大丈夫です
 
 
 ## コマンドについて
-このアセットは各自でカスタムコマンドを追加して頂くことを想定しています。CommandBaseを継承して、他のコマンドを参考にして作成してください。
-コマンドの色、ウィンドウのリストへの表示内容、詳しい説明、CSVへの入出力がエディタ拡張無しで実装可能です。
-詳しく知りたい場合は`CommandBase`のvirtual関数の実装をご覧ください。
+このアセットは各自でカスタムコマンドを追加して頂くことを想定しています。CommandBaseを継承して、他のコマンドを参考にして作成してください
+コマンドの色、ウィンドウのリストへの表示内容、詳しい説明、CSVへの入出力がエディタ拡張無しで実装可能です
+詳しく知りたい場合は`CommandBase`のvirtual関数の実装をご覧ください
 
 ※注意:
-Novel/Scriptable/Commands内にあるデータは基本的に直接操作しないでください。
-また、コマンドのクラス名は必ず`〇〇Command`としてください
+Novel/Scriptables/Commands内にあるデータは基本的に直接操作しないでください
 
 ※インスペクターにコマンド名と`Enable`しか表示されない場合は、コマンド名のラベル部分をクリックしてください
 <br>
 <br>
 
 ## メッセージボックス等について
-ゲーム開始時に`CreateManagerData`によって`MessageBoxManager`を生成します。
+ゲーム開始時に`NovelManager`によって`MessageBoxManager`を生成します
 必要がなければ削除してもかまいませんし、プレハブを使って後から生成することもできます
 
 既にシーン内に該当するメッセージボックスが存在する場合はそれが使用されます。(オーバーライドのように扱えます)
 
-また、ポートレート(立ち絵)についてもメッセージボックスと同様です。
-例えば立ち絵を追加したい場合は、DefaultPortraitプレハブを基にして(Prefab Variant推奨)ポートレートオブジェクトを作成、`PortraitType`の項目を増やしてからPortraitsDataにセットしてください
+また、ポートレート(立ち絵)についてもメッセージボックスと同様です
+例えば立ち絵を追加したい場合は、DefaultPortraitプレハブを基にして(Prefab Variant推奨)ポートレートオブジェクトを作成、列挙型`PortraitType`の項目を増やしてからPortraitsDataにセットしてください
 <br>
 <br>
 
 
 ## フラグについて
-※ここでいうフラグは`bool`値以外も含むものとします。
+※ここでいうフラグは`bool`値以外も含みます
 
-本アセットは標準で`FlagManager`と`FlagKeyData`によるフラグ管理をサポートしています。
-`Dictionary<string, object>`というやや古典的な手法です。`FlagKeyData`をキーとして値のやり取りをします。
+本アセットは標準で`FlagManager`と`FlagKeyData`によるフラグ管理をサポートしています
+`Dictionary<string, object>`というやや古典的な手法です。`FlagKeyData`をキーとして値のやり取りをします
 `FlagKeyData`はジェネリックなのでさまざまな型のフラグを作れます。
 
 `SayCommand`などでフラグの値を文中に埋め込むことができます。
@@ -107,17 +107,17 @@ JsonNetなどを使えばセーブ機能も比較的簡単に実装できるた�
 <br>
 
 ## CSVの入出力について
-エクスポートすると、シーン内の全フローチャートGameObject(またはプロジェクト内の全フローチャートScriptableObject)のコマンドデータが書き込まれます。
-インポートすると、出力した形式でデータを取り込むことができます。
-Excelでのデータ形式に準じていますので、そのまま扱えます。
+エクスポートすると、シーン内の全フローチャートGameObject(またはプロジェクト内の全フローチャートScriptableObject)のコマンドデータが書き込まれます
+インポートすると、出力した形式でデータを取り込むことができます
+Excelでのデータ形式に準じていますので、そのまま扱えます
 
-出力するデータや入力するデータを設定したい場合は、それぞれのコマンドの、`CommandBase`内の`CSVContent1`や`CSVContent2`プロパティをオーバーライドしてください。ゲッターとセッターは相互変換を推奨します。
-また、縦の列のコマンドを自由に増やすこともできます。
+出力するデータや入力するデータを設定したい場合は、それぞれのコマンドの、`CommandBase`内の`CSVContent1`や`CSVContent2`プロパティをオーバーライドしてください。ゲッターとセッターは相互変換を推奨します
+また、縦の列のコマンドを自由に増やすこともできます
 
-すでにあるコマンドをCSVから消す機能は実装していません。とりあえず無効にしたい場合は"\<Null\>"または単に"Null"を入れてください。
+すでにあるコマンドをCSVから消す機能は実装していません。とりあえず無効にしたい場合は"\<Null\>"または単に"Null"を入れてください
 
 ※注意:
-CSVのファイル名は変更してもかまいませんが、CSV内の1行目と2行目のデータは基本的に変えないでください。
+CSVのファイル名は変更してもかまいませんが、CSV内の1行目と3行目のデータは基本的に変えないでください。
 <br>
 <br>
 <br>
@@ -168,7 +168,7 @@ Download Novel.unitypackage from Releases and drag and drop it into your project
 # About samples
 Novel/Sample/SampleScene contains samples that work as they are.
 
-The font is Gen Kaku Gothic and the illustrations are from "Ranuki's Stand-up Picture Storage".
+The font is "Source Han Sans" and the illustrations are from "らぬきの立ち絵保管庫".
 <br>
 <br>
 
@@ -196,21 +196,20 @@ The command's color, window list, detailed description, and input/output to/from
 If you want to know more details, see `CommandBase` virtual function implementation.
 
 *Note: The function is not implemented in the `CommandBase`.
-Do not directly manipulate the data in Novel/Scriptable/Commands.
-Also, be sure to use `~~Command` as the class name of the command.
+Do not directly manipulate the data in Novel/Scriptables/Commands.
 
 If you only see the command name and `Enable` in the inspector, click on the label part of the command name.
 <br>
 <br>
 
 ## About message boxes, etc.
-`MessageBoxManager` is created at the start of the game by `CreateManagerData`.
+`MessageBoxManager` is created at the start of the game by `NovelManager`.
 You can delete it if you don't need it, or you can create it later using prefabrication.
 
 If the corresponding message box already exists in the scene, it will be used. (This can be handled like an override)
 
 Portraits (standing pictures) can be created in the same way as message boxes.
-For example, if you want to add a standing portrait, create a portrait object based on the DefaultPortrait prefab (Prefab Variant is recommended), increase the `PortraitType` field, and set it to PortraitsData.
+For example, if you want to add a standing portrait, create a portrait object based on the DefaultPortrait prefab (Prefab Variant is recommended), increase the enum `PortraitType` field, and set it to PortraitsData.
 <br>
 <br>
 
@@ -237,6 +236,6 @@ You can also freely add more commands in the vertical columns.
 
 We have not implemented a function to erase already existing commands from CSV. If you want to disable it for now, please enter "\<Null\>" or just "Null".
 
-Note: You may change the CSV file name, but please do not change the data in the first and second lines of the CSV.
+Note: You may change the CSV file name, but please do not change the data in the first and third lines of the CSV.
 
 
