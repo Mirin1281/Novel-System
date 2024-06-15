@@ -7,12 +7,11 @@ namespace Novel.Command
     public class Label : CommandBase
     {
         [SerializeField] string labelName;
-        [ColorUsage(true, true), SerializeField] Color commandColor = Color.white;
+        [SerializeField] Color commandColor = Color.white;
 
         protected override async UniTask EnterAsync()
         {
             await UniTask.CompletedTask;
-            return;
         }
 
         protected override string GetSummary()

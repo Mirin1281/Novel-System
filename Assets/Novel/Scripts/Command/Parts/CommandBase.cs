@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using System;
 using Cysharp.Threading.Tasks;
+using System.Linq;
+using System.IO;
 
 namespace Novel.Command
 {
@@ -75,6 +77,21 @@ namespace Novel.Command
 #if UNITY_EDITOR
         public void SetFlowchart(Flowchart f) => ParentFlowchart = f;
         public void SetIndex(int i) => Index = i;
+        public string GetScriptPath()
+        {
+            string fileName = $"{GetName(this)}.cs";
+            string path = Directory.GetFiles(
+                Application.dataPath, fileName, SearchOption.AllDirectories).FirstOrDefault();
+
+            if (string.IsNullOrEmpty(path))
+            {
+                throw new FileNotFoundException();
+            }
+            else
+            {
+                return path.Replace("\\", "/").Replace(Application.dataPath, "Assets");
+            }
+        }
 #endif
     }
 }

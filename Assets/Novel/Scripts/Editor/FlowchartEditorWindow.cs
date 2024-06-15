@@ -1,10 +1,13 @@
 ﻿using Novel.Command;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using UnityEditor;
 using UnityEditorInternal;
 using UnityEngine;
+using Debug = UnityEngine.Debug;
+using Object = UnityEngine.Object;
 
 namespace Novel.Editor
 {
@@ -159,41 +162,56 @@ namespace Novel.Editor
             {
                 var mousePos = Event.current.mousePosition;
                 var buttonRect = new Rect(0, 0, position.size.x * SplitMenuRatio, position.size.y);
-                if(buttonRect.Contains(mousePos) == false) return;
-
-                if (reorderableList.HasKeyboardControl())
+                if(buttonRect.Contains(mousePos))
                 {
-                    menu.AddItem(new GUIContent("Add"), false, () =>
+                    if (reorderableList.HasKeyboardControl())
                     {
-                        Add(reorderableList);
-                    });
-                    menu.AddItem(new GUIContent("Remove"), false, () =>
-                    {
-                        Remove(reorderableList);
-                    });
-                    menu.AddItem(new GUIContent("Copy"), false, () =>
-                    {
-                        Copy(selectedCommandList);
-                    });
+                        menu.AddItem(new GUIContent("Add"), false, () =>
+                        {
+                            Add(reorderableList);
+                        });
+                        menu.AddItem(new GUIContent("Remove"), false, () =>
+                        {
+                            Remove(reorderableList);
+                        });
+                        menu.AddItem(new GUIContent("Copy"), false, () =>
+                        {
+                            Copy(selectedCommandList);
+                        });
 
-                    if (copiedCommandList == null)
-                    {
-                        menu.AddDisabledItem(new GUIContent("Paste"));
+                        if (copiedCommandList == null)
+                        {
+                            menu.AddDisabledItem(new GUIContent("Paste"));
+                        }
+                        else
+                        {
+                            menu.AddItem(new GUIContent("Paste"), false, () =>
+                            {
+                                Paste(copiedCommandList);
+                            });
+                        }
+
+                        menu.AddSeparator(string.Empty);
+
+                        if (selectedCommandList.Count == 1 && lastSelectedCommand.GetCommandBase() != null)
+                        {
+                            menu.AddItem(new GUIContent("Edit Script"), false, () =>
+                            {
+                                var scriptPath = lastSelectedCommand.GetCommandBase().GetScriptPath();
+                                Object scriptAsset = AssetDatabase.LoadAssetAtPath<Object>(scriptPath);
+                                AssetDatabase.OpenAsset(scriptAsset, 7);
+                            });
+                        }
                     }
                     else
                     {
-                        menu.AddItem(new GUIContent("Paste"), false, () =>
-                        {
-                            Paste(copiedCommandList);
-                        });
+                        menu.AddDisabledItem(new GUIContent("Add"));
+                        menu.AddDisabledItem(new GUIContent("Remove"));
+                        menu.AddDisabledItem(new GUIContent("Copy"));
+                        menu.AddDisabledItem(new GUIContent("Paste"));
+                        menu.AddSeparator(string.Empty);
+                        menu.AddDisabledItem(new GUIContent("Edit Script"));
                     }
-                }
-                else
-                {
-                    menu.AddDisabledItem(new GUIContent("Add"));
-                    menu.AddDisabledItem(new GUIContent("Remove"));
-                    menu.AddDisabledItem(new GUIContent("Copy"));
-                    menu.AddDisabledItem(new GUIContent("Paste"));
                 }
             }
 
