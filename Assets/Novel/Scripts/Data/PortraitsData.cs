@@ -3,8 +3,9 @@
 namespace Novel
 {
     [CreateAssetMenu(
-        fileName = "Portraits",
-        menuName = "ScriptableObject/Portraits")
+        fileName = "PortraitsData",
+        menuName = ConstContainer.DATA_CREATE_PATH + "PortraitsData",
+        order = 1)
     ]
     public class PortraitsData : Enum2ObjectListDataBase<PortraitType, Portrait>
     {

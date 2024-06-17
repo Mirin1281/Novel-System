@@ -3,6 +3,9 @@ using System;
 using Cysharp.Threading.Tasks;
 using System.Linq;
 using System.IO;
+using UnityEditor;
+using Object = UnityEngine.Object;
+using System.Reflection;
 
 namespace Novel.Command
 {
@@ -79,12 +82,20 @@ namespace Novel.Command
         public void SetIndex(int i) => Index = i;
         public string GetScriptPath()
         {
-            string fileName = $"{GetName(this)}.cs";
-            string path = Directory.GetFiles(
-                Application.dataPath, fileName, SearchOption.AllDirectories).FirstOrDefault();
+            var assetName = GetName(this);
+            var filterString = assetName + " t:Script";
+
+            var path = AssetDatabase.FindAssets(filterString)
+                .Select(AssetDatabase.GUIDToAssetPath)
+                .FirstOrDefault(str => string.Equals(Path.GetFileNameWithoutExtension(str),
+                    assetName, StringComparison.CurrentCultureIgnoreCase));
 
             if (string.IsNullOrEmpty(path))
             {
+                Debug.LogWarning(
+                    $"Edit Scriptでエラーが発生しました\n" +
+                    $"開こうとしたファイル名: {GetName(this)}.cs\n" +
+                    "コマンドのクラス名とスクリプト名が一致しているか確認してください");
                 throw new FileNotFoundException();
             }
             else

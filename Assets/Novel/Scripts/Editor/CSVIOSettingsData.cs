@@ -4,8 +4,8 @@ namespace Novel.Editor
 {
     [CreateAssetMenu(
         fileName = "CSVIOSettings",
-        menuName = "ScriptableObject/CSVIOSettings",
-        order = 1)
+        menuName = ConstContainer.DATA_CREATE_PATH + "CSVIOSettings",
+        order = 2)
     ]
     public class CSVIOSettingsData : ScriptableObject
     {

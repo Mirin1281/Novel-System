@@ -4,7 +4,7 @@ using Cysharp.Threading.Tasks;
 namespace Novel.Command
 {
     [AddTypeMenu("2Menu"), System.Serializable]
-    public class TwoMenu : CommandBase
+    public class TwoMenu_ : CommandBase
     {
         public enum ActionType
         {

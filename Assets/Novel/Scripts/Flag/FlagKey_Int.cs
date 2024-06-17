@@ -4,7 +4,7 @@ namespace Novel
 {
     [CreateAssetMenu(
             fileName = "int_",
-            menuName = "FlagKey/int")
+            menuName = ConstContainer.FLAGKEY_CREATE_PATH + "int")
     ]
     public class FlagKey_Int : FlagKeyDataBase<int>
     {

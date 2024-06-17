@@ -6,7 +6,8 @@ namespace Novel
 {
     [CreateAssetMenu(
         fileName = "Flowchart",
-        menuName = "ScriptableObject/Flowchart")
+        menuName = ConstContainer.DATA_CREATE_PATH + "Flowchart",
+        order = 0)
     ]
     public class FlowchartData : ScriptableObject, IFlowchartObject
     {

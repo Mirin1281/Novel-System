@@ -12,7 +12,8 @@ namespace Novel
     /// </summary>
     [CreateAssetMenu(
         fileName = "Character",
-        menuName = "ScriptableObject/Character")
+        menuName = ConstContainer.DATA_CREATE_PATH + "Character",
+        order = 0)
     ]
     public class CharacterData : ScriptableObject
     {
