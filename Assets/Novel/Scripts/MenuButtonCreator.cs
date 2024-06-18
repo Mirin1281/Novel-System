@@ -16,11 +16,16 @@ namespace Novel
         {
             createButtons = GetComponentsInChildren<MenuButton>().ToList();
             createButtons.ForEach(button => button.gameObject.SetActive(false));
-            SceneManager.activeSceneChanged += (_, __) => AllClearFadeAsync(0).Forget();
+            SceneManager.activeSceneChanged += AllClear;
         }
         void OnDestroy()
         {
-            SceneManager.activeSceneChanged -= (_, __) => AllClearFadeAsync(0).Forget();
+            SceneManager.activeSceneChanged -= AllClear;
+        }
+
+        void AllClear(Scene _, Scene __)
+        {
+            AllClearFadeAsync(0).Forget();
         }
 
         public IReadOnlyList<MenuButton> CreateShowButtons(params string[] texts)

@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using UnityEditor;
 using UnityEditorInternal;
 using UnityEngine;
@@ -197,7 +198,8 @@ namespace Novel.Editor
                         {
                             menu.AddItem(new GUIContent("Edit Script"), false, () =>
                             {
-                                var scriptPath = lastSelectedCommand.GetCommandBase().GetScriptPath();
+                                var commandName = lastSelectedCommand.GetCommandStatus().Name;
+                                var scriptPath = GetScriptPath(commandName);
                                 Object scriptAsset = AssetDatabase.LoadAssetAtPath<Object>(scriptPath);
                                 AssetDatabase.OpenAsset(scriptAsset, 7);
                             });
@@ -226,6 +228,31 @@ namespace Novel.Editor
             {
                 listScrollPos = scroll.scrollPosition;
                 reorderableList.DoLayoutList();
+            }
+
+
+            static string GetScriptPath(string fileName)
+            {
+                var assetName = fileName;
+                var filterString = assetName + " t:Script";
+
+                var path = AssetDatabase.FindAssets(filterString)
+                    .Select(AssetDatabase.GUIDToAssetPath)
+                    .FirstOrDefault(str => string.Equals(Path.GetFileNameWithoutExtension(str),
+                        assetName, StringComparison.CurrentCultureIgnoreCase));
+
+                if (string.IsNullOrEmpty(path))
+                {
+                    Debug.LogWarning(
+                        $"Edit Scriptでエラーが発生しました\n" +
+                        $"開こうとしたファイル名: {fileName}.cs\n" +
+                        "コマンドのクラス名とスクリプト名が一致しているか確認してください");
+                    throw new FileNotFoundException();
+                }
+                else
+                {
+                    return path.Replace("\\", "/").Replace(Application.dataPath, "Assets");
+                }
             }
         }
 

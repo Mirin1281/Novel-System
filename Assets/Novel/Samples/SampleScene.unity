@@ -308,7 +308,6 @@ MonoBehaviour:
           - {fileID: 52388454}
           - {fileID: 38965964}
           - {fileID: 814690927}
-          - {fileID: 1229495371}
         <Index>k__BackingField: 16
         character: {fileID: 0}
         changeSprite: {fileID: 0}
@@ -356,7 +355,6 @@ MonoBehaviour:
           - {fileID: 52388454}
           - {fileID: 38965964}
           - {fileID: 814690927}
-          - {fileID: 1229495371}
         <Index>k__BackingField: 15
         character: {fileID: 0}
         changeSprite: {fileID: 0}
@@ -590,7 +588,6 @@ MonoBehaviour:
           - {fileID: 52388454}
           - {fileID: 38965964}
           - {fileID: 814690927}
-          - {fileID: 1229495371}
         <Index>k__BackingField: 9
         character: {fileID: 0}
         changeSprite: {fileID: 0}
@@ -1001,7 +998,6 @@ MonoBehaviour:
           - {fileID: 52388454}
           - {fileID: 38965964}
           - {fileID: 814690927}
-          - {fileID: 1229495371}
         <Index>k__BackingField: 12
         character: {fileID: 0}
         changeSprite: {fileID: 0}
@@ -1140,7 +1136,6 @@ MonoBehaviour:
           - {fileID: 52388454}
           - {fileID: 38965964}
           - {fileID: 814690927}
-          - {fileID: 1229495371}
         <Index>k__BackingField: 7
         character: {fileID: 0}
         changeSprite: {fileID: 0}
@@ -1576,7 +1571,6 @@ MonoBehaviour:
           - {fileID: 52388454}
           - {fileID: 38965964}
           - {fileID: 814690927}
-          - {fileID: 1229495371}
         <Index>k__BackingField: 6
         character: {fileID: 0}
         changeSprite: {fileID: 0}
@@ -1975,7 +1969,6 @@ MonoBehaviour:
           - {fileID: 52388454}
           - {fileID: 38965964}
           - {fileID: 814690927}
-          - {fileID: 1229495371}
         <Index>k__BackingField: 8
         character: {fileID: 0}
         changeSprite: {fileID: 0}
@@ -2411,7 +2404,6 @@ MonoBehaviour:
           - {fileID: 52388454}
           - {fileID: 38965964}
           - {fileID: 814690927}
-          - {fileID: 1229495371}
         <Index>k__BackingField: 17
         character: {fileID: 0}
         changeSprite: {fileID: 0}
@@ -2683,7 +2675,6 @@ MonoBehaviour:
     - {fileID: 52388454}
     - {fileID: 38965964}
     - {fileID: 814690927}
-    - {fileID: 1229495371}
 --- !u!4 &913874169
 Transform:
   m_ObjectHideFlags: 0
@@ -3169,7 +3160,6 @@ MonoBehaviour:
           - {fileID: 52388454}
           - {fileID: 38965964}
           - {fileID: 814690927}
-          - {fileID: 1229495371}
         <Index>k__BackingField: 1
         character: {fileID: 0}
         changeSprite: {fileID: 0}
@@ -3479,37 +3469,6 @@ MonoBehaviour:
         overridePos: {x: 2, y: 0}
         fadeTime: 0.3
         isAwait: 1
---- !u!114 &1229495371
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4399fbfc898731a4f96fd937ce84eeff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enabled: 1
-  command:
-    rid: 3802097310673666049
-  references:
-    version: 2
-    RefIds:
-    - rid: 3802097310673666049
-      type: {class: TwoMenu_, ns: Novel.Command, asm: Novel}
-      data:
-        <ParentFlowchart>k__BackingField:
-          description: "\u8AAC\u660E"
-          isCheckZone: 0
-          commandDataList: []
-        <Index>k__BackingField: 0
-        topSelectionText: 
-        bottomSelectionText: 
-        actionType: 0
-        isReverse: 0
-        flagKey: {fileID: 0}
 --- !u!1 &1231829954
 GameObject:
   m_ObjectHideFlags: 0
@@ -3612,7 +3571,6 @@ MonoBehaviour:
           - {fileID: 52388454}
           - {fileID: 38965964}
           - {fileID: 814690927}
-          - {fileID: 1229495371}
         <Index>k__BackingField: 0
         character: {fileID: 0}
         changeSprite: {fileID: 0}
@@ -3871,7 +3829,6 @@ MonoBehaviour:
           - {fileID: 52388454}
           - {fileID: 38965964}
           - {fileID: 814690927}
-          - {fileID: 1229495371}
         <Index>k__BackingField: 4
         character: {fileID: 0}
         changeSprite: {fileID: 0}
@@ -4064,7 +4021,6 @@ MonoBehaviour:
           - {fileID: 52388454}
           - {fileID: 38965964}
           - {fileID: 814690927}
-          - {fileID: 1229495371}
         <Index>k__BackingField: 5
         character: {fileID: 0}
         changeSprite: {fileID: 0}
@@ -4751,7 +4707,6 @@ MonoBehaviour:
           - {fileID: 52388454}
           - {fileID: 38965964}
           - {fileID: 814690927}
-          - {fileID: 1229495371}
         <Index>k__BackingField: 11
         character: {fileID: 0}
         changeSprite: {fileID: 0}
@@ -5045,7 +5000,6 @@ MonoBehaviour:
           - {fileID: 52388454}
           - {fileID: 38965964}
           - {fileID: 814690927}
-          - {fileID: 1229495371}
         <Index>k__BackingField: 13
         character: {fileID: 0}
         changeSprite: {fileID: 0}
@@ -5093,7 +5047,6 @@ MonoBehaviour:
           - {fileID: 52388454}
           - {fileID: 38965964}
           - {fileID: 814690927}
-          - {fileID: 1229495371}
         <Index>k__BackingField: 2
         character: {fileID: 0}
         changeSprite: {fileID: 0}
@@ -5645,7 +5598,6 @@ MonoBehaviour:
           - {fileID: 52388454}
           - {fileID: 38965964}
           - {fileID: 814690927}
-          - {fileID: 1229495371}
         <Index>k__BackingField: 14
         character: {fileID: 0}
         changeSprite: {fileID: 0}
@@ -5789,7 +5741,6 @@ MonoBehaviour:
           - {fileID: 52388454}
           - {fileID: 38965964}
           - {fileID: 814690927}
-          - {fileID: 1229495371}
         <Index>k__BackingField: 10
         character: {fileID: 0}
         changeSprite: {fileID: 0}
@@ -6077,7 +6028,6 @@ MonoBehaviour:
           - {fileID: 52388454}
           - {fileID: 38965964}
           - {fileID: 814690927}
-          - {fileID: 1229495371}
         <Index>k__BackingField: 3
         character: {fileID: 0}
         changeSprite: {fileID: 0}
