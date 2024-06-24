@@ -24,14 +24,6 @@ namespace Novel
 
         void Update()
         {
-            if (OnInputed == null || OnInputed.GetInvocationList() == null)
-            {
-            }
-            else
-            {
-                Debug.Log(OnInputed.GetInvocationList().Length);
-            }
-            
             if (Input.GetButtonDown(ConstContainer.SUBMIT_KEYNAME) || Input.GetButtonDown(ConstContainer.CANCEL_KEYNAME))
             {
                 OnInputed?.Invoke();

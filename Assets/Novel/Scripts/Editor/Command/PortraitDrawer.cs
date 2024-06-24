@@ -1,7 +1,5 @@
 ﻿using UnityEngine;
 using UnityEditor;
-using System;
-using System.Linq;
 
 namespace Novel.Editor
 {
@@ -11,44 +9,46 @@ namespace Novel.Editor
     public class PortraitDrawer : CommandBaseDrawer
     {
         static readonly int previewXOffset = 0;
-        static readonly int previewHeightOffset = 20;
+        static readonly int previewHeightOffset = 0;
         static readonly int previewSize = 300;
 
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
             position.y += GetHeight(10);
-            EditorGUI.BeginProperty(position, label, property);
 
             // キャラクターの設定 //
-            CharacterData chara = CommandDrawerUtility.DropDownCharacterList(position, property, "character");
+            var characterProp = property.FindPropertyRelative("character");
+            CharacterData chara = CommandDrawerUtility.DropDownCharacterList(position, characterProp);
             position.y += GetHeight();
 
+            EditorGUI.BeginDisabledGroup(chara == null);
+
             // アクションの設定 //
-            var actionTypeProp = property.FindPropertyRelative("actionType");
-            EditorGUI.PropertyField(position, actionTypeProp, new GUIContent("ActionType"));
-            position.y += GetHeight();
-            ActionType actionType = (ActionType)actionTypeProp.enumValueIndex;
+            var actionTypeProp = DrawField(ref position, property, "actionType");
+            var actionType = (ActionType)actionTypeProp.enumValueIndex;
 
             // 立ち絵の設定 //
             Sprite sprite = null;
             if(actionType == ActionType.Show || actionType == ActionType.Change)
             {
-                sprite = CommandDrawerUtility.DropDownSpriteList(position, property, chara, "portraitSprite");
+                var spriteProp = property.FindPropertyRelative("portraitSprite");
+                sprite = CommandDrawerUtility.DropDownSpriteList(position, spriteProp, chara);
                 position.y += GetHeight();
             }
 
             if (actionType == ActionType.Show)
             {
                 // ポジションの設定 //
-                var positionTypeProp = property.FindPropertyRelative("positionType");
-                EditorGUI.PropertyField(position, positionTypeProp, new GUIContent("PositionType"));
-                position.y += GetHeight();
+                var positionTypeProp = DrawField(ref position, property, "positionType");
+                var positionType = (PortraitPositionType)positionTypeProp.enumValueIndex;
 
-                if ((PortraitPositionType)positionTypeProp.enumValueIndex == PortraitPositionType.Custom)
+                if (positionType == PortraitPositionType.Custom)
                 {
                     // 上書きポジションの設定 //
                     var overridePosProp = property.FindPropertyRelative("overridePos");
-                    EditorGUI.LabelField(new Rect(position.x, position.y, EditorGUIUtility.labelWidth, position.height), new GUIContent("OverridePos"));
+                    EditorGUI.LabelField(
+                        new Rect(position.x, position.y, EditorGUIUtility.labelWidth, position.height),
+                        new GUIContent(overridePosProp.displayName));
                     overridePosProp.vector2Value = EditorGUI.Vector2Field(
                         new Rect(position.x + EditorGUIUtility.labelWidth - 10f, position.y,
                             position.width - 140, position.height),
@@ -60,14 +60,10 @@ namespace Novel.Editor
             if (actionType == ActionType.Show || actionType == ActionType.Clear)
             {
                 // フェード時間の設定 //
-                var fadeTimeProp = property.FindPropertyRelative("fadeTime");
-                EditorGUI.PropertyField(position, fadeTimeProp, new GUIContent("FadeTime"));
-                position.y += GetHeight();
+                DrawField(ref position, property, "fadeTime");
 
                 // 待機するかの設定 //
-                var isAwaitProp = property.FindPropertyRelative("isAwait");
-                EditorGUI.PropertyField(position, isAwaitProp, new GUIContent("IsAwait"));
-                position.y += GetHeight();
+                DrawField(ref position, property, "isAwait");
             }
 
             if (actionType == ActionType.Show || actionType == ActionType.Change)
@@ -84,7 +80,7 @@ namespace Novel.Editor
                 }
             }
 
-            EditorGUI.EndProperty();
+            EditorGUI.EndDisabledGroup();
         }
     }
 }

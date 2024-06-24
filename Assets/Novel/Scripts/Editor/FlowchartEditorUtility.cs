@@ -18,7 +18,6 @@ namespace Novel.Editor
             return path.Replace("\\", "/").Replace(Application.dataPath, "Assets");
         }
 
-
         public static void DestroyScritableObject(ScriptableObject obj)
         {
             var path = GetExistFolderPath(obj);
@@ -94,46 +93,57 @@ namespace Novel.Editor
         /// <summary>
         /// CharacterDataのドロップダウンリストを表示します
         /// </summary>
-        public static CharacterData DropDownCharacterList(Rect position, SerializedProperty property, string fieldName)
+        public static CharacterData DropDownCharacterList(Rect position, SerializedProperty property)
         {
-            var characterProp = property.FindPropertyRelative(fieldName);
             var characterArray = FlowchartEditorUtility.GetAllScriptableObjects<CharacterData>()
                 .Prepend(null).ToArray();
             int previousCharaIndex = Array.IndexOf(
-                characterArray, characterProp.objectReferenceValue as CharacterData);
-            int selectedCharaIndex = EditorGUI.Popup(position, fieldName, previousCharaIndex,
+                    characterArray, property.objectReferenceValue as CharacterData);
+            int selectedCharaIndex = EditorGUI.Popup(position, property.displayName, previousCharaIndex,
                 characterArray.Select(c => c == null ? "<Null>" : c.CharacterName).ToArray());
-            CharacterData chara = characterArray[selectedCharaIndex];
 
             if (previousCharaIndex != selectedCharaIndex)
             {
-                characterProp.objectReferenceValue = chara;
-                characterProp.serializedObject.ApplyModifiedProperties();
+                property.objectReferenceValue = characterArray[selectedCharaIndex];
+                property.serializedObject.ApplyModifiedProperties();
             }
-            return chara;
+
+            if (selectedCharaIndex < characterArray.Length && selectedCharaIndex >= 0)
+            {
+                return characterArray[selectedCharaIndex];
+            }
+            else
+            {
+                return null;
+            }
         }
 
         /// <summary>
         /// CharacterData内のスプライトのドロップダウンリストを表示します
         /// </summary>
-        public static Sprite DropDownSpriteList(Rect position, SerializedProperty property, CharacterData character, string fieldName)
+        public static Sprite DropDownSpriteList(Rect position, SerializedProperty property, CharacterData character)
         {
             if (!(character != null && character.Portraits != null && character.Portraits.Count() != 0)) return null;
-            var portraitProp = property.FindPropertyRelative(fieldName);
             var portraitsArray = character.Portraits.Prepend(null).ToArray();
             int previousPortraitIndex = Array.IndexOf(
-                portraitsArray, portraitProp.objectReferenceValue as Sprite);
-            int selectedPortraitIndex = EditorGUI.Popup(position, fieldName, previousPortraitIndex,
+                portraitsArray, property.objectReferenceValue as Sprite);
+            int selectedPortraitIndex = EditorGUI.Popup(position, property.displayName, previousPortraitIndex,
                 portraitsArray.Select(p => p == null ? "<Null>" : p.name).ToArray());
-            Sprite sprite = null;
 
             if (selectedPortraitIndex != previousPortraitIndex)
             {
-                sprite = portraitsArray[selectedPortraitIndex];
-                portraitProp.objectReferenceValue = sprite;
-                portraitProp.serializedObject.ApplyModifiedProperties();
+                property.objectReferenceValue = portraitsArray[selectedPortraitIndex];
+                property.serializedObject.ApplyModifiedProperties();
             }
-            return sprite;
+
+            if(selectedPortraitIndex < portraitsArray.Length && selectedPortraitIndex >= 0)
+            {
+                return portraitsArray[selectedPortraitIndex];
+            }
+            else
+            {
+                return null;
+            }
         }
     }
 }

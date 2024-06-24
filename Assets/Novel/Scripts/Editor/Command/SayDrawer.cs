@@ -1,7 +1,5 @@
 ﻿using UnityEngine;
 using UnityEditor;
-using System;
-using System.Linq;
 using Novel.Command;
 
 namespace Novel.Editor
@@ -22,15 +20,17 @@ namespace Novel.Editor
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
             position.y += GetHeight(10);
-            
+
             // キャラクターの設定 //
-            CharacterData chara = CommandDrawerUtility.DropDownCharacterList(position, property, "character");
+            var characterProp = property.FindPropertyRelative("character");
+            CharacterData chara = CommandDrawerUtility.DropDownCharacterList(position, characterProp);
             position.y += GetHeight();
 
             if(chara != null)
             {
                 // 立ち絵の設定 //
-                CommandDrawerUtility.DropDownSpriteList(position, property, chara, "changeSprite");
+                var spriteProp = property.FindPropertyRelative("changeSprite");
+                CommandDrawerUtility.DropDownSpriteList(position, spriteProp, chara);
                 position.y += GetHeight();
             }
 
@@ -38,7 +38,7 @@ namespace Novel.Editor
             var storyTextProp = property.FindPropertyRelative("storyText");
             EditorGUI.PropertyField(new Rect(
                 position.x, position.y, position.width, storyTextArea),
-                storyTextProp, new GUIContent("StoryText"));
+                storyTextProp, new GUIContent(storyTextProp.displayName));
             position.y += GetHeight(storyTextArea);
 
             position.y = DrawExtraContents(position, property, label);

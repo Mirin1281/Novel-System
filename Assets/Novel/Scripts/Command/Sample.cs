@@ -6,7 +6,7 @@ namespace Novel.Command
     [AddTypeMenu("Sample"), System.Serializable]
     public class Sample : CommandBase
     {
-        [SerializeField, DropDownCharacter(nameof(character)), Space(10)]
+        [SerializeField, DropDownCharacter, Space(10)]
         CharacterData character;
 
         [SerializeField]

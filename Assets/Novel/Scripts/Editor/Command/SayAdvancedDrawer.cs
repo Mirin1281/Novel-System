@@ -15,24 +15,18 @@ namespace Novel.Editor
         protected override float DrawExtraContents(Rect position, SerializedProperty property, GUIContent label)
         {
             // ボックスタイプの設定 //
-            var boxTypeProp = property.FindPropertyRelative("boxType");
-            EditorGUI.PropertyField(position, boxTypeProp, new GUIContent("BoxType"));
-            position.y += GetHeight();
+            DrawField(ref position, property, "boxType");
 
             // ボックスフェード時間の設定 //
-            var boxShowTimeProp = property.FindPropertyRelative("boxShowTime");
-            EditorGUI.PropertyField(position, boxShowTimeProp, new GUIContent("BoxShowTime"));
-            position.y += GetHeight();
+            DrawField(ref position, property, "boxShowTime");
 
             // キャラクター名の設定 //
-            var characterNameProp = property.FindPropertyRelative("characterName");
-            EditorGUI.PropertyField(position, characterNameProp, new GUIContent("CharacterName"));
-            position.y += GetHeight();
+            var characterNameProp = DrawField(ref position, property, "characterName");
             overrideName = characterNameProp.stringValue;
 
             // フラグキーの設定 //
             var flagKeysProp = property.FindPropertyRelative("flagKeys");
-            EditorGUI.PropertyField(position, flagKeysProp, new GUIContent("FlagKeys"));
+            EditorGUI.PropertyField(position, flagKeysProp, new GUIContent(flagKeysProp.displayName));
             position.y += GetArrayHeight(flagKeysProp);
 
             return position.y;

@@ -9,11 +9,6 @@ namespace Novel
     [AttributeUsage(AttributeTargets.Field, AllowMultiple = true)]
     public class DropDownCharacterAttribute : PropertyAttribute
     {
-        public readonly string FieldName;
 
-        public DropDownCharacterAttribute(string fieldName)
-        {
-            FieldName = fieldName;
-        }
     }
 }

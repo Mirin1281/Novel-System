@@ -12,32 +12,21 @@ namespace Novel.Editor
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
             position.y += GetHeight(10);
-            EditorGUI.BeginProperty(position, label, property);
 
-            var flowchartTypeProp = property.FindPropertyRelative("flowchartType");
-            EditorGUI.PropertyField(position, flowchartTypeProp, new GUIContent("FlowchartType"));
-            position.y += GetHeight();
+            var flowchartTypeProp = DrawField(ref position, property, "flowchartType");
+            var flowchartType = (FlowchartType)flowchartTypeProp.enumValueIndex;
 
-            if ((FlowchartType)flowchartTypeProp.enumValueIndex == FlowchartType.Executor)
+            if (flowchartType == FlowchartType.Executor)
             {
-                var flowchartExecutorProp = property.FindPropertyRelative("flowchartExecutor");
-                EditorGUI.PropertyField(position, flowchartExecutorProp, new GUIContent("FlowchartExecutor"));
+                DrawField(ref position, property, "flowchartExecutor");
             }
-            else if((FlowchartType)flowchartTypeProp.enumValueIndex == FlowchartType.Data)
+            else if(flowchartType == FlowchartType.Data)
             {
-                var flowchartDataProp = property.FindPropertyRelative("flowchartData");
-                EditorGUI.PropertyField(position, flowchartDataProp, new GUIContent("FlowchartData"));
+                DrawField(ref position, property, "flowchartData");
             }
-            position.y += GetHeight();
 
-            var commandIndexProp = property.FindPropertyRelative("commandIndex");
-            EditorGUI.PropertyField(position, commandIndexProp, new GUIContent("CommandIndex"));
-            position.y += GetHeight();
-
-            var isAwaitNestProp = property.FindPropertyRelative("isAwaitNest");
-            EditorGUI.PropertyField(position, isAwaitNestProp, new GUIContent("IsAwaitNest"));
-
-            EditorGUI.EndProperty();
+            DrawField(ref position, property, "commandIndex");
+            DrawField(ref position, property, "isAwaitNest");
         }
     }
 }

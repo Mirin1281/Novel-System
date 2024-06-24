@@ -8,7 +8,7 @@ namespace Novel.Command
     {
         public enum MoveType { Relative, Absolute }
 
-        [SerializeField, DropDownCharacter(nameof(character))] CharacterData character;
+        [SerializeField, DropDownCharacter] CharacterData character;
         [SerializeField] MoveType moveType;
         [SerializeField] float movePosX;
         [SerializeField] float time;
