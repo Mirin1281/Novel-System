@@ -1,11 +1,3 @@
-## はじめに
-Testと付いている通り安全な動作は保証できませんが、GitHubの練習も兼ねていろいろ上げたいと思います
-
-やっちゃいけないことをやっていたらご指摘ください
-<br>
-<br>
-
-
 # Novelエディター
 自分用につくったUnityのノベル制作ツールアセットです
 
@@ -120,13 +112,6 @@ Excelでのデータ形式に準じていますので、そのまま扱えます
 CSVのファイル名は変更してもかまいませんが、CSV内の1行目と3行目のデータは基本的に変えないでください。
 <br>
 <br>
-<br>
-<br>
-
-## Introduction
-As the name "Test" implies, I can't guarantee safe operation yet, but I'd like to upload some stuff to GitHub for practice.
-
-If I'm doing something I shouldn't, please let me know.
 <br>
 <br>
 
