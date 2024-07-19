@@ -26,7 +26,7 @@ namespace Novel.Command
         protected override string GetSummary()
         {
             if (command == null) return WarningText();
-            return $"  {time}s: {command.GetCommandStatus().Name}";
+            return $"  {time}s: {command.GetName()}";
         }
     }
 }

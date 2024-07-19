@@ -1,6 +1,7 @@
 using UnityEngine;
 using Cysharp.Threading.Tasks;
 using Novel;
+using System.Collections.Generic;
 
 public class Test : MonoBehaviour
 {
@@ -9,10 +10,14 @@ public class Test : MonoBehaviour
     [SerializeField] FlagKey_Int intFlag;
     [SerializeField] FlagKey_String stringFlag;
     [SerializeField] SaveLoadButtonGroup saveButtonGroup;
+    [SerializeField] SceneChanger sceneChanger;
 
     async UniTask Start()
     {
-        await saveButtonGroup.ShowAndWaitButtonClick(SaveLoadType.Save, default);
+        
+        //sceneChanger = sceneChanger.FindComponent();
+        //sceneChanger.LoadScene();
+        //await saveButtonGroup.ShowAndWaitButtonClick(SaveLoadType.Save, default);
 
         /*await Wait(1f);
         Destroy(MessageBoxManager.Instance.gameObject);
@@ -22,6 +27,7 @@ public class Test : MonoBehaviour
         flowchartExecutor.ExecuteAsync().Forget();*/
         //FlagManager.SetFlagValue(intFlag, 256);
         //FlagManager.SetFlagValue(stringFlag, "‚¨‚ñ‚¨‚ñ");
+        await UniTask.CompletedTask;
     }
 
 }

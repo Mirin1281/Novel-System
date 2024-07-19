@@ -17,7 +17,7 @@ namespace Novel.Editor
             }
             if (_target != null)
             {
-                DrawBoxLayout(_target.GetCommandStatus().Color);
+                DrawBoxLayout(_target.GetCommandColor());
             }
             
             // enabledÇÃê›íË //

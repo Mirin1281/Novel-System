@@ -368,7 +368,7 @@ namespace Novel.Editor
 
 		static string GetCommandName(CommandBase commandBase)
 		{
-			if (commandBase == null) return "<Null>";
+			if (commandBase == null) return "Null";
 			return commandBase.ToString()
 				.Replace($"{nameof(Novel)}.{nameof(Command)}.", string.Empty);
 		}
@@ -377,10 +377,6 @@ namespace Novel.Editor
 		{
 			foreach (Assembly assembly in AppDomain.CurrentDomain.GetAssemblies())
 			{
-				/*var assemblyName = assembly.GetName().Name;
-				if (assemblyName.Contains("Unity") ||
-					assemblyName.Contains("System") ||
-					assemblyName.Contains("CSharp")) continue;*/
 				foreach (Type type in assembly.GetTypes())
 				{
 					if (type.Name == className && 
@@ -397,13 +393,41 @@ namespace Novel.Editor
 
 		static List<IFlowchartObject> GetSortedFlowchartObjects(FlowchartType type, FindObjectsInactive findMode)
         {
-			IFlowchartObject[] flowchartObjects = type switch
+			return type switch
 			{
-				FlowchartType.Executor => Object.FindObjectsByType<FlowchartExecutor>(findMode, FindObjectsSortMode.None),
-				FlowchartType.Data => FlowchartEditorUtility.GetAllScriptableObjects<FlowchartData>(),
+				FlowchartType.Executor => GetFlowchartObjectsByHierarchy(),
+				FlowchartType.Data => FlowchartEditorUtility.GetAllScriptableObjects<FlowchartData>()
+					.OrderBy(f => f.Name)
+					.Select(f => f as IFlowchartObject)
+					.ToList(),
 				_ => throw new Exception(),
 			};
-			return flowchartObjects.OrderBy(f => f.Name).ToList();
+
+
+			static List<IFlowchartObject> GetFlowchartObjectsByHierarchy()
+			{
+				List<GameObject> allObjects = new();
+				GameObject[] rootObjects = SceneManager.GetActiveScene().GetRootGameObjects();
+
+				foreach (var obj in rootObjects)
+				{
+					allObjects.Add(obj);
+					AddAllChildren(obj, allObjects);
+				}
+
+				return allObjects.Select(o => o.GetComponent<IFlowchartObject>())
+					.Where(f => f != null).ToList();
+
+
+				static void AddAllChildren(GameObject parent, List<GameObject> list)
+				{
+					foreach (Transform child in parent.transform)
+					{
+						list.Add(child.gameObject);
+						AddAllChildren(child.gameObject, list); // 再帰呼び出しで子オブジェクトを追加
+					}
+				}
+			}
 		}
 	}
 	

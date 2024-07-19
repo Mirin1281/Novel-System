@@ -198,7 +198,7 @@ namespace Novel.Editor
                         {
                             menu.AddItem(new GUIContent("Edit Script"), false, () =>
                             {
-                                var commandName = lastSelectedCommand.GetCommandStatus().Name;
+                                var commandName = lastSelectedCommand.GetName();
                                 var scriptPath = GetScriptPath(commandName);
                                 Object scriptAsset = AssetDatabase.LoadAssetAtPath<Object>(scriptPath);
                                 AssetDatabase.OpenAsset(scriptAsset, 7);
@@ -266,7 +266,7 @@ namespace Novel.Editor
 
                 UnityEditor.Editor.CreateEditor(lastSelectedCommand).OnInspectorGUI();
 
-                var infoText = lastSelectedCommand.GetCommandStatus().Info;
+                var infoText = lastSelectedCommand.GetCommandInfo();
                 if (string.IsNullOrEmpty(infoText) == false)
                 {
                     EditorGUILayout.HelpBox(infoText, MessageType.Info);
@@ -409,11 +409,11 @@ namespace Novel.Editor
                 var tmpColor = GUI.color;
                 GUI.color = Color.black;
 
-                var cmdStatus = commandList[index].GetCommandStatus();
-                EditorGUI.LabelField(rect, $"<size=12>{cmdStatus.Name}</size>", style);
+                var command = commandList[index];
+                EditorGUI.LabelField(rect, $"<size=12>{command.GetName()　?? "Null"}</size>", style);
                 EditorGUI.LabelField(new Rect(
                     rect.x + 90, rect.y, rect.width, rect.height),
-                    $"<size=10>{TagUtility.RemoveSizeTag(cmdStatus.Summary)}</size>", style);
+                    $"<size=10>{TagUtility.RemoveSizeTag(command.GetSummary())}</size>", style);
 
                 GUI.color = tmpColor;
             }
@@ -423,7 +423,7 @@ namespace Novel.Editor
                 if (index < 0 || commandList.Count <= index) return;
 
                 var command = commandList[index];
-                var color = command.GetCommandStatus().Color;
+                var color = command.GetCommandColor();
                 color.a = 1f;
                 if (isFocused)
                 {

@@ -4,6 +4,15 @@ using Cysharp.Threading.Tasks;
 
 namespace Novel.Command
 {
+    public interface ICommand
+    {
+        UniTask ExecuteAsync(Flowchart flowchart, FlowchartCallStatus callStatus);
+        string GetName();
+        string GetSummary();
+        Color GetCommandColor();
+        string GetCommandInfo();
+    }
+
     [Serializable]
     public abstract class CommandBase : ICommand
     {
@@ -22,10 +31,12 @@ namespace Novel.Command
             ParentFlowchart = flowchart;
             CallStatus = callStatus;
             await EnterAsync();
-        }        
+        }
 
-        CommandStatus ICommand.GetCommandStatus()
-            => new(GetName(this), GetSummary(), GetCommandColor(), GetCommandInfo());
+        string ICommand.GetSummary() => GetSummary();
+        Color ICommand.GetCommandColor() => GetCommandColor();
+        string ICommand.GetCommandInfo() => GetCommandInfo();
+        string ICommand.GetName() => GetName(this);
 
         #region Overrides
 

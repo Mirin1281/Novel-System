@@ -5,8 +5,10 @@ namespace Novel
 {
     // フラグに使う変数の型を増やしたい時は
     // 1. 下部のGetFlagValueString()内の型判定を増やす
-    // 2. FlagKey_"型名"のScriptableObjectをつくる
+    // 2. FlagKey_"型名" というScriptableObjectクラスをつくる
     // (3. 必要に応じてSet~~FlagCommandなどを追加する)
+    // とすると追加できます。
+
 
     // FlagKeyを鍵として変数をやり取りするクラス
     public static class FlagManager
@@ -53,8 +55,8 @@ namespace Novel
             }
             /*else if (flagKey is FlagKey_Float floatKey)
             {
-                var (result, i) = GetFlagValue(floatKey);
-                return (result, i.ToString());
+                var (result, value) = GetFlagValue(floatKey);
+                return (result, value.ToString());
             }*/
 
             throw new System.Exception();

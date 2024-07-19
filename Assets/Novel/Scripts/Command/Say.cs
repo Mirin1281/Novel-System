@@ -23,7 +23,7 @@ namespace Novel.Command
             await SayAsync(storyText);
         }
 
-        protected virtual async UniTask SayAsync(string text, string characterName = null, float boxShowTime = 0f, BoxType overrideBoxType = BoxType.Default)
+        protected virtual async UniTask SayAsync(string text, string characterName = null, float boxShowTime = ConstContainer.DefaultFadeTime, BoxType overrideBoxType = BoxType.Default)
         {
             // 立ち絵の変更 
             // 表示とかはPortraitでやって、こっちはチェンジだけって感じ

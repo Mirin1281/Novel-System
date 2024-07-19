@@ -32,14 +32,28 @@ namespace Novel.Command
         }
 
 #if UNITY_EDITOR
-        public CommandStatus GetCommandStatus()
-        {
-            if(command == null)
-            {
-                return new CommandStatus("<Null>");
-            }
-            return command.GetCommandStatus();
-        }
+
+        static readonly Color NullColor = new Color(0.8f, 0.8f, 0.8f, 1f);
+
+        /// <summary>
+        /// エディタのコマンドに状態を記述します
+        /// </summary>
+        public string GetSummary() => command?.GetSummary();
+
+        /// <summary>
+        /// コマンドの色を設定します
+        /// </summary>
+        public Color GetCommandColor() => command == null ? NullColor : command.GetCommandColor();
+
+        /// <summary>
+        /// 説明を記載します
+        /// </summary>
+        public string GetCommandInfo() => command?.GetCommandInfo();
+
+        /// <summary>
+        /// コマンド名を取得します
+        /// </summary>
+        public string GetName() => command?.GetName();
 
         /// <summary>
         /// CSV用

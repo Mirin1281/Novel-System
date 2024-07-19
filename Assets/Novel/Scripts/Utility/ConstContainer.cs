@@ -12,9 +12,8 @@ namespace Novel
         public const string SUBMIT_KEYNAME = "Submit";
         public const string CANCEL_KEYNAME = "Cancel";
 
-        public const string SCRIPTABLE_CREATE_PATH = "ScriptableObject/";
-        public const string FLAGKEY_CREATE_PATH = SCRIPTABLE_CREATE_PATH + "FlagKey/";
-        public const string DATA_CREATE_PATH = SCRIPTABLE_CREATE_PATH + "Data/";
+        public const string FLAGKEY_CREATE_PATH = "Novel-FlagKey/";
+        public const string DATA_CREATE_PATH = "Novel-Data/";
 
         public const float DefaultFadeTime = 0.3f;
     }

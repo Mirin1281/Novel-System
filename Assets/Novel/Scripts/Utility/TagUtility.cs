@@ -51,6 +51,7 @@ namespace Novel
 
         public static string RemoveSizeTag(string text)
         {
+            text ??= string.Empty;
             var matches = Regex.Matches(text, RegexString);
             if (matches.Count == 0) return text;
             var match = matches[0];

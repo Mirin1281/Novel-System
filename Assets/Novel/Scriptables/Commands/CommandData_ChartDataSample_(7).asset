@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4399fbfc898731a4f96fd937ce84eeff, type: 3}
-  m_Name: CommandData_ChartDataSample
+  m_Name: CommandData_ChartDataSample_(7)
   m_EditorClassIdentifier: 
   enabled: 1
   command:
@@ -26,7 +26,6 @@ MonoBehaviour:
           isCheckZone: 0
           commandDataList:
           - {fileID: 11400000}
-          - {fileID: 11400000, guid: 78e018eca26ce6f4dab92c4b92c7b813, type: 2}
           - {fileID: 11400000, guid: b9563cbbd0a7e314eb0f88921446cf4f, type: 2}
           - {fileID: 11400000, guid: 7614f70fbd63fe14a8a9f57e880c4efe, type: 2}
           - {fileID: 11400000, guid: b3259318cda9a1848a02fa3cb5083f3a, type: 2}
@@ -36,4 +35,4 @@ MonoBehaviour:
         <Index>k__BackingField: 0
         character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
         changeSprite: {fileID: 21300000, guid: 855f9004ee0d1af44a9142b63035d451, type: 3}
-        storyText: "\u2026"
+        storyText: "\u2026\u2026\u3068\u3044\u3046\u8A33\u3067\u3001\u307E\u3042\u3001\u3042\u307E\u308A\u5909\u308F\u308A\u307E\u305B\u3093"
