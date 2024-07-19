@@ -1,5 +1,5 @@
 ## はじめに
-Testと付いている通り安全な動作はまだ保証できませんが、GitHubの練習も兼ねていろいろ上げたいと思います
+Testと付いている通り安全な動作は保証できませんが、GitHubの練習も兼ねていろいろ上げたいと思います
 
 やっちゃいけないことをやっていたらご指摘ください
 <br>
@@ -46,7 +46,7 @@ ReleasesからNovel.unitypackageをダウンロードして、プロジェクト
 
 # サンプルについて
 Novel/Sample/SampleScene内にそのまま動くサンプルを載せています
-詳しくはそちらをご覧ください
+以下に使い方っぽいのが書いていますが、おそらく分からないので詳しくはサンプルをご覧ください
 
 なおフォントは源の角ゴシック、イラストは「らぬきの立ち絵保管庫」様のをお借りしました
 <br>
@@ -54,7 +54,7 @@ Novel/Sample/SampleScene内にそのまま動くサンプルを載せていま�
 
 
 # 使い方
-Novelフォルダは場所を変えたり、名前を変えても大丈夫です。ただし特殊なフォルダには入れないでください
+Novelフォルダは場所を変えたり、名前を変えても大丈夫です。ただし特殊な名前のフォルダには入れないでください
 <br>
 <br>
 
@@ -62,7 +62,7 @@ Novelフォルダは場所を変えたり、名前を変えても大丈夫です
 ## フローチャートについて
 `FlowchartExecutor`コンポーネントを使うことで会話フローを呼び出すことができます
 コマンドの操作は、インスペクターからFlowchartEditorWindowを表示して行ってください
-シーン間で共有などをしたい場合は`FlowchartData`で生成されるScriptableObjectを用いることができます
+シーン間で共有などをしたい場合は`FlowchartData`を用いることができます
 
 ※注意:
 `FlowchartExecutor`がアタッチされたオブジェクトはプレハブにしないでください
@@ -95,7 +95,7 @@ Novel/Scriptables/Commands内にあるデータは基本的に直接操作しな
 
 
 ## フラグについて
-※ここでいうフラグは`bool`値以外も含みます
+※ここでいうフラグはbool値以外も含みます
 
 本アセットは標準で`FlagManager`と`FlagKeyData`によるフラグ管理をサポートしています
 `Dictionary<string, object>`というやや古典的な手法です。`FlagKeyData`をキーとして値のやり取りをします
@@ -114,7 +114,7 @@ Excelでのデータ形式に準じていますので、そのまま扱えます
 出力するデータや入力するデータを設定したい場合は、それぞれのコマンドの、`CommandBase`内の`CSVContent1`や`CSVContent2`プロパティをオーバーライドしてください。ゲッターとセッターは相互変換を推奨します
 また、縦の列のコマンドを自由に増やすこともできます
 
-すでにあるコマンドをCSVから消す機能は実装していません。とりあえず無効にしたい場合は"\<Null\>"または単に"Null"を入れてください
+すでにあるコマンドをCSVから消す機能は実装していません。とりあえず無効にしたい場合は"Null"を入れてください
 
 ※注意:
 CSVのファイル名は変更してもかまいませんが、CSV内の1行目と3行目のデータは基本的に変えないでください。
@@ -234,7 +234,7 @@ The data format follows that of Excel, so it can be handled as is.
 If you want to set the data to be output or input, override the `CSVContent1` or `CSVContent2` property in the `CommandBase` of the respective command. Mutual conversion is recommended for getters and setters.
 You can also freely add more commands in the vertical columns.
 
-We have not implemented a function to erase already existing commands from CSV. If you want to disable it for now, please enter "\<Null\>" or just "Null".
+We have not implemented a function to erase already existing commands from CSV. If you want to disable it for now, please enter "Null".
 
 Note: You may change the CSV file name, but please do not change the data in the first and third lines of the CSV.
 
