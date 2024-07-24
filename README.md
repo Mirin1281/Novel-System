@@ -112,6 +112,10 @@ Excelでのデータ形式に準じていますので、そのまま扱えます
 CSVのファイル名は変更してもかまいませんが、CSV内の1行目と3行目のデータは基本的に変えないでください。
 <br>
 <br>
+# ライセンス
+本アセットはMITライセンスに準拠しています
+<br>
+<br>
 <br>
 <br>
 
@@ -222,5 +226,9 @@ You can also freely add more commands in the vertical columns.
 We have not implemented a function to erase already existing commands from CSV. If you want to disable it for now, please enter "Null".
 
 Note: You may change the CSV file name, but please do not change the data in the first and third lines of the CSV.
+<br>
+<br>
 
+# Licence
+This library is under the MIT License.
 
