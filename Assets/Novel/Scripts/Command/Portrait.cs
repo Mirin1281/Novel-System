@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using Cysharp.Threading.Tasks;
-using System;
+using PortraitPositionType = Novel.Portrait.PortraitPositionType;
 
 namespace Novel.Command
 {

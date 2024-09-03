@@ -58,7 +58,7 @@ namespace Novel
                 linkedPortrait.Object = null;
                 foreach (var existPort in existPortraits)
                 {
-                    if (existPort.IsMeetType(linkedPortrait.Type))
+                    if (existPort.IsTypeEqual(linkedPortrait.Type))
                     {
                         existPort.gameObject.SetActive(false);
                         linkedPortrait.Object = existPort;

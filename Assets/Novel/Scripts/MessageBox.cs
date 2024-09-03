@@ -10,10 +10,10 @@ namespace Novel
         [SerializeField] Writer writer;
         [SerializeField] MessageBoxInput input;
 
-        public Writer Writer => writer; 
+        public Writer Writer => writer;
         public MessageBoxInput Input => input;
 
-        public bool IsMeetType(BoxType type) => this.type == type;
+        public bool IsTypeEqual(BoxType type) => this.type == type;
 
         protected override float GetAlpha() => canvasGroup.alpha;
 

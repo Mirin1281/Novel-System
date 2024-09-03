@@ -21,6 +21,10 @@ namespace Novel
                 audioSource.GetComponent<AudioSource>();
             }
         }
+        void OnDestroy()
+        {
+            OnInputed = null;
+        }
 
         void Update()
         {
@@ -79,6 +83,7 @@ namespace Novel
             {
                 OnInputed -= action;
             }
+
 
             void Click() => clicked = true;
         }

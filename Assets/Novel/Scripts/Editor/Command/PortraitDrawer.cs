@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEditor;
+using PortraitPositionType = Novel.Portrait.PortraitPositionType;
 
 namespace Novel.Editor
 {

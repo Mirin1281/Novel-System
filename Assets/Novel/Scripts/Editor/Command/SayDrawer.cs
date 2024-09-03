@@ -14,8 +14,8 @@ namespace Novel.Editor
         /// <summary>
         /// SayAdvancedDrawerでoverrideする
         /// </summary>
-        protected virtual float DrawExtraContents(Rect position, SerializedProperty property, GUIContent label)
-            => position.y;
+        protected virtual (float posY, int arraySize) DrawExtraContents(Rect position, SerializedProperty property, GUIContent label)
+            => (position.y, 0);
 
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
@@ -41,7 +41,10 @@ namespace Novel.Editor
                 storyTextProp, new GUIContent(storyTextProp.displayName));
             position.y += GetHeight(storyTextArea);
 
-            position.y = DrawExtraContents(position, property, label);
+            int arraySize;
+            (position.y, arraySize) = DrawExtraContents(position, property, label);
+
+            GUILayoutUtility.GetRect(0, 300 + arraySize * EditorGUIUtility.singleLineHeight);
 
             DrawHelp(position, storyTextProp, chara);
         }
@@ -74,7 +77,7 @@ namespace Novel.Editor
                     bool isMatch = false;
                     foreach (var box in boxes)
                     {
-                        if (box.IsMeetType(boxType))
+                        if (box.IsTypeEqual(boxType))
                         {
                             var (nameColor, nameText) = GetCharacterStatus(chara);
                             box.Writer.PreviewText(nameColor, nameText, text);

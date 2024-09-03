@@ -14,6 +14,12 @@ namespace Novel
     [Serializable]
     public class Flowchart
     {
+        public enum StopType
+        {
+            [InspectorName("このフローチャートのみ")] Single,
+            [InspectorName("入れ子の親も含む全て")] All,
+        }
+
         [SerializeField, TextArea]
         string description = "説明";
 
@@ -23,8 +29,7 @@ namespace Novel
         // シリアライズする
         [SerializeField, HideInInspector]
         List<CommandData> commandDataList = new();
-        public IReadOnlyList<CommandData> GetReadOnlyCommandDataList() => commandDataList;
-
+        
         bool isStopped;
 
         CancellationTokenSource cts;
@@ -35,6 +40,8 @@ namespace Novel
         /// 現在呼ばれているフローチャートのリスト
         /// </summary>
         public static List<Flowchart> CurrentExecutingFlowcharts;
+
+        public IReadOnlyList<CommandData> GetReadOnlyCommandDataList() => commandDataList;
 
         // コマンド内で呼ばれた際は抜ける際にindexを+1するので、その分予め引いておく
         public void SetIndex(int index, bool calledInCommand)
@@ -63,7 +70,7 @@ namespace Novel
             CurrentExecutingFlowcharts.Add(this);
             SetIndex(index, false);
             if (isCheckZone) ApplyZone(commandDataList, callIndex);
-            var status = SetStatus(callStatus, ref cts);
+            var status = GetStatus(callStatus, ref cts);
 
             while (commandDataList.Count > callIndex && isStopped == false)
             {
@@ -100,7 +107,7 @@ namespace Novel
 
             // FlowchartCallStatusをctsに反映します。
             // statusがnullだった場合は初期化をします
-            static FlowchartCallStatus SetStatus(FlowchartCallStatus callStatus, ref CancellationTokenSource cts)
+            static FlowchartCallStatus GetStatus(FlowchartCallStatus callStatus, ref CancellationTokenSource cts)
             {
                 if (callStatus == null)
                 {
@@ -113,12 +120,6 @@ namespace Novel
                     return callStatus;
                 }
             }
-        }
-
-        public enum StopType
-        {
-            [InspectorName("このフローチャートのみ")] Single,
-            [InspectorName("入れ子の親も含む全て")] All,
         }
 
         /// <summary>
@@ -162,8 +163,7 @@ namespace Novel
         public readonly CancellationTokenSource Cts;
         public readonly bool IsNestCalled;
 
-        public FlowchartCallStatus(
-            CancellationToken token, CancellationTokenSource cts, bool isNestCalled)
+        public FlowchartCallStatus(CancellationToken token, CancellationTokenSource cts, bool isNestCalled)
         {
             Token = token;
             Cts = cts;

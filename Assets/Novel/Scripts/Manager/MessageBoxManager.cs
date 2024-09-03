@@ -65,7 +65,7 @@ namespace Novel
                 linkedBox.Object = null;
                 foreach(var existBox in existBoxes)
                 {
-                    if (existBox.IsMeetType(linkedBox.Type))
+                    if (existBox.IsTypeEqual(linkedBox.Type))
                     {
                         existBox.gameObject.SetActive(false);
                         linkedBox.Object = existBox;

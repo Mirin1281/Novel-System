@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using Cysharp.Threading.Tasks;
 using TMPro;
-using System;
 using System.Threading;
 using System.Collections.Generic;
 using TagType = Novel.TagUtility.TagType;
@@ -14,6 +13,7 @@ namespace Novel
         [SerializeField] RubyTextMeshProUGUI nameTmpro;
         [SerializeField] RubyTextMeshProUGUI storyTmpro;
         [SerializeField] MessageBoxInput input;
+
         float timePer100Charas; // 100文字表示するのにかかる時間(s)
         bool isSkipped;
         float DefaultSpeed => NovelManager.Instance.DefaultWriteSpeed;
@@ -28,14 +28,16 @@ namespace Novel
             storyTmpro.SetUneditedText(string.Empty);
             input.OnInputed += SkipTextIfValid;
         }
-
-        void OnDestroy()
+        void SkipTextIfValid()
         {
-            input.OnInputed -= SkipTextIfValid;
+            timePer100Charas = 0;
+            isSkipped = true;
         }
+
         public async UniTask WriteAsync(
             CharacterData character, string nameText, string fullText, CancellationToken token, bool wholeShow = false)
         {
+            // 名前の設定 //
             nameText = string.IsNullOrEmpty(nameText) ? 
                 (character == null ? 
                     null : 
@@ -49,6 +51,7 @@ namespace Novel
             }
             SetName(nameColor, nameText);
 
+            // テキストの設定 //
             if(NovelManager.Instance.IsUseRuby == false)
             {
                 fullText = TagUtility.RemoveRubyText(fullText);
@@ -138,10 +141,9 @@ namespace Novel
                     }
                     else
                     {
-                        Debug.LogWarning("タグが存在しませんでした");
+                        Debug.LogWarning("タグが存在しませんでした\n" + type);
                     }
                 }
-
 
                 async UniTask WaitSecondsSkippable(float time)
                 {
@@ -169,12 +171,6 @@ namespace Novel
         {
             nameTmpro.color = nameColor;
             nameTmpro.SetUneditedText(nameText);
-        }
-
-        void SkipTextIfValid()
-        {
-            timePer100Charas = 0;
-            isSkipped = true;
         }
 
 #if UNITY_EDITOR

@@ -12,8 +12,7 @@ namespace Novel
         /// <summary>
         /// アクティブにしてからフェードインします
         /// </summary>
-        public async UniTask ShowFadeAsync(
-                float time = ConstContainer.DefaultFadeTime, CancellationToken token = default)
+        public async UniTask ShowFadeAsync(float time = ConstContainer.DefaultFadeTime, CancellationToken token = default)
         {
             gameObject.SetActive(true);
             SetAlpha(0f);
@@ -23,8 +22,7 @@ namespace Novel
         /// <summary>
         /// フェードアウトしてから非アクティブにします
         /// </summary>
-        public async UniTask ClearFadeAsync(
-            float time = ConstContainer.DefaultFadeTime, CancellationToken token = default)
+        public async UniTask ClearFadeAsync(float time = ConstContainer.DefaultFadeTime, CancellationToken token = default)
         {
             await FadeAlphaAsync(0f, time, token);
             gameObject.SetActive(false);
@@ -40,7 +38,7 @@ namespace Novel
                 SetAlpha(toAlpha);
                 return;
             }
-            var outQuad = new OutQuad(toAlpha, time, GetAlpha());
+            var outQuad = new Easing(GetAlpha(), toAlpha, time, EaseType.OutQuad);
             var t = 0f;
             CancellationToken tkn = token == default ? this.GetCancellationTokenOnDestroy() : token;
             while (t < time)

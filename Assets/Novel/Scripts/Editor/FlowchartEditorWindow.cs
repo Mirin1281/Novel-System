@@ -456,7 +456,7 @@ namespace Novel.Editor
             CommandData newCommand = activeMode switch
             {
                 ActiveMode.Executor => CreateInstance<CommandData>(),
-                ActiveMode.Data => FlowchartEditorUtility.CreateCommandData(ConstContainer.COMMANDDATA_PATH, $"CommandData_{activeFlowchartData.name}"),
+                ActiveMode.Data => FlowchartEditorUtility.CreateCommandData(ConstContainer.COMMANDDATA_PATH, $"{nameof(CommandData)}_{activeFlowchartData.name}"),
                 _ => throw new Exception()
             };
             int insertIndex = commandList.IndexOf(lastSelectedCommand) + 1;

@@ -5,16 +5,16 @@ using System.Threading;
 
 namespace Novel
 {
-    public enum PortraitPositionType
-    {
-        Left,
-        Center,
-        Right,
-        Custom,
-    }
-
     public class Portrait : FadableMonoBehaviour
     {
+        public enum PortraitPositionType
+        {
+            Left,
+            Center,
+            Right,
+            Custom,
+        }
+
         [SerializeField] PortraitType type;
         [SerializeField] Image portraitImage;
         [SerializeField] Vector2 leftPosition = new(-400, -100);
@@ -23,8 +23,7 @@ namespace Novel
 
         readonly Color hideColor = new Color(0.5f, 0.5f, 0.5f, 0.8f);
 
-
-        public bool IsMeetType(PortraitType type) => this.type == type;
+        public bool IsTypeEqual(PortraitType type) => this.type == type;
 
         public Transform PortraitImageTs => portraitImage.transform;
 
@@ -39,7 +38,7 @@ namespace Novel
                 SetScaleX(endScaleX);
                 return;
             }
-            var outQuad = new OutQuad(endScaleX, time, startScaleX);
+            var outQuad = new Easing(startScaleX, endScaleX, time, EaseType.OutQuad);
             var t = 0f;
             while (t < time)
             {
@@ -48,6 +47,7 @@ namespace Novel
                 await UniTask.Yield(token == default ? this.GetCancellationTokenOnDestroy() : token);
             }
             SetScaleX(endScaleX);
+
 
             void SetScaleX(float x)
             {

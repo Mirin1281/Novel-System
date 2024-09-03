@@ -12,7 +12,7 @@ namespace Novel.Editor
         /// <summary>
         /// Sayの追加要素を描画します(返り値はRect.y)
         /// </summary>
-        protected override float DrawExtraContents(Rect position, SerializedProperty property, GUIContent label)
+        protected override (float posY, int arraySize) DrawExtraContents(Rect position, SerializedProperty property, GUIContent label)
         {
             // ボックスタイプの設定 //
             DrawField(ref position, property, "boxType");
@@ -29,7 +29,7 @@ namespace Novel.Editor
             EditorGUI.PropertyField(position, flagKeysProp, new GUIContent(flagKeysProp.displayName));
             position.y += GetArrayHeight(flagKeysProp);
 
-            return position.y;
+            return (position.y + flagKeysProp.arraySize, flagKeysProp.arraySize);
         }
 
         protected override (Color, string) GetCharacterStatus(CharacterData chara)
