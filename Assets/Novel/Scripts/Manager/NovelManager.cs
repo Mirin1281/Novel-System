@@ -1,4 +1,5 @@
 ﻿using System;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 namespace Novel
@@ -79,5 +80,12 @@ namespace Novel
         float cancelKeyDownTime;
 
         public bool OnSkip => 0.7f < cancelKeyDownTime;
+
+        public void ClearAllUI()
+        {
+            MessageBoxManager.Instance.AllClearFadeAsync().Forget();
+            PortraitManager.Instance.AllClearFadeAsync().Forget();
+            MenuManager.Instance.ClearFadeAsync().Forget();
+        }
     }
 }

@@ -17,9 +17,17 @@ namespace Novel.Editor
         protected virtual (float posY, int arraySize) DrawExtraContents(Rect position, SerializedProperty property, GUIContent label)
             => (position.y, 0);
 
+        protected virtual (Color, string) GetCharacterStatus(CharacterData chara)
+        {
+            var nameColor = chara == null ? Color.white : chara.NameColor;
+            var nameText = chara == null ? null : chara.NameIncludeRuby;
+            return (nameColor, nameText);
+        }
+
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
             position.y += GetHeight(10);
+            EditorGUI.BeginProperty(position, label, property);
 
             // キャラクターの設定 //
             var characterProp = property.FindPropertyRelative("character");
@@ -47,16 +55,10 @@ namespace Novel.Editor
             GUILayoutUtility.GetRect(0, 300 + arraySize * EditorGUIUtility.singleLineHeight);
 
             DrawHelp(position, storyTextProp, chara);
+            EditorGUI.EndProperty();
         }
 
-        protected virtual (Color, string) GetCharacterStatus(CharacterData chara)
-        {
-            var nameColor = chara == null ? Color.white : chara.NameColor;
-            var nameText = chara == null ? null : chara.NameIncludeRuby;
-            return (nameColor, nameText);
-        }
-
-        protected void DrawHelp(Rect position, SerializedProperty textProp, CharacterData chara)
+        void DrawHelp(Rect position, SerializedProperty textProp, CharacterData chara)
         {
             position.y += GetHeight(10);
 
@@ -69,7 +71,8 @@ namespace Novel.Editor
                 var boxType = chara == null ? Say.DefaultType : chara.BoxType;
                 if (boxes == null || boxes.Length == 0)
                 {
-                    Debug.LogWarning("メッセージボックスの取得に失敗しました\n" +
+                    Debug.LogWarning(
+                        "メッセージボックスの取得に失敗しました\n" +
                         "ヒエラルキー内にメッセージボックスを置いてください");
                 }
                 else
@@ -98,20 +101,20 @@ namespace Novel.Editor
                 "【タグについて】\n" +
                 "<???>の構文を用いることで、リッチテキストや独自の修飾タグを使うことができます\n\n" +
 
-                "◆<r=さだめ>運命</r>\n" +
+                "◆\"<r=さだめ>運命</r>\"\n" +
                 "　ルビを振ります\n" +
                 "　注意点: 他と組み合わせる場合は内側に入れてください\n\n" +
 
-                "◆<s=2.5>オタクの早口</s>\n" +
+                "◆\"<s=2.5>オタクの早口</s>\"\n" +
                 "　表示スピードを数値倍します\n\n" +
 
-                "◆<w=1>\n" +
+                "◆\"<w=1>\"\n" +
                 "　数値の秒数だけ待機します(入力時はスキップ)\n\n" +
 
-                "◆<wi>\n" +
+                "◆\"<wi>\"\n" +
                 "　入力があるまで待機します\n\n" +
 
-                "◆<flag0>万円が落ちていた\n" +
+                "◆\"<flag0>万円が落ちていた\"\n" +
                 $"　フラグの値を表示します({nameof(SayAdvanced)}限定)\n" +
                 "　FlagKeysの配列の要素と対応しています\n";
 

@@ -6,11 +6,10 @@ namespace Novel.Command
 {
     public interface ICommand
     {
-        UniTask ExecuteAsync(Flowchart flowchart, FlowchartCallStatus callStatus);
+        UniTask ExecuteAsync(Flowchart flowchart);
         string GetName();
         string GetSummary();
         Color GetCommandColor();
-        string GetCommandInfo();
     }
 
     [Serializable]
@@ -22,20 +21,18 @@ namespace Novel.Command
         [field: SerializeField, HideInInspector]
         protected int Index { get; private set; }
 
-        protected FlowchartCallStatus CallStatus { get; private set; }
+        protected FlowchartCallStatus CallStatus => ParentFlowchart.CallStatus;
         
 
         protected abstract UniTask EnterAsync();
-        async UniTask ICommand.ExecuteAsync(Flowchart flowchart, FlowchartCallStatus callStatus)
+        async UniTask ICommand.ExecuteAsync(Flowchart flowchart)
         {
             ParentFlowchart = flowchart;
-            CallStatus = callStatus;
             await EnterAsync();
         }
 
         string ICommand.GetSummary() => GetSummary();
         Color ICommand.GetCommandColor() => GetCommandColor();
-        string ICommand.GetCommandInfo() => GetCommandInfo();
         string ICommand.GetName() => GetName(this);
 
         #region Overrides
@@ -49,12 +46,6 @@ namespace Novel.Command
         /// コマンドの色を設定します
         /// </summary>
         protected virtual Color GetCommandColor() => new Color(0.9f, 0.9f, 0.9f, 1f);
-
-        /// <summary>
-        /// 説明を記載します
-        /// </summary>
-        protected virtual string GetCommandInfo() => null;
-
         
         /// <summary>
         /// CSV出力時の第一表示(getは書き出し、setは読み込み)

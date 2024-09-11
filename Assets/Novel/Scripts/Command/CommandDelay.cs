@@ -19,7 +19,7 @@ namespace Novel.Command
         async UniTask DelayExecuteCommand()
         {
             await Novel.Wait.Seconds(time, CallStatus.Token);
-            command.ExecuteAsync(ParentFlowchart, CallStatus).Forget();
+            command.ExecuteAsync(ParentFlowchart).Forget();
         }
 
 

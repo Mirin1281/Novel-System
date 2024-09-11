@@ -23,11 +23,13 @@ namespace Novel
         /// <summary>
         /// 返り値は(辞書に含まれていたか, 値)
         /// </summary>
-        public static (bool, T) GetFlagValue<T>(FlagKeyDataBase<T> flagKey)
+        public static (bool isContained, T value) GetFlagValue<T>(FlagKeyDataBase<T> flagKey)
         {
             if (flagDictionary.ContainsKey(flagKey.GetName()) == false)
             {
+#if UNITY_EDITOR
                 Debug.LogWarning($"{flagKey.GetName()}が辞書に含まれてませんでした");
+#endif
                 return (false, default);
             }
             return (true, (T)flagDictionary[flagKey.GetName()]);

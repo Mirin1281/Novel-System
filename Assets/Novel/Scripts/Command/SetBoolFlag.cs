@@ -27,14 +27,5 @@ namespace Novel.Command
             }
             return flagKey.name;
         }
-
-        protected override string GetCommandInfo()
-        {
-            if (flagKey != null)
-            {
-                return flagKey.Description;
-            }
-            return null;
-        }
     }
 }

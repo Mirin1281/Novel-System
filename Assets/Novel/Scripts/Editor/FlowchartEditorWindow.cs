@@ -1,7 +1,6 @@
 ﻿using Novel.Command;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using UnityEditor;
@@ -261,16 +260,8 @@ namespace Novel.Editor
             using (GUILayout.ScrollViewScope scroll = new(commandScrollPos, EditorStyles.helpBox))
             {
                 commandScrollPos = scroll.scrollPosition;
-
                 if (lastSelectedCommand == null) return;
-
                 UnityEditor.Editor.CreateEditor(lastSelectedCommand).OnInspectorGUI();
-
-                var infoText = lastSelectedCommand.GetCommandInfo();
-                if (string.IsNullOrEmpty(infoText) == false)
-                {
-                    EditorGUILayout.HelpBox(infoText, MessageType.Info);
-                }
             }
         }
 

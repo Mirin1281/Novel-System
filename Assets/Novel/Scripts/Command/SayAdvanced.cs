@@ -19,7 +19,10 @@ namespace Novel.Command
             "\"<flag0>万円\"のように書くことで、文の中にフラグの値を入れ込むことができます\n" +
             "(FlagKeyの型はint型以外でもかまいません)")]
         FlagKeyDataBase[] flagKeys;
-        
+
+        [SerializeField]
+        int[] ints = new int[]{ 1, 0 };
+
         protected override async UniTask SayAsync(string text, string characterName = null, float boxShowTime = 0f, BoxType boxType = BoxType.Default)
         {
             var convertedText = ReplaceFlagValue(text, flagKeys);
@@ -42,7 +45,6 @@ namespace Novel.Command
                     }
                     else
                     {
-                        Debug.LogWarning($"FlagManager内にフラグがありませんでした");
                         fullText = fullText.Replace($"<flag{i}>", string.Empty);
                     }
                 }

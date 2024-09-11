@@ -81,6 +81,12 @@ namespace Novel.Editor
                 }
             }
 
+            if(sprite != null)
+            {
+                GUILayoutUtility.GetRect(0, 250 + sprite.textureRect.height / 2f);
+            }
+            
+
             EditorGUI.EndDisabledGroup();
         }
     }

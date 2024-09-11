@@ -16,14 +16,14 @@ namespace Novel
         {
             base.Awake();
             InitCheck();
-            SceneManager.activeSceneChanged += OnSceneChanged;
-            OnSceneChanged();
+            SceneManager.activeSceneChanged += NewFetchPortraits;
+            //OnSceneChanged();
         }
 
         protected override void OnDestroy()
         {
             base.OnDestroy();
-            SceneManager.activeSceneChanged -= OnSceneChanged;
+            SceneManager.activeSceneChanged -= NewFetchPortraits;
         }
 
         void InitCheck()
@@ -43,7 +43,7 @@ namespace Novel
             }
         }
 
-        void OnSceneChanged(Scene _ = default, Scene __ = default)
+        void NewFetchPortraits(Scene _ = default, Scene __ = default)
         {
             for (int i = 0; i < transform.childCount; i++)
             {

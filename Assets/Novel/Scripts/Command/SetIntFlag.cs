@@ -23,14 +23,5 @@ namespace Novel.Command
             }
             return $"{flagKey.GetName()} = {value}";
         }
-
-        protected override string GetCommandInfo()
-        {
-            if (flagKey != null)
-            {
-                return $"ñºëO: {flagKey.GetName()}\nê‡ñæ: {flagKey.Description}";
-            }
-            return null;
-        }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using Cysharp.Threading.Tasks;
+using System.Threading;
 
 namespace Novel
 {
@@ -12,16 +13,34 @@ namespace Novel
 
         void Start()
         {
-            if (executeOnStart) Execute();
+            if (executeOnStart)
+                Execute();
         }
 
-        public void Execute(int index = 0)
+        /// <summary>
+        /// フローチャートを呼び出します
+        /// </summary>
+        /// <param name="index">コマンドの初期インデックス</param>
+        /// <param name="token">キャンセル用のトークン(通常はStop()があるので不要)</param>
+        public void Execute(int index = 0, CancellationToken token = default)
         {
-            Flowchart.ExecuteAsync(index).Forget();
+            ExecuteAsync(index, token).Forget();
         }
-        public UniTask ExecuteAsync(int index = 0)
+        public UniTask ExecuteAsync(int index = 0, CancellationToken token = default)
         {
-            return Flowchart.ExecuteAsync(index);
+            if(token == default)
+            {
+                token = this.GetCancellationTokenOnDestroy();
+            }
+            return Flowchart.ExecuteAsync(index, token);
+        }
+
+        /// <summary>
+        /// 呼び出しているフローチャートを停止します。その際に表示されているUIをフェードアウトします
+        /// </summary>
+        public void Stop()
+        {
+            flowchart.Stop(Flowchart.StopType.All, isClearUI: true);
         }
     }
 }

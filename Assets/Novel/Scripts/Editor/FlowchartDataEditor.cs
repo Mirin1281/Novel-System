@@ -10,17 +10,24 @@ namespace Novel.Editor
     [CustomEditor(typeof(FlowchartData))]
     public class FlowchartDataEditor : UnityEditor.Editor
     {
+        [SerializeField] bool isFold;
+
         public override void OnInspectorGUI()
         {
             base.OnInspectorGUI();
 
-            EditorGUILayout.Space(20);
+            EditorGUILayout.Space(10);
 
             if (GUILayout.Button("フローチャートエディタを開く"))
             {
                 EditorWindow.GetWindow<FlowchartEditorWindow>(
                     "Flowchart Editor", typeof(SceneView));
             }
+
+            EditorGUILayout.Space(10);
+
+            isFold = EditorGUILayout.Foldout(isFold, "More");
+            if(isFold == false) return;
 
             EditorGUILayout.Space(10);
 

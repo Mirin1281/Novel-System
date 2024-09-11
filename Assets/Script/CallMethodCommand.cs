@@ -4,7 +4,7 @@ using Cysharp.Threading.Tasks;
 
 namespace Novel.Command
 {
-	[AddTypeMenu("CallMethod"), System.Serializable]
+	//[AddTypeMenu("CallMethod"), System.Serializable]
 	public class CallMethodCommand : CommandBase
 	{
 		[SerializeField] UnityEvent methodEvent;

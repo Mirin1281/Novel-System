@@ -13,9 +13,6 @@ namespace Novel.Command
         string summaryText = "Summary";
 
         [SerializeField]
-        string infoText = "Info";
-
-        [SerializeField]
         Color color = Color.white;
 
         // フローチャート上で呼ばれた際に呼ばれます
@@ -31,9 +28,6 @@ namespace Novel.Command
         protected override string GetSummary() => summaryText;
 
         protected override Color GetCommandColor() => color;
-
-        protected override string GetCommandInfo() => infoText;
-
 
         public override string CSVContent1
         {

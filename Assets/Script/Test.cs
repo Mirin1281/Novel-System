@@ -11,6 +11,8 @@ public class Test : MonoBehaviour
     [SerializeField] FlagKey_String stringFlag;
     [SerializeField] SaveLoadButtonGroup saveButtonGroup;
     [SerializeField] SceneChanger sceneChanger;
+    [SerializeField]
+    int[] ints = new int[] { 1, 0 };
 
     async UniTask Start()
     {

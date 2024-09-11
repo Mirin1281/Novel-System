@@ -14,11 +14,11 @@ namespace Novel.Command
         [SerializeField, SerializeReference, SubclassSelector]
         ICommand command;
 
-        public async UniTask ExecuteAsync(Flowchart flowchart, FlowchartCallStatus callStatus)
+        public async UniTask ExecuteAsync(Flowchart flowchart)
         {
             if(Enabled && command != null)
             {
-                await command.ExecuteAsync(flowchart, callStatus);
+                await command.ExecuteAsync(flowchart);
             }
         }
 
@@ -44,11 +44,6 @@ namespace Novel.Command
         /// コマンドの色を設定します
         /// </summary>
         public Color GetCommandColor() => command == null ? NullColor : command.GetCommandColor();
-
-        /// <summary>
-        /// 説明を記載します
-        /// </summary>
-        public string GetCommandInfo() => command?.GetCommandInfo();
 
         /// <summary>
         /// コマンド名を取得します

@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using Cysharp.Threading.Tasks;
 using Novel.Command;
+using System.Threading;
 
 namespace Novel
 {
@@ -15,13 +16,18 @@ namespace Novel
         public Flowchart Flowchart => flowchart;
         public string Name => name;
 
-        public void Execute(int index = 0)
+        public void Execute(int index = 0, CancellationToken token = default)
         {
-            Flowchart.ExecuteAsync(index).Forget();
+            ExecuteAsync(index, token);
         }
-        public UniTask ExecuteAsync(int index = 0)
+        public UniTask ExecuteAsync(int index = 0, CancellationToken token = default)
         {
-            return Flowchart.ExecuteAsync(index);
+            return Flowchart.ExecuteAsync(index, token);
+        }
+
+        public void Stop()
+        {
+            flowchart.Stop(Flowchart.StopType.All);
         }
 
 #if UNITY_EDITOR

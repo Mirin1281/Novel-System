@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 
 namespace Novel
 {
@@ -10,12 +11,13 @@ namespace Novel
     public class SceneChanger : MonoBehaviour
     {
         [SerializeField] string sceneName = "TitleScene";
-        [SerializeField] float fadeTime = 0.5f;
+        //[SerializeField] float fadeTime = 0.5f;
 
         public void LoadScene()
         {
             EventSystem.current.SetSelectedGameObject(null);
-            FadeLoadSceneManager.Instance.LoadScene(fadeTime, sceneName);
+            SceneManager.LoadScene(sceneName);
+            //FadeLoadSceneManager.Instance.LoadScene(fadeTime, sceneName);
         }
     }
 }

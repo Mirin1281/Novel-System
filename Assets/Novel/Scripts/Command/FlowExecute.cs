@@ -53,8 +53,8 @@ namespace Novel.Command
                 if (flowchartData == null) return WarningText();
                 objectName = flowchartData.name;
             }
-            var nest = isAwaitNest ? "Nest" : string.Empty;
-            return $"{objectName}   {nest}";
+            var aw = isAwaitNest ? "await  " : string.Empty;
+            return $"{aw}{objectName}";
         }
     }
 }

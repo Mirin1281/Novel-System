@@ -129,6 +129,7 @@ GameObject:
   - component: {fileID: 2124125543867790567}
   - component: {fileID: 5868145701896321846}
   - component: {fileID: 2103423619089852014}
+  - component: {fileID: 8840691174475163297}
   - component: {fileID: 3710691444821410087}
   - component: {fileID: 7270885358096573009}
   - component: {fileID: -2838281931935566957}
@@ -205,6 +206,18 @@ MonoBehaviour:
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
   m_PresetInfoIsWorld: 0
+--- !u!225 &8840691174475163297
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8644177693789249775}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!114 &3710691444821410087
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -234,9 +247,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b841021a1d9fc574d86918ce411ecab9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  canvasGroup: {fileID: 8840691174475163297}
   buttonCreator: {fileID: 3507063859310333223}
   audioSource: {fileID: -2838281931935566957}
   selectSE: {fileID: 8300000, guid: 522992e0a4764cf48970a69ee6850a79, type: 3}
+  seVolume: 1
 --- !u!82 &-2838281931935566957
 AudioSource:
   m_ObjectHideFlags: 0

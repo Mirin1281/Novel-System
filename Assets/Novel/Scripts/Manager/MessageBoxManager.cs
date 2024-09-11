@@ -3,16 +3,14 @@ using UnityEngine.SceneManagement;
 using System;
 using System.Threading;
 using Cysharp.Threading.Tasks;
+using LinkedBox = Novel.MessageBoxesData.LinkedObject;
 
 namespace Novel
 {
-    using LinkedBox = MessageBoxesData.LinkedObject;
-
     // 【ふるまいの雑な説明】
     // メッセージボックスをBoxTypeに応じてプレハブから生成、提供します
     // 既にシーンの中にボックスがある場合はそれを使います(名前で検索してます)ので、オーバーライドできます
-    // シーンの中ではボックスはキャッシュされます
-    // 基本はデフォルトのボックスで、変化を加えたい場合はシーンに置いてできる設計です
+    // シーンの中ではボックスはキャッシュされますが、シーン遷移するとリセットされます
     public class MessageBoxManager : SingletonMonoBehaviour<MessageBoxManager>
     {
         [SerializeField] MessageBoxesData data;
@@ -21,14 +19,14 @@ namespace Novel
         {
             base.Awake();
             InitCheck();
-            SceneManager.activeSceneChanged += OnSceneChanged;
-            OnSceneChanged(); // 一番最初は2回分呼ばれるので注意
+            SceneManager.activeSceneChanged += NewFetchBoxes;
+            //OnSceneChanged(); // 一番最初は2回分呼ばれるので注意
         }
 
         protected override void OnDestroy()
         {
             base.OnDestroy();
-            SceneManager.activeSceneChanged -= OnSceneChanged;
+            SceneManager.activeSceneChanged -= NewFetchBoxes;
         }
 
         void InitCheck()
@@ -49,7 +47,7 @@ namespace Novel
             }
         }
 
-        void OnSceneChanged(Scene _ = default, Scene __ = default)
+        void NewFetchBoxes(Scene _ = default, Scene __ = default)
         {
             // 生成している子を削除する
             for (int i = 0; i < transform.childCount; i++)
@@ -58,8 +56,7 @@ namespace Novel
                 DestroyImmediate(child.gameObject);
             }
 
-            var existBoxes = FindObjectsByType<MessageBox>(
-                    FindObjectsInactive.Include, FindObjectsSortMode.None);
+            var existBoxes = FindObjectsByType<MessageBox>(FindObjectsInactive.Include, FindObjectsSortMode.None);
             foreach (var linkedBox in data.GetLinkedObjectEnumerable())
             {
                 linkedBox.Object = null;
@@ -100,8 +97,7 @@ namespace Novel
             return CreateAndAddBox(linkedBox);
         }
 
-        public async UniTask AllClearFadeAsync(
-            float time = ConstContainer.DefaultFadeTime, CancellationToken token = default)
+        public async UniTask AllClearFadeAsync(float time = ConstContainer.DefaultFadeTime, CancellationToken token = default)
         {
             foreach(var linkedBox in data.GetLinkedObjectEnumerable())
             {

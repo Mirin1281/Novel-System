@@ -20,6 +20,10 @@ namespace Novel.Command
 		protected override string GetSummary()
 		{
 			if (string.IsNullOrEmpty(sceneName)) return WarningText();
+			if(Index < ParentFlowchart.GetReadOnlyCommandDataList().Count - 1)
+            {
+				return $"To {sceneName} {WarningText()}";
+			}
 			return $"To {sceneName}";
 		}
 	}

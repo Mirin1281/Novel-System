@@ -20,11 +20,40 @@ namespace Novel.Editor
         protected SerializedProperty DrawField(ref Rect position, SerializedProperty property, string fieldName)
         {
             var prop = property.FindPropertyRelative(fieldName);
-            EditorGUI.PropertyField(position, prop, new GUIContent(prop.displayName));
-            position.y += GetHeight();
+            EditorGUI.PropertyField(position, prop);
+            if(prop.isArray)
+            {
+                position.y += GetArrayHeight(prop);
+            }
+            else
+            {
+                position.y += GetHeight();
+            }
             return prop;
         }
 
         protected float GetHeight(float? height = null) => height ?? EditorGUIUtility.singleLineHeight;
+
+        static float GetArrayHeight(SerializedProperty property)
+        {
+            if (property.isArray == false)
+            {
+                Debug.LogWarning("プロパティが配列ではありません！");
+                return EditorGUIUtility.singleLineHeight;
+            }
+            if (property.isExpanded == false)
+            {
+                return EditorGUIUtility.singleLineHeight * 1.5f;
+            }
+            int length = property.arraySize;
+            if (length is 0 or 1)
+            {
+                return EditorGUIUtility.singleLineHeight * 4f;
+            }
+            else
+            {
+                return (length + 3) * EditorGUIUtility.singleLineHeight;
+            }
+        }
     }
 }

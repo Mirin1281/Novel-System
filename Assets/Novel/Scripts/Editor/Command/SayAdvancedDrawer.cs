@@ -25,9 +25,7 @@ namespace Novel.Editor
             overrideName = characterNameProp.stringValue;
 
             // フラグキーの設定 //
-            var flagKeysProp = property.FindPropertyRelative("flagKeys");
-            EditorGUI.PropertyField(position, flagKeysProp, new GUIContent(flagKeysProp.displayName));
-            position.y += GetArrayHeight(flagKeysProp);
+            var flagKeysProp = DrawField(ref position, property, "flagKeys");
 
             return (position.y + flagKeysProp.arraySize, flagKeysProp.arraySize);
         }
@@ -37,28 +35,6 @@ namespace Novel.Editor
             var (baseColor, baseName) = base.GetCharacterStatus(chara);
             var nameText = string.IsNullOrEmpty(overrideName) ? baseName : overrideName;
             return (baseColor, nameText);
-        }
-
-        float GetArrayHeight(SerializedProperty property)
-        {
-            if (property.isArray == false)
-            {
-                Debug.LogWarning("プロパティが配列ではありません！");
-                return EditorGUIUtility.singleLineHeight;
-            }
-            if (property.isExpanded == false)
-            {
-                return EditorGUIUtility.singleLineHeight * 1.5f;
-            }
-            int length = property.arraySize;
-            if (length is 0 or 1)
-            {
-                return EditorGUIUtility.singleLineHeight * 4f;
-            }
-            else
-            {
-                return (length + 3) * EditorGUIUtility.singleLineHeight;
-            }
         }
     }
 }

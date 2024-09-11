@@ -23,9 +23,5 @@ namespace Novel.Command
         {
             Camera.main.backgroundColor = color;
         }
-
-
-        protected override string GetCommandInfo()
-            => "Zoneコマンドの説明のために存在するコマンドです";
     }
 }
