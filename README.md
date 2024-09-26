@@ -14,10 +14,11 @@
 # 環境
 Windows10, 11
 
-Unity2022.3.20f1で制作しましたが、~~2021〜2023で動作することを確認しています~~
-細かなバグを発見したためUnity2022以上を使用してください
+~~2021〜2023で動作することを確認しています~~
 
-前提としてUniTask、SubclassSelector、RubyTextMeshPro(とTMPro)の3つの外部アセットをインポートする必要があります
+Unity2022.3.20f1で制作しましたが、細かなバグを発見したためUnity2022以上を使用してください
+
+前提としてUniTask、SerializeReferenceExtensions、RubyTextMeshProの3つの外部アセットをインポートする必要があります
 
 ↓各リンク
 
@@ -38,24 +39,24 @@ ReleasesからNovel.unitypackageをダウンロードして、プロジェクト
 
 
 # サンプルについて
-Novel/Sample/SampleScene内にそのまま動くサンプルを載せています
-以下に使い方っぽいのが書いていますが、おそらく分からないので詳しくはサンプルをご覧ください
+Novel/Sample/SampleScene内にそのまま動くサンプルを載せています。
+以下に使い方っぽいのが書いていますが、おそらく分からないので詳しくはサンプルをご覧ください。
 
-なおフォントは源の角ゴシック、イラストは「らぬきの立ち絵保管庫」様のをお借りしました
+なおフォントは源の角ゴシック、イラストは「らぬきの立ち絵保管庫」様のをお借りしました。
 <br>
 <br>
 
 
 # 使い方
-Novelフォルダは場所を変えたり、名前を変えても大丈夫です。ただし特殊な名前のフォルダには入れないでください
+Novelフォルダは場所を変えたり、名前を変えても大丈夫です。ただし、特殊な名前のフォルダには入れないでください
 <br>
 <br>
 
 
 ## フローチャートについて
-`FlowchartExecutor`コンポーネントを使うことで会話フローを呼び出すことができます
-コマンドの操作は、インスペクターからFlowchartEditorWindowを表示して行ってください
-シーン間で共有などをしたい場合は`FlowchartData`を用いることができます
+`FlowchartExecutor`コンポーネントを使うことで会話フローを呼び出すことができます。
+コマンドの操作は、インスペクターからFlowchartEditorWindowを表示して行ってください。
+シーン間で共有などをしたい場合は`FlowchartData`を用いることができます。
 
 ※注意:
 `FlowchartExecutor`がアタッチされたオブジェクトはプレハブにしないでください
@@ -64,9 +65,9 @@ Novelフォルダは場所を変えたり、名前を変えても大丈夫です
 
 
 ## コマンドについて
-このアセットは各自でカスタムコマンドを追加して頂くことを想定しています。CommandBaseを継承して、他のコマンドを参考にして作成してください
-コマンドの色、ウィンドウのリストへの表示内容、詳しい説明、CSVへの入出力がエディタ拡張無しで実装可能です
-詳しく知りたい場合は`CommandBase`のvirtual関数の実装をご覧ください
+このアセットは各自でカスタムコマンドを追加して頂くことを想定しています。CommandBaseを継承して、他のコマンドを参考にして作成してください。
+コマンドの色、ウィンドウのリストへの表示内容、詳しい説明、CSVへの入出力がエディタ拡張無しで実装可能です。
+詳しく知りたい場合は`CommandBase`のvirtual関数の実装をご覧ください。
 
 ※注意:
 Novel/Scriptables/Commands内にあるデータは基本的に直接操作しないでください
@@ -76,13 +77,13 @@ Novel/Scriptables/Commands内にあるデータは基本的に直接操作しな
 <br>
 
 ## メッセージボックス等について
-ゲーム開始時に`NovelManager`によって`MessageBoxManager`を生成します
-必要がなければ削除してもかまいませんし、プレハブを使って後から生成することもできます
+ゲーム開始時に`NovelManager`によって`MessageBoxManager`を生成します。
+必要がなければ削除してもかまいませんし、プレハブを使って後から生成することもできます。
 
-既にシーン内に該当するメッセージボックスが存在する場合はそれが使用されます。(オーバーライドのように扱えます)
+既にシーン内に該当するメッセージボックスが存在する場合はそれが使用されます(オーバーライドのように扱えます)。
 
-また、ポートレート(立ち絵)についてもメッセージボックスと同様です
-例えば立ち絵を追加したい場合は、DefaultPortraitプレハブを基にして(Prefab Variant推奨)ポートレートオブジェクトを作成、列挙型`PortraitType`の項目を増やしてからPortraitsDataにセットしてください
+また、ポートレート(立ち絵)についてもメッセージボックスと同様です。
+例えば立ち絵を追加したい場合は、DefaultPortraitプレハブを基にして(Prefab Variant推奨)ポートレートオブジェクトを作成、列挙型`PortraitType`の項目を増やしてからPortraitsDataにセットしてください。
 <br>
 <br>
 
@@ -90,31 +91,36 @@ Novel/Scriptables/Commands内にあるデータは基本的に直接操作しな
 ## フラグについて
 ※ここでいうフラグはbool値以外も含みます
 
-本アセットは標準で`FlagManager`と`FlagKeyData`によるフラグ管理をサポートしています
-`Dictionary<string, object>`というやや古典的な手法です。`FlagKeyData`をキーとして値のやり取りをします
+本アセットは標準で`FlagManager`と`FlagKeyData`によるフラグ管理をサポートしています。
+`Dictionary<string, object>`というやや古典的な手法です。`FlagKeyData`をキーとして値のやり取りをします。
 `FlagKeyData`はジェネリックなのでさまざまな型のフラグを作れます。
 
 `SayCommand`などでフラグの値を文中に埋め込むことができます。
-JsonNetなどを使えばセーブ機能も比較的簡単に実装できるため、おそらく本家Fungusよりは扱いやすいと思います
+JsonNetなどを使えばセーブ機能も比較的簡単に実装できるため、おそらく本家Fungusよりは扱いやすいと思います。
 <br>
 <br>
 
 ## CSVの入出力について
-エクスポートすると、シーン内の全フローチャートGameObject(またはプロジェクト内の全フローチャートScriptableObject)のコマンドデータが書き込まれます
-インポートすると、出力した形式でデータを取り込むことができます
-Excelでのデータ形式に準じていますので、そのまま扱えます
+エクスポートすると、シーン内の全フローチャートGameObject(またはプロジェクト内の全フローチャートScriptableObject)のコマンドデータが書き込まれます。
+インポートすると、出力した形式でデータを取り込むことができます。
+Excelでのデータ形式に準じていますので、そのまま扱えます。
 
-出力するデータや入力するデータを設定したい場合は、それぞれのコマンドの、`CommandBase`内の`CSVContent1`や`CSVContent2`プロパティをオーバーライドしてください。ゲッターとセッターは相互変換を推奨します
-また、縦の列のコマンドを自由に増やすこともできます
+出力するデータや入力するデータを設定したい場合は、それぞれのコマンドの、`CommandBase`内の`CSVContent1`や`CSVContent2`プロパティをオーバーライドしてください。ゲッターとセッターは相互変換を推奨します。
+また、縦の列のコマンドを自由に増やすこともできます。
 
-すでにあるコマンドをCSVから消す機能は実装していません。とりあえず無効にしたい場合は"Null"を入れてください
+すでにあるコマンドをCSVから消す機能は実装していません。とりあえず無効にしたい場合は"Null"を入れてください。
 
 ※注意:
 CSVのファイル名は変更してもかまいませんが、CSV内の1行目と3行目のデータは基本的に変えないでください。
 <br>
 <br>
 # ライセンス
-本アセットはMITライセンスに準拠しています
+本アセットはMITライセンスに準拠しています。
+
+このプロジェクトには、第三者の制作したMITライセンスのコードが含まれています。
+- __UniTask__ by Yoshifumi Kawai
+- __SerializeReferenceExtensions__ by Hiroya Aramaki
+- __RubyTextMeshPro__ by jp-netsis
 <br>
 <br>
 <br>
@@ -232,4 +238,9 @@ Note: You may change the CSV file name, but please do not change the data in the
 
 # Licence
 This library is under the MIT License.
+
+This project also includes third-party code under the MIT License:
+- __UniTask__ by Yoshifumi Kawai
+- __SerializeReferenceExtensions__ by Hiroya Aramaki
+- __RubyTextMeshPro__ by jp-netsis
 
