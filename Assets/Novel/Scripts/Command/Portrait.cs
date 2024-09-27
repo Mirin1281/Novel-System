@@ -4,7 +4,7 @@ using PortraitPositionType = Novel.Portrait.PortraitPositionType;
 
 namespace Novel.Command
 {
-    [AddTypeMenu("Portrait"), System.Serializable]
+    [AddTypeMenu(nameof(Portrait)), System.Serializable]
     public class Portrait : CommandBase
     {
         public enum ActionType
@@ -46,11 +46,11 @@ namespace Novel.Command
             {
                 if(isAwait)
                 {
-                    await portrait.ClearFadeAsync(fadeTime, CallStatus.Token);
+                    await portrait.ClearFadeAsync(fadeTime, Token);
                 }
                 else
                 {
-                    portrait.ClearFadeAsync(fadeTime, CallStatus.Token).Forget();
+                    portrait.ClearFadeAsync(fadeTime, Token).Forget();
                 }
             }
             else if(actionType == ActionType.HideOn)
@@ -75,7 +75,7 @@ namespace Novel.Command
             }
             
             portrait.SetSprite(portraitSprite);
-            await portrait.ShowFadeAsync(fadeTime, CallStatus.Token);
+            await portrait.ShowFadeAsync(fadeTime, Token);
         }
 
 
@@ -119,13 +119,16 @@ namespace Novel.Command
                     actionType = ActionType.Show;
                     return;
                 }
-                if(value.TryParseToEnum(out ActionType type) == false)
+                
+                if(value.TryParseToEnum(out ActionType type))
+                {
+                    actionType = type;
+                }
+                else
                 {
                     actionType = ActionType.Show;
                     Debug.LogWarning("Portrait, ActionTypeの変換に失敗しました");
-                    return;
                 }
-                actionType = type;
             }
         }
     }

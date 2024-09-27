@@ -26,17 +26,5 @@ namespace Novel
         {
             image.SetAlpha(a);
         }
-
-        void Awake()
-        {
-            if(image == null)
-            {
-                image = GetComponent<Image>();
-            }
-            if (button == null)
-            {
-                button = GetComponent<Button>();
-            }
-        }
     }
 }

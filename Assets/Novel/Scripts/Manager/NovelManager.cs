@@ -57,6 +57,11 @@ namespace Novel
 
         #endregion
 
+        [SerializeField] AudioSource audioSource;
+
+        public bool OnCancelKeyDown { get; set; }
+
+        float cancelKeyDownTime;
         void Update()
         {
             if(OnCancelKeyDown)
@@ -67,7 +72,15 @@ namespace Novel
             {
                 cancelKeyDownTime = 0f;
             }
+
+            audioSource.mute = OnSkip;
         }
+
+        /// <summary>
+        /// (テキスト表示時に使用するのでユーザーからは使用しません)
+        /// キャンセルキーを長押しするとOnSkipがtrueになります
+        /// </summary>
+        public bool OnSkip => 0.7f < cancelKeyDownTime;
 
         public float DefaultWriteSpeed { get; private set; } = 2;
 
@@ -75,17 +88,16 @@ namespace Novel
 
         public bool IsWholeShowText { get; private set; } = false;
 
-        public bool OnCancelKeyDown { get; set; }
-
-        float cancelKeyDownTime;
-
-        public bool OnSkip => 0.7f < cancelKeyDownTime;
-
         public void ClearAllUI()
         {
             MessageBoxManager.Instance.AllClearFadeAsync().Forget();
             PortraitManager.Instance.AllClearFadeAsync().Forget();
             MenuManager.Instance.ClearFadeAsync().Forget();
+        }
+
+        public void PlayOneShot(AudioClip audioClip, float volumeRate = 1f)
+        {
+            audioSource.PlayOneShot(audioClip, volumeRate);
         }
     }
 }

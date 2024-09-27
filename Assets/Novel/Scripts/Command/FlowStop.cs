@@ -1,17 +1,13 @@
 ﻿using UnityEngine;
 using Cysharp.Threading.Tasks;
+using StopType = Novel.Flowchart.StopType;
 
 namespace Novel.Command
 {
-    using StopType = Flowchart.StopType;
-
-    [AddTypeMenu("FlowStop"), System.Serializable]
+    [AddTypeMenu(nameof(FlowStop)), System.Serializable]
     public class FlowStop : CommandBase
     {
         [SerializeField] StopType stopType;
-        [SerializeField] bool hideMsgBoxes = true;
-        [SerializeField] bool hidePortraits = true;
-        [SerializeField] bool checkLog = true;
         [SerializeField, Tooltip("エディタでのみ動作")]
         bool editorOnly;
 
@@ -25,46 +21,23 @@ namespace Novel.Command
 #endif
             }
 
-#if UNITY_EDITOR
-            if (checkLog)
-            {
-                if (CallStatus.IsNestCalled == false && stopType == StopType.All)
-                {
-                    Debug.LogWarning("入れ子で呼び出していません！");
-                }
-                Debug.Log($"入れ子: {CallStatus.IsNestCalled}, ストップ: {stopType}");
-            }
-#endif
-
             ParentFlowchart.Stop(stopType);
 
             try
             {
-                CallStatus.Token.ThrowIfCancellationRequested();
+                Token.ThrowIfCancellationRequested();
             }
             catch
             {
-                ClearFadeUIIfSet();
+                NovelManager.Instance.ClearAllUI();
                 throw;
             }
 
-            if (CallStatus.IsNestCalled == false)
+            if (ParentFlowchart.CallStatus.ExistWaitOthers == false)
             {
-                ClearFadeUIIfSet();
+                NovelManager.Instance.ClearAllUI();
             }
             await UniTask.CompletedTask;
-        }
-
-        void ClearFadeUIIfSet()
-        {
-            if (hideMsgBoxes)
-            {
-                MessageBoxManager.Instance.AllClearFadeAsync().Forget();
-            }
-            if (hidePortraits)
-            {
-                PortraitManager.Instance.AllClearFadeAsync().Forget();
-            }
         }
 
         protected override string GetSummary()

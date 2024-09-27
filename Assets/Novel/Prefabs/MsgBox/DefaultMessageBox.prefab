@@ -214,9 +214,9 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 4713108337789497419}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -20, y: 60}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 640, y: -65}
   m_SizeDelta: {x: 1120, y: 250}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6530857151227716853
@@ -247,7 +247,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Name
+  m_text: "<line-height=1em><voffset=1em><size=50%>\_</size></voffset><space=-6.265>Name"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 70ec4c822d195f042aa249cc7c48faf4, type: 2}
   m_sharedMaterial: {fileID: -4499502242528382866, guid: 70ec4c822d195f042aa249cc7c48faf4, type: 2}
@@ -318,7 +318,7 @@ MonoBehaviour:
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
   _rubyVerticalOffset: 1em
   _rubyScale: 0.5
-  _rubyLineHeight: 
+  _rubyLineHeight: 1em
   _uneditedText: Name
   _rubyShowType: 0
   _rubyMargin: 10
@@ -338,7 +338,6 @@ GameObject:
   - component: {fileID: 3517438053775606728}
   - component: {fileID: 5539272393634635440}
   - component: {fileID: 8917495195089842385}
-  - component: {fileID: -821698305993446913}
   m_Layer: 0
   m_Name: DefaultMessageBox
   m_TagString: Untagged
@@ -485,104 +484,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e3318d8059d3f74394ed9af094e774e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audioSource: {fileID: -821698305993446913}
   inputSE: {fileID: 8300000, guid: 522992e0a4764cf48970a69ee6850a79, type: 3}
---- !u!82 &-821698305993446913
-AudioSource:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7776359622832343048}
-  m_Enabled: 1
-  serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 0
-  m_Volume: 1
-  m_Pitch: 1
-  Loop: 0
-  Mute: 0
-  Spatialize: 0
-  SpatializePostEffects: 0
-  Priority: 128
-  DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
-  Pan2D: 0
-  rolloffMode: 0
-  BypassEffects: 0
-  BypassListenerEffects: 0
-  BypassReverbZones: 0
-  rolloffCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  panLevelCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  spreadCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  reverbZoneMixCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
 --- !u!1 &8193506830689199362
 GameObject:
   m_ObjectHideFlags: 0
@@ -617,8 +519,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -32.5}
-  m_SizeDelta: {x: -200, y: -65}
+  m_AnchoredPosition: {x: 0, y: -35}
+  m_SizeDelta: {x: -200, y: -70}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8060461632311207081
 CanvasRenderer:
@@ -648,9 +550,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: The quick brown fox jumps over the lazy dog. The quick brown fox jumps
-    over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown
-    fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog
+  m_text: "<line-height=1.45em><voffset=0.9em><size=50%>\_</size></voffset><space=-4.03>The
+    quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy
+    dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over
+    the lazy dog."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 70ec4c822d195f042aa249cc7c48faf4, type: 2}
   m_sharedMaterial: {fileID: -4499502242528382866, guid: 70ec4c822d195f042aa249cc7c48faf4, type: 2}
@@ -689,7 +592,7 @@ MonoBehaviour:
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
-  m_lineSpacing: 0
+  m_lineSpacing: 8
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
@@ -719,11 +622,11 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
-  _rubyVerticalOffset: 1em
+  _rubyVerticalOffset: 0.9em
   _rubyScale: 0.5
-  _rubyLineHeight: 
+  _rubyLineHeight: 1.45em
   _uneditedText: The quick brown fox jumps over the lazy dog. The quick brown fox
     jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick
-    brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog
+    brown fox jumps over the lazy dog.
   _rubyShowType: 1
   _rubyMargin: 10

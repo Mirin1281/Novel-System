@@ -3,7 +3,7 @@ using Cysharp.Threading.Tasks;
 
 namespace Novel.Command
 {
-    [AddTypeMenu("Say"), System.Serializable]
+    [AddTypeMenu(nameof(Say)), System.Serializable]
     public class Say : CommandBase
     {
         [SerializeField]
@@ -23,9 +23,9 @@ namespace Novel.Command
             await SayAsync(storyText);
         }
 
-        protected virtual async UniTask SayAsync(string text, string characterName = null, float boxShowTime = ConstContainer.DefaultFadeTime, BoxType overrideBoxType = BoxType.Default)
+        protected virtual async UniTask SayAsync(string text, string characterName = null, float boxShowTime = 0f, BoxType overrideBoxType = BoxType.Default)
         {
-            // 立ち絵の変更 
+            // 立ち絵の変更
             // 表示とかはPortraitでやって、こっちはチェンジだけって感じ
             if (changeSprite != null && character != null)
             {
@@ -38,16 +38,15 @@ namespace Novel.Command
             }
 
             var boxType = overrideBoxType == BoxType.Default ?
-                (character == null ? DefaultType : character.BoxType) :
+                (character == null ?
+                    DefaultType : 
+                    character.BoxType) :
                 overrideBoxType;
             MessageBoxManager.Instance.OtherClearFadeAsync(boxType, 0f).Forget();
             var msgBox = MessageBoxManager.Instance.CreateIfNotingBox(boxType);
-            if (msgBox.gameObject.activeInHierarchy == false)
-            {
-                await msgBox.ShowFadeAsync(boxShowTime, CallStatus.Token);
-            }
-            await msgBox.Writer.WriteAsync(character, characterName, text, CallStatus.Token, NovelManager.Instance.IsWholeShowText);
-            await msgBox.Input.WaitInput(token: CallStatus.Token);
+            await msgBox.ShowFadeAsync(boxShowTime, Token);
+            await msgBox.Writer.WriteAsync(character, characterName, text, Token, NovelManager.Instance.IsWholeShowText);
+            await msgBox.Input.WaitInput(token: Token);
         }
 
         #region For EditorWindow

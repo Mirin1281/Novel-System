@@ -3,7 +3,7 @@ using Cysharp.Threading.Tasks;
 
 namespace Novel.Command
 {
-    [AddTypeMenu("SetFlag/SetBoolFlag"), System.Serializable]
+    [AddTypeMenu("SetFlag/SetBool"), System.Serializable]
     public class SetBoolFlag : CommandBase
     {
         [SerializeField] FlagKey_Bool flagKey;

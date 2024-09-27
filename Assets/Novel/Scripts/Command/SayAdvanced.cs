@@ -20,9 +20,6 @@ namespace Novel.Command
             "(FlagKey‚ÌŒ^‚ÍintŒ^ˆÈŠO‚Å‚à‚©‚Ü‚¢‚Ü‚¹‚ñ)")]
         FlagKeyDataBase[] flagKeys;
 
-        [SerializeField]
-        int[] ints = new int[]{ 1, 0 };
-
         protected override async UniTask SayAsync(string text, string characterName = null, float boxShowTime = 0f, BoxType boxType = BoxType.Default)
         {
             var convertedText = ReplaceFlagValue(text, flagKeys);
@@ -38,8 +35,7 @@ namespace Novel.Command
             {
                 if (fullText.Contains($"<flag{i}>"))
                 {
-                    var (isContained, valueStr) = FlagManager.GetFlagValueString(flagKeys[i]);
-                    if(isContained)
+                    if(FlagManager.TryGetFlagValueString(flagKeys[i], out string valueStr))
                     {
                         fullText = fullText.Replace($"<flag{i}>", valueStr);
                     }

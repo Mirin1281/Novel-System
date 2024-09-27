@@ -1,5 +1,4 @@
-﻿using UnityEngine;
-using System;
+﻿using System;
 using System.Text.RegularExpressions;
 using System.Collections.Generic;
 
@@ -12,7 +11,7 @@ namespace Novel
         // 【タグの増やし方】
         // 1. 直下のTagTypeの項目を増やす
         // 2. 下部のGetTagStatus()の中に条件を増やす
-        // 3. Writerクラス内の処理を増やす
+        // 3. Writerクラス内(のApplyTagメソッドの中)の処理を増やす
         public enum TagType
         {
             None,
@@ -21,9 +20,10 @@ namespace Novel
             WaitSeconds,
             WaitInput,
             RubyStart,
+            RubyEnd,
         }
 
-        public class TagData
+        public readonly struct TagData
         {
             public readonly TagType TagType;
             public readonly float Value;
@@ -31,7 +31,7 @@ namespace Novel
             /// <summary>
             /// リッチテキストを含む全てのタグを無視した時のタグの位置
             /// </summary>
-            public int IndexIgnoreAllTag;
+            public readonly int IndexIgnoreAllTag;
 
             public TagData(TagType tagType, float value, int indexIgnoreAllTag)
             {
@@ -57,7 +57,7 @@ namespace Novel
             var match = matches[0];
             while (match.Success)
             {
-                if (match.Value == "</size>" || match.Value.StartsWith("<size="))
+                if (match.Value == "</size>" || match.Value.StartsWith("<size=", StringComparison.Ordinal))
                 {
                     text = text.Replace(match.Value, string.Empty);
                 }
@@ -89,7 +89,7 @@ namespace Novel
                 if (tagType != TagType.None)
                 {
                     tagDataList.Add(new TagData(tagType, value, match.Index - allTagsLength));
-                    if (tagType == TagType.RubyStart) continue;
+                    if (tagType is TagType.RubyStart or TagType.RubyEnd) continue;
                     text = text.Replace(match.Value, string.Empty);
                     myTagsLength += tag.Length;
                 }
@@ -126,6 +126,10 @@ namespace Novel
                 else if (content.StartsWith("r=", StringComparison.Ordinal))
                 {
                     tagType = TagType.RubyStart;
+                }
+                else if (content == "/r")
+                {
+                    tagType = TagType.RubyEnd;
                 }
                 return (tagType, value);
             }

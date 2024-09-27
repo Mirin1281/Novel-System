@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System;
 using Cysharp.Threading.Tasks;
+using System.Threading;
 
 namespace Novel.Command
 {
@@ -21,21 +22,38 @@ namespace Novel.Command
         [field: SerializeField, HideInInspector]
         protected int Index { get; private set; }
 
-        protected FlowchartCallStatus CallStatus => ParentFlowchart.CallStatus;
+        protected CancellationToken Token => ParentFlowchart.CallStatus.Token;
         
 
         protected abstract UniTask EnterAsync();
-        async UniTask ICommand.ExecuteAsync(Flowchart flowchart)
+        UniTask ICommand.ExecuteAsync(Flowchart flowchart)
         {
             ParentFlowchart = flowchart;
-            await EnterAsync();
+            return EnterAsync();
         }
 
         string ICommand.GetSummary() => GetSummary();
         Color ICommand.GetCommandColor() => GetCommandColor();
         string ICommand.GetName() => GetName(this);
 
-        #region Overrides
+
+        /// <summary>
+        /// コマンド名を取得します
+        /// </summary>
+        protected string GetName(CommandBase commandBase)
+        {
+            var tmpArray = commandBase.ToString().Split('.');
+            return tmpArray[tmpArray.Length - 1];
+        }
+
+        /// <summary>
+        /// 警告文を色付きで返します(デフォルトは"Warning!!")
+        /// </summary>
+        protected string WarningText(string text = "Warning!!")
+            => $"<color=#dc143c>{text}</color>";
+
+
+        #region Overrides ... 継承するコマンドがオーバーライドして使います
 
         /// <summary>
         /// エディタのコマンドに状態を記述します
@@ -58,21 +76,6 @@ namespace Novel.Command
         public virtual string CSVContent2 { get; set; } = string.Empty;
 
         #endregion
-
-        /// <summary>
-        /// コマンド名を取得します
-        /// </summary>
-        protected string GetName(CommandBase commandBase)
-        {
-            var tmpArray = commandBase.ToString().Split('.');
-            return tmpArray[tmpArray.Length - 1];
-        }
-
-        /// <summary>
-        /// 警告文を色付きで返します(デフォルトは"Warning!!")
-        /// </summary>
-        protected string WarningText(string text = "Warning!!")
-            => $"<color=#dc143c>{text}</color>";
 
 #if UNITY_EDITOR
         public void SetFlowchart(Flowchart f) => ParentFlowchart = f;

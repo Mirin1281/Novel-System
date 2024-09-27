@@ -41,11 +41,17 @@ namespace Novel.Editor
 
         void OnEnable()
         {
+            Undo.undoRedoPerformed -= OnSelectionChange;
+            Undo.undoRedoPerformed += OnSelectionChange;
             reorderableList = CreateReorderableList();
             selectedCommandList = new();
             copiedCommandList = new();
             beforeSelectedIndices = new();
             OnSelectionChange();
+        }
+        void OnDisable()
+        {
+            Undo.undoRedoPerformed -= OnSelectionChange;
         }
 
         void OnFocus()
@@ -124,13 +130,13 @@ namespace Novel.Editor
                 command.SetIndex(i);
             }
             
-            if (activeMode == ActiveMode.Data)
-            {
-                EditorUtility.SetDirty(activeFlowchartData);
-            }
-            else if(activeMode == ActiveMode.Executor)
+            if(activeMode == ActiveMode.Executor)
             {
                 EditorUtility.SetDirty(activeExecutorObj);
+            }
+            else if (activeMode == ActiveMode.Data)
+            {
+                EditorUtility.SetDirty(activeFlowchartData);
             }
         }
 
@@ -387,6 +393,10 @@ namespace Novel.Editor
                 {
                     EditorUtility.SetDirty(activeExecutorObj);
                 }
+                else if(activeMode == ActiveMode.Data)
+                {
+                    EditorUtility.SetDirty(activeFlowchartData);
+                }
             }
 
             void DrawElement(Rect rect, int index, bool isActive, bool isFocused)
@@ -401,7 +411,7 @@ namespace Novel.Editor
                 GUI.color = Color.black;
 
                 var command = commandList[index];
-                EditorGUI.LabelField(rect, $"<size=12>{command.GetName()　?? "Null"}</size>", style);
+                EditorGUI.LabelField(rect, $"<size=12>{command.GetName()  ?? "Null"}</size>", style);
                 EditorGUI.LabelField(new Rect(
                     rect.x + 90, rect.y, rect.width, rect.height),
                     $"<size=10>{TagUtility.RemoveSizeTag(command.GetSummary())}</size>", style);
@@ -468,9 +478,17 @@ namespace Novel.Editor
                 int removeIndex = commandList.IndexOf(command);
                 bool isLastElementRemoved = removeIndex == commandList.Count - 1;
                 commandList.Remove(command);
+                
                 if (activeMode == ActiveMode.Data)
                 {
-                    FlowchartEditorUtility.DestroyScritableObject(command);
+                    if(command == null)
+                    {
+                        OnSelectionChange();
+                    }
+                    else
+                    {
+                        Undo.DestroyObjectImmediate(command);
+                    }
                 }
 
                 if (i != selectedCommandList.Count - 1) continue;

@@ -19,7 +19,7 @@ namespace Novel
         where TEnum : struct, Enum, IComparable, IFormattable, IConvertible
         where TObj : Object
     {
-        [SerializeField]　List<LinkedObject> linkedObjectList;
+        [SerializeField] List<LinkedObject> linkedObjectList;
 
         public int GetListCount() => linkedObjectList.Count;
         public IEnumerable<LinkedObject> GetLinkedObjectEnumerable() => linkedObjectList;

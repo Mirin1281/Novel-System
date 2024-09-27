@@ -4,11 +4,16 @@ using System.Collections.Generic;
 namespace Novel
 {
     /// <summary>
-    /// ログを記録するクラス、セーブの関係でタプルのリストで管理
+    /// ログを記録するクラス(使わなければ削除して構いません)
     /// </summary>
     public static class SayLogger
     {
-        static List<Log> logList = new();
+        static List<Log> logList;
+
+        public static void Init()
+        {
+            logList = new();
+        }
 
         public static void AddLog(CharacterData character, string text)
         {

@@ -15,8 +15,7 @@ namespace Novel
         public async UniTask ShowFadeAsync(float time = ConstContainer.DefaultFadeTime, CancellationToken token = default)
         {
             gameObject.SetActive(true);
-            SetAlpha(0f);
-            await FadeAlphaAsync(1f, time, token);
+            await FadeAlphaAsync(0f, 1f, time, token);
         }
 
         /// <summary>
@@ -24,28 +23,32 @@ namespace Novel
         /// </summary>
         public async UniTask ClearFadeAsync(float time = ConstContainer.DefaultFadeTime, CancellationToken token = default)
         {
-            await FadeAlphaAsync(0f, time, token);
+            await FadeAlphaAsync(GetAlpha(), 0f, time, token);
             gameObject.SetActive(false);
         }
 
         /// <summary>
         /// 指定した透明度まで連続的に変化させます
         /// </summary>
-        async UniTask FadeAlphaAsync(float toAlpha, float time, CancellationToken token)
+        async UniTask FadeAlphaAsync(float startAlpha, float toAlpha, float time, CancellationToken token)
         {
-            if (time == 0f)
-            {
-                SetAlpha(toAlpha);
-                return;
-            }
-            var outQuad = new Easing(GetAlpha(), toAlpha, time, EaseType.OutQuad);
             var t = 0f;
-            CancellationToken tkn = token == default ? this.GetCancellationTokenOnDestroy() : token;
             while (t < time)
             {
-                SetAlpha(outQuad.Ease(t));
+                SetAlpha(t.Ease(startAlpha, toAlpha, time, EaseType.OutQuad));
                 t += Time.deltaTime;
-                await UniTask.Yield(tkn);
+                await UniTask.Yield(token == default ? this.GetCancellationTokenOnDestroy() : token);
+            }
+            SetAlpha(toAlpha);
+        }
+        async UniTask FadeAlphaAsync(float toAlpha, float time, CancellationToken token)
+        {
+            var t = 0f;
+            while (t < time)
+            {
+                SetAlpha(t.Ease(GetAlpha(), toAlpha, time, EaseType.OutQuad));
+                t += Time.deltaTime;
+                await UniTask.Yield(token == default ? this.GetCancellationTokenOnDestroy() : token);
             }
             SetAlpha(toAlpha);
         }

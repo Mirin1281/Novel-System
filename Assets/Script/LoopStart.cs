@@ -19,12 +19,14 @@ namespace Novel.Command
             await UniTask.CompletedTask;
             if(useFlagKey)
             {
-                (bool isContained, int value) = FlagManager.GetFlagValue(countKey);
-                if(isContained == false)
+                if(FlagManager.TryGetFlagValue(countKey, out int value))
                 {
-                    value = isStart1 ? 0 : -1;
+                    FlagManager.SetFlagValue(countKey, value + 1);
                 }
-                FlagManager.SetFlagValue(countKey, value + 1);
+                else
+                {
+                    FlagManager.SetFlagValue(countKey, isStart1 ? 1 : 0);
+                }
             }
             else
             {
@@ -41,7 +43,8 @@ namespace Novel.Command
         {
             if(useFlagKey)
             {
-                return (isStart1 ? loopCount : loopCount - 1) <= FlagManager.GetFlagValue(countKey).value;
+                FlagManager.TryGetFlagValue(countKey, out int value);
+                return (isStart1 ? loopCount : loopCount - 1) <= value;
             }
             else
             {

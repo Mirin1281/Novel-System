@@ -11,7 +11,7 @@ namespace Novel.Editor
     public static class FlowchartEditorUtility
     {
         /// <summary>
-        /// 絶対パスから Assets/のパスに変換する
+        /// 絶対パスから Assets/のパスに変換します
         /// </summary>
         public static string AbsoluteToAssetsPath(string path)
         {
@@ -28,7 +28,9 @@ namespace Novel.Editor
             AssetDatabase.Refresh(ImportAssetOptions.ForceUpdate);
         }
 
-        // プロジェクト上にあるアセットのパスを返します
+        /// <summary>
+        /// プロジェクト上にあるアセットのパスを返します
+        /// </summary>
         public static string GetExistFolderPath(Object obj)
         {
             var dataPath = AssetDatabase.GetAssetPath(obj.GetInstanceID());
@@ -68,25 +70,78 @@ namespace Novel.Editor
         /// <summary>
         /// CommandDataを作成します
         /// </summary>
-        /// <param name="path">生成するフォルダのパス</param>
+        /// <param name="folderPath">生成するフォルダのパス</param>
         /// <param name="baseName">名前</param>
         /// <returns></returns>
-        public static CommandData CreateCommandData(string path, string baseName)
+        public static CommandData CreateCommandData(string folderPath, string baseName)
         {
-            if (!Directory.Exists(path))
+            if (!Directory.Exists(folderPath))
             {
-                Directory.CreateDirectory(path);
+                Directory.CreateDirectory(folderPath);
             }
-            var name = GetFileName(path, baseName, "asset");
+            var name = GetFileName(folderPath, baseName, "asset");
             var cmdData = ScriptableObject.CreateInstance<CommandData>();
-            AssetDatabase.CreateAsset(cmdData, Path.Combine(path, name));
-            AssetDatabase.ImportAsset(path, ImportAssetOptions.ForceUpdate);
+            AssetDatabase.CreateAsset(cmdData, Path.Combine(folderPath, name));
+            AssetDatabase.ImportAsset(folderPath, ImportAssetOptions.ForceUpdate);
             return cmdData;
+        }
+
+        /// <summary>
+        /// 不要なCommandDataを削除します
+        /// </summary>
+        public static void RemoveUnusedCommandData(string folderPath = null)
+        {
+            // Undo等で破損状態のファイルを削除 //
+            var guids = AssetDatabase.FindAssets(null, new string[] { folderPath ??= ConstContainer.COMMANDDATA_PATH });
+            int removeCount = 0;
+            for(int i = 0; i < guids.Length; i++)
+            {
+                var path = AssetDatabase.GUIDToAssetPath(guids[i]);
+                var obj = AssetDatabase.LoadAllAssetsAtPath(path);
+                if(obj.Length == 0) // アセットがない > 破損している 
+                {
+                    File.Delete(path);
+                    File.Delete($"{path}.meta");
+                    removeCount++;
+                }
+            }
+            AssetDatabase.Refresh(ImportAssetOptions.ForceUpdate);
+
+            // どのフローチャートにも属していないCommandDataを削除 //
+            var cmdDatas = GetAllScriptableObjects<CommandData>();
+            var flowchartDatas = GetAllScriptableObjects<FlowchartData>();
+            foreach (var cmdData in cmdDatas)
+            {
+                if (IsUsed(cmdData, flowchartDatas) == false)
+                {
+                    removeCount++;
+                    DestroyScritableObject(cmdData);
+                }
+            }
+            AssetDatabase.Refresh(ImportAssetOptions.ForceUpdate);
+            if(removeCount > 0)
+            {
+                Debug.Log($"不要なデータが{removeCount}個削除されました\nFolder: {folderPath}");
+            }
+            else
+            {
+                Debug.Log($"不要なデータの検索が完了しました。削除されたデータはありません\nFolder: {folderPath}");
+            }
+            
+
+            static bool IsUsed(CommandData targetData, FlowchartData[] flowchartDatas)
+            {
+                foreach (var flowchartData in flowchartDatas)
+                {
+                    if (flowchartData.IsUsed(targetData)) return true;
+                }
+                return false;
+            }
         }
     }
 
     /// <summary>
-    /// コマンドの表示のヘルパー
+    /// コマンド表示のユーティリティ
     /// </summary>
     public static class CommandDrawerUtility
     {
@@ -123,10 +178,9 @@ namespace Novel.Editor
         /// </summary>
         public static Sprite DropDownSpriteList(Rect position, SerializedProperty property, CharacterData character)
         {
-            if (!(character != null && character.Portraits != null && character.Portraits.Count() != 0)) return null;
-            var portraitsArray = character.Portraits.Prepend(null).ToArray();
-            int previousPortraitIndex = Array.IndexOf(
-                portraitsArray, property.objectReferenceValue as Sprite);
+            if (character == null || character.Portraits == null || character.Portraits.Count() == 0) return null;
+            Sprite[] portraitsArray = character.Portraits.Prepend(null).ToArray();
+            int previousPortraitIndex = Array.IndexOf(portraitsArray, property.objectReferenceValue as Sprite);
             int selectedPortraitIndex = EditorGUI.Popup(position, property.displayName, previousPortraitIndex,
                 portraitsArray.Select(p => p == null ? "<Null>" : p.name).ToArray());
 

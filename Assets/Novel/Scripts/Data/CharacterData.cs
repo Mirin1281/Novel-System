@@ -18,54 +18,55 @@ namespace Novel
     public class CharacterData : ScriptableObject
     {
         [SerializeField] string characterName;
+        [field: SerializeField] public Color NameColor { get; private set; } = Color.white;
+        [field: SerializeField] public BoxType BoxType { get; private set; }
+        [field: SerializeField] public PortraitType PortraitType { get; private set; }
+        [SerializeField] Sprite[] portraits;
+
         /// <summary>
         /// ルビは消去されます(ルビが欲しい場合はNameIncludeRubyを使う)
         /// </summary>
         public string CharacterName => TagUtility.RemoveRubyText(characterName);
         public string NameIncludeRuby => characterName;
-
-        [field: SerializeField] public Color NameColor { get; private set; } = Color.white;
-        [field: SerializeField] public BoxType BoxType { get; private set; }
-        [field: SerializeField] public PortraitType PortraitType { get; private set; }
-        [SerializeField] Sprite[] portraits;
         public IEnumerable<Sprite> Portraits => portraits;
 
         /// <summary>
-        /// (コマンド用)名前からキャラクターを取得します
+        /// (エディタ用)名前からキャラクターを取得します
         /// </summary>
         public static CharacterData GetCharacter(string characterName)
         {
+#if UNITY_EDITOR
             var characters = GetAllScriptableObjects<CharacterData>();
-            var meetChara = characters.Where(c => c.CharacterName == characterName).ToList();
-            if (meetChara.Count == 0)
+            var meetCharas = characters.Where(c => c.CharacterName == characterName).ToArray();
+            if (meetCharas.Length == 0)
             {
                 Debug.LogWarning($"キャラクターが見つかりませんでした\n名前: {characterName}");
                 return null;
             }
-            else if(meetChara.Count == 1)
+            else if(meetCharas.Length == 1)
             {
-                return meetChara[0];
+                return meetCharas[0];
             }
             else
             {
-                Debug.LogWarning($"キャラクターのヒット数が多いです!: {meetChara.Count}");
-                return null;
+                Debug.LogWarning($"キャラクターが{meetCharas.Length}個ヒットしました");
+                return meetCharas[0];
             }
 
 
             static T[] GetAllScriptableObjects<T>(string folderName = null) where T : ScriptableObject
             {
-#if UNITY_EDITOR
+
                 string[] guids = folderName == null
                     ? AssetDatabase.FindAssets($"t:{typeof(T).Name}")
                     : AssetDatabase.FindAssets($"t:{typeof(T).Name}", new string[] { folderName });
                 return guids
                     .Select(guid => AssetDatabase.LoadAssetAtPath<T>(AssetDatabase.GUIDToAssetPath(guid)))
                     .ToArray();
+            }
 #else
             return null;
 #endif
-            }
         }
     }
 }

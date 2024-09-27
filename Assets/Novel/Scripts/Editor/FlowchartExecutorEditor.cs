@@ -42,7 +42,7 @@ namespace Novel.Editor
             {
                 var flowchartExecutor = target as FlowchartExecutor;
                 var copiedFlowchartExecutor = Instantiate(flowchartExecutor);
-                copiedFlowchartExecutor.name = "Flowchart(Copied)";
+                copiedFlowchartExecutor.name = "Copied_"+ flowchartExecutor.name;
                 var flowchart = copiedFlowchartExecutor.Flowchart;
 
                 var copiedCmdList = new List<CommandData>();
@@ -72,7 +72,7 @@ namespace Novel.Editor
                 "また、縦の列のコマンドを自由に増やすこともできます\n" +
                 "すでにあるコマンドをCSVから消す機能は実装していません。とりあえず無効にしたい場合は\"Null\"を入れてください\n" +
                 "\n" +
-                "注意点として、ファイル名は変更してもかまいませんが、CSV内の1行目と2行目のデータは基本的に変えないでください"
+                "注意点として、ファイル名は変更してもかまいませんが、CSV内の1行目と3行目のデータは基本的に変えないでください"
                 , EditorStyles.wordWrappedLabel);
 
             EditorGUILayout.Space(10);

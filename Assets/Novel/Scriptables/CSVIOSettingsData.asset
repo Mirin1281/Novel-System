@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e424231caa7dfc84681cd726e7702e9f, type: 3}
   m_Name: CSVIOSettingsData
   m_EditorClassIdentifier: 
-  <CSVFolderPath>k__BackingField: Assets/Novel
+  <CSVFolderPath>k__BackingField: Assets
   <ExportFileName>k__BackingField: FlowchartSheet
   <FlowchartFindMode>k__BackingField: 1
   <RowCount>k__BackingField: 4

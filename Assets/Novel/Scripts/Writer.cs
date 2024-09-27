@@ -27,29 +27,34 @@ namespace Novel
             nameTmpro.SetText(string.Empty);
             storyTmpro.SetUneditedText(string.Empty);
             input.OnInputed += SkipTextIfValid;
+
+
+            void SkipTextIfValid()
+            {
+                timePer100Charas = 0;
+                isSkipped = true;
+            }
         }
-        void SkipTextIfValid()
+        
+        public UniTask WriteAsync(CharacterData character, string fullText, CancellationToken token, bool wholeShow = false)
         {
-            timePer100Charas = 0;
-            isSkipped = true;
+            return WriteAsync(character, character.CharacterName, fullText, token, wholeShow);
         }
 
-        public async UniTask WriteAsync(
-            CharacterData character, string nameText, string fullText, CancellationToken token, bool wholeShow = false)
+        public async UniTask WriteAsync(CharacterData character, string nameText, string fullText, CancellationToken token, bool wholeShow = false)
         {
-            // 名前の設定 //
+            // 名前と色の設定 //
             nameText = string.IsNullOrEmpty(nameText) ? 
                 (character == null ? 
                     null : 
                     character.NameIncludeRuby) : 
                 nameText;
-            var nameColor = character == null ? Color.white : character.NameColor;
-
             if (NovelManager.Instance != null && NovelManager.Instance.IsUseRuby == false)
             {
                 nameText = TagUtility.RemoveRubyText(nameText);
             }
-            SetName(nameColor, nameText);
+            var nameColor = character == null ? Color.white : character.NameColor;
+            SetName(nameText, nameColor);
 
             // テキストの設定 //
             if(NovelManager.Instance.IsUseRuby == false)
@@ -58,15 +63,12 @@ namespace Novel
             }
             var (richText, tagDataList) = TagUtility.ExtractMyTag(fullText);
             isSkipped = false;
-            /*tagDataList.ForEach(data => 
-                Debug.Log($"type: {data.TagType}, allIndex: {data.IndexIgnoreAllTag}"););
-            */
             timePer100Charas = wholeShow ? 0 : DefaultSpeed;
-            await WriteStoryTextAsync(richText, tagDataList, token);
-            SayLogger.AddLog(nameText, richText);
+            await WriteTextAsync(richText, tagDataList, token);
+            //SayLogger.AddLog(nameText, richText);
 
 
-            async UniTask WriteStoryTextAsync(string richText, List<TagData> tagDataList, CancellationToken token)
+            async UniTask WriteTextAsync(string richText, List<TagData> tagDataList, CancellationToken token)
             {
                 storyTmpro.SetUneditedText(richText);
                 storyTmpro.ForceMeshUpdate();
@@ -78,11 +80,11 @@ namespace Novel
                     insertIndex = tagDataList[0].IndexIgnoreAllTag;
                 }
                 int tagNumber = 0;
+                int rubyDelta = 0;
 
-                int i = 0;
-                while(i <= planeText.Length)
+                for(int i = 0; i < planeText.Length; i++)
                 {
-                    storyTmpro.maxVisibleCharacters = i;
+                    storyTmpro.maxVisibleCharacters = i + 1;
 
                     if (i == insertIndex)
                     {
@@ -93,7 +95,7 @@ namespace Novel
                             tagNumber++;
                             if(tagNumber < tagDataList.Count)
                             {
-                                insertIndex = tagDataList[tagNumber].IndexIgnoreAllTag;
+                                insertIndex = tagDataList[tagNumber].IndexIgnoreAllTag + rubyDelta;
                             }
                             else
                             {
@@ -101,8 +103,7 @@ namespace Novel
                             }
                         }
                     }
-                    await Wait.Seconds(timePer100Charas / 100f, token);
-                    i++;
+                    await AsyncUtility.Seconds(timePer100Charas / 100f, token);
                 }
 
 
@@ -133,11 +134,13 @@ namespace Novel
                     }
                     else if (type == TagType.RubyStart)
                     {
-                        // "</r>"の分ずらす
-                        foreach (var tagData in tagDataList)
-                        {
-                            tagData.IndexIgnoreAllTag -= 4;
-                        }
+                        // "<r=>"の文字数分引く
+                        rubyDelta -= 4;
+                    }
+                    else if (type == TagType.RubyEnd)
+                    {
+                        // "</r>"の文字数分引く
+                        rubyDelta -= 4;
                     }
                     else
                     {
@@ -167,7 +170,7 @@ namespace Novel
             }
         }
 
-        void SetName(Color nameColor, string nameText)
+        void SetName(string nameText, Color nameColor)
         {
             nameTmpro.color = nameColor;
             nameTmpro.SetUneditedText(nameText);
@@ -178,7 +181,7 @@ namespace Novel
         {
             var richText = TagUtility.ExtractMyTag(text).convertedText;
             storyTmpro.SetUneditedText(richText);
-            SetName(nameColor, nameText);
+            SetName(nameText, nameColor);
         }
 #endif
     }

@@ -22,8 +22,7 @@ namespace Novel.Command
         protected override async UniTask EnterAsync()
         {
             int clickedButtonIndex = await MenuManager.Instance.ShowAndWaitButtonClick(
-                CallStatus.Token,
-                new string[] { topSelectionText, bottomSelectionText });
+                Token, new string[] { topSelectionText, bottomSelectionText });
             bool select = clickedButtonIndex == 0 ^ isReverse;
 
             if(actionType == ActionType.Jump)

@@ -18,8 +18,7 @@ namespace Novel
             {
                 return Enum.TryParse(s, out enm) && Enum.IsDefined(typeof(TEnum), enm);
             }
-            else
-            //実行時チェックでenumじゃなかった場合
+            else //実行時チェックでenumじゃなかった場合
             {
                 enm = default;
                 return false;

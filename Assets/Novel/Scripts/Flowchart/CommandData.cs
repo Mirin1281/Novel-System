@@ -7,8 +7,7 @@ namespace Novel.Command
     [Serializable]
     public class CommandData : ScriptableObject
     {
-        [field: SerializeField]
-        bool enabled = true;
+        [SerializeField] bool enabled = true;
         public bool Enabled => enabled;
 
         [SerializeField, SerializeReference, SubclassSelector]
@@ -16,14 +15,14 @@ namespace Novel.Command
 
         public async UniTask ExecuteAsync(Flowchart flowchart)
         {
-            if(Enabled && command != null)
+            if(enabled && command != null)
             {
                 await command.ExecuteAsync(flowchart);
             }
         }
 
         /// <summary>
-        /// CommandBaseをキャストして返します
+        /// セットされているICommandのクラスを返します
         /// </summary>
         public CommandBase GetCommandBase()
         {
@@ -51,7 +50,7 @@ namespace Novel.Command
         public string GetName() => command?.GetName();
 
         /// <summary>
-        /// CSV用
+        /// (CSV用)Typeからコマンドをセットします
         /// </summary>
         public void SetCommand(Type type)
         {

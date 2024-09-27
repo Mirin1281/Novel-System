@@ -3,7 +3,7 @@ using Cysharp.Threading.Tasks;
 
 namespace Novel.Command
 {
-    [AddTypeMenu("Label"), System.Serializable]
+    [AddTypeMenu(nameof(Label)), System.Serializable]
     public class Label : CommandBase
     {
         [SerializeField] string labelName;

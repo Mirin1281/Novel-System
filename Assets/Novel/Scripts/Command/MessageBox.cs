@@ -1,11 +1,9 @@
 ﻿using UnityEngine;
 using Cysharp.Threading.Tasks;
-using UnityEngine.Scripting.APIUpdating;
 
 namespace Novel.Command
 {
-    //[MovedFrom(false, null, null, "SetMessageBoxCommand")]
-    [AddTypeMenu("MessageBox"), System.Serializable]
+    [AddTypeMenu(nameof(MessageBox)), System.Serializable]
     public class MessageBox : CommandBase
     {
         enum ShowType
@@ -23,11 +21,11 @@ namespace Novel.Command
             if(showType == ShowType.Show)
             {
                 var box = MessageBoxManager.Instance.CreateIfNotingBox(boxType);
-                await box.ShowFadeAsync(time, CallStatus.Token);
+                await box.ShowFadeAsync(time, Token);
             }
             else if(showType == ShowType.ClearAll)
             {
-                await MessageBoxManager.Instance.AllClearFadeAsync(time, CallStatus.Token);
+                await MessageBoxManager.Instance.AllClearFadeAsync(time, Token);
             }
         }
 

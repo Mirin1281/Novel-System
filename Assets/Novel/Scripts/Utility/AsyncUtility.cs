@@ -4,7 +4,7 @@ using System.Threading;
 
 namespace Novel
 {
-    public static class Wait
+    public static class AsyncUtility
     {
         public static UniTask Seconds(float waitTime, CancellationToken token)
         {

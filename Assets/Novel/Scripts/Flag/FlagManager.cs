@@ -4,8 +4,8 @@ using System.Collections.Generic;
 namespace Novel
 {
     // フラグに使う変数の型を増やしたい時は
-    // 1. 下部のGetFlagValueString()内の型判定を増やす
-    // 2. FlagKey_"型名" というScriptableObjectクラスをつくる
+    // 1. FlagKey_"型名" というScriptableObjectクラスをつくる
+    // 2. 下部のGetFlagValueString()内の型判定を増やす
     // (3. 必要に応じてSet~~FlagCommandなどを追加する)
     // とすると追加できます。
 
@@ -23,42 +23,73 @@ namespace Novel
         /// <summary>
         /// 返り値は(辞書に含まれていたか, 値)
         /// </summary>
-        public static (bool isContained, T value) GetFlagValue<T>(FlagKeyDataBase<T> flagKey)
+        public static bool TryGetFlagValue<T>(FlagKeyDataBase<T> flagKey, out T value)
         {
             if (flagDictionary.ContainsKey(flagKey.GetName()) == false)
             {
 #if UNITY_EDITOR
                 Debug.LogWarning($"{flagKey.GetName()}が辞書に含まれてませんでした");
 #endif
-                return (false, default);
+                value = default;
+                return false;
             }
-            return (true, (T)flagDictionary[flagKey.GetName()]);
+            value = (T)flagDictionary[flagKey.GetName()];
+            return true;
         }
 
         /// <summary>
         /// 返り値は(辞書に含まれていたか, 値の文字列)
         /// </summary>
-        public static (bool result, string valueStr) GetFlagValueString(FlagKeyDataBase flagKey)
+        public static bool TryGetFlagValueString(FlagKeyDataBase flagKey, out string valueStr)
         {
+            valueStr = string.Empty;
             if(flagKey is FlagKey_Bool boolKey)
             {
-                var (result, value) = GetFlagValue(boolKey);
-                return (result, value.ToString());
+                if(TryGetFlagValue(boolKey, out var value))
+                {
+                    valueStr = value.ToString();
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
             else if (flagKey is FlagKey_Int intKey)
             {
-                var (result, value) = GetFlagValue(intKey);
-                return (result, value.ToString());
+                if(TryGetFlagValue(intKey, out var value))
+                {
+                    valueStr = value.ToString();
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
             else if (flagKey is FlagKey_String stringKey)
             {
-                var (result, value) = GetFlagValue(stringKey);
-                return (result, value);
+                if(TryGetFlagValue(stringKey, out var value))
+                {
+                    valueStr = value.ToString();
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
             /*else if (flagKey is FlagKey_Float floatKey)
             {
-                var (result, value) = GetFlagValue(floatKey);
-                return (result, value.ToString());
+                if(TryGetFlagValue(floatKey, out var value))
+                {
+                    valueStr = value.ToString();
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }*/
 
             throw new System.Exception();

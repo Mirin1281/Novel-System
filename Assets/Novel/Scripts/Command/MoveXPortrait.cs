@@ -3,7 +3,7 @@ using Cysharp.Threading.Tasks;
 
 namespace Novel.Command
 {
-    [AddTypeMenu("MoveXPortrait"), System.Serializable]
+    [AddTypeMenu(nameof(MoveXPortrait)), System.Serializable]
     public class MoveXPortrait : CommandBase
     {
         public enum MoveType { Relative, Absolute }
@@ -41,7 +41,7 @@ namespace Novel.Command
             {
                 transform.localPosition = startPos + new Vector3(t / time * deltaX, 0);
                 t += Time.deltaTime;
-                await UniTask.Yield(CallStatus.Token);
+                await UniTask.Yield(Token);
             }
             transform.localPosition = startPos + new Vector3(deltaX, 0);
         }

@@ -32,7 +32,7 @@ namespace Novel
             {
                 writer = GetComponent<Writer>();
             }
-            if (canvasGroup == null)
+            if (input == null)
             {
                 input = GetComponent<MessageBoxInput>();
             }

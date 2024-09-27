@@ -9,27 +9,16 @@ namespace Novel
     {
         [SerializeField] CanvasGroup canvasGroup;
         [SerializeField] MenuButtonCreator buttonCreator;
-        [SerializeField] AudioSource audioSource;
         [SerializeField] AudioClip selectSE;
         [SerializeField] float seVolume = 1f;
-
-        protected override void Awake()
-        {
-            base.Awake();
-            if(audioSource == null)
-            {
-                audioSource = GetComponent<AudioSource>();
-            }
-        }
 
         /// <summary>
         /// ボタングループを表示して押されるまで待機します
         /// </summary>
-        /// <param name="token"></param>
+        /// <param name="token">キャンセル用のトークン</param>
         /// <param name="texts">ボタンに表示するテキスト</param>
         /// <returns>押されたボタンのインデックス</returns>
-        public async UniTask<int> ShowAndWaitButtonClick(
-            CancellationToken token, params string[] texts)
+        public async UniTask<int> ShowAndWaitButtonClick(CancellationToken token, params string[] texts)
         {
             gameObject.SetActive(true);
             var buttons = buttonCreator.CreateShowButtons(texts);
@@ -40,20 +29,19 @@ namespace Novel
             }
             EventSystem.current.SetSelectedGameObject(buttons[0].gameObject);
             int clickIndex = await UniTask.WhenAny(tasks);
+
             buttonCreator.AllClearFadeAsync(0.1f, token).Forget();
             if(selectSE != null)
             {
-                audioSource.PlayOneShot(selectSE, seVolume);
+                NovelManager.Instance.PlayOneShot(selectSE, seVolume);
             }
-            
             return clickIndex;
         }
 
         /// <summary>
-        /// ボタンごとの決定効果音も設定できます
+        /// テキストに加え、ボタンごとの決定効果音も設定できます
         /// </summary>
-        public async UniTask<int> ShowAndWaitButtonClick(
-            CancellationToken token, params (string text, AudioClip se)[] textAndSEs)
+        public async UniTask<int> ShowAndWaitButtonClick(CancellationToken token, params (string text, AudioClip se)[] textAndSEs)
         {
             var texts = new string[textAndSEs.Length];
             var ses = new AudioClip[textAndSEs.Length];
@@ -67,11 +55,11 @@ namespace Novel
             var se = ses[clickIndex];
             if (se != null)
             {
-                audioSource.PlayOneShot(se, seVolume);
+                NovelManager.Instance.PlayOneShot(se, seVolume);
             }
             else if (selectSE != null)
             {
-                audioSource.PlayOneShot(selectSE, seVolume);
+                NovelManager.Instance.PlayOneShot(selectSE, seVolume);
             }
             return clickIndex;
         }
@@ -88,8 +76,7 @@ namespace Novel
         public async UniTask ShowFadeAsync(float time = ConstContainer.DefaultFadeTime, CancellationToken token = default)
         {
             gameObject.SetActive(true);
-            SetAlpha(0f);
-            await FadeAlphaAsync(1f, time, token);
+            await FadeAlphaAsync(0f, 1f, time, token);
         }
 
         /// <summary>
@@ -97,28 +84,32 @@ namespace Novel
         /// </summary>
         public async UniTask ClearFadeAsync(float time = ConstContainer.DefaultFadeTime, CancellationToken token = default)
         {
-            await FadeAlphaAsync(0f, time, token);
+            await FadeAlphaAsync(GetAlpha(), 0f, time, token);
             gameObject.SetActive(false);
         }
 
         /// <summary>
         /// 指定した透明度まで連続的に変化させます
         /// </summary>
-        async UniTask FadeAlphaAsync(float toAlpha, float time, CancellationToken token)
+        async UniTask FadeAlphaAsync(float startAlpha, float toAlpha, float time, CancellationToken token)
         {
-            if (time == 0f)
-            {
-                SetAlpha(toAlpha);
-                return;
-            }
-            var outQuad = new Easing(GetAlpha(), toAlpha, time, EaseType.OutQuad);
             var t = 0f;
-            CancellationToken tkn = token == default ? this.GetCancellationTokenOnDestroy() : token;
             while (t < time)
             {
-                SetAlpha(outQuad.Ease(t));
+                SetAlpha(t.Ease(startAlpha, toAlpha, time, EaseType.OutQuad));
                 t += Time.deltaTime;
-                await UniTask.Yield(tkn);
+                await UniTask.Yield(token == default ? this.GetCancellationTokenOnDestroy() : token);
+            }
+            SetAlpha(toAlpha);
+        }
+        async UniTask FadeAlphaAsync(float toAlpha, float time, CancellationToken token)
+        {
+            var t = 0f;
+            while (t < time)
+            {
+                SetAlpha(t.Ease(GetAlpha(), toAlpha, time, EaseType.OutQuad));
+                t += Time.deltaTime;
+                await UniTask.Yield(token == default ? this.GetCancellationTokenOnDestroy() : token);
             }
             SetAlpha(toAlpha);
         }

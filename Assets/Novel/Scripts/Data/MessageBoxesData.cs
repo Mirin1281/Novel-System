@@ -4,8 +4,8 @@ namespace Novel
 {
     [CreateAssetMenu(
         fileName = nameof(MessageBoxesData),
-        menuName = ConstContainer.DATA_CREATE_PATH + "MessageBoxesData",
-        order = 1)
+        menuName = ConstContainer.DATA_CREATE_PATH + "MessageBoxes",
+        order = 2)
     ]
     public class MessageBoxesData : Enum2ObjectListDataBase<BoxType, MessageBox>
     {

@@ -20,7 +20,7 @@ namespace Novel
             base.Awake();
             InitCheck();
             SceneManager.activeSceneChanged += NewFetchBoxes;
-            //OnSceneChanged(); // 一番最初は2回分呼ばれるので注意
+            //NewFetchBoxes(); // 一番最初は2回分呼ばれるので注意
         }
 
         protected override void OnDestroy()
@@ -36,7 +36,7 @@ namespace Novel
             // 登録数のチェック
             if (data.GetListCount() != enumCount)
             {
-                Debug.LogWarning($"{nameof(MessageBoxManager)}に登録している数が{nameof(BoxType)}の数と合いません！");
+                Debug.LogWarning($"{nameof(MessageBoxesData)}に登録している数が{nameof(BoxType)}の数と合いません！");
             }
             else
             {
@@ -104,9 +104,12 @@ namespace Novel
                 if (linkedBox.Object == null) continue;
                 linkedBox.Object.ClearFadeAsync(time, token).Forget();
             }
-            await Wait.Seconds(time, token == default ? this.GetCancellationTokenOnDestroy() : token);
+            await AsyncUtility.Seconds(time, token == default ? this.GetCancellationTokenOnDestroy() : token);
         }
 
+        /// <summary>
+        /// 指定されたもの以外のボックスをクリアします
+        /// </summary>
         public async UniTask OtherClearFadeAsync(BoxType boxType, float time = ConstContainer.DefaultFadeTime)
         {
             foreach (var linkedBox in data.GetLinkedObjectEnumerable())
@@ -115,7 +118,7 @@ namespace Novel
                     linkedBox.Type == boxType) continue;
                 linkedBox.Object.ClearFadeAsync(time).Forget();
             }
-            await Wait.Seconds(time, this.GetCancellationTokenOnDestroy());
+            await AsyncUtility.Seconds(time, this.GetCancellationTokenOnDestroy());
         }
     }
 }

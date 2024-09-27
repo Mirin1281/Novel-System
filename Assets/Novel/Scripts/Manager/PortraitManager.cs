@@ -17,7 +17,7 @@ namespace Novel
             base.Awake();
             InitCheck();
             SceneManager.activeSceneChanged += NewFetchPortraits;
-            //OnSceneChanged();
+            //NewFetchPortraits();
         }
 
         protected override void OnDestroy()
@@ -32,7 +32,7 @@ namespace Novel
 
             if (data.GetListCount() != enumCount)
             {
-                Debug.LogWarning($"{nameof(PortraitManager)}に登録している数が{nameof(PortraitType)}の数と合いません！");
+                Debug.LogWarning($"{nameof(PortraitsData)}に登録している数が{nameof(PortraitType)}の数と合いません！");
             }
             else
             {
@@ -100,7 +100,7 @@ namespace Novel
                 if (linkedPortrait.Object == null) continue;
                 linkedPortrait.Object.ClearFadeAsync(time).Forget();
             }
-            await Wait.Seconds(time, this.GetCancellationTokenOnDestroy());
+            await AsyncUtility.Seconds(time, this.GetCancellationTokenOnDestroy());
         }
     }
 }

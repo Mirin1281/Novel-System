@@ -7,7 +7,6 @@ using System.Reflection;
 using System.Text;
 using UnityEditor;
 using UnityEngine;
-using Object = UnityEngine.Object;
 using Cysharp.Threading.Tasks;
 using UnityEngine.SceneManagement;
 

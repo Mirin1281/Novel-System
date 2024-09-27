@@ -3,7 +3,7 @@ using Cysharp.Threading.Tasks;
 
 namespace Novel.Command
 {
-    [AddTypeMenu("FlowJump"), System.Serializable]
+    [AddTypeMenu(nameof(FlowJump)), System.Serializable]
     public class FlowJump : CommandBase
     {
         enum JumpType

@@ -12,7 +12,7 @@ namespace Novel
     // MonoBehaviourはシーン内で参照が取れるためできることが多いです
     // ScriptableObjectはどのシーンからでも呼べるので使い回しが効きます
 
-    // Flowchartは中身が多いですが、実際に使用するのはExecuteAsync()とStop()がほとんどです
+    // Flowchartは中身が多いですが、ユーザー側が使用するのはExecuteAsync()とStop()がほとんどです
     
     [Serializable]
     public class Flowchart
@@ -20,7 +20,7 @@ namespace Novel
         public enum StopType
         {
             [InspectorName("このフローチャートのみ")] Single,
-            [InspectorName("入れ子の親も含む全て")] All,
+            [InspectorName("待機中の親も含む全て")] All,
         }
 
         [SerializeField, TextArea]
@@ -50,7 +50,7 @@ namespace Novel
             return PrecessAsync(index);
         }
 
-        // 通常、こちらは外部から呼び出しません
+        // 通常、こちらはユーザーから呼び出しません
         public UniTask ExecuteAsync(int index, FlowchartCallStatus callStatus)
         {
             CallStatus = callStatus;
@@ -70,7 +70,7 @@ namespace Novel
                 callIndex++;
             }
 
-            if (isSingleStopped == false && CallStatus.IsNestCalled == false)
+            if (isSingleStopped == false && CallStatus.ExistWaitOthers == false)
             {
                 NovelManager.Instance.ClearAllUI();
             }
@@ -130,7 +130,7 @@ namespace Novel
                 {
                     if(i < currentIndex)
                     {
-                        zoneCommand.CallZone();
+                        zoneCommand.CallIfInZone();
                     }
                 }
             }
@@ -154,19 +154,22 @@ namespace Novel
     }
 
     /// <summary>
-    /// Token, TokenSourceと"入れ子で呼ばれたか"の3つの情報を保持します
+    /// Token, TokenSourceと"他のフローチャートが終了を待機しているか"の3つの情報を保持します
     /// </summary>
     public class FlowchartCallStatus
     {
         public readonly CancellationToken Token;
         public readonly CancellationTokenSource Cts;
-        public readonly bool IsNestCalled;
+        /// <summary>
+        /// 待機している別のフローチャートが存在するか
+        /// </summary>
+        public readonly bool ExistWaitOthers;
 
-        public FlowchartCallStatus(CancellationToken token, CancellationTokenSource cts, bool isNestCalled)
+        public FlowchartCallStatus(CancellationToken token, CancellationTokenSource cts, bool existWaitOthers)
         {
             Token = token;
             Cts = cts;
-            IsNestCalled = isNestCalled;
+            ExistWaitOthers = existWaitOthers;
         }
     }
 }

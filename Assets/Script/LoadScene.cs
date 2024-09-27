@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 
 namespace Novel.Command
 {
-	[AddTypeMenu("LoadScene"), System.Serializable]
+	[AddTypeMenu(nameof(LoadScene)), System.Serializable]
 	public class LoadScene : CommandBase
 	{
 		[SerializeField] string sceneName;
@@ -12,7 +12,7 @@ namespace Novel.Command
 
 		protected override async UniTask EnterAsync()
 		{
-			await Novel.Wait.Seconds(waitSeconds, CallStatus.Token);
+			await AsyncUtility.Seconds(waitSeconds, Token);
 			ParentFlowchart.Stop(Flowchart.StopType.All);
 			await SceneManager.LoadSceneAsync(sceneName);
 		}

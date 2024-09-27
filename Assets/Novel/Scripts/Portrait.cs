@@ -76,6 +76,10 @@ namespace Novel
             portraitImage.sprite = sprite;
         }
 
+        /// <summary>
+        /// ハイド(暗くなった状態)を切り替えます
+        /// </summary>
+        /// <param name="enable"></param>
         public void SetHide(bool enable)
         {
             portraitImage.color = enable ? hideColor : Color.white;
@@ -85,7 +89,7 @@ namespace Novel
 
         protected override void SetAlpha(float a)
         {
-            portraitImage.SetAlpha(a); ;
+            portraitImage.SetAlpha(a);
         }
     }
 }

@@ -3,7 +3,7 @@ using Cysharp.Threading.Tasks;
 
 namespace Novel.Command
 {
-    [AddTypeMenu("FlowExecute"), System.Serializable]
+    [AddTypeMenu(nameof(FlowExecute)), System.Serializable]
     public class FlowExecute : CommandBase
     {
         public enum FlowchartType
@@ -21,6 +21,8 @@ namespace Novel.Command
             "true時は呼び出したFlowchartが抜けるまで待ってから次のコマンドへ進みます")]
         bool isAwaitNest;
 
+        FlowchartCallStatus CallStatus => ParentFlowchart.CallStatus;
+
         protected override async UniTask EnterAsync()
         {
             Flowchart flowchart = flowchartType switch
@@ -30,13 +32,17 @@ namespace Novel.Command
                 _ => throw new System.Exception()
             };
 
-            var isAwait = (isAwaitNest == false && CallStatus != null && CallStatus.IsNestCalled) || isAwaitNest;
-            FlowchartCallStatus status = new(CallStatus.Token, CallStatus.Cts, isAwait);
-            
-            await flowchart.ExecuteAsync(commandIndex, status);
-            if (isAwaitNest == false)
+            if(isAwaitNest)
             {
-                ParentFlowchart.Stop(Flowchart.StopType.Single);
+                FlowchartCallStatus status = new(Token, CallStatus.Cts, existWaitOthers: true);
+                await flowchart.ExecuteAsync(commandIndex, status);
+            }
+            else
+            {
+                FlowchartCallStatus status = new(Token, CallStatus.Cts, CallStatus.ExistWaitOthers);
+                
+                flowchart.ExecuteAsync(commandIndex, status).Forget();
+                ParentFlowchart.Stop(Flowchart.StopType.Single, isClearUI: false);
             }
         }
 

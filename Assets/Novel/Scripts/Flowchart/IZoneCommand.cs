@@ -5,7 +5,7 @@
     /// </summary>
     public interface IZoneCommand
     {
-        void CallZone();
+        void CallIfInZone();
     }
 
     /* Zoneコマンドについて
@@ -17,7 +17,7 @@
     従来のコマンドだと、ロードなどにより、BGMを再生するコマンドより下からExecuteされた場合に、
     BGMの再生がされない状態ですが、Zoneコマンドを使えばそれを検知でき、簡単に正しい挙動を実現できます
 
-    なお、コマンドのクラス名は○○ZoneCommandを推奨します
+    なお、コマンドのクラス名は○○Zoneを推奨します
     Flowchart.isCheckZoneをtrueにしないと検知されないので注意してください
     頻繫に使用することが予想される場合はデフォルト値をtrueにすることを推奨します
     */

@@ -9,9 +9,17 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 40201647590404662, guid: d61be9789ac52e4438457865ed8aa12a, type: 3}
+      propertyPath: m_text
+      value: "<line-height=1em><voffset=1em><size=50%>\_</size></voffset><space=-6.265>\u540D\u524D"
+      objectReference: {fileID: 0}
+    - target: {fileID: 40201647590404662, guid: d61be9789ac52e4438457865ed8aa12a, type: 3}
       propertyPath: m_fontAsset
       value: 
       objectReference: {fileID: 11400000, guid: 70ec4c822d195f042aa249cc7c48faf4, type: 2}
+    - target: {fileID: 40201647590404662, guid: d61be9789ac52e4438457865ed8aa12a, type: 3}
+      propertyPath: _uneditedText
+      value: "\u540D\u524D"
+      objectReference: {fileID: 0}
     - target: {fileID: 40201647590404662, guid: d61be9789ac52e4438457865ed8aa12a, type: 3}
       propertyPath: m_sharedMaterial
       value: 
@@ -126,7 +134,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7050408090009731663, guid: d61be9789ac52e4438457865ed8aa12a, type: 3}
       propertyPath: m_text
-      value: "\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044"
+      value: "<line-height=1.45em><voffset=0.9em><size=50%>\_</size></voffset><space=-4.03>\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044"
       objectReference: {fileID: 0}
     - target: {fileID: 7050408090009731663, guid: d61be9789ac52e4438457865ed8aa12a, type: 3}
       propertyPath: m_fontAsset
@@ -147,10 +155,6 @@ PrefabInstance:
     - target: {fileID: 7776359622832343048, guid: d61be9789ac52e4438457865ed8aa12a, type: 3}
       propertyPath: m_Name
       value: AboveMessageBox
-      objectReference: {fileID: 0}
-    - target: {fileID: 8917495195089842385, guid: d61be9789ac52e4438457865ed8aa12a, type: 3}
-      propertyPath: inputSE
-      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -33,14 +33,13 @@ namespace Novel.Editor
 
             EditorGUILayout.LabelField(
                 "◆◆注意\n" +
-                "下のボタンから複製や削除をしてください。特に複製はデータが共有されるので注意\n" +
+                "下のボタンから複製や削除をしてください。特に、普通に複製をするとデータが共有されしまうので注意してください\n" +
                 $"また、{ConstContainer.COMMANDDATA_PATH} のデータは基本的に直接いじらないでください\n" +
                 "\n" +
                 "◆◆もしもの対処\n" +
                 "もし普通に複製してしまったも、そのまま削除すれば大丈夫です\n" +
                 "普通に削除してしまった場合やアンドゥをした時など、コマンドデータが取り残される\n" +
-                "ことがありますが、「未使用のCommandDataを削除する」を押すとクリアできます\n" +
-                "(ちょっと怖いのでGitなど元に戻せる環境の用意を推奨します)"
+                "ことがありますが、「未使用のCommandDataを削除する」を押すとクリアできます\n"
                 , EditorStyles.wordWrappedLabel);
 
             EditorGUILayout.Space(10);
@@ -51,7 +50,7 @@ namespace Novel.Editor
                 {
                     var flowchartData = target as FlowchartData;
                     var copiedFlowchartData = Instantiate(flowchartData);
-                    copiedFlowchartData.name = "CopiedFlowchartData";
+                    copiedFlowchartData.name = "Copied_" + flowchartData.name;
                     var folderPath = FlowchartEditorUtility.GetExistFolderPath(flowchartData);
 
                     var dataName = FlowchartEditorUtility.GetFileName(folderPath, copiedFlowchartData.name, "asset");
@@ -91,17 +90,7 @@ namespace Novel.Editor
 
                 if (GUILayout.Button("未使用のCommandDataを削除する"))
                 {
-                    var cmdDatas = FlowchartEditorUtility.GetAllScriptableObjects<CommandData>();
-                    var flowchartDatas = FlowchartEditorUtility.GetAllScriptableObjects<FlowchartData>();
-
-                    foreach (var cmdData in cmdDatas)
-                    {
-                        if (IsUsed(cmdData, flowchartDatas) == false)
-                        {
-                            FlowchartEditorUtility.DestroyScritableObject(cmdData);
-                        }
-                    }
-                    AssetDatabase.Refresh(ImportAssetOptions.ForceUpdate);
+                    FlowchartEditorUtility.RemoveUnusedCommandData();
                 }
             }
 
@@ -118,7 +107,7 @@ namespace Novel.Editor
                 "また、縦の列のコマンドを自由に増やすこともできます\n" +
                 "すでにあるコマンドをCSVから消す機能は実装していません。とりあえず無効にしたい場合は\"Null\"を入れてください\n" +
                 "\n" +
-                "注意点として、ファイル名は変更してもかまいませんが、CSV内の1行目と2行目のデータは基本的に変えないでください"
+                "注意点として、ファイル名は変更してもかまいませんが、CSV内の1行目と3行目のデータは基本的に変えないでください"
                 , EditorStyles.wordWrappedLabel);
 
             EditorGUILayout.Space(10);
@@ -135,14 +124,5 @@ namespace Novel.Editor
                 }
             }
         }        
-
-        bool IsUsed(CommandData targetData, FlowchartData[] flowchartDatas)
-        {
-            foreach (var flowchartData in flowchartDatas)
-            {
-                if (flowchartData.IsUsed(targetData)) return true;
-            }
-            return false;
-        }
     }
 }

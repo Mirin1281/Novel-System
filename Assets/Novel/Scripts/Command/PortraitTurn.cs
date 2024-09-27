@@ -3,7 +3,7 @@ using Cysharp.Threading.Tasks;
 
 namespace Novel.Command
 {
-    [AddTypeMenu("PortraitTurn"), System.Serializable]
+    [AddTypeMenu(nameof(PortraitTurn)), System.Serializable]
     public class PortraitTurn : CommandBase
     {
         [SerializeField, DropDownCharacter] CharacterData character;
@@ -15,7 +15,7 @@ namespace Novel.Command
             var portrait = PortraitManager.Instance.CreateIfNotingPortrait(character.PortraitType);
             if (isAwait)
             {
-                await portrait.TurnAsync(time, CallStatus.Token);
+                await portrait.TurnAsync(time, Token);
             }
             else
             {

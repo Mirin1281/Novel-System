@@ -1,8 +1,0 @@
-Name:,NovelScene,
-
-Flowchart,RPGのNPCがよくやるやつ,,,Flowchart2,RPGのNPCがよくやるやつ,,,Flowchart3,RPGのNPCがよくやるやつ,,,
-
-Portrait,真白ノベル,Show,,Say,真白ノベル,こんにちは2,,Say,真白ノベル,こんにちは3,,
-Say,真白ノベル,こんにちは,,FlowExecute,,,,,,,,
-FlowExecute,,,,Say,真白ノベル,こんにちは5,,,,,,
-Say,真白ノベル,こんにちは4,,,,,,,,,,

@@ -3,7 +3,7 @@ using Cysharp.Threading.Tasks;
 
 namespace Novel.Command
 {
-    [AddTypeMenu("SetBackgroundColorZone"), System.Serializable]
+    [AddTypeMenu("SetBackColorZone"), System.Serializable]
     public class SetBackgroundColorZone : CommandBase, IZoneCommand
     {
         [SerializeField] Color color;
@@ -14,7 +14,7 @@ namespace Novel.Command
             await UniTask.CompletedTask;
         }
 
-        void IZoneCommand.CallZone()
+        void IZoneCommand.CallIfInZone()
         {
             SetBackgroundColor(color);
         }
@@ -23,5 +23,7 @@ namespace Novel.Command
         {
             Camera.main.backgroundColor = color;
         }
+
+        protected override Color GetCommandColor() => color;
     }
 }

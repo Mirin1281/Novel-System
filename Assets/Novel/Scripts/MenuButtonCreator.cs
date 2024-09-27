@@ -1,6 +1,5 @@
 ﻿using Cysharp.Threading.Tasks;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -10,12 +9,16 @@ namespace Novel
     public class MenuButtonCreator : MonoBehaviour
     {
         [SerializeField] MenuButton buttonPrefab;
-        List<MenuButton> createButtons = new();
+        List<MenuButton> createButtons;
 
         void Awake()
         {
-            createButtons = GetComponentsInChildren<MenuButton>().ToList();
-            createButtons.ForEach(button => button.gameObject.SetActive(false));
+            createButtons = new(transform.childCount);
+            foreach(var btn in GetComponentsInChildren<MenuButton>())
+            {
+                btn.gameObject.SetActive(false);
+                createButtons.Add(btn);
+            }
             SceneManager.activeSceneChanged += AllClear;
         }
         void OnDestroy()
@@ -30,10 +33,7 @@ namespace Novel
 
         public IReadOnlyList<MenuButton> CreateShowButtons(params string[] texts)
         {
-            if (createButtons == null)
-            {
-                createButtons = new();
-            }
+            createButtons ??= new(texts.Length);
             int currentCount = createButtons.Count;
 
             int createCount = texts.Length;
@@ -84,7 +84,7 @@ namespace Novel
             {
                 button.ShowFadeAsync(time).Forget();
             }
-            await Wait.Seconds(time, this.GetCancellationTokenOnDestroy());
+            await AsyncUtility.Seconds(time, this.GetCancellationTokenOnDestroy());
         }
 
         public async UniTask AllClearFadeAsync(float time = ConstContainer.DefaultFadeTime, CancellationToken token = default)
@@ -96,7 +96,7 @@ namespace Novel
                     button.ClearFadeAsync(time, token).Forget();
                 }
             }
-            await Wait.Seconds(time, token == default ? this.GetCancellationTokenOnDestroy() : token);
+            await AsyncUtility.Seconds(time, token == default ? this.GetCancellationTokenOnDestroy() : token);
         }
     }
 }

@@ -5,22 +5,13 @@ using System.Threading;
 
 namespace Novel
 {
-    [RequireComponent(typeof(AudioSource))]
     public class MessageBoxInput : MonoBehaviour
     {
-        [SerializeField] AudioSource audioSource;
         [SerializeField] AudioClip inputSE;
         float seVolume;
 
         public event Action OnInputed;
 
-        void Awake()
-        {
-            if(audioSource == null)
-            {
-                audioSource.GetComponent<AudioSource>();
-            }
-        }
         void OnDestroy()
         {
             OnInputed = null;
@@ -76,7 +67,7 @@ namespace Novel
 
             if (inputSE != null)
             {
-                audioSource.PlayOneShot(inputSE, seVolume);
+                NovelManager.Instance.PlayOneShot(inputSE, seVolume);
             }
             OnInputed -= Click;
             if (action != null)

@@ -3,7 +3,7 @@ using Cysharp.Threading.Tasks;
 
 namespace Novel.Command
 {
-    [AddTypeMenu("CommandDelay"), System.Serializable]
+    [AddTypeMenu(nameof(CommandDelay)), System.Serializable]
     public class CommandDelay : CommandBase
     {
         [SerializeField] float time = 0f;
@@ -18,7 +18,7 @@ namespace Novel.Command
 
         async UniTask DelayExecuteCommand()
         {
-            await Novel.Wait.Seconds(time, CallStatus.Token);
+            await AsyncUtility.Seconds(time, Token);
             command.ExecuteAsync(ParentFlowchart).Forget();
         }
 
