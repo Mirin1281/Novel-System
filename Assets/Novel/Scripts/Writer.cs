@@ -57,6 +57,7 @@ namespace Novel
             SetName(nameText, nameColor);
 
             // テキストの設定 //
+            ClearText();
             if(NovelManager.Instance.IsUseRuby == false)
             {
                 fullText = TagUtility.RemoveRubyText(fullText);
@@ -174,6 +175,12 @@ namespace Novel
         {
             nameTmpro.color = nameColor;
             nameTmpro.SetUneditedText(nameText);
+        }
+
+        public void ClearText()
+        {
+            nameTmpro.SetUneditedText(string.Empty);
+            storyTmpro.SetUneditedText(string.Empty);
         }
 
 #if UNITY_EDITOR

@@ -120,5 +120,14 @@ namespace Novel
             }
             await AsyncUtility.Seconds(time, this.GetCancellationTokenOnDestroy());
         }
+
+        public void AllClearText()
+        {
+            foreach(var linkedBox in data.GetLinkedObjectEnumerable())
+            {
+                if (linkedBox.Object == null) continue;
+                linkedBox.Object.Writer.ClearText();
+            }
+        }
     }
 }

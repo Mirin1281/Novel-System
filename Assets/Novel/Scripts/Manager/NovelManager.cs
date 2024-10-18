@@ -91,6 +91,7 @@ namespace Novel
         public void ClearAllUI()
         {
             MessageBoxManager.Instance.AllClearFadeAsync().Forget();
+            MessageBoxManager.Instance.AllClearText();
             PortraitManager.Instance.AllClearFadeAsync().Forget();
             MenuManager.Instance.ClearFadeAsync().Forget();
         }

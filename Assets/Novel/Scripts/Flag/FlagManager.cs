@@ -25,7 +25,12 @@ namespace Novel
         /// </summary>
         public static bool TryGetFlagValue<T>(FlagKeyDataBase<T> flagKey, out T value)
         {
-            if (flagDictionary.ContainsKey(flagKey.GetName()) == false)
+            if(flagDictionary.TryGetValue(flagKey.GetName(), out var v))
+            {
+                value = (T)v;
+                return true;
+            }
+            else
             {
 #if UNITY_EDITOR
                 Debug.LogWarning($"{flagKey.GetName()}が辞書に含まれてませんでした");
@@ -33,8 +38,6 @@ namespace Novel
                 value = default;
                 return false;
             }
-            value = (T)flagDictionary[flagKey.GetName()];
-            return true;
         }
 
         /// <summary>
@@ -95,7 +98,7 @@ namespace Novel
             throw new System.Exception();
         }
 
-        public static void DebugShowContents()
+        public static void DebugShowDictionary()
         {
 #if UNITY_EDITOR
             foreach(var(s, o) in flagDictionary)

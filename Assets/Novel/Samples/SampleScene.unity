@@ -144,7 +144,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "CSV\u5165\u51FA\u529B\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
           isCheckZone: 0
           commandDataList:
           - {fileID: 1576803877}
@@ -161,6 +160,7 @@ MonoBehaviour:
           - {fileID: 18173899}
           - {fileID: 1242842376}
           - {fileID: 961929332}
+          description: "CSV\u5165\u51FA\u529B\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
         <Index>k__BackingField: 11
         character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
         changeSprite: {fileID: 21300000, guid: 321b0bfb6c84b2e4ea411c3d1246c306, type: 3}
@@ -187,7 +187,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "\u7D30\u304B\u3044\u4ED5\u69D8\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
           isCheckZone: 1
           commandDataList:
           - {fileID: 635289426}
@@ -219,6 +218,7 @@ MonoBehaviour:
           - {fileID: 960672197}
           - {fileID: 79765866}
           - {fileID: 18195847}
+          description: "\u7D30\u304B\u3044\u4ED5\u69D8\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
         <Index>k__BackingField: 28
         character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
         changeSprite: {fileID: 21300000, guid: 217884d24e46f54418eb8fbf3008481d, type: 3}
@@ -245,7 +245,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "\u81EA\u4F5C\u30B3\u30DE\u30F3\u30C9\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
           isCheckZone: 0
           commandDataList:
           - {fileID: 1975919719}
@@ -267,6 +266,7 @@ MonoBehaviour:
           - {fileID: 1844828076}
           - {fileID: 396885067}
           - {fileID: 1601076291}
+          description: "\u81EA\u4F5C\u30B3\u30DE\u30F3\u30C9\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
         <Index>k__BackingField: 7
         character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
         changeSprite: {fileID: 21300000, guid: 855f9004ee0d1af44a9142b63035d451, type: 3}
@@ -293,7 +293,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "\u81EA\u4F5C\u30B3\u30DE\u30F3\u30C9\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
           isCheckZone: 0
           commandDataList:
           - {fileID: 1975919719}
@@ -315,6 +314,7 @@ MonoBehaviour:
           - {fileID: 1844828076}
           - {fileID: 396885067}
           - {fileID: 1601076291}
+          description: "\u81EA\u4F5C\u30B3\u30DE\u30F3\u30C9\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
         <Index>k__BackingField: 13
         character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
         changeSprite: {fileID: 21300000, guid: 321b0bfb6c84b2e4ea411c3d1246c306, type: 3}
@@ -341,7 +341,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "\u3053\u306E\u30A2\u30BB\u30C3\u30C8\u306B\u3064\u3044\u3066\u306E\u3056\u3063\u304F\u308A\u3068\u3057\u305F\u8AAC\u660E"
           isCheckZone: 0
           commandDataList:
           - {fileID: 337384760}
@@ -364,6 +363,7 @@ MonoBehaviour:
           - {fileID: 52388454}
           - {fileID: 38965964}
           - {fileID: 814690927}
+          description: "\u3053\u306E\u30A2\u30BB\u30C3\u30C8\u306B\u3064\u3044\u3066\u306E\u3056\u3063\u304F\u308A\u3068\u3057\u305F\u8AAC\u660E"
         <Index>k__BackingField: 18
         character: {fileID: 0}
         changeSprite: {fileID: 0}
@@ -390,7 +390,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "\u3053\u306E\u30A2\u30BB\u30C3\u30C8\u306B\u3064\u3044\u3066\u306E\u3056\u3063\u304F\u308A\u3068\u3057\u305F\u8AAC\u660E"
           isCheckZone: 0
           commandDataList:
           - {fileID: 337384760}
@@ -413,6 +412,7 @@ MonoBehaviour:
           - {fileID: 52388454}
           - {fileID: 38965964}
           - {fileID: 814690927}
+          description: "\u3053\u306E\u30A2\u30BB\u30C3\u30C8\u306B\u3064\u3044\u3066\u306E\u3056\u3063\u304F\u308A\u3068\u3057\u305F\u8AAC\u660E"
         <Index>k__BackingField: 17
         character: {fileID: 0}
         changeSprite: {fileID: 0}
@@ -439,7 +439,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "\u30D5\u30E9\u30B0\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
           isCheckZone: 0
           commandDataList:
           - {fileID: 1630555032}
@@ -457,6 +456,7 @@ MonoBehaviour:
           - {fileID: 1351938754}
           - {fileID: 527174987}
           - {fileID: 593209517}
+          description: "\u30D5\u30E9\u30B0\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
         <Index>k__BackingField: 5
         character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
         changeSprite: {fileID: 21300000, guid: 321b0bfb6c84b2e4ea411c3d1246c306, type: 3}
@@ -483,7 +483,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "MessageBox\u3084Portrait\u306A\u3069\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
           isCheckZone: 0
           commandDataList:
           - {fileID: 1215857798}
@@ -503,6 +502,7 @@ MonoBehaviour:
           - {fileID: 294960843}
           - {fileID: 1295118598}
           - {fileID: 1858565484}
+          description: "MessageBox\u3084Portrait\u306A\u3069\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
         <Index>k__BackingField: 4
         character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
         changeSprite: {fileID: 21300000, guid: 321b0bfb6c84b2e4ea411c3d1246c306, type: 3}
@@ -529,7 +529,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "\u7D30\u304B\u3044\u4ED5\u69D8\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
           isCheckZone: 1
           commandDataList:
           - {fileID: 635289426}
@@ -561,6 +560,7 @@ MonoBehaviour:
           - {fileID: 960672197}
           - {fileID: 79765866}
           - {fileID: 18195847}
+          description: "\u7D30\u304B\u3044\u4ED5\u69D8\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
         <Index>k__BackingField: 27
         character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
         changeSprite: {fileID: 21300000, guid: 855f9004ee0d1af44a9142b63035d451, type: 3}
@@ -587,7 +587,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "\u81EA\u4F5C\u30B3\u30DE\u30F3\u30C9\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
           isCheckZone: 0
           commandDataList:
           - {fileID: 1975919719}
@@ -609,6 +608,7 @@ MonoBehaviour:
           - {fileID: 1844828076}
           - {fileID: 396885067}
           - {fileID: 1601076291}
+          description: "\u81EA\u4F5C\u30B3\u30DE\u30F3\u30C9\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
         <Index>k__BackingField: 15
         character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
         changeSprite: {fileID: 21300000, guid: 24ea358cd0c6e7d48b3a06eaff46e833, type: 3}
@@ -635,7 +635,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "\u7D30\u304B\u3044\u4ED5\u69D8\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
           isCheckZone: 1
           commandDataList:
           - {fileID: 635289426}
@@ -667,6 +666,7 @@ MonoBehaviour:
           - {fileID: 960672197}
           - {fileID: 79765866}
           - {fileID: 18195847}
+          description: "\u7D30\u304B\u3044\u4ED5\u69D8\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
         <Index>k__BackingField: 20
         character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
         changeSprite: {fileID: 21300000, guid: 24ea358cd0c6e7d48b3a06eaff46e833, type: 3}
@@ -693,7 +693,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "\u3053\u306E\u30A2\u30BB\u30C3\u30C8\u306B\u3064\u3044\u3066\u306E\u3056\u3063\u304F\u308A\u3068\u3057\u305F\u8AAC\u660E"
           isCheckZone: 0
           commandDataList:
           - {fileID: 337384760}
@@ -716,6 +715,7 @@ MonoBehaviour:
           - {fileID: 52388454}
           - {fileID: 38965964}
           - {fileID: 814690927}
+          description: "\u3053\u306E\u30A2\u30BB\u30C3\u30C8\u306B\u3064\u3044\u3066\u306E\u3056\u3063\u304F\u308A\u3068\u3057\u305F\u8AAC\u660E"
         <Index>k__BackingField: 11
         character: {fileID: 0}
         changeSprite: {fileID: 0}
@@ -742,7 +742,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "CSV\u5165\u51FA\u529B\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
           isCheckZone: 0
           commandDataList:
           - {fileID: 1576803877}
@@ -759,6 +758,7 @@ MonoBehaviour:
           - {fileID: 18173899}
           - {fileID: 1242842376}
           - {fileID: 961929332}
+          description: "CSV\u5165\u51FA\u529B\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
         <Index>k__BackingField: 4
         character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
         changeSprite: {fileID: 21300000, guid: 321b0bfb6c84b2e4ea411c3d1246c306, type: 3}
@@ -785,7 +785,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "\u81EA\u4F5C\u30B3\u30DE\u30F3\u30C9\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
           isCheckZone: 0
           commandDataList:
           - {fileID: 1975919719}
@@ -807,6 +806,7 @@ MonoBehaviour:
           - {fileID: 1844828076}
           - {fileID: 396885067}
           - {fileID: 1601076291}
+          description: "\u81EA\u4F5C\u30B3\u30DE\u30F3\u30C9\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
         <Index>k__BackingField: 1
         character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
         changeSprite: {fileID: 21300000, guid: 217884d24e46f54418eb8fbf3008481d, type: 3}
@@ -834,7 +834,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "CSV\u5165\u51FA\u529B\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
           isCheckZone: 0
           commandDataList:
           - {fileID: 1576803877}
@@ -851,6 +850,7 @@ MonoBehaviour:
           - {fileID: 18173899}
           - {fileID: 1242842376}
           - {fileID: 961929332}
+          description: "CSV\u5165\u51FA\u529B\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
         <Index>k__BackingField: 1
         character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
         changeSprite: {fileID: 21300000, guid: 24ea358cd0c6e7d48b3a06eaff46e833, type: 3}
@@ -877,7 +877,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "CSV\u5165\u51FA\u529B\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
           isCheckZone: 0
           commandDataList:
           - {fileID: 1576803877}
@@ -894,6 +893,7 @@ MonoBehaviour:
           - {fileID: 18173899}
           - {fileID: 1242842376}
           - {fileID: 961929332}
+          description: "CSV\u5165\u51FA\u529B\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
         <Index>k__BackingField: 5
         character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
         changeSprite: {fileID: 21300000, guid: 321b0bfb6c84b2e4ea411c3d1246c306, type: 3}
@@ -920,7 +920,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "MessageBox\u3084Portrait\u306A\u3069\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
           isCheckZone: 0
           commandDataList:
           - {fileID: 1215857798}
@@ -940,6 +939,7 @@ MonoBehaviour:
           - {fileID: 294960843}
           - {fileID: 1295118598}
           - {fileID: 1858565484}
+          description: "MessageBox\u3084Portrait\u306A\u3069\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
         <Index>k__BackingField: 14
         character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
         changeSprite: {fileID: 0}
@@ -966,7 +966,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "\u3053\u306E\u30A2\u30BB\u30C3\u30C8\u306B\u3064\u3044\u3066\u306E\u3056\u3063\u304F\u308A\u3068\u3057\u305F\u8AAC\u660E"
           isCheckZone: 0
           commandDataList:
           - {fileID: 337384760}
@@ -989,6 +988,7 @@ MonoBehaviour:
           - {fileID: 52388454}
           - {fileID: 38965964}
           - {fileID: 814690927}
+          description: "\u3053\u306E\u30A2\u30BB\u30C3\u30C8\u306B\u3064\u3044\u3066\u306E\u3056\u3063\u304F\u308A\u3068\u3057\u305F\u8AAC\u660E"
         <Index>k__BackingField: 0
         character: {fileID: 0}
         changeSprite: {fileID: 0}
@@ -1015,7 +1015,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "\u3053\u306E\u30A2\u30BB\u30C3\u30C8\u306B\u3064\u3044\u3066\u306E\u3056\u3063\u304F\u308A\u3068\u3057\u305F\u8AAC\u660E"
           isCheckZone: 0
           commandDataList:
           - {fileID: 337384760}
@@ -1038,6 +1037,7 @@ MonoBehaviour:
           - {fileID: 52388454}
           - {fileID: 38965964}
           - {fileID: 814690927}
+          description: "\u3053\u306E\u30A2\u30BB\u30C3\u30C8\u306B\u3064\u3044\u3066\u306E\u3056\u3063\u304F\u308A\u3068\u3057\u305F\u8AAC\u660E"
         <Index>k__BackingField: 14
         character: {fileID: 0}
         changeSprite: {fileID: 0}
@@ -1064,7 +1064,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "\u81EA\u4F5C\u30B3\u30DE\u30F3\u30C9\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
           isCheckZone: 0
           commandDataList:
           - {fileID: 1975919719}
@@ -1086,6 +1085,7 @@ MonoBehaviour:
           - {fileID: 1844828076}
           - {fileID: 396885067}
           - {fileID: 1601076291}
+          description: "\u81EA\u4F5C\u30B3\u30DE\u30F3\u30C9\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
         <Index>k__BackingField: 17
         character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
         changeSprite: {fileID: 21300000, guid: 217884d24e46f54418eb8fbf3008481d, type: 3}
@@ -1112,7 +1112,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "\u30D5\u30E9\u30B0\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
           isCheckZone: 0
           commandDataList:
           - {fileID: 1630555032}
@@ -1130,6 +1129,7 @@ MonoBehaviour:
           - {fileID: 1351938754}
           - {fileID: 527174987}
           - {fileID: 593209517}
+          description: "\u30D5\u30E9\u30B0\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
         <Index>k__BackingField: 1
         character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
         changeSprite: {fileID: 21300000, guid: 217884d24e46f54418eb8fbf3008481d, type: 3}
@@ -1156,7 +1156,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "\u3053\u306E\u30A2\u30BB\u30C3\u30C8\u306B\u3064\u3044\u3066\u306E\u3056\u3063\u304F\u308A\u3068\u3057\u305F\u8AAC\u660E"
           isCheckZone: 0
           commandDataList:
           - {fileID: 337384760}
@@ -1179,6 +1178,7 @@ MonoBehaviour:
           - {fileID: 52388454}
           - {fileID: 38965964}
           - {fileID: 814690927}
+          description: "\u3053\u306E\u30A2\u30BB\u30C3\u30C8\u306B\u3064\u3044\u3066\u306E\u3056\u3063\u304F\u308A\u3068\u3057\u305F\u8AAC\u660E"
         <Index>k__BackingField: 8
         character: {fileID: 0}
         changeSprite: {fileID: 0}
@@ -1205,7 +1205,6 @@ MonoBehaviour:
       type: {class: FlowExecute, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "ScriptableObject\u306E\u30D5\u30ED\u30FC\u30C1\u30E3\u30FC\u30C8\u306E\u8AAC\u660E"
           isCheckZone: 0
           commandDataList:
           - {fileID: 1704022628}
@@ -1213,6 +1212,7 @@ MonoBehaviour:
           - {fileID: 806289979}
           - {fileID: 1031612139}
           - {fileID: 470287315}
+          description: "ScriptableObject\u306E\u30D5\u30ED\u30FC\u30C1\u30E3\u30FC\u30C8\u306E\u8AAC\u660E"
         <Index>k__BackingField: 4
         flowchartType: 1
         flowchartExecutor: {fileID: 0}
@@ -1241,7 +1241,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "MessageBox\u3084Portrait\u306A\u3069\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
           isCheckZone: 0
           commandDataList:
           - {fileID: 1215857798}
@@ -1261,6 +1260,7 @@ MonoBehaviour:
           - {fileID: 294960843}
           - {fileID: 1295118598}
           - {fileID: 1858565484}
+          description: "MessageBox\u3084Portrait\u306A\u3069\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
         <Index>k__BackingField: 1
         character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
         changeSprite: {fileID: 21300000, guid: 321b0bfb6c84b2e4ea411c3d1246c306, type: 3}
@@ -1287,7 +1287,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "\u30D5\u30E9\u30B0\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
           isCheckZone: 0
           commandDataList:
           - {fileID: 1630555032}
@@ -1305,6 +1304,7 @@ MonoBehaviour:
           - {fileID: 1351938754}
           - {fileID: 527174987}
           - {fileID: 593209517}
+          description: "\u30D5\u30E9\u30B0\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
         <Index>k__BackingField: 13
         character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
         changeSprite: {fileID: 21300000, guid: 321b0bfb6c84b2e4ea411c3d1246c306, type: 3}
@@ -1331,7 +1331,6 @@ MonoBehaviour:
       type: {class: SetIntFlag, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "\u30D5\u30E9\u30B0\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
           isCheckZone: 0
           commandDataList:
           - {fileID: 1630555032}
@@ -1349,6 +1348,7 @@ MonoBehaviour:
           - {fileID: 1351938754}
           - {fileID: 527174987}
           - {fileID: 593209517}
+          description: "\u30D5\u30E9\u30B0\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
         <Index>k__BackingField: 6
         flagKey: {fileID: 11400000, guid: 0328191814683ab4db82d3af84d9d0fe, type: 2}
         value: 2
@@ -1442,7 +1442,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "\u81EA\u4F5C\u30B3\u30DE\u30F3\u30C9\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
           isCheckZone: 0
           commandDataList:
           - {fileID: 1975919719}
@@ -1464,6 +1463,7 @@ MonoBehaviour:
           - {fileID: 1844828076}
           - {fileID: 396885067}
           - {fileID: 1601076291}
+          description: "\u81EA\u4F5C\u30B3\u30DE\u30F3\u30C9\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
         <Index>k__BackingField: 6
         character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
         changeSprite: {fileID: 21300000, guid: 321b0bfb6c84b2e4ea411c3d1246c306, type: 3}
@@ -1490,7 +1490,6 @@ MonoBehaviour:
       type: {class: Label, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "\u7D30\u304B\u3044\u4ED5\u69D8\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
           isCheckZone: 1
           commandDataList:
           - {fileID: 635289426}
@@ -1522,6 +1521,7 @@ MonoBehaviour:
           - {fileID: 960672197}
           - {fileID: 79765866}
           - {fileID: 18195847}
+          description: "\u7D30\u304B\u3044\u4ED5\u69D8\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
         <Index>k__BackingField: 8
         labelName: "\u81EA\u5206\u3067\u751F\u6210\u3001\u524A\u9664"
         commandColor: {r: 0.3726415, g: 1, b: 0.75451195, a: 1}
@@ -1547,7 +1547,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "\u3053\u306E\u30A2\u30BB\u30C3\u30C8\u306B\u3064\u3044\u3066\u306E\u3056\u3063\u304F\u308A\u3068\u3057\u305F\u8AAC\u660E"
           isCheckZone: 0
           commandDataList:
           - {fileID: 337384760}
@@ -1570,6 +1569,7 @@ MonoBehaviour:
           - {fileID: 52388454}
           - {fileID: 38965964}
           - {fileID: 814690927}
+          description: "\u3053\u306E\u30A2\u30BB\u30C3\u30C8\u306B\u3064\u3044\u3066\u306E\u3056\u3063\u304F\u308A\u3068\u3057\u305F\u8AAC\u660E"
         <Index>k__BackingField: 7
         character: {fileID: 0}
         changeSprite: {fileID: 0}
@@ -1596,7 +1596,6 @@ MonoBehaviour:
       type: {class: Label, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "\u7D30\u304B\u3044\u4ED5\u69D8\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
           isCheckZone: 1
           commandDataList:
           - {fileID: 635289426}
@@ -1628,6 +1627,7 @@ MonoBehaviour:
           - {fileID: 960672197}
           - {fileID: 79765866}
           - {fileID: 18195847}
+          description: "\u7D30\u304B\u3044\u4ED5\u69D8\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
         <Index>k__BackingField: 2
         labelName: "\u30A8\u30C7\u30A3\u30BF\u30A6\u30A3\u30F3\u30C9\u30A6\u306B\u3064\u3044\u3066(\u3053\u308C\u3082\u30B5\u30F3\u30D7\u30EB\u7528)"
         commandColor: {r: 0.3726415, g: 1, b: 0.75451195, a: 1}
@@ -1745,7 +1745,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "\u30D5\u30E9\u30B0\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
           isCheckZone: 0
           commandDataList:
           - {fileID: 1630555032}
@@ -1763,6 +1762,7 @@ MonoBehaviour:
           - {fileID: 1351938754}
           - {fileID: 527174987}
           - {fileID: 593209517}
+          description: "\u30D5\u30E9\u30B0\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
         <Index>k__BackingField: 14
         character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
         changeSprite: {fileID: 21300000, guid: 24ea358cd0c6e7d48b3a06eaff46e833, type: 3}
@@ -1789,7 +1789,6 @@ MonoBehaviour:
       type: {class: Label, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "\u7D30\u304B\u3044\u4ED5\u69D8\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
           isCheckZone: 1
           commandDataList:
           - {fileID: 635289426}
@@ -1821,6 +1820,7 @@ MonoBehaviour:
           - {fileID: 960672197}
           - {fileID: 79765866}
           - {fileID: 18195847}
+          description: "\u7D30\u304B\u3044\u4ED5\u69D8\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
         <Index>k__BackingField: 24
         labelName: "\u304A\u308F\u308A\u306B"
         commandColor: {r: 0.3726415, g: 1, b: 0.75451195, a: 1}
@@ -1846,7 +1846,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "\u7D30\u304B\u3044\u4ED5\u69D8\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
           isCheckZone: 1
           commandDataList:
           - {fileID: 635289426}
@@ -1878,6 +1877,7 @@ MonoBehaviour:
           - {fileID: 960672197}
           - {fileID: 79765866}
           - {fileID: 18195847}
+          description: "\u7D30\u304B\u3044\u4ED5\u69D8\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
         <Index>k__BackingField: 5
         character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
         changeSprite: {fileID: 21300000, guid: 321b0bfb6c84b2e4ea411c3d1246c306, type: 3}
@@ -1904,7 +1904,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "SayCommand\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
           isCheckZone: 0
           commandDataList:
           - {fileID: 1391726535}
@@ -1917,6 +1916,7 @@ MonoBehaviour:
           - {fileID: 1541263003}
           - {fileID: 1556375358}
           - {fileID: 1882869322}
+          description: "SayCommand\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
         <Index>k__BackingField: 3
         character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
         changeSprite: {fileID: 21300000, guid: 321b0bfb6c84b2e4ea411c3d1246c306, type: 3}
@@ -1943,7 +1943,6 @@ MonoBehaviour:
       type: {class: Portrait, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "\u7D30\u304B\u3044\u4ED5\u69D8\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
           isCheckZone: 1
           commandDataList:
           - {fileID: 635289426}
@@ -1975,6 +1974,7 @@ MonoBehaviour:
           - {fileID: 960672197}
           - {fileID: 79765866}
           - {fileID: 18195847}
+          description: "\u7D30\u304B\u3044\u4ED5\u69D8\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
         <Index>k__BackingField: 0
         character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
         actionType: 0
@@ -2005,7 +2005,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "\u3053\u306E\u30A2\u30BB\u30C3\u30C8\u306B\u3064\u3044\u3066\u306E\u3056\u3063\u304F\u308A\u3068\u3057\u305F\u8AAC\u660E"
           isCheckZone: 0
           commandDataList:
           - {fileID: 337384760}
@@ -2028,6 +2027,7 @@ MonoBehaviour:
           - {fileID: 52388454}
           - {fileID: 38965964}
           - {fileID: 814690927}
+          description: "\u3053\u306E\u30A2\u30BB\u30C3\u30C8\u306B\u3064\u3044\u3066\u306E\u3056\u3063\u304F\u308A\u3068\u3057\u305F\u8AAC\u660E"
         <Index>k__BackingField: 9
         character: {fileID: 0}
         changeSprite: {fileID: 0}
@@ -2055,7 +2055,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "MessageBox\u3084Portrait\u306A\u3069\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
           isCheckZone: 0
           commandDataList:
           - {fileID: 1215857798}
@@ -2075,6 +2074,7 @@ MonoBehaviour:
           - {fileID: 294960843}
           - {fileID: 1295118598}
           - {fileID: 1858565484}
+          description: "MessageBox\u3084Portrait\u306A\u3069\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
         <Index>k__BackingField: 8
         character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
         changeSprite: {fileID: 0}
@@ -2102,7 +2102,6 @@ MonoBehaviour:
       type: {class: SetIntFlag, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "\u30D5\u30E9\u30B0\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
           isCheckZone: 0
           commandDataList:
           - {fileID: 1630555032}
@@ -2120,6 +2119,7 @@ MonoBehaviour:
           - {fileID: 1351938754}
           - {fileID: 527174987}
           - {fileID: 593209517}
+          description: "\u30D5\u30E9\u30B0\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
         <Index>k__BackingField: 9
         flagKey: {fileID: 11400000, guid: 0328191814683ab4db82d3af84d9d0fe, type: 2}
         value: 3
@@ -2145,7 +2145,6 @@ MonoBehaviour:
       type: {class: SetBackgroundColorZone, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "\u7D30\u304B\u3044\u4ED5\u69D8\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
           isCheckZone: 1
           commandDataList:
           - {fileID: 635289426}
@@ -2177,6 +2176,7 @@ MonoBehaviour:
           - {fileID: 960672197}
           - {fileID: 79765866}
           - {fileID: 18195847}
+          description: "\u7D30\u304B\u3044\u4ED5\u69D8\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
         <Index>k__BackingField: 15
         color: {r: 0.7377358, g: 0.9897944, b: 1, a: 0}
 --- !u!114 &696327068
@@ -2201,7 +2201,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "\u81EA\u4F5C\u30B3\u30DE\u30F3\u30C9\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
           isCheckZone: 0
           commandDataList:
           - {fileID: 1975919719}
@@ -2223,6 +2222,7 @@ MonoBehaviour:
           - {fileID: 1844828076}
           - {fileID: 396885067}
           - {fileID: 1601076291}
+          description: "\u81EA\u4F5C\u30B3\u30DE\u30F3\u30C9\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
         <Index>k__BackingField: 14
         character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
         changeSprite: {fileID: 21300000, guid: 321b0bfb6c84b2e4ea411c3d1246c306, type: 3}
@@ -2249,7 +2249,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "\u7D30\u304B\u3044\u4ED5\u69D8\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
           isCheckZone: 1
           commandDataList:
           - {fileID: 635289426}
@@ -2281,6 +2280,7 @@ MonoBehaviour:
           - {fileID: 960672197}
           - {fileID: 79765866}
           - {fileID: 18195847}
+          description: "\u7D30\u304B\u3044\u4ED5\u69D8\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
         <Index>k__BackingField: 21
         character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
         changeSprite: {fileID: 21300000, guid: 24ea358cd0c6e7d48b3a06eaff46e833, type: 3}
@@ -2307,7 +2307,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "CSV\u5165\u51FA\u529B\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
           isCheckZone: 0
           commandDataList:
           - {fileID: 1576803877}
@@ -2324,6 +2323,7 @@ MonoBehaviour:
           - {fileID: 18173899}
           - {fileID: 1242842376}
           - {fileID: 961929332}
+          description: "CSV\u5165\u51FA\u529B\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
         <Index>k__BackingField: 6
         character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
         changeSprite: {fileID: 21300000, guid: 321b0bfb6c84b2e4ea411c3d1246c306, type: 3}
@@ -2350,7 +2350,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "\u30D5\u30E9\u30B0\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
           isCheckZone: 0
           commandDataList:
           - {fileID: 1630555032}
@@ -2368,6 +2367,7 @@ MonoBehaviour:
           - {fileID: 1351938754}
           - {fileID: 527174987}
           - {fileID: 593209517}
+          description: "\u30D5\u30E9\u30B0\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
         <Index>k__BackingField: 4
         character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
         changeSprite: {fileID: 21300000, guid: 321b0bfb6c84b2e4ea411c3d1246c306, type: 3}
@@ -2394,7 +2394,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "\u81EA\u4F5C\u30B3\u30DE\u30F3\u30C9\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
           isCheckZone: 0
           commandDataList:
           - {fileID: 1975919719}
@@ -2416,6 +2415,7 @@ MonoBehaviour:
           - {fileID: 1844828076}
           - {fileID: 396885067}
           - {fileID: 1601076291}
+          description: "\u81EA\u4F5C\u30B3\u30DE\u30F3\u30C9\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
         <Index>k__BackingField: 5
         character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
         changeSprite: {fileID: 21300000, guid: 321b0bfb6c84b2e4ea411c3d1246c306, type: 3}
@@ -2442,7 +2442,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "\u7D30\u304B\u3044\u4ED5\u69D8\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
           isCheckZone: 1
           commandDataList:
           - {fileID: 635289426}
@@ -2474,6 +2473,7 @@ MonoBehaviour:
           - {fileID: 960672197}
           - {fileID: 79765866}
           - {fileID: 18195847}
+          description: "\u7D30\u304B\u3044\u4ED5\u69D8\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
         <Index>k__BackingField: 13
         character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
         changeSprite: {fileID: 21300000, guid: 321b0bfb6c84b2e4ea411c3d1246c306, type: 3}
@@ -2500,7 +2500,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "ScriptableObject\u306E\u30D5\u30ED\u30FC\u30C1\u30E3\u30FC\u30C8\u306E\u8AAC\u660E"
           isCheckZone: 0
           commandDataList:
           - {fileID: 1704022628}
@@ -2508,6 +2507,7 @@ MonoBehaviour:
           - {fileID: 806289979}
           - {fileID: 1031612139}
           - {fileID: 470287315}
+          description: "ScriptableObject\u306E\u30D5\u30ED\u30FC\u30C1\u30E3\u30FC\u30C8\u306E\u8AAC\u660E"
         <Index>k__BackingField: 2
         character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
         changeSprite: {fileID: 21300000, guid: 855f9004ee0d1af44a9142b63035d451, type: 3}
@@ -2534,7 +2534,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "\u3053\u306E\u30A2\u30BB\u30C3\u30C8\u306B\u3064\u3044\u3066\u306E\u3056\u3063\u304F\u308A\u3068\u3057\u305F\u8AAC\u660E"
           isCheckZone: 0
           commandDataList:
           - {fileID: 337384760}
@@ -2557,6 +2556,7 @@ MonoBehaviour:
           - {fileID: 52388454}
           - {fileID: 38965964}
           - {fileID: 814690927}
+          description: "\u3053\u306E\u30A2\u30BB\u30C3\u30C8\u306B\u3064\u3044\u3066\u306E\u3056\u3063\u304F\u308A\u3068\u3057\u305F\u8AAC\u660E"
         <Index>k__BackingField: 19
         character: {fileID: 0}
         changeSprite: {fileID: 0}
@@ -2585,7 +2585,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "\u7D30\u304B\u3044\u4ED5\u69D8\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
           isCheckZone: 1
           commandDataList:
           - {fileID: 635289426}
@@ -2617,6 +2616,7 @@ MonoBehaviour:
           - {fileID: 960672197}
           - {fileID: 79765866}
           - {fileID: 18195847}
+          description: "\u7D30\u304B\u3044\u4ED5\u69D8\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
         <Index>k__BackingField: 1
         character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
         changeSprite: {fileID: 21300000, guid: 217884d24e46f54418eb8fbf3008481d, type: 3}
@@ -2643,7 +2643,6 @@ MonoBehaviour:
       type: {class: SetBackgroundColorZone, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "\u7D30\u304B\u3044\u4ED5\u69D8\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
           isCheckZone: 1
           commandDataList:
           - {fileID: 635289426}
@@ -2675,6 +2674,7 @@ MonoBehaviour:
           - {fileID: 960672197}
           - {fileID: 79765866}
           - {fileID: 18195847}
+          description: "\u7D30\u304B\u3044\u4ED5\u69D8\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
         <Index>k__BackingField: 23
         color: {r: 1, g: 0.8726415, b: 0.8726415, a: 0}
 --- !u!114 &872611349
@@ -2699,7 +2699,6 @@ MonoBehaviour:
       type: {class: SayAdvanced, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "\u30D5\u30E9\u30B0\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
           isCheckZone: 0
           commandDataList:
           - {fileID: 1630555032}
@@ -2717,6 +2716,7 @@ MonoBehaviour:
           - {fileID: 1351938754}
           - {fileID: 527174987}
           - {fileID: 593209517}
+          description: "\u30D5\u30E9\u30B0\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
         <Index>k__BackingField: 11
         character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
         changeSprite: {fileID: 21300000, guid: 321b0bfb6c84b2e4ea411c3d1246c306, type: 3}
@@ -2726,7 +2726,6 @@ MonoBehaviour:
         characterName: 
         flagKeys:
         - {fileID: 11400000, guid: 0328191814683ab4db82d3af84d9d0fe, type: 2}
-        ints: 0100000000000000
 --- !u!114 &906054135
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2749,7 +2748,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "\u30D5\u30E9\u30B0\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
           isCheckZone: 0
           commandDataList:
           - {fileID: 1630555032}
@@ -2767,6 +2765,7 @@ MonoBehaviour:
           - {fileID: 1351938754}
           - {fileID: 527174987}
           - {fileID: 593209517}
+          description: "\u30D5\u30E9\u30B0\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
         <Index>k__BackingField: 3
         character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
         changeSprite: {fileID: 21300000, guid: 321b0bfb6c84b2e4ea411c3d1246c306, type: 3}
@@ -2802,7 +2801,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   executeOnStart: 1
   flowchart:
-    description: "\u3053\u306E\u30A2\u30BB\u30C3\u30C8\u306B\u3064\u3044\u3066\u306E\u3056\u3063\u304F\u308A\u3068\u3057\u305F\u8AAC\u660E"
     isCheckZone: 0
     commandDataList:
     - {fileID: 337384760}
@@ -2825,6 +2823,7 @@ MonoBehaviour:
     - {fileID: 52388454}
     - {fileID: 38965964}
     - {fileID: 814690927}
+    description: "\u3053\u306E\u30A2\u30BB\u30C3\u30C8\u306B\u3064\u3044\u3066\u306E\u3056\u3063\u304F\u308A\u3068\u3057\u305F\u8AAC\u660E"
 --- !u!4 &913874169
 Transform:
   m_ObjectHideFlags: 0
@@ -2862,7 +2861,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "\u81EA\u4F5C\u30B3\u30DE\u30F3\u30C9\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
           isCheckZone: 0
           commandDataList:
           - {fileID: 1975919719}
@@ -2884,6 +2882,7 @@ MonoBehaviour:
           - {fileID: 1844828076}
           - {fileID: 396885067}
           - {fileID: 1601076291}
+          description: "\u81EA\u4F5C\u30B3\u30DE\u30F3\u30C9\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
         <Index>k__BackingField: 10
         character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
         changeSprite: {fileID: 21300000, guid: 321b0bfb6c84b2e4ea411c3d1246c306, type: 3}
@@ -2910,7 +2909,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "\u7D30\u304B\u3044\u4ED5\u69D8\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
           isCheckZone: 1
           commandDataList:
           - {fileID: 635289426}
@@ -2942,6 +2940,7 @@ MonoBehaviour:
           - {fileID: 960672197}
           - {fileID: 79765866}
           - {fileID: 18195847}
+          description: "\u7D30\u304B\u3044\u4ED5\u69D8\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
         <Index>k__BackingField: 26
         character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
         changeSprite: {fileID: 21300000, guid: 24ea358cd0c6e7d48b3a06eaff46e833, type: 3}
@@ -2968,7 +2967,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "CSV\u5165\u51FA\u529B\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
           isCheckZone: 0
           commandDataList:
           - {fileID: 1576803877}
@@ -2985,6 +2983,7 @@ MonoBehaviour:
           - {fileID: 18173899}
           - {fileID: 1242842376}
           - {fileID: 961929332}
+          description: "CSV\u5165\u51FA\u529B\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
         <Index>k__BackingField: 13
         character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
         changeSprite: {fileID: 21300000, guid: 217884d24e46f54418eb8fbf3008481d, type: 3}
@@ -3011,7 +3010,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "MessageBox\u3084Portrait\u306A\u3069\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
           isCheckZone: 0
           commandDataList:
           - {fileID: 1215857798}
@@ -3031,6 +3029,7 @@ MonoBehaviour:
           - {fileID: 294960843}
           - {fileID: 1295118598}
           - {fileID: 1858565484}
+          description: "MessageBox\u3084Portrait\u306A\u3069\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
         <Index>k__BackingField: 9
         character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
         changeSprite: {fileID: 21300000, guid: 321b0bfb6c84b2e4ea411c3d1246c306, type: 3}
@@ -3066,7 +3065,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   executeOnStart: 1
   flowchart:
-    description: "\u30D5\u30E9\u30B0\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
     isCheckZone: 0
     commandDataList:
     - {fileID: 1630555032}
@@ -3084,6 +3082,7 @@ MonoBehaviour:
     - {fileID: 1351938754}
     - {fileID: 527174987}
     - {fileID: 593209517}
+    description: "\u30D5\u30E9\u30B0\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
 --- !u!4 &991939825
 Transform:
   m_ObjectHideFlags: 0
@@ -3121,7 +3120,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "\u7D30\u304B\u3044\u4ED5\u69D8\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
           isCheckZone: 1
           commandDataList:
           - {fileID: 635289426}
@@ -3153,6 +3151,7 @@ MonoBehaviour:
           - {fileID: 960672197}
           - {fileID: 79765866}
           - {fileID: 18195847}
+          description: "\u7D30\u304B\u3044\u4ED5\u69D8\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
         <Index>k__BackingField: 17
         character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
         changeSprite: {fileID: 21300000, guid: 24ea358cd0c6e7d48b3a06eaff46e833, type: 3}
@@ -3179,7 +3178,6 @@ MonoBehaviour:
       type: {class: Label, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "\u7D30\u304B\u3044\u4ED5\u69D8\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
           isCheckZone: 1
           commandDataList:
           - {fileID: 635289426}
@@ -3211,6 +3209,7 @@ MonoBehaviour:
           - {fileID: 960672197}
           - {fileID: 79765866}
           - {fileID: 18195847}
+          description: "\u7D30\u304B\u3044\u4ED5\u69D8\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
         <Index>k__BackingField: 14
         labelName: "Zone\u30B3\u30DE\u30F3\u30C9"
         commandColor: {r: 0.3726415, g: 1, b: 0.75451195, a: 1}
@@ -3236,7 +3235,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "ScriptableObject\u306E\u30D5\u30ED\u30FC\u30C1\u30E3\u30FC\u30C8\u306E\u8AAC\u660E"
           isCheckZone: 0
           commandDataList:
           - {fileID: 1704022628}
@@ -3244,6 +3242,7 @@ MonoBehaviour:
           - {fileID: 806289979}
           - {fileID: 1031612139}
           - {fileID: 470287315}
+          description: "ScriptableObject\u306E\u30D5\u30ED\u30FC\u30C1\u30E3\u30FC\u30C8\u306E\u8AAC\u660E"
         <Index>k__BackingField: 3
         character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
         changeSprite: {fileID: 21300000, guid: 321b0bfb6c84b2e4ea411c3d1246c306, type: 3}
@@ -3270,7 +3269,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "\u3053\u306E\u30A2\u30BB\u30C3\u30C8\u306B\u3064\u3044\u3066\u306E\u3056\u3063\u304F\u308A\u3068\u3057\u305F\u8AAC\u660E"
           isCheckZone: 0
           commandDataList:
           - {fileID: 337384760}
@@ -3293,6 +3291,7 @@ MonoBehaviour:
           - {fileID: 52388454}
           - {fileID: 38965964}
           - {fileID: 814690927}
+          description: "\u3053\u306E\u30A2\u30BB\u30C3\u30C8\u306B\u3064\u3044\u3066\u306E\u3056\u3063\u304F\u308A\u3068\u3057\u305F\u8AAC\u660E"
         <Index>k__BackingField: 5
         character: {fileID: 0}
         changeSprite: {fileID: 0}
@@ -3319,7 +3318,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "MessageBox\u3084Portrait\u306A\u3069\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
           isCheckZone: 0
           commandDataList:
           - {fileID: 1215857798}
@@ -3339,6 +3337,7 @@ MonoBehaviour:
           - {fileID: 294960843}
           - {fileID: 1295118598}
           - {fileID: 1858565484}
+          description: "MessageBox\u3084Portrait\u306A\u3069\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
         <Index>k__BackingField: 12
         character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
         changeSprite: {fileID: 21300000, guid: 24ea358cd0c6e7d48b3a06eaff46e833, type: 3}
@@ -3365,7 +3364,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "\u7D30\u304B\u3044\u4ED5\u69D8\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
           isCheckZone: 1
           commandDataList:
           - {fileID: 635289426}
@@ -3397,6 +3395,7 @@ MonoBehaviour:
           - {fileID: 960672197}
           - {fileID: 79765866}
           - {fileID: 18195847}
+          description: "\u7D30\u304B\u3044\u4ED5\u69D8\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
         <Index>k__BackingField: 11
         character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
         changeSprite: {fileID: 21300000, guid: 321b0bfb6c84b2e4ea411c3d1246c306, type: 3}
@@ -3423,7 +3422,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "\u30D5\u30E9\u30B0\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
           isCheckZone: 0
           commandDataList:
           - {fileID: 1630555032}
@@ -3441,6 +3439,7 @@ MonoBehaviour:
           - {fileID: 1351938754}
           - {fileID: 527174987}
           - {fileID: 593209517}
+          description: "\u30D5\u30E9\u30B0\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
         <Index>k__BackingField: 8
         character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
         changeSprite: {fileID: 21300000, guid: 321b0bfb6c84b2e4ea411c3d1246c306, type: 3}
@@ -3467,7 +3466,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "\u81EA\u4F5C\u30B3\u30DE\u30F3\u30C9\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
           isCheckZone: 0
           commandDataList:
           - {fileID: 1975919719}
@@ -3489,6 +3487,7 @@ MonoBehaviour:
           - {fileID: 1844828076}
           - {fileID: 396885067}
           - {fileID: 1601076291}
+          description: "\u81EA\u4F5C\u30B3\u30DE\u30F3\u30C9\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
         <Index>k__BackingField: 12
         character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
         changeSprite: {fileID: 21300000, guid: 321b0bfb6c84b2e4ea411c3d1246c306, type: 3}
@@ -3524,7 +3523,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   executeOnStart: 1
   flowchart:
-    description: "\u7D30\u304B\u3044\u4ED5\u69D8\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
     isCheckZone: 1
     commandDataList:
     - {fileID: 635289426}
@@ -3556,6 +3554,7 @@ MonoBehaviour:
     - {fileID: 960672197}
     - {fileID: 79765866}
     - {fileID: 18195847}
+    description: "\u7D30\u304B\u3044\u4ED5\u69D8\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
 --- !u!4 &1173365978
 Transform:
   m_ObjectHideFlags: 0
@@ -3593,7 +3592,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "\u81EA\u4F5C\u30B3\u30DE\u30F3\u30C9\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
           isCheckZone: 0
           commandDataList:
           - {fileID: 1975919719}
@@ -3615,6 +3613,7 @@ MonoBehaviour:
           - {fileID: 1844828076}
           - {fileID: 396885067}
           - {fileID: 1601076291}
+          description: "\u81EA\u4F5C\u30B3\u30DE\u30F3\u30C9\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
         <Index>k__BackingField: 3
         character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
         changeSprite: {fileID: 21300000, guid: 24ea358cd0c6e7d48b3a06eaff46e833, type: 3}
@@ -3641,7 +3640,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "\u81EA\u4F5C\u30B3\u30DE\u30F3\u30C9\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
           isCheckZone: 0
           commandDataList:
           - {fileID: 1975919719}
@@ -3663,6 +3661,7 @@ MonoBehaviour:
           - {fileID: 1844828076}
           - {fileID: 396885067}
           - {fileID: 1601076291}
+          description: "\u81EA\u4F5C\u30B3\u30DE\u30F3\u30C9\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
         <Index>k__BackingField: 11
         character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
         changeSprite: {fileID: 21300000, guid: 321b0bfb6c84b2e4ea411c3d1246c306, type: 3}
@@ -3689,7 +3688,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "MessageBox\u3084Portrait\u306A\u3069\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
           isCheckZone: 0
           commandDataList:
           - {fileID: 1215857798}
@@ -3709,6 +3707,7 @@ MonoBehaviour:
           - {fileID: 294960843}
           - {fileID: 1295118598}
           - {fileID: 1858565484}
+          description: "MessageBox\u3084Portrait\u306A\u3069\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
         <Index>k__BackingField: 3
         character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
         changeSprite: {fileID: 21300000, guid: 321b0bfb6c84b2e4ea411c3d1246c306, type: 3}
@@ -3736,7 +3735,6 @@ MonoBehaviour:
       type: {class: Portrait, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "MessageBox\u3084Portrait\u306A\u3069\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
           isCheckZone: 0
           commandDataList:
           - {fileID: 1215857798}
@@ -3756,6 +3754,7 @@ MonoBehaviour:
           - {fileID: 294960843}
           - {fileID: 1295118598}
           - {fileID: 1858565484}
+          description: "MessageBox\u3084Portrait\u306A\u3069\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
         <Index>k__BackingField: 0
         character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
         actionType: 0
@@ -3795,7 +3794,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   executeOnStart: 1
   flowchart:
-    description: "SayCommand\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
     isCheckZone: 0
     commandDataList:
     - {fileID: 1391726535}
@@ -3808,6 +3806,7 @@ MonoBehaviour:
     - {fileID: 1541263003}
     - {fileID: 1556375358}
     - {fileID: 1882869322}
+    description: "SayCommand\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
 --- !u!4 &1231829956
 Transform:
   m_ObjectHideFlags: 0
@@ -3845,7 +3844,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "CSV\u5165\u51FA\u529B\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
           isCheckZone: 0
           commandDataList:
           - {fileID: 1576803877}
@@ -3862,6 +3860,7 @@ MonoBehaviour:
           - {fileID: 18173899}
           - {fileID: 1242842376}
           - {fileID: 961929332}
+          description: "CSV\u5165\u51FA\u529B\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
         <Index>k__BackingField: 12
         character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
         changeSprite: {fileID: 21300000, guid: 321b0bfb6c84b2e4ea411c3d1246c306, type: 3}
@@ -3888,7 +3887,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "\u7D30\u304B\u3044\u4ED5\u69D8\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
           isCheckZone: 1
           commandDataList:
           - {fileID: 635289426}
@@ -3920,6 +3918,7 @@ MonoBehaviour:
           - {fileID: 960672197}
           - {fileID: 79765866}
           - {fileID: 18195847}
+          description: "\u7D30\u304B\u3044\u4ED5\u69D8\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
         <Index>k__BackingField: 3
         character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
         changeSprite: {fileID: 21300000, guid: 321b0bfb6c84b2e4ea411c3d1246c306, type: 3}
@@ -3955,7 +3954,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   executeOnStart: 1
   flowchart:
-    description: "CSV\u5165\u51FA\u529B\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
     isCheckZone: 0
     commandDataList:
     - {fileID: 1576803877}
@@ -3972,6 +3970,7 @@ MonoBehaviour:
     - {fileID: 18173899}
     - {fileID: 1242842376}
     - {fileID: 961929332}
+    description: "CSV\u5165\u51FA\u529B\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
 --- !u!4 &1277552028
 Transform:
   m_ObjectHideFlags: 0
@@ -4009,7 +4008,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "MessageBox\u3084Portrait\u306A\u3069\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
           isCheckZone: 0
           commandDataList:
           - {fileID: 1215857798}
@@ -4029,6 +4027,7 @@ MonoBehaviour:
           - {fileID: 294960843}
           - {fileID: 1295118598}
           - {fileID: 1858565484}
+          description: "MessageBox\u3084Portrait\u306A\u3069\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
         <Index>k__BackingField: 15
         character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
         changeSprite: {fileID: 21300000, guid: 321b0bfb6c84b2e4ea411c3d1246c306, type: 3}
@@ -4055,7 +4054,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "\u3053\u306E\u30A2\u30BB\u30C3\u30C8\u306B\u3064\u3044\u3066\u306E\u3056\u3063\u304F\u308A\u3068\u3057\u305F\u8AAC\u660E"
           isCheckZone: 0
           commandDataList:
           - {fileID: 337384760}
@@ -4078,6 +4076,7 @@ MonoBehaviour:
           - {fileID: 52388454}
           - {fileID: 38965964}
           - {fileID: 814690927}
+          description: "\u3053\u306E\u30A2\u30BB\u30C3\u30C8\u306B\u3064\u3044\u3066\u306E\u3056\u3063\u304F\u308A\u3068\u3057\u305F\u8AAC\u660E"
         <Index>k__BackingField: 3
         character: {fileID: 0}
         changeSprite: {fileID: 0}
@@ -4104,7 +4103,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "MessageBox\u3084Portrait\u306A\u3069\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
           isCheckZone: 0
           commandDataList:
           - {fileID: 1215857798}
@@ -4124,6 +4122,7 @@ MonoBehaviour:
           - {fileID: 294960843}
           - {fileID: 1295118598}
           - {fileID: 1858565484}
+          description: "MessageBox\u3084Portrait\u306A\u3069\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
         <Index>k__BackingField: 2
         character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
         changeSprite: {fileID: 21300000, guid: 855f9004ee0d1af44a9142b63035d451, type: 3}
@@ -4150,7 +4149,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "\u30D5\u30E9\u30B0\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
           isCheckZone: 0
           commandDataList:
           - {fileID: 1630555032}
@@ -4168,6 +4166,7 @@ MonoBehaviour:
           - {fileID: 1351938754}
           - {fileID: 527174987}
           - {fileID: 593209517}
+          description: "\u30D5\u30E9\u30B0\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
         <Index>k__BackingField: 10
         character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
         changeSprite: {fileID: 21300000, guid: 855f9004ee0d1af44a9142b63035d451, type: 3}
@@ -4194,7 +4193,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "\u7D30\u304B\u3044\u4ED5\u69D8\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
           isCheckZone: 1
           commandDataList:
           - {fileID: 635289426}
@@ -4226,6 +4224,7 @@ MonoBehaviour:
           - {fileID: 960672197}
           - {fileID: 79765866}
           - {fileID: 18195847}
+          description: "\u7D30\u304B\u3044\u4ED5\u69D8\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
         <Index>k__BackingField: 12
         character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
         changeSprite: {fileID: 21300000, guid: 321b0bfb6c84b2e4ea411c3d1246c306, type: 3}
@@ -4252,7 +4251,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "MessageBox\u3084Portrait\u306A\u3069\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
           isCheckZone: 0
           commandDataList:
           - {fileID: 1215857798}
@@ -4272,6 +4270,7 @@ MonoBehaviour:
           - {fileID: 294960843}
           - {fileID: 1295118598}
           - {fileID: 1858565484}
+          description: "MessageBox\u3084Portrait\u306A\u3069\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
         <Index>k__BackingField: 5
         character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
         changeSprite: {fileID: 21300000, guid: 321b0bfb6c84b2e4ea411c3d1246c306, type: 3}
@@ -4298,7 +4297,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "\u30D5\u30E9\u30B0\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
           isCheckZone: 0
           commandDataList:
           - {fileID: 1630555032}
@@ -4316,6 +4314,7 @@ MonoBehaviour:
           - {fileID: 1351938754}
           - {fileID: 527174987}
           - {fileID: 593209517}
+          description: "\u30D5\u30E9\u30B0\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
         <Index>k__BackingField: 12
         character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
         changeSprite: {fileID: 21300000, guid: 321b0bfb6c84b2e4ea411c3d1246c306, type: 3}
@@ -4342,7 +4341,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "\u3053\u306E\u30A2\u30BB\u30C3\u30C8\u306B\u3064\u3044\u3066\u306E\u3056\u3063\u304F\u308A\u3068\u3057\u305F\u8AAC\u660E"
           isCheckZone: 0
           commandDataList:
           - {fileID: 337384760}
@@ -4365,6 +4363,7 @@ MonoBehaviour:
           - {fileID: 52388454}
           - {fileID: 38965964}
           - {fileID: 814690927}
+          description: "\u3053\u306E\u30A2\u30BB\u30C3\u30C8\u306B\u3064\u3044\u3066\u306E\u3056\u3063\u304F\u308A\u3068\u3057\u305F\u8AAC\u660E"
         <Index>k__BackingField: 6
         character: {fileID: 0}
         changeSprite: {fileID: 0}
@@ -4391,7 +4390,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "\u81EA\u4F5C\u30B3\u30DE\u30F3\u30C9\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
           isCheckZone: 0
           commandDataList:
           - {fileID: 1975919719}
@@ -4413,6 +4411,7 @@ MonoBehaviour:
           - {fileID: 1844828076}
           - {fileID: 396885067}
           - {fileID: 1601076291}
+          description: "\u81EA\u4F5C\u30B3\u30DE\u30F3\u30C9\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
         <Index>k__BackingField: 2
         character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
         changeSprite: {fileID: 21300000, guid: 24ea358cd0c6e7d48b3a06eaff46e833, type: 3}
@@ -4439,7 +4438,6 @@ MonoBehaviour:
       type: {class: Portrait, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "SayCommand\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
           isCheckZone: 0
           commandDataList:
           - {fileID: 1391726535}
@@ -4452,6 +4450,7 @@ MonoBehaviour:
           - {fileID: 1541263003}
           - {fileID: 1556375358}
           - {fileID: 1882869322}
+          description: "SayCommand\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
         <Index>k__BackingField: 0
         character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
         actionType: 0
@@ -4482,7 +4481,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "\u7D30\u304B\u3044\u4ED5\u69D8\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
           isCheckZone: 1
           commandDataList:
           - {fileID: 635289426}
@@ -4514,6 +4512,7 @@ MonoBehaviour:
           - {fileID: 960672197}
           - {fileID: 79765866}
           - {fileID: 18195847}
+          description: "\u7D30\u304B\u3044\u4ED5\u69D8\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
         <Index>k__BackingField: 22
         character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
         changeSprite: {fileID: 21300000, guid: 24ea358cd0c6e7d48b3a06eaff46e833, type: 3}
@@ -4540,7 +4539,6 @@ MonoBehaviour:
       type: {class: SayAdvanced, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "\u30D5\u30E9\u30B0\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
           isCheckZone: 0
           commandDataList:
           - {fileID: 1630555032}
@@ -4558,6 +4556,7 @@ MonoBehaviour:
           - {fileID: 1351938754}
           - {fileID: 527174987}
           - {fileID: 593209517}
+          description: "\u30D5\u30E9\u30B0\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
         <Index>k__BackingField: 7
         character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
         changeSprite: {fileID: 21300000, guid: 321b0bfb6c84b2e4ea411c3d1246c306, type: 3}
@@ -4567,7 +4566,6 @@ MonoBehaviour:
         characterName: 
         flagKeys:
         - {fileID: 11400000, guid: 0328191814683ab4db82d3af84d9d0fe, type: 2}
-        ints: 0100000000000000
 --- !u!1 &1512313234
 GameObject:
   m_ObjectHideFlags: 0
@@ -4614,7 +4612,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   executeOnStart: 1
   flowchart:
-    description: "\u81EA\u4F5C\u30B3\u30DE\u30F3\u30C9\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
     isCheckZone: 0
     commandDataList:
     - {fileID: 1975919719}
@@ -4636,6 +4633,7 @@ MonoBehaviour:
     - {fileID: 1844828076}
     - {fileID: 396885067}
     - {fileID: 1601076291}
+    description: "\u81EA\u4F5C\u30B3\u30DE\u30F3\u30C9\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
 --- !u!114 &1514778261
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4658,7 +4656,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "CSV\u5165\u51FA\u529B\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
           isCheckZone: 0
           commandDataList:
           - {fileID: 1576803877}
@@ -4675,6 +4672,7 @@ MonoBehaviour:
           - {fileID: 18173899}
           - {fileID: 1242842376}
           - {fileID: 961929332}
+          description: "CSV\u5165\u51FA\u529B\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
         <Index>k__BackingField: 10
         character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
         changeSprite: {fileID: 21300000, guid: 321b0bfb6c84b2e4ea411c3d1246c306, type: 3}
@@ -4701,7 +4699,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "SayCommand\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
           isCheckZone: 0
           commandDataList:
           - {fileID: 1391726535}
@@ -4714,6 +4711,7 @@ MonoBehaviour:
           - {fileID: 1541263003}
           - {fileID: 1556375358}
           - {fileID: 1882869322}
+          description: "SayCommand\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
         <Index>k__BackingField: 7
         character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
         changeSprite: {fileID: 21300000, guid: 217884d24e46f54418eb8fbf3008481d, type: 3}
@@ -4740,7 +4738,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "SayCommand\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
           isCheckZone: 0
           commandDataList:
           - {fileID: 1391726535}
@@ -4753,6 +4750,7 @@ MonoBehaviour:
           - {fileID: 1541263003}
           - {fileID: 1556375358}
           - {fileID: 1882869322}
+          description: "SayCommand\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
         <Index>k__BackingField: 8
         character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
         changeSprite: {fileID: 21300000, guid: 24ea358cd0c6e7d48b3a06eaff46e833, type: 3}
@@ -4779,7 +4777,6 @@ MonoBehaviour:
       type: {class: Portrait, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "CSV\u5165\u51FA\u529B\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
           isCheckZone: 0
           commandDataList:
           - {fileID: 1576803877}
@@ -4796,6 +4793,7 @@ MonoBehaviour:
           - {fileID: 18173899}
           - {fileID: 1242842376}
           - {fileID: 961929332}
+          description: "CSV\u5165\u51FA\u529B\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
         <Index>k__BackingField: 0
         character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
         actionType: 0
@@ -4826,7 +4824,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "\u81EA\u4F5C\u30B3\u30DE\u30F3\u30C9\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
           isCheckZone: 0
           commandDataList:
           - {fileID: 1975919719}
@@ -4848,6 +4845,7 @@ MonoBehaviour:
           - {fileID: 1844828076}
           - {fileID: 396885067}
           - {fileID: 1601076291}
+          description: "\u81EA\u4F5C\u30B3\u30DE\u30F3\u30C9\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
         <Index>k__BackingField: 18
         character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
         changeSprite: {fileID: 21300000, guid: 24ea358cd0c6e7d48b3a06eaff46e833, type: 3}
@@ -4874,7 +4872,6 @@ MonoBehaviour:
       type: {class: Portrait, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "\u30D5\u30E9\u30B0\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
           isCheckZone: 0
           commandDataList:
           - {fileID: 1630555032}
@@ -4892,6 +4889,7 @@ MonoBehaviour:
           - {fileID: 1351938754}
           - {fileID: 527174987}
           - {fileID: 593209517}
+          description: "\u30D5\u30E9\u30B0\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
         <Index>k__BackingField: 0
         character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
         actionType: 0
@@ -4922,7 +4920,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "SayCommand\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
           isCheckZone: 0
           commandDataList:
           - {fileID: 1391726535}
@@ -4935,6 +4932,7 @@ MonoBehaviour:
           - {fileID: 1541263003}
           - {fileID: 1556375358}
           - {fileID: 1882869322}
+          description: "SayCommand\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
         <Index>k__BackingField: 5
         character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
         changeSprite: {fileID: 21300000, guid: 24ea358cd0c6e7d48b3a06eaff46e833, type: 3}
@@ -4961,7 +4959,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "\u81EA\u4F5C\u30B3\u30DE\u30F3\u30C9\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
           isCheckZone: 0
           commandDataList:
           - {fileID: 1975919719}
@@ -4983,6 +4980,7 @@ MonoBehaviour:
           - {fileID: 1844828076}
           - {fileID: 396885067}
           - {fileID: 1601076291}
+          description: "\u81EA\u4F5C\u30B3\u30DE\u30F3\u30C9\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
         <Index>k__BackingField: 8
         character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
         changeSprite: {fileID: 21300000, guid: 217884d24e46f54418eb8fbf3008481d, type: 3}
@@ -5009,7 +5007,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "MessageBox\u3084Portrait\u306A\u3069\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
           isCheckZone: 0
           commandDataList:
           - {fileID: 1215857798}
@@ -5029,6 +5026,7 @@ MonoBehaviour:
           - {fileID: 294960843}
           - {fileID: 1295118598}
           - {fileID: 1858565484}
+          description: "MessageBox\u3084Portrait\u306A\u3069\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
         <Index>k__BackingField: 6
         character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
         changeSprite: {fileID: 21300000, guid: 321b0bfb6c84b2e4ea411c3d1246c306, type: 3}
@@ -5055,7 +5053,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "SayCommand\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
           isCheckZone: 0
           commandDataList:
           - {fileID: 1391726535}
@@ -5068,6 +5065,7 @@ MonoBehaviour:
           - {fileID: 1541263003}
           - {fileID: 1556375358}
           - {fileID: 1882869322}
+          description: "SayCommand\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
         <Index>k__BackingField: 2
         character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
         changeSprite: {fileID: 21300000, guid: 217884d24e46f54418eb8fbf3008481d, type: 3}
@@ -5094,7 +5092,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "\u3053\u306E\u30A2\u30BB\u30C3\u30C8\u306B\u3064\u3044\u3066\u306E\u3056\u3063\u304F\u308A\u3068\u3057\u305F\u8AAC\u660E"
           isCheckZone: 0
           commandDataList:
           - {fileID: 337384760}
@@ -5117,6 +5114,7 @@ MonoBehaviour:
           - {fileID: 52388454}
           - {fileID: 38965964}
           - {fileID: 814690927}
+          description: "\u3053\u306E\u30A2\u30BB\u30C3\u30C8\u306B\u3064\u3044\u3066\u306E\u3056\u3063\u304F\u308A\u3068\u3057\u305F\u8AAC\u660E"
         <Index>k__BackingField: 13
         character: {fileID: 0}
         changeSprite: {fileID: 0}
@@ -5152,7 +5150,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   executeOnStart: 1
   flowchart:
-    description: "MessageBox\u3084Portrait\u306A\u3069\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
     isCheckZone: 0
     commandDataList:
     - {fileID: 1215857798}
@@ -5172,6 +5169,7 @@ MonoBehaviour:
     - {fileID: 294960843}
     - {fileID: 1295118598}
     - {fileID: 1858565484}
+    description: "MessageBox\u3084Portrait\u306A\u3069\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
 --- !u!4 &1680448779
 Transform:
   m_ObjectHideFlags: 0
@@ -5209,7 +5207,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "\u7D30\u304B\u3044\u4ED5\u69D8\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
           isCheckZone: 1
           commandDataList:
           - {fileID: 635289426}
@@ -5241,6 +5238,7 @@ MonoBehaviour:
           - {fileID: 960672197}
           - {fileID: 79765866}
           - {fileID: 18195847}
+          description: "\u7D30\u304B\u3044\u4ED5\u69D8\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
         <Index>k__BackingField: 10
         character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
         changeSprite: {fileID: 21300000, guid: 321b0bfb6c84b2e4ea411c3d1246c306, type: 3}
@@ -5267,7 +5265,6 @@ MonoBehaviour:
       type: {class: Portrait, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "ScriptableObject\u306E\u30D5\u30ED\u30FC\u30C1\u30E3\u30FC\u30C8\u306E\u8AAC\u660E"
           isCheckZone: 0
           commandDataList:
           - {fileID: 1704022628}
@@ -5275,6 +5272,7 @@ MonoBehaviour:
           - {fileID: 806289979}
           - {fileID: 1031612139}
           - {fileID: 470287315}
+          description: "ScriptableObject\u306E\u30D5\u30ED\u30FC\u30C1\u30E3\u30FC\u30C8\u306E\u8AAC\u660E"
         <Index>k__BackingField: 0
         character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
         actionType: 0
@@ -5305,7 +5303,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "CSV\u5165\u51FA\u529B\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
           isCheckZone: 0
           commandDataList:
           - {fileID: 1576803877}
@@ -5322,6 +5319,7 @@ MonoBehaviour:
           - {fileID: 18173899}
           - {fileID: 1242842376}
           - {fileID: 961929332}
+          description: "CSV\u5165\u51FA\u529B\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
         <Index>k__BackingField: 3
         character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
         changeSprite: {fileID: 21300000, guid: 321b0bfb6c84b2e4ea411c3d1246c306, type: 3}
@@ -5348,7 +5346,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "\u81EA\u4F5C\u30B3\u30DE\u30F3\u30C9\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
           isCheckZone: 0
           commandDataList:
           - {fileID: 1975919719}
@@ -5370,6 +5367,7 @@ MonoBehaviour:
           - {fileID: 1844828076}
           - {fileID: 396885067}
           - {fileID: 1601076291}
+          description: "\u81EA\u4F5C\u30B3\u30DE\u30F3\u30C9\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
         <Index>k__BackingField: 4
         character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
         changeSprite: {fileID: 21300000, guid: 217884d24e46f54418eb8fbf3008481d, type: 3}
@@ -5396,7 +5394,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "\u3053\u306E\u30A2\u30BB\u30C3\u30C8\u306B\u3064\u3044\u3066\u306E\u3056\u3063\u304F\u308A\u3068\u3057\u305F\u8AAC\u660E"
           isCheckZone: 0
           commandDataList:
           - {fileID: 337384760}
@@ -5419,6 +5416,7 @@ MonoBehaviour:
           - {fileID: 52388454}
           - {fileID: 38965964}
           - {fileID: 814690927}
+          description: "\u3053\u306E\u30A2\u30BB\u30C3\u30C8\u306B\u3064\u3044\u3066\u306E\u3056\u3063\u304F\u308A\u3068\u3057\u305F\u8AAC\u660E"
         <Index>k__BackingField: 15
         character: {fileID: 0}
         changeSprite: {fileID: 0}
@@ -5445,7 +5443,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "\u3053\u306E\u30A2\u30BB\u30C3\u30C8\u306B\u3064\u3044\u3066\u306E\u3056\u3063\u304F\u308A\u3068\u3057\u305F\u8AAC\u660E"
           isCheckZone: 0
           commandDataList:
           - {fileID: 337384760}
@@ -5468,6 +5465,7 @@ MonoBehaviour:
           - {fileID: 52388454}
           - {fileID: 38965964}
           - {fileID: 814690927}
+          description: "\u3053\u306E\u30A2\u30BB\u30C3\u30C8\u306B\u3064\u3044\u3066\u306E\u3056\u3063\u304F\u308A\u3068\u3057\u305F\u8AAC\u660E"
         <Index>k__BackingField: 1
         character: {fileID: 0}
         changeSprite: {fileID: 0}
@@ -5494,7 +5492,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "\u81EA\u4F5C\u30B3\u30DE\u30F3\u30C9\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
           isCheckZone: 0
           commandDataList:
           - {fileID: 1975919719}
@@ -5516,6 +5513,7 @@ MonoBehaviour:
           - {fileID: 1844828076}
           - {fileID: 396885067}
           - {fileID: 1601076291}
+          description: "\u81EA\u4F5C\u30B3\u30DE\u30F3\u30C9\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
         <Index>k__BackingField: 9
         character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
         changeSprite: {fileID: 21300000, guid: 321b0bfb6c84b2e4ea411c3d1246c306, type: 3}
@@ -5542,7 +5540,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "\u7D30\u304B\u3044\u4ED5\u69D8\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
           isCheckZone: 1
           commandDataList:
           - {fileID: 635289426}
@@ -5574,6 +5571,7 @@ MonoBehaviour:
           - {fileID: 960672197}
           - {fileID: 79765866}
           - {fileID: 18195847}
+          description: "\u7D30\u304B\u3044\u4ED5\u69D8\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
         <Index>k__BackingField: 6
         character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
         changeSprite: {fileID: 21300000, guid: 162e8f67bd2b1e742a97c68a93ba3fff, type: 3}
@@ -5600,7 +5598,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "\u3053\u306E\u30A2\u30BB\u30C3\u30C8\u306B\u3064\u3044\u3066\u306E\u3056\u3063\u304F\u308A\u3068\u3057\u305F\u8AAC\u660E"
           isCheckZone: 0
           commandDataList:
           - {fileID: 337384760}
@@ -5623,6 +5620,7 @@ MonoBehaviour:
           - {fileID: 52388454}
           - {fileID: 38965964}
           - {fileID: 814690927}
+          description: "\u3053\u306E\u30A2\u30BB\u30C3\u30C8\u306B\u3064\u3044\u3066\u306E\u3056\u3063\u304F\u308A\u3068\u3057\u305F\u8AAC\u660E"
         <Index>k__BackingField: 4
         character: {fileID: 0}
         changeSprite: {fileID: 0}
@@ -5649,7 +5647,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "SayCommand\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
           isCheckZone: 0
           commandDataList:
           - {fileID: 1391726535}
@@ -5662,6 +5659,7 @@ MonoBehaviour:
           - {fileID: 1541263003}
           - {fileID: 1556375358}
           - {fileID: 1882869322}
+          description: "SayCommand\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
         <Index>k__BackingField: 6
         character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
         changeSprite: {fileID: 21300000, guid: 24ea358cd0c6e7d48b3a06eaff46e833, type: 3}
@@ -5688,7 +5686,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "\u7D30\u304B\u3044\u4ED5\u69D8\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
           isCheckZone: 1
           commandDataList:
           - {fileID: 635289426}
@@ -5720,6 +5717,7 @@ MonoBehaviour:
           - {fileID: 960672197}
           - {fileID: 79765866}
           - {fileID: 18195847}
+          description: "\u7D30\u304B\u3044\u4ED5\u69D8\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
         <Index>k__BackingField: 9
         character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
         changeSprite: {fileID: 21300000, guid: 321b0bfb6c84b2e4ea411c3d1246c306, type: 3}
@@ -5746,7 +5744,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "CSV\u5165\u51FA\u529B\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
           isCheckZone: 0
           commandDataList:
           - {fileID: 1576803877}
@@ -5763,6 +5760,7 @@ MonoBehaviour:
           - {fileID: 18173899}
           - {fileID: 1242842376}
           - {fileID: 961929332}
+          description: "CSV\u5165\u51FA\u529B\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
         <Index>k__BackingField: 9
         character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
         changeSprite: {fileID: 21300000, guid: 321b0bfb6c84b2e4ea411c3d1246c306, type: 3}
@@ -5790,7 +5788,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "\u7D30\u304B\u3044\u4ED5\u69D8\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
           isCheckZone: 1
           commandDataList:
           - {fileID: 635289426}
@@ -5822,6 +5819,7 @@ MonoBehaviour:
           - {fileID: 960672197}
           - {fileID: 79765866}
           - {fileID: 18195847}
+          description: "\u7D30\u304B\u3044\u4ED5\u69D8\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
         <Index>k__BackingField: 16
         character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
         changeSprite: {fileID: 21300000, guid: 24ea358cd0c6e7d48b3a06eaff46e833, type: 3}
@@ -5848,7 +5846,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "SayCommand\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
           isCheckZone: 0
           commandDataList:
           - {fileID: 1391726535}
@@ -5861,6 +5858,7 @@ MonoBehaviour:
           - {fileID: 1541263003}
           - {fileID: 1556375358}
           - {fileID: 1882869322}
+          description: "SayCommand\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
         <Index>k__BackingField: 4
         character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
         changeSprite: {fileID: 21300000, guid: 321b0bfb6c84b2e4ea411c3d1246c306, type: 3}
@@ -5887,7 +5885,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "MessageBox\u3084Portrait\u306A\u3069\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
           isCheckZone: 0
           commandDataList:
           - {fileID: 1215857798}
@@ -5907,6 +5904,7 @@ MonoBehaviour:
           - {fileID: 294960843}
           - {fileID: 1295118598}
           - {fileID: 1858565484}
+          description: "MessageBox\u3084Portrait\u306A\u3069\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
         <Index>k__BackingField: 11
         character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
         changeSprite: {fileID: 21300000, guid: 321b0bfb6c84b2e4ea411c3d1246c306, type: 3}
@@ -5933,7 +5931,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "CSV\u5165\u51FA\u529B\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
           isCheckZone: 0
           commandDataList:
           - {fileID: 1576803877}
@@ -5950,6 +5947,7 @@ MonoBehaviour:
           - {fileID: 18173899}
           - {fileID: 1242842376}
           - {fileID: 961929332}
+          description: "CSV\u5165\u51FA\u529B\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
         <Index>k__BackingField: 8
         character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
         changeSprite: {fileID: 21300000, guid: 321b0bfb6c84b2e4ea411c3d1246c306, type: 3}
@@ -5976,7 +5974,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "\u81EA\u4F5C\u30B3\u30DE\u30F3\u30C9\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
           isCheckZone: 0
           commandDataList:
           - {fileID: 1975919719}
@@ -5998,6 +5995,7 @@ MonoBehaviour:
           - {fileID: 1844828076}
           - {fileID: 396885067}
           - {fileID: 1601076291}
+          description: "\u81EA\u4F5C\u30B3\u30DE\u30F3\u30C9\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
         <Index>k__BackingField: 16
         character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
         changeSprite: {fileID: 21300000, guid: 7d2d7c366c178c647bbdebd7ba9fd694, type: 3}
@@ -6121,7 +6119,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "MessageBox\u3084Portrait\u306A\u3069\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
           isCheckZone: 0
           commandDataList:
           - {fileID: 1215857798}
@@ -6141,6 +6138,7 @@ MonoBehaviour:
           - {fileID: 294960843}
           - {fileID: 1295118598}
           - {fileID: 1858565484}
+          description: "MessageBox\u3084Portrait\u306A\u3069\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
         <Index>k__BackingField: 16
         character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
         changeSprite: {fileID: 21300000, guid: 24ea358cd0c6e7d48b3a06eaff46e833, type: 3}
@@ -6167,7 +6165,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "\u3053\u306E\u30A2\u30BB\u30C3\u30C8\u306B\u3064\u3044\u3066\u306E\u3056\u3063\u304F\u308A\u3068\u3057\u305F\u8AAC\u660E"
           isCheckZone: 0
           commandDataList:
           - {fileID: 337384760}
@@ -6190,6 +6187,7 @@ MonoBehaviour:
           - {fileID: 52388454}
           - {fileID: 38965964}
           - {fileID: 814690927}
+          description: "\u3053\u306E\u30A2\u30BB\u30C3\u30C8\u306B\u3064\u3044\u3066\u306E\u3056\u3063\u304F\u308A\u3068\u3057\u305F\u8AAC\u660E"
         <Index>k__BackingField: 16
         character: {fileID: 0}
         changeSprite: {fileID: 0}
@@ -6216,7 +6214,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "SayCommand\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
           isCheckZone: 0
           commandDataList:
           - {fileID: 1391726535}
@@ -6229,6 +6226,7 @@ MonoBehaviour:
           - {fileID: 1541263003}
           - {fileID: 1556375358}
           - {fileID: 1882869322}
+          description: "SayCommand\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
         <Index>k__BackingField: 9
         character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
         changeSprite: {fileID: 21300000, guid: 24ea358cd0c6e7d48b3a06eaff46e833, type: 3}
@@ -6294,7 +6292,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "\u7D30\u304B\u3044\u4ED5\u69D8\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
           isCheckZone: 1
           commandDataList:
           - {fileID: 635289426}
@@ -6326,6 +6323,7 @@ MonoBehaviour:
           - {fileID: 960672197}
           - {fileID: 79765866}
           - {fileID: 18195847}
+          description: "\u7D30\u304B\u3044\u4ED5\u69D8\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
         <Index>k__BackingField: 7
         character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
         changeSprite: {fileID: 21300000, guid: 162e8f67bd2b1e742a97c68a93ba3fff, type: 3}
@@ -6352,7 +6350,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "MessageBox\u3084Portrait\u306A\u3069\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
           isCheckZone: 0
           commandDataList:
           - {fileID: 1215857798}
@@ -6372,6 +6369,7 @@ MonoBehaviour:
           - {fileID: 294960843}
           - {fileID: 1295118598}
           - {fileID: 1858565484}
+          description: "MessageBox\u3084Portrait\u306A\u3069\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
         <Index>k__BackingField: 7
         character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
         changeSprite: {fileID: 0}
@@ -6398,7 +6396,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "\u3053\u306E\u30A2\u30BB\u30C3\u30C8\u306B\u3064\u3044\u3066\u306E\u3056\u3063\u304F\u308A\u3068\u3057\u305F\u8AAC\u660E"
           isCheckZone: 0
           commandDataList:
           - {fileID: 337384760}
@@ -6421,6 +6418,7 @@ MonoBehaviour:
           - {fileID: 52388454}
           - {fileID: 38965964}
           - {fileID: 814690927}
+          description: "\u3053\u306E\u30A2\u30BB\u30C3\u30C8\u306B\u3064\u3044\u3066\u306E\u3056\u3063\u304F\u308A\u3068\u3057\u305F\u8AAC\u660E"
         <Index>k__BackingField: 12
         character: {fileID: 0}
         changeSprite: {fileID: 0}
@@ -6447,7 +6445,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "CSV\u5165\u51FA\u529B\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
           isCheckZone: 0
           commandDataList:
           - {fileID: 1576803877}
@@ -6464,6 +6461,7 @@ MonoBehaviour:
           - {fileID: 18173899}
           - {fileID: 1242842376}
           - {fileID: 961929332}
+          description: "CSV\u5165\u51FA\u529B\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
         <Index>k__BackingField: 2
         character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
         changeSprite: {fileID: 21300000, guid: 321b0bfb6c84b2e4ea411c3d1246c306, type: 3}
@@ -6490,7 +6488,6 @@ MonoBehaviour:
       type: {class: SayAdvanced, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "SayCommand\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
           isCheckZone: 0
           commandDataList:
           - {fileID: 1391726535}
@@ -6503,6 +6500,7 @@ MonoBehaviour:
           - {fileID: 1541263003}
           - {fileID: 1556375358}
           - {fileID: 1882869322}
+          description: "SayCommand\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
         <Index>k__BackingField: 1
         character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
         changeSprite: {fileID: 21300000, guid: 217884d24e46f54418eb8fbf3008481d, type: 3}
@@ -6511,7 +6509,6 @@ MonoBehaviour:
         boxShowTime: 0.3
         characterName: "<r=\u307E\u3057\u308D>\u771F\u767D</r>\u30CE\u30D9\u30EB"
         flagKeys: []
-        ints: 0100000000000000
 --- !u!114 &1964576495
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6534,7 +6531,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "MessageBox\u3084Portrait\u306A\u3069\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
           isCheckZone: 0
           commandDataList:
           - {fileID: 1215857798}
@@ -6554,6 +6550,7 @@ MonoBehaviour:
           - {fileID: 294960843}
           - {fileID: 1295118598}
           - {fileID: 1858565484}
+          description: "MessageBox\u3084Portrait\u306A\u3069\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
         <Index>k__BackingField: 13
         character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
         changeSprite: {fileID: 21300000, guid: 217884d24e46f54418eb8fbf3008481d, type: 3}
@@ -6580,7 +6577,6 @@ MonoBehaviour:
       type: {class: Portrait, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "\u81EA\u4F5C\u30B3\u30DE\u30F3\u30C9\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
           isCheckZone: 0
           commandDataList:
           - {fileID: 1975919719}
@@ -6602,6 +6598,7 @@ MonoBehaviour:
           - {fileID: 1844828076}
           - {fileID: 396885067}
           - {fileID: 1601076291}
+          description: "\u81EA\u4F5C\u30B3\u30DE\u30F3\u30C9\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
         <Index>k__BackingField: 0
         character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
         actionType: 0
@@ -6632,7 +6629,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "\u7D30\u304B\u3044\u4ED5\u69D8\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
           isCheckZone: 1
           commandDataList:
           - {fileID: 635289426}
@@ -6664,6 +6660,7 @@ MonoBehaviour:
           - {fileID: 960672197}
           - {fileID: 79765866}
           - {fileID: 18195847}
+          description: "\u7D30\u304B\u3044\u4ED5\u69D8\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
         <Index>k__BackingField: 4
         character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
         changeSprite: {fileID: 21300000, guid: 321b0bfb6c84b2e4ea411c3d1246c306, type: 3}
@@ -6691,7 +6688,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "\u30D5\u30E9\u30B0\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
           isCheckZone: 0
           commandDataList:
           - {fileID: 1630555032}
@@ -6709,6 +6705,7 @@ MonoBehaviour:
           - {fileID: 1351938754}
           - {fileID: 527174987}
           - {fileID: 593209517}
+          description: "\u30D5\u30E9\u30B0\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
         <Index>k__BackingField: 2
         character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
         changeSprite: {fileID: 0}
@@ -6735,7 +6732,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "\u3053\u306E\u30A2\u30BB\u30C3\u30C8\u306B\u3064\u3044\u3066\u306E\u3056\u3063\u304F\u308A\u3068\u3057\u305F\u8AAC\u660E"
           isCheckZone: 0
           commandDataList:
           - {fileID: 337384760}
@@ -6758,6 +6754,7 @@ MonoBehaviour:
           - {fileID: 52388454}
           - {fileID: 38965964}
           - {fileID: 814690927}
+          description: "\u3053\u306E\u30A2\u30BB\u30C3\u30C8\u306B\u3064\u3044\u3066\u306E\u3056\u3063\u304F\u308A\u3068\u3057\u305F\u8AAC\u660E"
         <Index>k__BackingField: 2
         character: {fileID: 0}
         changeSprite: {fileID: 0}
@@ -6784,7 +6781,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "\u7D30\u304B\u3044\u4ED5\u69D8\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
           isCheckZone: 1
           commandDataList:
           - {fileID: 635289426}
@@ -6816,6 +6812,7 @@ MonoBehaviour:
           - {fileID: 960672197}
           - {fileID: 79765866}
           - {fileID: 18195847}
+          description: "\u7D30\u304B\u3044\u4ED5\u69D8\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
         <Index>k__BackingField: 19
         character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
         changeSprite: {fileID: 21300000, guid: 24ea358cd0c6e7d48b3a06eaff46e833, type: 3}
@@ -6842,7 +6839,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "\u7D30\u304B\u3044\u4ED5\u69D8\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
           isCheckZone: 1
           commandDataList:
           - {fileID: 635289426}
@@ -6874,6 +6870,7 @@ MonoBehaviour:
           - {fileID: 960672197}
           - {fileID: 79765866}
           - {fileID: 18195847}
+          description: "\u7D30\u304B\u3044\u4ED5\u69D8\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
         <Index>k__BackingField: 18
         character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
         changeSprite: {fileID: 21300000, guid: 24ea358cd0c6e7d48b3a06eaff46e833, type: 3}
@@ -6900,7 +6897,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "CSV\u5165\u51FA\u529B\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
           isCheckZone: 0
           commandDataList:
           - {fileID: 1576803877}
@@ -6917,6 +6913,7 @@ MonoBehaviour:
           - {fileID: 18173899}
           - {fileID: 1242842376}
           - {fileID: 961929332}
+          description: "CSV\u5165\u51FA\u529B\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
         <Index>k__BackingField: 7
         character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
         changeSprite: {fileID: 21300000, guid: 321b0bfb6c84b2e4ea411c3d1246c306, type: 3}
@@ -6943,7 +6940,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "\u3053\u306E\u30A2\u30BB\u30C3\u30C8\u306B\u3064\u3044\u3066\u306E\u3056\u3063\u304F\u308A\u3068\u3057\u305F\u8AAC\u660E"
           isCheckZone: 0
           commandDataList:
           - {fileID: 337384760}
@@ -6966,6 +6962,7 @@ MonoBehaviour:
           - {fileID: 52388454}
           - {fileID: 38965964}
           - {fileID: 814690927}
+          description: "\u3053\u306E\u30A2\u30BB\u30C3\u30C8\u306B\u3064\u3044\u3066\u306E\u3056\u3063\u304F\u308A\u3068\u3057\u305F\u8AAC\u660E"
         <Index>k__BackingField: 10
         character: {fileID: 0}
         changeSprite: {fileID: 0}
@@ -7001,7 +6998,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   executeOnStart: 1
   flowchart:
-    description: "ScriptableObject\u306E\u30D5\u30ED\u30FC\u30C1\u30E3\u30FC\u30C8\u306E\u8AAC\u660E"
     isCheckZone: 0
     commandDataList:
     - {fileID: 1704022628}
@@ -7009,6 +7005,7 @@ MonoBehaviour:
     - {fileID: 806289979}
     - {fileID: 1031612139}
     - {fileID: 470287315}
+    description: "ScriptableObject\u306E\u30D5\u30ED\u30FC\u30C1\u30E3\u30FC\u30C8\u306E\u8AAC\u660E"
 --- !u!4 &2119949308
 Transform:
   m_ObjectHideFlags: 0
@@ -7046,7 +7043,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "MessageBox\u3084Portrait\u306A\u3069\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
           isCheckZone: 0
           commandDataList:
           - {fileID: 1215857798}
@@ -7066,6 +7062,7 @@ MonoBehaviour:
           - {fileID: 294960843}
           - {fileID: 1295118598}
           - {fileID: 1858565484}
+          description: "MessageBox\u3084Portrait\u306A\u3069\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
         <Index>k__BackingField: 10
         character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
         changeSprite: {fileID: 21300000, guid: 321b0bfb6c84b2e4ea411c3d1246c306, type: 3}
@@ -7092,7 +7089,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "\u7D30\u304B\u3044\u4ED5\u69D8\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
           isCheckZone: 1
           commandDataList:
           - {fileID: 635289426}
@@ -7124,6 +7120,7 @@ MonoBehaviour:
           - {fileID: 960672197}
           - {fileID: 79765866}
           - {fileID: 18195847}
+          description: "\u7D30\u304B\u3044\u4ED5\u69D8\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
         <Index>k__BackingField: 25
         character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
         changeSprite: {fileID: 21300000, guid: 855f9004ee0d1af44a9142b63035d451, type: 3}
@@ -7150,7 +7147,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "ScriptableObject\u306E\u30D5\u30ED\u30FC\u30C1\u30E3\u30FC\u30C8\u306E\u8AAC\u660E"
           isCheckZone: 0
           commandDataList:
           - {fileID: 1704022628}
@@ -7158,6 +7154,7 @@ MonoBehaviour:
           - {fileID: 806289979}
           - {fileID: 1031612139}
           - {fileID: 470287315}
+          description: "ScriptableObject\u306E\u30D5\u30ED\u30FC\u30C1\u30E3\u30FC\u30C8\u306E\u8AAC\u660E"
         <Index>k__BackingField: 1
         character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
         changeSprite: {fileID: 21300000, guid: 321b0bfb6c84b2e4ea411c3d1246c306, type: 3}

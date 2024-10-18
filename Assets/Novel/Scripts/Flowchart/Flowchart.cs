@@ -23,9 +23,6 @@ namespace Novel
             [InspectorName("待機中の親も含む全て")] All,
         }
 
-        [SerializeField, TextArea]
-        string description = "説明";
-
         [SerializeField, Tooltip("Zoneコマンドを使用する場合のみtrueにしてください")]
         bool isCheckZone;
 
@@ -137,6 +134,8 @@ namespace Novel
         }
 
 #if UNITY_EDITOR
+        [SerializeField, TextArea, Tooltip("エディタでのみ使用されます")]
+        string description = "Description";
         public string Description => description;
         public List<CommandData> GetCommandDataList() => commandDataList;
         public void SetCommandDataList(List<CommandData> list)
