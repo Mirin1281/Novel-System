@@ -2,6 +2,7 @@ using Novel.Command;
 using System;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using UnityEditor;
 using UnityEngine;
 using Object = UnityEngine.Object;
@@ -26,6 +27,22 @@ namespace Novel.Editor
             File.Delete($"{path}/{deleteName}.asset");
             File.Delete($"{path}/{deleteName}.asset.meta");
             AssetDatabase.Refresh(ImportAssetOptions.ForceUpdate);
+        }
+
+        public static Object FindObjectFromInstanceID(int instanceId)
+        {
+            try
+            {
+                var type = typeof(Object);
+                var flags = BindingFlags.NonPublic | BindingFlags.Static | BindingFlags.InvokeMethod;
+                var ret = type.InvokeMember("FindObjectFromInstanceID", flags, null, null, new object[] {instanceId});
+                return (Object) ret;
+            }
+            catch (Exception e)
+            {
+                Debug.LogError(e.Message);
+            }
+            return null;
         }
 
         /// <summary>

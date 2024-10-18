@@ -363,7 +363,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "\u30E1\u30A4\u30F3\u306E"
           isCheckZone: 1
           commandDataList:
           - {fileID: 288651330}
@@ -383,6 +382,7 @@ MonoBehaviour:
           - {fileID: 1306242161}
           - {fileID: 1016540200}
           - {fileID: 990647691}
+          description: "\u30E1\u30A4\u30F3\u306E"
         <Index>k__BackingField: 0
         character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
         changeSprite: {fileID: 0}
@@ -543,7 +543,6 @@ MonoBehaviour:
       type: {class: FlowExecute, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "\u30E1\u30A4\u30F3\u306E"
           isCheckZone: 1
           commandDataList:
           - {fileID: 2001382681}
@@ -551,6 +550,7 @@ MonoBehaviour:
           - {fileID: 1294597746}
           - {fileID: 382239784}
           - {fileID: 690054038}
+          description: "\u30E1\u30A4\u30F3\u306E"
         <Index>k__BackingField: 3
         flowchartType: 0
         flowchartExecutor: {fileID: 1702102366}
@@ -833,7 +833,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "\u30E1\u30A4\u30F3\u306E"
           isCheckZone: 1
           commandDataList:
           - {fileID: 288651330}
@@ -853,6 +852,7 @@ MonoBehaviour:
           - {fileID: 1306242161}
           - {fileID: 1016540200}
           - {fileID: 990647691}
+          description: "\u30E1\u30A4\u30F3\u306E"
         <Index>k__BackingField: 2
         character: {fileID: 11400000, guid: 36e06002688543545a19e42b88b58c8b, type: 2}
         changeSprite: {fileID: 0}
@@ -1016,7 +1016,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "\u30E1\u30A4\u30F3\u306E"
           isCheckZone: 1
           commandDataList:
           - {fileID: 2001382681}
@@ -1024,6 +1023,7 @@ MonoBehaviour:
           - {fileID: 1294597746}
           - {fileID: 382239784}
           - {fileID: 690054038}
+          description: "\u30E1\u30A4\u30F3\u306E"
         <Index>k__BackingField: 4
         character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
         changeSprite: {fileID: 0}
@@ -1851,7 +1851,6 @@ MonoBehaviour:
       type: {class: Sample, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "\u30E1\u30A4\u30F3\u306E"
           isCheckZone: 1
           commandDataList:
           - {fileID: 288651330}
@@ -1871,6 +1870,7 @@ MonoBehaviour:
           - {fileID: 1306242161}
           - {fileID: 1016540200}
           - {fileID: 990647691}
+          description: "\u30E1\u30A4\u30F3\u306E"
         <Index>k__BackingField: 1
         character: {fileID: 0}
         summaryText: Summary
@@ -1946,7 +1946,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   executeOnStart: 1
   flowchart:
-    description: "\u30E1\u30A4\u30F3\u306E"
     isCheckZone: 1
     commandDataList:
     - {fileID: 2001382681}
@@ -1954,6 +1953,7 @@ MonoBehaviour:
     - {fileID: 1294597746}
     - {fileID: 382239784}
     - {fileID: 690054038}
+    description: "\u30E1\u30A4\u30F3\u306E"
 --- !u!4 &1167165279
 Transform:
   m_ObjectHideFlags: 0
@@ -2011,7 +2011,6 @@ MonoBehaviour:
       type: {class: FlowStop, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "\u30E1\u30A4\u30F3\u306E"
           isCheckZone: 1
           commandDataList:
           - {fileID: 2001382681}
@@ -2019,6 +2018,7 @@ MonoBehaviour:
           - {fileID: 1294597746}
           - {fileID: 382239784}
           - {fileID: 690054038}
+          description: "\u30E1\u30A4\u30F3\u306E"
         <Index>k__BackingField: 2
         stopType: 0
         editorOnly: 0
@@ -2424,7 +2424,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   executeOnStart: 0
   flowchart:
-    description: "\u30E1\u30A4\u30F3\u306E"
     isCheckZone: 1
     commandDataList:
     - {fileID: 288651330}
@@ -2444,6 +2443,7 @@ MonoBehaviour:
     - {fileID: 1306242161}
     - {fileID: 1016540200}
     - {fileID: 990647691}
+    description: "\u30E1\u30A4\u30F3\u306E"
 --- !u!4 &1702102367
 Transform:
   m_ObjectHideFlags: 0
@@ -3373,7 +3373,6 @@ MonoBehaviour:
       type: {class: FlowExecute, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "\u30E1\u30A4\u30F3\u306E"
           isCheckZone: 1
           commandDataList:
           - {fileID: 2001382681}
@@ -3381,6 +3380,7 @@ MonoBehaviour:
           - {fileID: 1294597746}
           - {fileID: 382239784}
           - {fileID: 690054038}
+          description: "\u30E1\u30A4\u30F3\u306E"
         <Index>k__BackingField: 0
         flowchartType: 1
         flowchartExecutor: {fileID: 1702102366}
@@ -3409,7 +3409,6 @@ MonoBehaviour:
       type: {class: SayAdvanced, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "\u30E1\u30A4\u30F3\u306E"
           isCheckZone: 1
           commandDataList:
           - {fileID: 2001382681}
@@ -3417,6 +3416,7 @@ MonoBehaviour:
           - {fileID: 1294597746}
           - {fileID: 382239784}
           - {fileID: 690054038}
+          description: "\u30E1\u30A4\u30F3\u306E"
         <Index>k__BackingField: 1
         character: {fileID: 11400000, guid: 36e06002688543545a19e42b88b58c8b, type: 2}
         changeSprite: {fileID: 0}

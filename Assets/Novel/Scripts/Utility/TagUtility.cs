@@ -23,7 +23,7 @@ namespace Novel
             RubyEnd,
         }
 
-        public readonly struct TagData
+        public readonly struct TagData : IEquatable<TagData>
         {
             public readonly TagType TagType;
             public readonly float Value;
@@ -38,6 +38,25 @@ namespace Novel
                 TagType = tagType;
                 Value = value;
                 IndexIgnoreAllTag = indexIgnoreAllTag;
+            }
+
+            public bool Equals(TagData other)
+            {
+                return TagType == other.TagType
+                    && Value == other.Value
+                    && IndexIgnoreAllTag == other.IndexIgnoreAllTag;
+            }
+
+            public override bool Equals(object obj)
+            {
+                if (obj is TagData)
+                    return Equals((TagData)obj);
+                return false;
+            }
+
+            public override readonly int GetHashCode()
+            {
+                return HashCode.Combine(TagType, Value, IndexIgnoreAllTag);
             }
         }
 

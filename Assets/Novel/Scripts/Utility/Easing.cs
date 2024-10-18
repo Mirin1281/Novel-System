@@ -1,13 +1,13 @@
 using System;
 using UnityEngine;
 
-// UnityではないC#の場合はMathf.Pow()をMath.Pow()などに置き換えてください
-//
 // 【利用方法】
-// 1. float.Ease(float start, float from, float easeTime, EaseType type) //拡張メソッド
+// 1. float.Ease(float start, float from, float easeTime, EaseType type)              //拡張メソッド
+//
 // 2. Easing.Ease(float start, float from, float easeTime, EaseType type, float time) //静的メソッド
+//
 // 3. var easing = new Easing(float start, float from, float easeTime, EaseType type) //構造体をつくって
-//    easing.Ease(float time) //使う
+//    easing.Ease(float time)                                                         //使う
 
 namespace Novel
 {

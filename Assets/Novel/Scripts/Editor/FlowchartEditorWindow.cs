@@ -20,12 +20,20 @@ namespace Novel.Editor
             Data,
         }
 
-        ActiveMode activeMode;
+        /// <summary>
+        /// MonoBehaviourとScriptableObjectのどちらのFlowchartがフォーカスされているか
+        /// </summary>
+        [SerializeField] ActiveMode activeMode;
 
         Flowchart activeFlowchart;
-        FlowchartData activeFlowchartData;
         GameObject activeExecutorObj;
+        [SerializeField] FlowchartData activeFlowchartData;
+        
+        [SerializeField] int selectedID;
 
+        /// <summary>
+        /// 表示用のコマンドリスト
+        /// </summary>
         [SerializeField] List<CommandData> commandList = new();
         ReorderableList reorderableList;
         CommandData lastSelectedCommand;
@@ -37,96 +45,139 @@ namespace Novel.Editor
         Vector2 listScrollPos;
         Vector2 commandScrollPos;
 
-        static readonly float SplitMenuRatio = 0.5f;
+        static readonly float WindowSplitRatio = 0.5f;
 
         void OnEnable()
         {
-            Undo.undoRedoPerformed -= OnSelectionChange;
-            Undo.undoRedoPerformed += OnSelectionChange;
-            reorderableList = CreateReorderableList();
-            selectedCommandList = new();
-            copiedCommandList = new();
-            beforeSelectedIndices = new();
-            OnSelectionChange();
+            Init();
         }
         void OnDisable()
         {
-            Undo.undoRedoPerformed -= OnSelectionChange;
+            EditorApplication.playModeStateChanged -= UpdateOnChangeMode;
+            Undo.undoRedoPerformed -= UpdateFlowchartAndWindow;
         }
 
+        /// <summary>
+        /// 選択しているオブジェクトが変更された際に呼ばれる
+        /// </summary>
+        void OnSelectionChange()
+        {
+            UpdateFlowchartAndWindow();
+        }
+
+        /// <summary>
+        /// エディタウィンドウをアクティブにした際に呼ばれる
+        /// </summary>
         void OnFocus()
+        {
+            UpdateWindow();
+        }
+
+        void Init()
+        {
+            EditorApplication.playModeStateChanged -= UpdateOnChangeMode;
+            EditorApplication.playModeStateChanged += UpdateOnChangeMode;
+            Undo.undoRedoPerformed -= UpdateFlowchartAndWindow;
+            Undo.undoRedoPerformed += UpdateFlowchartAndWindow;
+
+            var obj = FlowchartEditorUtility.FindObjectFromInstanceID(selectedID);
+            if(obj != null)
+            {
+                activeExecutorObj = obj as GameObject;
+            }
+            selectedCommandList = new();
+            copiedCommandList = new();
+            UpdateFlowchartAndWindow();
+        }
+
+        void UpdateFlowchartAndWindow()
+        {
+            UpdateFlowchart();
+            UpdateWindow();
+        }
+
+        void UpdateFlowchart()
+        {
+            GameObject activeObj = Selection.activeGameObject;
+            if (activeObj != null && activeObj.TryGetComponent<FlowchartExecutor>(out var executor))
+            {
+                activeMode = ActiveMode.Executor;
+                activeExecutorObj = activeObj;
+                activeFlowchart = executor.Flowchart;
+                commandList = activeFlowchart.GetCommandDataList();
+                selectedID = activeObj.GetInstanceID();
+                beforeSelectedIndices = new();
+            }
+            else if (Selection.activeObject != null)
+            {
+                var data = Selection.GetFiltered<FlowchartData>(SelectionMode.Assets).FirstOrDefault();
+                if (data != null)
+                {
+                    activeMode = ActiveMode.Data;
+                    activeFlowchartData = data;
+                    activeFlowchart = data.Flowchart;
+                    commandList = activeFlowchart.GetCommandDataList();
+                    selectedID = Selection.activeObject.GetInstanceID();
+                    beforeSelectedIndices = new();
+                }
+            }
+        }
+
+        void UpdateWindow()
         {
             if (activeMode == ActiveMode.Executor && activeExecutorObj != null)
             {
-                var flowchartExecutor = activeExecutorObj.GetComponent<FlowchartExecutor>();
-                activeFlowchart = flowchartExecutor.Flowchart;
-                commandList = activeFlowchart.GetCommandDataList();
+                activeFlowchart = activeExecutorObj.GetComponent<FlowchartExecutor>().Flowchart;
             }
             else if(activeMode == ActiveMode.Data && activeFlowchartData != null)
             {
                 activeFlowchart = activeFlowchartData.Flowchart;
-                commandList = activeFlowchart.GetCommandDataList();
             }
+            
+            if(activeFlowchart == null) return;
+            commandList = activeFlowchart.GetCommandDataList();
             reorderableList = CreateReorderableList();
-        }
-
-        void OnSelectionChange()
-        {
-            if (Selection.activeGameObject != null)
-            {
-                var flowchartExecutor = Selection.activeGameObject.GetComponent<FlowchartExecutor>();
-                if (flowchartExecutor != null)
-                {
-                    activeMode = ActiveMode.Executor;
-                    activeExecutorObj = flowchartExecutor.gameObject;
-                    activeFlowchart = flowchartExecutor.Flowchart;
-                    commandList = activeFlowchart.GetCommandDataList();
-                }
-            }
-            if (Selection.activeObject != null)
-            {
-                var flowchartData = Selection.GetFiltered<FlowchartData>(SelectionMode.Assets);
-                if (flowchartData != null && flowchartData.Length != 0)
-                {
-                    activeMode = ActiveMode.Data;
-                    activeFlowchartData = flowchartData[0];
-                    activeFlowchart = activeFlowchartData.Flowchart;
-                    commandList = activeFlowchart.GetCommandDataList();
-                }
-            }
-            reorderableList = CreateReorderableList();
-            beforeSelectedIndices = new();
             Repaint();
         }
 
+        void UpdateOnChangeMode(PlayModeStateChange state)
+        {
+            // モードが変化した際に処理をする
+            if(state is PlayModeStateChange.EnteredEditMode or PlayModeStateChange.EnteredPlayMode)
+            {
+                UpdateWindow();
+                if(beforeSelectedIndices.Count == 0) return;
+                lastSelectedCommand = commandList[beforeSelectedIndices[0]];
+            }
+        }
+
+
         void OnGUI()
         {
-            if (activeMode == ActiveMode.None ||
-                activeMode == ActiveMode.Executor && activeExecutorObj == null ||
-                activeMode == ActiveMode.Data && activeFlowchartData == null) return;
+            if (activeMode == ActiveMode.None || activeFlowchart == null) return;
 
             EditorGUI.BeginChangeCheck();
 
             using (new GUILayout.HorizontalScope())
             {
-                UpdateCommandList();
-                UpdateCommandInspector();
+                DrawCommandList();
+                DrawCommandInspector();
             }
 
             if (EditorGUI.EndChangeCheck())
             {
-                RefreshFlowchart();
+                RefreshFlowchart(activeFlowchart);
             }
         }
 
-        void RefreshFlowchart()
+        void RefreshFlowchart(Flowchart flowchart)
         {
-            activeFlowchart.SetCommandDataList(commandList);
+            flowchart.SetCommandDataList(commandList);
             for (int i = 0; i < commandList.Count; i++)
             {
                 var command = commandList[i].GetCommandBase();
                 if (command == null) continue;
-                command.SetFlowchart(activeFlowchart);
+                command.SetFlowchart(flowchart);
                 command.SetIndex(i);
             }
             
@@ -140,10 +191,8 @@ namespace Novel.Editor
             }
         }
 
-        void UpdateCommandList()
+        void DrawCommandList()
         {
-            if (activeFlowchart == null) return;
-
             // ReorderableList.HasKeyboardControl()は絶対使い方間違えてるけど、
             // 簡単に選択中かを取得できるものがなぜか無かったのでこうなっている
             var e = Event.current;
@@ -167,7 +216,7 @@ namespace Novel.Editor
             if (Event.current.type == EventType.ContextClick && Event.current.button == 1)
             {
                 var mousePos = Event.current.mousePosition;
-                var buttonRect = new Rect(0, 0, position.size.x * SplitMenuRatio, position.size.y);
+                var buttonRect = new Rect(0, 0, position.size.x * WindowSplitRatio, position.size.y);
                 if(buttonRect.Contains(mousePos))
                 {
                     if (reorderableList.HasKeyboardControl())
@@ -228,8 +277,8 @@ namespace Novel.Editor
                 Event.current.Use();
             }
 
-            using (GUILayout.ScrollViewScope scroll =
-                new(listScrollPos, EditorStyles.helpBox, GUILayout.Width(position.size.x * SplitMenuRatio)))
+            using (var scroll = new GUILayout.ScrollViewScope(
+                listScrollPos, EditorStyles.helpBox, GUILayout.Width(position.size.x * WindowSplitRatio)))
             {
                 listScrollPos = scroll.scrollPosition;
                 reorderableList.DoLayoutList();
@@ -261,9 +310,9 @@ namespace Novel.Editor
             }
         }
 
-        void UpdateCommandInspector()
+        void DrawCommandInspector()
         {
-            using (GUILayout.ScrollViewScope scroll = new(commandScrollPos, EditorStyles.helpBox))
+            using (var scroll = new GUILayout.ScrollViewScope(commandScrollPos, EditorStyles.helpBox))
             {
                 commandScrollPos = scroll.scrollPosition;
                 if (lastSelectedCommand == null) return;
@@ -329,7 +378,7 @@ namespace Novel.Editor
             }
             beforeSelectedIndices = new();
 
-            RefreshFlowchart();
+            RefreshFlowchart(activeFlowchart);
             if (callLog)
             {
                 Debug.Log("<color=lightblue>コマンドをペーストしました</color>");
@@ -343,7 +392,72 @@ namespace Novel.Editor
             Debug.Log("<color=lightblue>コマンドを複製しました</color>");
         }
 
-        #region ReorderableList
+        void Add(ReorderableList list)
+        {
+            Undo.RecordObject(this, "Add Command");
+            selectedCommandList.Clear();
+            CommandData newCommand = activeMode switch
+            {
+                ActiveMode.Executor => CreateInstance<CommandData>(),
+                ActiveMode.Data => FlowchartEditorUtility.CreateCommandData(ConstContainer.COMMANDDATA_PATH, $"{nameof(CommandData)}_{activeFlowchartData.name}"),
+                _ => throw new Exception()
+            };
+            int insertIndex = commandList.IndexOf(lastSelectedCommand) + 1;
+            if (commandList == null || commandList.Count == 0)
+            {
+                insertIndex = 0;
+            }
+            commandList.Insert(insertIndex, newCommand);
+            RefreshFlowchart(activeFlowchart);
+            SelectOneCommand(newCommand);
+        }
+
+        void Remove(ReorderableList list)
+        {
+            Undo.RecordObject(this, "Remove Command");
+            for (int i = 0; i < selectedCommandList.Count; i++)
+            {
+                var command = selectedCommandList[^(i + 1)];
+                int removeIndex = commandList.IndexOf(command);
+                bool isLastElementRemoved = removeIndex == commandList.Count - 1;
+                commandList.Remove(command);
+                
+                if (activeMode == ActiveMode.Data)
+                {
+                    if(command == null)
+                    {
+                        UpdateFlowchartAndWindow();
+                    }
+                    else
+                    {
+                        Undo.DestroyObjectImmediate(command);
+                    }
+                }
+
+                if (i != selectedCommandList.Count - 1) continue;
+                selectedCommandList.Clear();
+                if (isLastElementRemoved)
+                {
+                    if (commandList.Count == 0) return;
+                    SelectOneCommand(commandList[removeIndex - 1]);
+                }
+                else
+                {
+                    SelectOneCommand(commandList[removeIndex]);
+                }
+            }
+        }
+
+        /// <summary>
+        /// コマンドを選択状態にします
+        /// </summary>
+        void SelectOneCommand(CommandData command)
+        {
+            lastSelectedCommand = command;
+            selectedCommandList.Add(command);
+            reorderableList.Select(commandList.IndexOf(command));
+        }
+
 
         ReorderableList CreateReorderableList()
         {
@@ -449,72 +563,5 @@ namespace Novel.Editor
                 return 30;
             }
         }
-
-        void Add(ReorderableList list)
-        {
-            Undo.RecordObject(this, "Add Command");
-            selectedCommandList.Clear();
-            CommandData newCommand = activeMode switch
-            {
-                ActiveMode.Executor => CreateInstance<CommandData>(),
-                ActiveMode.Data => FlowchartEditorUtility.CreateCommandData(ConstContainer.COMMANDDATA_PATH, $"{nameof(CommandData)}_{activeFlowchartData.name}"),
-                _ => throw new Exception()
-            };
-            int insertIndex = commandList.IndexOf(lastSelectedCommand) + 1;
-            if (commandList == null || commandList.Count == 0)
-            {
-                insertIndex = 0;
-            }
-            commandList.Insert(insertIndex, newCommand);
-            SelectOneCommand(newCommand);
-        }
-
-        void Remove(ReorderableList list)
-        {
-            Undo.RecordObject(this, "Remove Command");
-            for (int i = 0; i < selectedCommandList.Count; i++)
-            {
-                var command = selectedCommandList[^(i + 1)];
-                int removeIndex = commandList.IndexOf(command);
-                bool isLastElementRemoved = removeIndex == commandList.Count - 1;
-                commandList.Remove(command);
-                
-                if (activeMode == ActiveMode.Data)
-                {
-                    if(command == null)
-                    {
-                        OnSelectionChange();
-                    }
-                    else
-                    {
-                        Undo.DestroyObjectImmediate(command);
-                    }
-                }
-
-                if (i != selectedCommandList.Count - 1) continue;
-                selectedCommandList.Clear();
-                if (isLastElementRemoved)
-                {
-                    if (commandList.Count == 0) return;
-                    SelectOneCommand(commandList[removeIndex - 1]);
-                }
-                else
-                {
-                    SelectOneCommand(commandList[removeIndex]);
-                }
-            }
-        }
-
-        /// <summary>
-        /// コマンドを選択状態にします
-        /// </summary>
-        void SelectOneCommand(CommandData command)
-        {
-            lastSelectedCommand = command;
-            selectedCommandList.Add(command);
-            reorderableList.Select(commandList.IndexOf(command));
-        }
-
-        #endregion
     }
 }
