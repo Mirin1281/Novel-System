@@ -368,7 +368,10 @@ MonoBehaviour:
           - {fileID: 288651330}
           - {fileID: 1003351194}
           - {fileID: 616332058}
+          - {fileID: 292041533}
           - {fileID: 1129864299}
+          - {fileID: 337586075}
+          - {fileID: 1216609858}
           - {fileID: 1426252998}
           - {fileID: 1290165446}
           - {fileID: 863163034}
@@ -521,6 +524,103 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 289950799}
   m_CullTransparentMesh: 1
+--- !u!114 &292041533
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4399fbfc898731a4f96fd937ce84eeff, type: 3}
+  m_Name: (Clone)(Clone)
+  m_EditorClassIdentifier: 
+  enabled: 1
+  command:
+    rid: 8711923661674643457
+  references:
+    version: 2
+    RefIds:
+    - rid: 8711923661674643457
+      type: {class: Say, ns: Novel.Command, asm: Novel}
+      data:
+        <ParentFlowchart>k__BackingField:
+          isCheckZone: 1
+          commandDataList:
+          - {fileID: 288651330}
+          - {fileID: 1003351194}
+          - {fileID: 616332058}
+          - {fileID: 292041533}
+          - {fileID: 1129864299}
+          - {fileID: 337586075}
+          - {fileID: 1216609858}
+          - {fileID: 1426252998}
+          - {fileID: 1290165446}
+          - {fileID: 863163034}
+          - {fileID: 1299932915}
+          - {fileID: 1738529856}
+          - {fileID: 1412787153}
+          - {fileID: 1663285916}
+          - {fileID: 1938503864}
+          - {fileID: 1987623987}
+          - {fileID: 763577413}
+          - {fileID: 1306242161}
+          - {fileID: 1016540200}
+          - {fileID: 990647691}
+          description: "\u30E1\u30A4\u30F3\u306E"
+        <Index>k__BackingField: 3
+        character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
+        changeSprite: {fileID: 0}
+        storyText: "\u3046\u3046\u3046\u3046\u3046\u3046\u3046\u3046\u3046\u3046\u3046\u3046\u3046\u3046\u3046\u3046\u3046\u3046\u3046\u3046\u3046\u3046\u3046\u3046\u3046\u3046\u3046\u3046\u3046\u3046\u3046\u3046\u3046\u3046\u3046"
+--- !u!114 &337586075
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4399fbfc898731a4f96fd937ce84eeff, type: 3}
+  m_Name: (Clone)
+  m_EditorClassIdentifier: 
+  enabled: 1
+  command:
+    rid: 9146111986701434880
+  references:
+    version: 2
+    RefIds:
+    - rid: 9146111986701434880
+      type: {class: Label, ns: Novel.Command, asm: Novel}
+      data:
+        <ParentFlowchart>k__BackingField:
+          isCheckZone: 1
+          commandDataList:
+          - {fileID: 288651330}
+          - {fileID: 1003351194}
+          - {fileID: 616332058}
+          - {fileID: 292041533}
+          - {fileID: 1129864299}
+          - {fileID: 337586075}
+          - {fileID: 1216609858}
+          - {fileID: 1426252998}
+          - {fileID: 1290165446}
+          - {fileID: 863163034}
+          - {fileID: 1299932915}
+          - {fileID: 1738529856}
+          - {fileID: 1412787153}
+          - {fileID: 1663285916}
+          - {fileID: 1938503864}
+          - {fileID: 1987623987}
+          - {fileID: 763577413}
+          - {fileID: 1306242161}
+          - {fileID: 1016540200}
+          - {fileID: 990647691}
+          description: "\u30E1\u30A4\u30F3\u306E"
+        <Index>k__BackingField: 5
+        labelName: 
+        commandColor: {r: 1, g: 0, b: 0, a: 1}
 --- !u!114 &382239784
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -550,6 +650,8 @@ MonoBehaviour:
           - {fileID: 1294597746}
           - {fileID: 382239784}
           - {fileID: 690054038}
+          - {fileID: 1007782034}
+          - {fileID: 1002779888}
           description: "\u30E1\u30A4\u30F3\u306E"
         <Index>k__BackingField: 3
         flowchartType: 0
@@ -838,7 +940,10 @@ MonoBehaviour:
           - {fileID: 288651330}
           - {fileID: 1003351194}
           - {fileID: 616332058}
+          - {fileID: 292041533}
           - {fileID: 1129864299}
+          - {fileID: 337586075}
+          - {fileID: 1216609858}
           - {fileID: 1426252998}
           - {fileID: 1290165446}
           - {fileID: 863163034}
@@ -1023,6 +1128,8 @@ MonoBehaviour:
           - {fileID: 1294597746}
           - {fileID: 382239784}
           - {fileID: 690054038}
+          - {fileID: 1007782034}
+          - {fileID: 1002779888}
           description: "\u30E1\u30A4\u30F3\u306E"
         <Index>k__BackingField: 4
         character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
@@ -1829,6 +1936,26 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 993916570}
   m_CullTransparentMesh: 1
+--- !u!114 &1002779888
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4399fbfc898731a4f96fd937ce84eeff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enabled: 1
+  command:
+    rid: -2
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
 --- !u!114 &1003351194
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1856,7 +1983,10 @@ MonoBehaviour:
           - {fileID: 288651330}
           - {fileID: 1003351194}
           - {fileID: 616332058}
+          - {fileID: 292041533}
           - {fileID: 1129864299}
+          - {fileID: 337586075}
+          - {fileID: 1216609858}
           - {fileID: 1426252998}
           - {fileID: 1290165446}
           - {fileID: 863163034}
@@ -1875,6 +2005,41 @@ MonoBehaviour:
         character: {fileID: 0}
         summaryText: Summary
         color: {r: 1, g: 1, b: 1, a: 1}
+--- !u!114 &1007782034
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4399fbfc898731a4f96fd937ce84eeff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enabled: 1
+  command:
+    rid: 9146111986701434880
+  references:
+    version: 2
+    RefIds:
+    - rid: 9146111986701434880
+      type: {class: Label, ns: Novel.Command, asm: Novel}
+      data:
+        <ParentFlowchart>k__BackingField:
+          isCheckZone: 1
+          commandDataList:
+          - {fileID: 2001382681}
+          - {fileID: 2006167827}
+          - {fileID: 1294597746}
+          - {fileID: 382239784}
+          - {fileID: 690054038}
+          - {fileID: 1007782034}
+          - {fileID: 1002779888}
+          description: "\u30E1\u30A4\u30F3\u306E"
+        <Index>k__BackingField: 5
+        labelName: 
+        commandColor: {r: 1, g: 0, b: 0, a: 1}
 --- !u!114 &1016540200
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1953,6 +2118,8 @@ MonoBehaviour:
     - {fileID: 1294597746}
     - {fileID: 382239784}
     - {fileID: 690054038}
+    - {fileID: 1007782034}
+    - {fileID: 1002779888}
     description: "\u30E1\u30A4\u30F3\u306E"
 --- !u!4 &1167165279
 Transform:
@@ -1969,6 +2136,54 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1216609858
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4399fbfc898731a4f96fd937ce84eeff, type: 3}
+  m_Name: (Clone)
+  m_EditorClassIdentifier: 
+  enabled: 1
+  command:
+    rid: 9146111986701434881
+  references:
+    version: 2
+    RefIds:
+    - rid: 9146111986701434881
+      type: {class: Label, ns: Novel.Command, asm: Novel}
+      data:
+        <ParentFlowchart>k__BackingField:
+          isCheckZone: 1
+          commandDataList:
+          - {fileID: 288651330}
+          - {fileID: 1003351194}
+          - {fileID: 616332058}
+          - {fileID: 292041533}
+          - {fileID: 1129864299}
+          - {fileID: 337586075}
+          - {fileID: 1216609858}
+          - {fileID: 1426252998}
+          - {fileID: 1290165446}
+          - {fileID: 863163034}
+          - {fileID: 1299932915}
+          - {fileID: 1738529856}
+          - {fileID: 1412787153}
+          - {fileID: 1663285916}
+          - {fileID: 1938503864}
+          - {fileID: 1987623987}
+          - {fileID: 763577413}
+          - {fileID: 1306242161}
+          - {fileID: 1016540200}
+          - {fileID: 990647691}
+          description: "\u30E1\u30A4\u30F3\u306E"
+        <Index>k__BackingField: 6
+        labelName: 
+        commandColor: {r: 0.989083, g: 0.23113209, b: 1, a: 1}
 --- !u!114 &1290165446
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2018,6 +2233,8 @@ MonoBehaviour:
           - {fileID: 1294597746}
           - {fileID: 382239784}
           - {fileID: 690054038}
+          - {fileID: 1007782034}
+          - {fileID: 1002779888}
           description: "\u30E1\u30A4\u30F3\u306E"
         <Index>k__BackingField: 2
         stopType: 0
@@ -2429,7 +2646,10 @@ MonoBehaviour:
     - {fileID: 288651330}
     - {fileID: 1003351194}
     - {fileID: 616332058}
+    - {fileID: 292041533}
     - {fileID: 1129864299}
+    - {fileID: 337586075}
+    - {fileID: 1216609858}
     - {fileID: 1426252998}
     - {fileID: 1290165446}
     - {fileID: 863163034}
@@ -3380,6 +3600,8 @@ MonoBehaviour:
           - {fileID: 1294597746}
           - {fileID: 382239784}
           - {fileID: 690054038}
+          - {fileID: 1007782034}
+          - {fileID: 1002779888}
           description: "\u30E1\u30A4\u30F3\u306E"
         <Index>k__BackingField: 0
         flowchartType: 1
@@ -3416,6 +3638,8 @@ MonoBehaviour:
           - {fileID: 1294597746}
           - {fileID: 382239784}
           - {fileID: 690054038}
+          - {fileID: 1007782034}
+          - {fileID: 1002779888}
           description: "\u30E1\u30A4\u30F3\u306E"
         <Index>k__BackingField: 1
         character: {fileID: 11400000, guid: 36e06002688543545a19e42b88b58c8b, type: 2}

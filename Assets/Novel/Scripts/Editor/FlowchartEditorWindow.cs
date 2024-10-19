@@ -4,8 +4,10 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using UnityEditor;
+using UnityEditor.SceneManagement;
 using UnityEditorInternal;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using Debug = UnityEngine.Debug;
 using Object = UnityEngine.Object;
 
@@ -29,7 +31,7 @@ namespace Novel.Editor
         GameObject activeExecutorObj;
         [SerializeField] FlowchartData activeFlowchartData;
         
-        [SerializeField] int selectedID;
+        [SerializeField] string selectedName;
 
         /// <summary>
         /// 表示用のコマンドリスト
@@ -53,8 +55,9 @@ namespace Novel.Editor
         }
         void OnDisable()
         {
+            EditorSceneManager.sceneOpened -= ClearList;
             EditorApplication.playModeStateChanged -= UpdateOnChangeMode;
-            Undo.undoRedoPerformed -= UpdateFlowchartAndWindow;
+            Undo.undoRedoPerformed -= UpdateFlowchartObjectAndWindow;
         }
 
         /// <summary>
@@ -62,68 +65,109 @@ namespace Novel.Editor
         /// </summary>
         void OnSelectionChange()
         {
-            UpdateFlowchartAndWindow();
+            UpdateFlowchartObjectAndWindow();
         }
 
-        /// <summary>
-        /// エディタウィンドウをアクティブにした際に呼ばれる
-        /// </summary>
-        void OnFocus()
+        void UpdateOnChangeMode(PlayModeStateChange state)
         {
-            UpdateWindow();
+            // モードが変化した際に処理をする
+            if(state is PlayModeStateChange.EnteredEditMode or PlayModeStateChange.EnteredPlayMode)
+            {
+                SetActiveFlowchart();
+                if(beforeSelectedIndices.Count == 0) return;
+                lastSelectedCommand = commandList[beforeSelectedIndices[0]];
+            }
         }
 
         void Init()
         {
+            EditorSceneManager.sceneOpened -= ClearList;
+            EditorSceneManager.sceneOpened += ClearList;
             EditorApplication.playModeStateChanged -= UpdateOnChangeMode;
             EditorApplication.playModeStateChanged += UpdateOnChangeMode;
-            Undo.undoRedoPerformed -= UpdateFlowchartAndWindow;
-            Undo.undoRedoPerformed += UpdateFlowchartAndWindow;
+            Undo.undoRedoPerformed -= UpdateFlowchartObjectAndWindow;
+            Undo.undoRedoPerformed += UpdateFlowchartObjectAndWindow;
 
-            var obj = FlowchartEditorUtility.FindObjectFromInstanceID(selectedID);
-            if(obj != null)
+            if(activeMode == ActiveMode.Executor)
             {
-                activeExecutorObj = obj as GameObject;
+                var executor = FlowchartEditorUtility.FindComponent<FlowchartExecutor>(selectedName);
+                if(executor != null)
+                {
+                    activeExecutorObj = executor.gameObject;
+                }
             }
+            
             selectedCommandList = new();
             copiedCommandList = new();
-            UpdateFlowchartAndWindow();
+            beforeSelectedIndices ??= new();
+            UpdateFlowchartObjectAndWindow();
+            SetActiveFlowchart();
         }
 
-        void UpdateFlowchartAndWindow()
+        void ClearList(Scene _, OpenSceneMode __)
         {
-            UpdateFlowchart();
-            UpdateWindow();
+            if(activeMode == ActiveMode.Executor)
+            {
+                selectedName = string.Empty;
+                activeMode = ActiveMode.None;
+                activeExecutorObj = null;
+                activeFlowchart = null;
+
+                reorderableList = null;
+                lastSelectedCommand = null;
+                selectedCommandList = null;
+                copiedCommandList = null;
+                beforeSelectedIndices = null;
+
+                listScrollPos = Vector2.zero;
+                commandScrollPos = Vector2.zero;
+            }
+        }
+        void UpdateFlowchartObjectAndWindow()
+        {
+            bool isUpdated = UpdateFlowchartObject();
+            if(isUpdated)
+                UpdateWindow();
         }
 
-        void UpdateFlowchart()
+        bool UpdateFlowchartObject()
         {
+            bool isUpdated = false;
             GameObject activeObj = Selection.activeGameObject;
             if (activeObj != null && activeObj.TryGetComponent<FlowchartExecutor>(out var executor))
             {
+                isUpdated = !(activeExecutorObj == executor.gameObject && activeMode == ActiveMode.Executor);
                 activeMode = ActiveMode.Executor;
                 activeExecutorObj = activeObj;
                 activeFlowchart = executor.Flowchart;
-                commandList = activeFlowchart.GetCommandDataList();
-                selectedID = activeObj.GetInstanceID();
-                beforeSelectedIndices = new();
             }
             else if (Selection.activeObject != null)
             {
                 var data = Selection.GetFiltered<FlowchartData>(SelectionMode.Assets).FirstOrDefault();
                 if (data != null)
                 {
+                    isUpdated = !(activeFlowchartData == data && activeMode == ActiveMode.Data);
                     activeMode = ActiveMode.Data;
                     activeFlowchartData = data;
                     activeFlowchart = data.Flowchart;
-                    commandList = activeFlowchart.GetCommandDataList();
-                    selectedID = Selection.activeObject.GetInstanceID();
-                    beforeSelectedIndices = new();
                 }
             }
+
+            if(isUpdated)
+            {
+                commandList = activeFlowchart.GetCommandDataList();
+                selectedCommandList = new();
+                copiedCommandList ??= new();
+                beforeSelectedIndices = new();
+                lastSelectedCommand = null;
+                listScrollPos = Vector2.zero;
+                commandScrollPos = Vector2.zero;
+                selectedName = Selection.activeObject.name;
+            }
+            return isUpdated;
         }
 
-        void UpdateWindow()
+        void SetActiveFlowchart()
         {
             if (activeMode == ActiveMode.Executor && activeExecutorObj != null)
             {
@@ -133,52 +177,45 @@ namespace Novel.Editor
             {
                 activeFlowchart = activeFlowchartData.Flowchart;
             }
-            
+            UpdateWindow();
+        }
+
+        void UpdateWindow()
+        {
             if(activeFlowchart == null) return;
             commandList = activeFlowchart.GetCommandDataList();
             reorderableList = CreateReorderableList();
             Repaint();
         }
 
-        void UpdateOnChangeMode(PlayModeStateChange state)
-        {
-            // モードが変化した際に処理をする
-            if(state is PlayModeStateChange.EnteredEditMode or PlayModeStateChange.EnteredPlayMode)
-            {
-                UpdateWindow();
-                if(beforeSelectedIndices.Count == 0) return;
-                lastSelectedCommand = commandList[beforeSelectedIndices[0]];
-            }
-        }
-
 
         void OnGUI()
         {
             if (activeMode == ActiveMode.None || activeFlowchart == null) return;
-
-            EditorGUI.BeginChangeCheck();
-
-            using (new GUILayout.HorizontalScope())
+            using (var scope = new EditorGUI.ChangeCheckScope())
             {
-                DrawCommandList();
-                DrawCommandInspector();
-            }
+                using (new GUILayout.HorizontalScope())
+                {
+                    DrawList(reorderableList);
+                    DrawCommandInspector(lastSelectedCommand);
+                }
 
-            if (EditorGUI.EndChangeCheck())
-            {
-                RefreshFlowchart(activeFlowchart);
+                if(scope.changed)
+                {
+                    SetFlowchartCommand(activeFlowchart, commandList);
+                }
             }
         }
 
-        void RefreshFlowchart(Flowchart flowchart)
+        void SetFlowchartCommand(Flowchart flowchart, List<CommandData> list)
         {
-            flowchart.SetCommandDataList(commandList);
-            for (int i = 0; i < commandList.Count; i++)
+            flowchart.SetCommandDataList(list);
+            for (int i = 0; i < list.Count; i++)
             {
-                var command = commandList[i].GetCommandBase();
-                if (command == null) continue;
-                command.SetFlowchart(flowchart);
-                command.SetIndex(i);
+                var cmd = list[i].GetCommandBase();
+                if (cmd == null) continue;
+                cmd.SetFlowchart(flowchart);
+                cmd.SetIndex(i);
             }
             
             if(activeMode == ActiveMode.Executor)
@@ -191,24 +228,23 @@ namespace Novel.Editor
             }
         }
 
-        void DrawCommandList()
+        void DrawList(ReorderableList reorderableList)
         {
-            // ReorderableList.HasKeyboardControl()は絶対使い方間違えてるけど、
-            // 簡単に選択中かを取得できるものがなぜか無かったのでこうなっている
+            if(reorderableList == null) return;
             var e = Event.current;
-            if (e.type == EventType.KeyDown && e.control && reorderableList.HasKeyboardControl())
+            if (e.type == EventType.KeyDown && e.control && reorderableList.HasKeyboardControl()) // ReorderableList.HasKeyboardControl()で選択中かを取得
             {
                 if (e.keyCode == KeyCode.C && selectedCommandList != null)
                 {
-                    Copy(selectedCommandList);
+                    CopyFrom(selectedCommandList);
                 }
                 else if (e.keyCode == KeyCode.V && copiedCommandList != null)
                 {
-                    Paste(copiedCommandList);
+                    PasteFrom(copiedCommandList);
                 }
                 else if (e.keyCode == KeyCode.D && selectedCommandList != null)
                 {
-                    Duplicate(selectedCommandList);
+                    DuplicateFrom(selectedCommandList);
                 }
             }
 
@@ -216,22 +252,22 @@ namespace Novel.Editor
             if (Event.current.type == EventType.ContextClick && Event.current.button == 1)
             {
                 var mousePos = Event.current.mousePosition;
-                var buttonRect = new Rect(0, 0, position.size.x * WindowSplitRatio, position.size.y);
-                if(buttonRect.Contains(mousePos))
+                var commandListRect = new Rect(0, 0, position.size.x * WindowSplitRatio, position.size.y);
+                if(commandListRect.Contains(mousePos))
                 {
                     if (reorderableList.HasKeyboardControl())
                     {
                         menu.AddItem(new GUIContent("Add"), false, () =>
                         {
-                            Add(reorderableList);
+                            Add();
                         });
                         menu.AddItem(new GUIContent("Remove"), false, () =>
                         {
-                            Remove(reorderableList);
+                            Remove();
                         });
                         menu.AddItem(new GUIContent("Copy"), false, () =>
                         {
-                            Copy(selectedCommandList);
+                            CopyFrom(selectedCommandList);
                         });
 
                         if (copiedCommandList == null)
@@ -242,20 +278,24 @@ namespace Novel.Editor
                         {
                             menu.AddItem(new GUIContent("Paste"), false, () =>
                             {
-                                Paste(copiedCommandList);
+                                PasteFrom(copiedCommandList);
                             });
                         }
 
                         menu.AddSeparator(string.Empty);
 
-                        if (selectedCommandList.Count == 1 && lastSelectedCommand.GetCommandBase() != null)
+                        if (lastSelectedCommand.GetCommandBase() == null)
+                        {
+                            menu.AddDisabledItem(new GUIContent("Edit Script"));
+                        }
+                        else
                         {
                             menu.AddItem(new GUIContent("Edit Script"), false, () =>
                             {
                                 var commandName = lastSelectedCommand.GetName();
-                                var scriptPath = GetScriptPath(commandName);
+                                var scriptPath = FlowchartEditorUtility.GetScriptPath(commandName);
                                 Object scriptAsset = AssetDatabase.LoadAssetAtPath<Object>(scriptPath);
-                                AssetDatabase.OpenAsset(scriptAsset, 7);
+                                AssetDatabase.OpenAsset(scriptAsset, 7); // おおよその行数をカーソル
                             });
                         }
                     }
@@ -283,44 +323,19 @@ namespace Novel.Editor
                 listScrollPos = scroll.scrollPosition;
                 reorderableList.DoLayoutList();
             }
-
-
-            static string GetScriptPath(string fileName)
-            {
-                var assetName = fileName;
-                var filterString = assetName + " t:Script";
-
-                var path = AssetDatabase.FindAssets(filterString)
-                    .Select(AssetDatabase.GUIDToAssetPath)
-                    .FirstOrDefault(str => string.Equals(Path.GetFileNameWithoutExtension(str),
-                        assetName, StringComparison.CurrentCultureIgnoreCase));
-
-                if (string.IsNullOrEmpty(path))
-                {
-                    Debug.LogWarning(
-                        $"Edit Scriptでエラーが発生しました\n" +
-                        $"開こうとしたファイル名: {fileName}.cs\n" +
-                        "コマンドのクラス名とスクリプト名が一致しているか確認してください");
-                    throw new FileNotFoundException();
-                }
-                else
-                {
-                    return path.Replace("\\", "/").Replace(Application.dataPath, "Assets");
-                }
-            }
         }
 
-        void DrawCommandInspector()
+        void DrawCommandInspector(CommandData command)
         {
             using (var scroll = new GUILayout.ScrollViewScope(commandScrollPos, EditorStyles.helpBox))
             {
                 commandScrollPos = scroll.scrollPosition;
-                if (lastSelectedCommand == null) return;
-                UnityEditor.Editor.CreateEditor(lastSelectedCommand).OnInspectorGUI();
+                if (command == null) return;
+                UnityEditor.Editor.CreateEditor(command).OnInspectorGUI();
             }
         }
 
-        void Copy(List<CommandData> selectedCommandList, bool callLog = true)
+        void CopyFrom(List<CommandData> selectedCommandList, bool callLog = true)
         {
             Event.current?.Use();
             if (GUIUtility.keyboardControl > 0)
@@ -328,12 +343,16 @@ namespace Novel.Editor
                 copiedCommandList = new List<CommandData>(selectedCommandList);
             }
             if(callLog)
-            {
                 Debug.Log("<color=lightblue>コマンドをコピーしました</color>");
-            }
         }
-        void Paste(List<CommandData> copiedCommandList, bool callLog = true)
+        void PasteFrom(List<CommandData> copiedCommandList, bool callLog = true)
         {
+            if(copiedCommandList == null || copiedCommandList.Count == 0)
+            {
+                if(callLog)
+                    Debug.LogWarning("ペーストに失敗しました");
+                return;
+            }
             Undo.RecordObject(this, "Paste Command");
             selectedCommandList.Clear();
             int currentIndex = commandList.IndexOf(lastSelectedCommand);
@@ -342,77 +361,65 @@ namespace Novel.Editor
 
             for (int i = 0; i < copiedCommandList.Count; i++)
             {
-                var command = copiedCommandList[^(i + 1)];
-                if (command == null) continue;
+                var cmd = copiedCommandList[^(i + 1)];
+                if (cmd == null) continue;
 
-                var createCommand = Instantiate(command);
+                var createCmd = Instantiate(cmd);
                 if (activeMode == ActiveMode.Data)
                 {
-                    var path = FlowchartEditorUtility.GetExistFolderPath(command);
-                    if (path == null)
-                    {
-                        path = ConstContainer.COMMANDDATA_PATH;
-                    }
-                    var name = FlowchartEditorUtility.GetFileName(
-                        path, $"{nameof(CommandData)}_{activeFlowchartData.name}", "asset");
-                    AssetDatabase.CreateAsset(createCommand, Path.Combine(path, name));
+                    var path = FlowchartEditorUtility.GetExistFolderPath(cmd);
+                    path ??= ConstContainer.COMMANDDATA_PATH;
+                    var name = FlowchartEditorUtility.GetFileName(path, $"{nameof(CommandData)}_{activeFlowchartData.name}", "asset");
+                    AssetDatabase.CreateAsset(createCmd, Path.Combine(path, name));
                     AssetDatabase.ImportAsset(path, ImportAssetOptions.ForceUpdate);
                 }
 
-                commandList.Insert(currentIndex + 1, createCommand);
-                selectedCommandList.Add(createCommand);
+                commandList.Insert(currentIndex + 1, createCmd);
+                selectedCommandList.Add(createCmd);
 
-                if (i == 0)
-                {
-                    reorderableList.Select(currentIndex + 1 + i, false);
-                }
-                else
-                {
-                    reorderableList.Select(currentIndex + 1 + i, true);
-                }
-
+                reorderableList.Select(currentIndex + i + 1, append: i != 0);
                 if(i == copiedCommandList.Count - 1)
                 {
-                    lastSelectedCommand = createCommand;
+                    lastSelectedCommand = createCmd;
                 }
             }
+
             beforeSelectedIndices = new();
-
-            RefreshFlowchart(activeFlowchart);
+            SetFlowchartCommand(activeFlowchart, commandList);
             if (callLog)
-            {
                 Debug.Log("<color=lightblue>コマンドをペーストしました</color>");
-            }
         }
 
-        void Duplicate(List<CommandData> selectedCommandList)
+        void DuplicateFrom(List<CommandData> selectedCommandList, bool callLog = true)
         {
-            Copy(selectedCommandList, false);
-            Paste(copiedCommandList, false);
-            Debug.Log("<color=lightblue>コマンドを複製しました</color>");
+            CopyFrom(selectedCommandList, false);
+            PasteFrom(copiedCommandList, false);
+            if (callLog)
+                Debug.Log("<color=lightblue>コマンドを複製しました</color>");
         }
 
-        void Add(ReorderableList list)
+        void Add(ReorderableList list = null)
         {
             Undo.RecordObject(this, "Add Command");
             selectedCommandList.Clear();
-            CommandData newCommand = activeMode switch
+            CommandData createCmd = activeMode switch
             {
                 ActiveMode.Executor => CreateInstance<CommandData>(),
-                ActiveMode.Data => FlowchartEditorUtility.CreateCommandData(ConstContainer.COMMANDDATA_PATH, $"{nameof(CommandData)}_{activeFlowchartData.name}"),
-                _ => throw new Exception()
+                ActiveMode.Data => FlowchartEditorUtility.CreateCommandData(
+                    ConstContainer.COMMANDDATA_PATH, $"{nameof(CommandData)}_{activeFlowchartData.name}"),
+                _ => throw new Exception($"{nameof(activeMode)} is None")
             };
-            int insertIndex = commandList.IndexOf(lastSelectedCommand) + 1;
-            if (commandList == null || commandList.Count == 0)
+            int insertIndex = lastSelectedCommand != null ? (commandList.IndexOf(lastSelectedCommand) + 1) : commandList.Count;
+            if (commandList.Count == 0)
             {
                 insertIndex = 0;
             }
-            commandList.Insert(insertIndex, newCommand);
-            RefreshFlowchart(activeFlowchart);
-            SelectOneCommand(newCommand);
+            commandList.Insert(insertIndex, createCmd);
+            SetFlowchartCommand(activeFlowchart, commandList);
+            SelectOneCommand(createCmd);
         }
 
-        void Remove(ReorderableList list)
+        void Remove(ReorderableList list = null)
         {
             Undo.RecordObject(this, "Remove Command");
             for (int i = 0; i < selectedCommandList.Count; i++)
@@ -426,7 +433,7 @@ namespace Novel.Editor
                 {
                     if(command == null)
                     {
-                        UpdateFlowchartAndWindow();
+                        UpdateFlowchartObjectAndWindow();
                     }
                     else
                     {
@@ -480,7 +487,7 @@ namespace Novel.Editor
 
             void OnSelect(ReorderableList list)
             {
-                // "最後に選択されたコマンド"を調べる
+                // 最後に選択されたコマンドを調べる
                 var selects = list.selectedIndices;
                 for (int i = 0; i < selects.Count; i++)
                 {
@@ -524,11 +531,11 @@ namespace Novel.Editor
                 var tmpColor = GUI.color;
                 GUI.color = Color.black;
 
-                var command = commandList[index];
-                EditorGUI.LabelField(rect, $"<size=12>{command.GetName()  ?? "Null"}</size>", style);
-                EditorGUI.LabelField(new Rect(
-                    rect.x + 90, rect.y, rect.width, rect.height),
-                    $"<size=10>{TagUtility.RemoveSizeTag(command.GetSummary())}</size>", style);
+                var cmd = commandList[index];
+                string cmdName = cmd.GetName() ?? "Null";
+                EditorGUI.LabelField(rect, $"<size=12>{cmdName}</size>", style);
+                EditorGUI.LabelField(new Rect(rect.x + 90, rect.y, rect.width, rect.height),
+                    $"<size=10>{TagUtility.RemoveSizeTag(cmd.GetSummary())}</size>", style);
 
                 GUI.color = tmpColor;
             }
@@ -537,21 +544,22 @@ namespace Novel.Editor
             {
                 if (index < 0 || commandList.Count <= index) return;
 
-                var command = commandList[index];
-                var color = command.GetCommandColor();
-                color.a = 1f;
-                if (isFocused)
+                var cmd = commandList[index];
+                var color = (Color)default;
+                if(isFocused)
                 {
-                    EditorGUI.DrawRect(rect, new Color(0.2f, 0.85f, 0.95f, 1f));
+                    color = new Color(0.2f, 0.85f, 0.95f, 1f);
+                }
+                else if(cmd.Enabled)
+                {
+                    color = cmd.GetCommandColor();
                 }
                 else
                 {
-                    if (command.Enabled == false)
-                    {
-                        color = new Color(0.7f, 0.7f, 0.7f, 1f);
-                    }
-                    EditorGUI.DrawRect(rect, color);
+                    color = new Color(0.7f, 0.7f, 0.7f, 1f);
                 }
+                EditorGUI.DrawRect(rect, color);
+  
                 var tmpColor = GUI.color;
                 GUI.color = Color.black;
                 GUI.Box(new Rect(rect.x, rect.y, rect.width, 1), string.Empty);

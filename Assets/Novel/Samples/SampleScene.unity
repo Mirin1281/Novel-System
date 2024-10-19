@@ -6241,7 +6241,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1902416913}
   m_Layer: 0
-  m_Name: Flowcharts
+  m_Name: FlowchartGroup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

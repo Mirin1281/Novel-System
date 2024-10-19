@@ -29,20 +29,28 @@ namespace Novel.Editor
             AssetDatabase.Refresh(ImportAssetOptions.ForceUpdate);
         }
 
-        public static Object FindObjectFromInstanceID(int instanceId)
+        public static string GetScriptPath(string fileName)
         {
-            try
+            var assetName = fileName;
+            var filterString = assetName + " t:Script";
+
+            var path = AssetDatabase.FindAssets(filterString)
+                .Select(AssetDatabase.GUIDToAssetPath)
+                .FirstOrDefault(str => string.Equals(Path.GetFileNameWithoutExtension(str),
+                    assetName, StringComparison.CurrentCultureIgnoreCase));
+
+            if (string.IsNullOrEmpty(path))
             {
-                var type = typeof(Object);
-                var flags = BindingFlags.NonPublic | BindingFlags.Static | BindingFlags.InvokeMethod;
-                var ret = type.InvokeMember("FindObjectFromInstanceID", flags, null, null, new object[] {instanceId});
-                return (Object) ret;
+                Debug.LogWarning(
+                    $"Edit Scriptでエラーが発生しました\n" +
+                    $"開こうとしたファイル名: {fileName}.cs\n" +
+                    "コマンドのクラス名とスクリプト名が一致しているか確認してください");
+                throw new FileNotFoundException();
             }
-            catch (Exception e)
+            else
             {
-                Debug.LogError(e.Message);
+                return AbsoluteToAssetsPath(path);
             }
-            return null;
         }
 
         /// <summary>
@@ -154,6 +162,85 @@ namespace Novel.Editor
                 }
                 return false;
             }
+        }
+
+        /// <summary>
+        /// シーン内のコンポーネントを検索します
+        /// </summary>
+        /// <typeparam name="T">コンポーネント</typeparam>
+        /// <param name="objName">コンポーネントのついたオブジェクトの名前(コンポーネント名と同じなら省略可)</param>
+        /// <param name="findInactive">非アクティブも検索する</param>
+        /// <param name="callLog">呼ばれた際にログを出す</param>
+        /// <returns></returns>
+        public static T FindComponent<T>(string objName = null, bool findInactive = true, bool callLog = false)
+        {
+    #if UNITY_EDITOR
+    #else
+            callLog = false;
+    #endif
+            var componentName = typeof(T).Name;
+            var findName = objName ?? componentName;
+            var obj = GameObject.Find(findName);
+            if (obj == null && findInactive)
+            {
+                obj = FindIncludInactive(findName);
+            }
+            if (obj == null)
+            {
+                Log(findName + " オブジェクトが見つかりませんでした", true);
+                return default;
+            }
+
+            var component = obj.GetComponent<T>();
+            if (component == null)
+            {
+                Log(componentName + " コンポーネントが見つかりませんでした", true);
+                return default;
+            }
+            Log(componentName + "をFindしました", false);
+
+            return component;
+
+
+            void Log(string str, bool isWarning)
+            {
+                if (callLog == false) return;
+                if (isWarning)
+                {
+                    Debug.LogWarning("<color=red>" + str + "</color>");
+                }
+                else
+                {
+                    Debug.Log("<color=lightblue>" + str + "</color>");
+                }
+            }
+        }
+
+        /// <summary>
+        /// 非アクティブのも含めてFindします
+        /// </summary>
+        /// <param name="targetName"></param>
+        /// <returns></returns>
+        static GameObject FindIncludInactive(string targetName)
+        {
+            var gameObjects = Resources.FindObjectsOfTypeAll<GameObject>();
+
+            foreach (var gameObjectInHierarchy in gameObjects)
+            {
+
+    #if UNITY_EDITOR
+                //Hierarchy上のものでなければスルー
+                if (!AssetDatabase.GetAssetOrScenePath(gameObjectInHierarchy).Contains(".unity"))
+                {
+                    continue;
+                }
+    #endif
+                if (gameObjectInHierarchy.name == targetName)
+                {
+                    return gameObjectInHierarchy;
+                }
+            }
+            return null;
         }
     }
 
