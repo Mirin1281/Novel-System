@@ -7,7 +7,7 @@ namespace Novel.Command
 {
     public interface ICommand
     {
-        UniTask ExecuteAsync(Flowchart flowchart);
+        UniTask ExecuteAsync(Flowchart parentFlowchart);
         string GetName();
         string GetSummary();
         Color GetCommandColor();
@@ -23,12 +23,12 @@ namespace Novel.Command
         protected int Index { get; private set; }
 
         protected CancellationToken Token => ParentFlowchart.CallStatus.Token;
-        
+
 
         protected abstract UniTask EnterAsync();
-        UniTask ICommand.ExecuteAsync(Flowchart flowchart)
+        UniTask ICommand.ExecuteAsync(Flowchart parentFlowchart)
         {
-            ParentFlowchart = flowchart;
+            ParentFlowchart = parentFlowchart;
             return EnterAsync();
         }
 
@@ -53,7 +53,7 @@ namespace Novel.Command
             => $"<color=#dc143c>{text}</color>";
 
 
-        #region Overrides ... 継承するコマンドがオーバーライドして使います
+        #region ///// Overrides 継承するコマンドがオーバーライドして使います /////
 
         /// <summary>
         /// エディタのコマンドに状態を記述します
@@ -64,7 +64,7 @@ namespace Novel.Command
         /// コマンドの色を設定します
         /// </summary>
         protected virtual Color GetCommandColor() => new Color(0.9f, 0.9f, 0.9f, 1f);
-        
+
         /// <summary>
         /// CSV出力時の第一表示(getは書き出し、setは読み込み)
         /// </summary>

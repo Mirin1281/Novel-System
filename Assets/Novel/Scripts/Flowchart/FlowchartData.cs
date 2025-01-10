@@ -2,20 +2,28 @@
 using Cysharp.Threading.Tasks;
 using Novel.Command;
 using System.Threading;
+using System.Collections.Generic;
 
 namespace Novel
 {
     [CreateAssetMenu(
-        fileName = "Flowchart",
+        fileName = "Flow",
         menuName = ConstContainer.DATA_CREATE_PATH + "Flowchart",
         order = 1)
     ]
-    public class FlowchartData : ScriptableObject, IFlowchartObject
+    public class FlowchartData : ScriptableObject, IParentData<CommandData>
     {
+        public List<CommandData> GetCommandDataList() => Flowchart.GetCommandDataList();
+        public void SetCommandDataList(IEnumerable<CommandData> commands) => Flowchart.SetCommandDataList(commands);
+
         [SerializeField] Flowchart flowchart;
         public Flowchart Flowchart => flowchart;
-        public string Name => name;
 
+        /// <summary>
+        /// フローチャートを呼び出します
+        /// </summary>
+        /// <param name="index">コマンドの初期インデックス</param>
+        /// <param name="token">キャンセル用のトークン(通常はStop()があるので不要)</param>
         public void Execute(int index = 0, CancellationToken token = default)
         {
             ExecuteAsync(index, token);
@@ -25,9 +33,12 @@ namespace Novel
             return Flowchart.ExecuteAsync(index, token);
         }
 
+        /// <summary>
+        /// 呼び出しているフローチャートを停止します。その際に表示されているUIはフェードアウトされます
+        /// </summary>
         public void Stop()
         {
-            flowchart.Stop(Flowchart.StopType.All);
+            flowchart.Stop(Flowchart.StopType.IncludeParent, isClearUI: true);
         }
 
 #if UNITY_EDITOR
@@ -36,9 +47,9 @@ namespace Novel
         /// </summary>
         public bool IsUsed(CommandData targetData)
         {
-            foreach(var commandData in Flowchart.GetReadOnlyCommandDataList())
+            foreach (var cmdData in Flowchart.GetReadOnlyCommandDataList())
             {
-                if (commandData == targetData) return true;
+                if (cmdData == targetData) return true;
             }
             return false;
         }

@@ -2,12 +2,12 @@ using System;
 using UnityEngine;
 
 // 【利用方法】
-// 1. float.Ease(float start, float from, float easeTime, EaseType type)              //拡張メソッド
+// 1. float.Ease(float start, float from, float easeTime, EaseType type)              // 拡張メソッド
 //
-// 2. Easing.Ease(float start, float from, float easeTime, EaseType type, float time) //静的メソッド
+// 2. Easing.Ease(float start, float from, float easeTime, EaseType type, float time) // 静的メソッド
 //
-// 3. var easing = new Easing(float start, float from, float easeTime, EaseType type) //構造体をつくって
-//    easing.Ease(float time)                                                         //使う
+// 3. var easing = new Easing(float start, float from, float easeTime, EaseType type) // 構造体をつくって
+//    easing.Ease(float time)                                                         // 使う
 
 namespace Novel
 {

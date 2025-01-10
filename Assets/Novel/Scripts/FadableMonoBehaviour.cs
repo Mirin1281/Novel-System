@@ -23,7 +23,7 @@ namespace Novel
         /// </summary>
         public async UniTask ClearFadeAsync(float time = ConstContainer.DefaultFadeTime, CancellationToken token = default)
         {
-            await FadeAlphaAsync(GetAlpha(), 0f, time, token);
+            await FadeAlphaAsync(0f, time, token);
             gameObject.SetActive(false);
         }
 
@@ -41,16 +41,12 @@ namespace Novel
             }
             SetAlpha(toAlpha);
         }
-        async UniTask FadeAlphaAsync(float toAlpha, float time, CancellationToken token)
+        /// <summary>
+        /// 指定した透明度まで連続的に変化させます
+        /// </summary>
+        UniTask FadeAlphaAsync(float toAlpha, float time, CancellationToken token)
         {
-            var t = 0f;
-            while (t < time)
-            {
-                SetAlpha(t.Ease(GetAlpha(), toAlpha, time, EaseType.OutQuad));
-                t += Time.deltaTime;
-                await UniTask.Yield(token == default ? this.GetCancellationTokenOnDestroy() : token);
-            }
-            SetAlpha(toAlpha);
+            return FadeAlphaAsync(GetAlpha(), toAlpha, time, token);
         }
     }
 }

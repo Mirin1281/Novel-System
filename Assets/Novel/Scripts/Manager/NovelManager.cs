@@ -8,8 +8,6 @@ namespace Novel
     {
         #region Init and Destroy
 
-        static readonly bool initCreateInstance = true;
-        static readonly bool initCreateManagers = true;
         [SerializeField] CreateManagerParam[] managerParams;
 
         // この属性によりAwakeより前に処理が走る(ここでしか呼ばないほうが吉)
@@ -17,7 +15,6 @@ namespace Novel
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
         static void InitBeforeAwake()
         {
-            if (initCreateInstance == false) return;
             var managerPrefab = Resources.Load<NovelManager>(nameof(NovelManager));
             if (managerPrefab == null)
             {
@@ -27,7 +24,6 @@ namespace Novel
             var novelManager = Instantiate(managerPrefab);
             novelManager.name = managerPrefab.name;
             DontDestroyOnLoad(novelManager);
-            if (initCreateManagers == false) return;
             novelManager.InitCreateManagers();
         }
 
@@ -64,7 +60,7 @@ namespace Novel
         float cancelKeyDownTime;
         void Update()
         {
-            if(OnCancelKeyDown)
+            if (OnCancelKeyDown)
             {
                 cancelKeyDownTime += Time.deltaTime;
             }
@@ -72,7 +68,6 @@ namespace Novel
             {
                 cancelKeyDownTime = 0f;
             }
-
             audioSource.mute = OnSkip;
         }
 
@@ -84,8 +79,14 @@ namespace Novel
 
         public float DefaultWriteSpeed { get; private set; } = 2;
 
+        /// <summary>
+        /// テキスト表示にルビを表示する
+        /// </summary>
         public bool IsUseRuby { get; private set; } = true;
 
+        /// <summary>
+        /// テキストを全て一気に表示する
+        /// </summary>
         public bool IsWholeShowText { get; private set; } = false;
 
         public void ClearAllUI()

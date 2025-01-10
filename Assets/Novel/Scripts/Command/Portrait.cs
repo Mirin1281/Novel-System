@@ -38,13 +38,13 @@ namespace Novel.Command
                     ShowAsync(portrait).Forget();
                 }
             }
-            else if(actionType == ActionType.Change)
+            else if (actionType == ActionType.Change)
             {
                 portrait.SetSprite(portraitSprite);
             }
-            else if(actionType == ActionType.Clear)
+            else if (actionType == ActionType.Clear)
             {
-                if(isAwait)
+                if (isAwait)
                 {
                     await portrait.ClearFadeAsync(fadeTime, Token);
                 }
@@ -53,7 +53,7 @@ namespace Novel.Command
                     portrait.ClearFadeAsync(fadeTime, Token).Forget();
                 }
             }
-            else if(actionType == ActionType.HideOn)
+            else if (actionType == ActionType.HideOn)
             {
                 portrait.SetHide(true);
             }
@@ -65,7 +65,7 @@ namespace Novel.Command
 
         async UniTask ShowAsync(Novel.Portrait portrait)
         {
-            if(positionType == PortraitPositionType.Custom)
+            if (positionType == PortraitPositionType.Custom)
             {
                 portrait.SetPos(overridePos);
             }
@@ -73,7 +73,7 @@ namespace Novel.Command
             {
                 portrait.SetPos(positionType);
             }
-            
+
             portrait.SetSprite(portraitSprite);
             await portrait.ShowFadeAsync(fadeTime, Token);
         }
@@ -81,15 +81,17 @@ namespace Novel.Command
 
         protected override string GetSummary()
         {
-            if (character == null)
+            if (character == null
+            || portraitSprite == null && (actionType == ActionType.Show || actionType == ActionType.Change))
             {
                 return WarningText();
             }
-            if(portraitSprite == null && (actionType == ActionType.Show || actionType == ActionType.Change))
+
+            if (actionType == ActionType.Show || actionType == ActionType.Clear)
             {
-                return WarningText();
+                return $"{character.CharacterName} {actionType}: {fadeTime}s";
             }
-            return $"{character.CharacterName} {actionType}: {fadeTime}s";
+            return $"{character.CharacterName} {actionType}";
         }
 
         protected override Color GetCommandColor() => new Color32(213, 245, 215, 255);
@@ -114,13 +116,13 @@ namespace Novel.Command
             get => actionType.ToString();
             set
             {
-                if(string.IsNullOrEmpty(value))
+                if (string.IsNullOrEmpty(value))
                 {
                     actionType = ActionType.Show;
                     return;
                 }
-                
-                if(value.TryParseToEnum(out ActionType type))
+
+                if (value.TryParseToEnum(out ActionType type))
                 {
                     actionType = type;
                 }

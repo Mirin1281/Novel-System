@@ -1,8 +1,9 @@
 using Novel.Command;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Reflection;
+using System.Text.RegularExpressions;
 using UnityEditor;
 using UnityEngine;
 using Object = UnityEngine.Object;
@@ -29,28 +30,27 @@ namespace Novel.Editor
             AssetDatabase.Refresh(ImportAssetOptions.ForceUpdate);
         }
 
-        public static string GetScriptPath(string fileName)
+        /// <summary>
+        /// C#スクリプト名からパスを検索します
+        /// </summary>
+        public static bool TryGetScriptPath(string fileName, out string relativePath)
         {
             var assetName = fileName;
-            var filterString = assetName + " t:Script";
-
-            var path = AssetDatabase.FindAssets(filterString)
+            var path = AssetDatabase.FindAssets(assetName + " t:Script")
                 .Select(AssetDatabase.GUIDToAssetPath)
                 .FirstOrDefault(str => string.Equals(Path.GetFileNameWithoutExtension(str),
                     assetName, StringComparison.CurrentCultureIgnoreCase));
 
-            if (string.IsNullOrEmpty(path))
+            bool isExist = !string.IsNullOrEmpty(path);
+            if (isExist)
             {
-                Debug.LogWarning(
-                    $"Edit Scriptでエラーが発生しました\n" +
-                    $"開こうとしたファイル名: {fileName}.cs\n" +
-                    "コマンドのクラス名とスクリプト名が一致しているか確認してください");
-                throw new FileNotFoundException();
+                relativePath = AbsoluteToAssetsPath(path);
             }
             else
             {
-                return AbsoluteToAssetsPath(path);
+                relativePath = string.Empty;
             }
+            return isExist;
         }
 
         /// <summary>
@@ -65,21 +65,55 @@ namespace Novel.Editor
         }
 
         /// <summary>
-        /// ファイル名を重複を考慮して付けます
+        /// 指定した名前を基に、フォルダ内で重複しない名前を生成します
         /// </summary>
-        /// <param name="path">パス</param>
-        /// <param name="name">名前(拡張子は除く)</param>
+        /// <param name="folderPath">対象となるフォルダのパス</param>
+        /// <param name="baseName">名前(拡張子は除く)</param>
         /// <param name="extension">拡張子(.は除く)</param>
         /// <returns></returns>
-        public static string GetFileName(string path, string name, string extension)
+        public static string GenerateAssetName(string folderPath, string baseName, string extension = null)
         {
-            int i = 1;
-            var targetName = name;
-            while (File.Exists($"{path}/{targetName}.{extension}"))
+            var paths = AssetDatabase.FindAssets(null, new string[] { folderPath })
+                .Select(AssetDatabase.GUIDToAssetPath);
+
+            var existingNames = new HashSet<string>();
+            foreach (var p in paths)
             {
-                targetName = $"{name}_({i++})";
+                // サブフォルダは検索しなくていいので除外
+                if (AbsoluteToAssetsPath(Path.GetDirectoryName(p)) != folderPath.TrimEnd('/')) continue;
+                Object[] objs = AssetDatabase.LoadAllAssetsAtPath(p);
+                foreach (var o in objs)
+                {
+                    existingNames.Add(o.name);
+                }
             }
-            return $"{targetName}.{extension}";
+
+            string trimedName = baseName;
+            string regex = @" \( ?\d+\)$";
+            if (Regex.IsMatch(baseName, regex))
+            {
+                trimedName = Regex.Replace(baseName, regex, string.Empty);
+            }
+
+            string exStr = string.IsNullOrEmpty(extension) ? string.Empty : $".{extension}";
+
+            // ベース名が重複しない場合、そのまま返す
+            if (!existingNames.Contains(trimedName))
+            {
+                return $"{trimedName}{exStr}";
+            }
+
+            // 重複する場合、「(n)」を付けてユニークな名前を探す
+            int suffix = 1;
+            while (true)
+            {
+                string newName = $"{trimedName} ({suffix})";
+                if (!existingNames.Contains(newName))
+                {
+                    return $"{newName}{exStr}";
+                }
+                suffix++;
+            }
         }
 
         public static T[] GetAllScriptableObjects<T>(string folderName = null) where T : ScriptableObject
@@ -93,66 +127,64 @@ namespace Novel.Editor
         }
 
         /// <summary>
-        /// CommandDataを作成します
+        /// CommandDataを作成し、FlowchartDataの子に設定します
         /// </summary>
-        /// <param name="folderPath">生成するフォルダのパス</param>
+        /// <param name="parentData">親となるFlowchartData</param>
         /// <param name="baseName">名前</param>
         /// <returns></returns>
-        public static CommandData CreateCommandData(string folderPath, string baseName)
+        public static CommandData CreateSubCommandData(FlowchartData parentData, string baseName)
         {
-            if (!Directory.Exists(folderPath))
-            {
-                Directory.CreateDirectory(folderPath);
-            }
-            var name = GetFileName(folderPath, baseName, "asset");
             var cmdData = ScriptableObject.CreateInstance<CommandData>();
-            AssetDatabase.CreateAsset(cmdData, Path.Combine(folderPath, name));
-            AssetDatabase.ImportAsset(folderPath, ImportAssetOptions.ForceUpdate);
+            string path = AssetDatabase.GetAssetPath(parentData);
+            int lastIndex = path.LastIndexOf('/');
+            string folderPath = path.Substring(0, lastIndex);
+            cmdData.name = GenerateAssetName(folderPath, baseName);
+            AssetDatabase.AddObjectToAsset(cmdData, parentData);
+            Undo.RegisterCreatedObjectUndo(cmdData, "Create Command");
+            AssetDatabase.SaveAssets();
             return cmdData;
+        }
+
+        public static CommandData DuplicateSubCommandData(FlowchartData parentData, CommandData cmdData)
+        {
+            var createdCmd = Object.Instantiate(cmdData);
+            string path = AssetDatabase.GetAssetPath(parentData);
+            int lastIndex = path.LastIndexOf('/');
+            string folderPath = path.Substring(0, lastIndex);
+            createdCmd.name = GenerateAssetName(folderPath, createdCmd.name);
+            AssetDatabase.AddObjectToAsset(createdCmd, parentData);
+            Undo.RegisterCreatedObjectUndo(createdCmd, "Duplicate Command");
+            AssetDatabase.SaveAssets();
+            return createdCmd;
         }
 
         /// <summary>
         /// 不要なCommandDataを削除します
         /// </summary>
-        public static void RemoveUnusedCommandData(string folderPath = null)
+        public static void RemoveAllUnusedCommandData()
         {
-            // Undo等で破損状態のファイルを削除 //
-            var guids = AssetDatabase.FindAssets(null, new string[] { folderPath ??= ConstContainer.COMMANDDATA_PATH });
             int removeCount = 0;
-            for(int i = 0; i < guids.Length; i++)
-            {
-                var path = AssetDatabase.GUIDToAssetPath(guids[i]);
-                var obj = AssetDatabase.LoadAllAssetsAtPath(path);
-                if(obj.Length == 0) // アセットがない > 破損している 
-                {
-                    File.Delete(path);
-                    File.Delete($"{path}.meta");
-                    removeCount++;
-                }
-            }
-            AssetDatabase.Refresh(ImportAssetOptions.ForceUpdate);
-
-            // どのフローチャートにも属していないCommandDataを削除 //
-            var cmdDatas = GetAllScriptableObjects<CommandData>();
+            // どのフローチャートにも属していないCommandDataを削除
             var flowchartDatas = GetAllScriptableObjects<FlowchartData>();
-            foreach (var cmdData in cmdDatas)
+            foreach (var d in GetAllScriptableObjects<CommandData>())
             {
-                if (IsUsed(cmdData, flowchartDatas) == false)
+                if (IsUsed(d, flowchartDatas) == false)
                 {
                     removeCount++;
-                    DestroyScritableObject(cmdData);
+                    DestroyScritableObject(d);
                 }
             }
+
             AssetDatabase.Refresh(ImportAssetOptions.ForceUpdate);
-            if(removeCount > 0)
+            if (removeCount > 0)
             {
-                Debug.Log($"不要なデータが{removeCount}個削除されました\nFolder: {folderPath}");
+                Debug.Log($"不要なデータが{removeCount}個削除されました");
             }
             else
             {
-                Debug.Log($"不要なデータの検索が完了しました。削除されたデータはありません\nFolder: {folderPath}");
+                Debug.Log($"不要なデータの検索が完了しました。削除されたデータはありません");
             }
-            
+
 
             static bool IsUsed(CommandData targetData, FlowchartData[] flowchartDatas)
             {
@@ -162,85 +194,6 @@ namespace Novel.Editor
                 }
                 return false;
             }
-        }
-
-        /// <summary>
-        /// シーン内のコンポーネントを検索します
-        /// </summary>
-        /// <typeparam name="T">コンポーネント</typeparam>
-        /// <param name="objName">コンポーネントのついたオブジェクトの名前(コンポーネント名と同じなら省略可)</param>
-        /// <param name="findInactive">非アクティブも検索する</param>
-        /// <param name="callLog">呼ばれた際にログを出す</param>
-        /// <returns></returns>
-        public static T FindComponent<T>(string objName = null, bool findInactive = true, bool callLog = false)
-        {
-    #if UNITY_EDITOR
-    #else
-            callLog = false;
-    #endif
-            var componentName = typeof(T).Name;
-            var findName = objName ?? componentName;
-            var obj = GameObject.Find(findName);
-            if (obj == null && findInactive)
-            {
-                obj = FindIncludInactive(findName);
-            }
-            if (obj == null)
-            {
-                Log(findName + " オブジェクトが見つかりませんでした", true);
-                return default;
-            }
-
-            var component = obj.GetComponent<T>();
-            if (component == null)
-            {
-                Log(componentName + " コンポーネントが見つかりませんでした", true);
-                return default;
-            }
-            Log(componentName + "をFindしました", false);
-
-            return component;
-
-
-            void Log(string str, bool isWarning)
-            {
-                if (callLog == false) return;
-                if (isWarning)
-                {
-                    Debug.LogWarning("<color=red>" + str + "</color>");
-                }
-                else
-                {
-                    Debug.Log("<color=lightblue>" + str + "</color>");
-                }
-            }
-        }
-
-        /// <summary>
-        /// 非アクティブのも含めてFindします
-        /// </summary>
-        /// <param name="targetName"></param>
-        /// <returns></returns>
-        static GameObject FindIncludInactive(string targetName)
-        {
-            var gameObjects = Resources.FindObjectsOfTypeAll<GameObject>();
-
-            foreach (var gameObjectInHierarchy in gameObjects)
-            {
-
-    #if UNITY_EDITOR
-                //Hierarchy上のものでなければスルー
-                if (!AssetDatabase.GetAssetOrScenePath(gameObjectInHierarchy).Contains(".unity"))
-                {
-                    continue;
-                }
-    #endif
-                if (gameObjectInHierarchy.name == targetName)
-                {
-                    return gameObjectInHierarchy;
-                }
-            }
-            return null;
         }
     }
 
@@ -294,7 +247,7 @@ namespace Novel.Editor
                 property.serializedObject.ApplyModifiedProperties();
             }
 
-            if(selectedPortraitIndex < portraitsArray.Length && selectedPortraitIndex >= 0)
+            if (selectedPortraitIndex < portraitsArray.Length && selectedPortraitIndex >= 0)
             {
                 return portraitsArray[selectedPortraitIndex];
             }

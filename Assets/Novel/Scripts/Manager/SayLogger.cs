@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 namespace Novel
 {
+    /*
     /// <summary>
     /// ログを記録するクラス(使わなければ削除して構いません)
     /// </summary>
@@ -40,4 +41,5 @@ namespace Novel
             Text = text;
         }
     }
+    */
 }

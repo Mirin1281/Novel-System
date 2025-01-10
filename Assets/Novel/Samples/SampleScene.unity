@@ -144,7 +144,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          isCheckZone: 0
           commandDataList:
           - {fileID: 1576803877}
           - {fileID: 284389983}
@@ -187,7 +186,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          isCheckZone: 1
           commandDataList:
           - {fileID: 635289426}
           - {fileID: 827945195}
@@ -203,8 +201,6 @@ MonoBehaviour:
           - {fileID: 1075478859}
           - {fileID: 1342064861}
           - {fileID: 802768500}
-          - {fileID: 1018282569}
-          - {fileID: 681381871}
           - {fileID: 1821325504}
           - {fileID: 1015700590}
           - {fileID: 2032352414}
@@ -212,14 +208,13 @@ MonoBehaviour:
           - {fileID: 95605644}
           - {fileID: 701662186}
           - {fileID: 1438258747}
-          - {fileID: 844859821}
           - {fileID: 609747425}
           - {fileID: 2126201947}
           - {fileID: 960672197}
           - {fileID: 79765866}
           - {fileID: 18195847}
           description: "\u7D30\u304B\u3044\u4ED5\u69D8\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
-        <Index>k__BackingField: 28
+        <Index>k__BackingField: 25
         character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
         changeSprite: {fileID: 21300000, guid: 217884d24e46f54418eb8fbf3008481d, type: 3}
         storyText: "<size=200%>\u3088\u304D\u30B2\u30FC\u30E0\u5236\u4F5C\u30E9\u30A4\u30D5\u3092\uFF01\uFF01"
@@ -245,7 +240,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          isCheckZone: 0
           commandDataList:
           - {fileID: 1975919719}
           - {fileID: 257485249}
@@ -293,7 +287,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          isCheckZone: 0
           commandDataList:
           - {fileID: 1975919719}
           - {fileID: 257485249}
@@ -341,7 +334,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          isCheckZone: 0
           commandDataList:
           - {fileID: 337384760}
           - {fileID: 1748428382}
@@ -390,7 +382,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          isCheckZone: 0
           commandDataList:
           - {fileID: 337384760}
           - {fileID: 1748428382}
@@ -439,7 +430,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          isCheckZone: 0
           commandDataList:
           - {fileID: 1630555032}
           - {fileID: 419201567}
@@ -483,7 +473,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          isCheckZone: 0
           commandDataList:
           - {fileID: 1215857798}
           - {fileID: 490381538}
@@ -529,7 +518,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          isCheckZone: 1
           commandDataList:
           - {fileID: 635289426}
           - {fileID: 827945195}
@@ -545,8 +533,6 @@ MonoBehaviour:
           - {fileID: 1075478859}
           - {fileID: 1342064861}
           - {fileID: 802768500}
-          - {fileID: 1018282569}
-          - {fileID: 681381871}
           - {fileID: 1821325504}
           - {fileID: 1015700590}
           - {fileID: 2032352414}
@@ -554,14 +540,13 @@ MonoBehaviour:
           - {fileID: 95605644}
           - {fileID: 701662186}
           - {fileID: 1438258747}
-          - {fileID: 844859821}
           - {fileID: 609747425}
           - {fileID: 2126201947}
           - {fileID: 960672197}
           - {fileID: 79765866}
           - {fileID: 18195847}
           description: "\u7D30\u304B\u3044\u4ED5\u69D8\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
-        <Index>k__BackingField: 27
+        <Index>k__BackingField: 24
         character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
         changeSprite: {fileID: 21300000, guid: 855f9004ee0d1af44a9142b63035d451, type: 3}
         storyText: "<s=0.7>\u305D\u308C\u3067\u306F\uFF5E\uFF5E\uFF5E\uFF5E</s>"
@@ -587,7 +572,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          isCheckZone: 0
           commandDataList:
           - {fileID: 1975919719}
           - {fileID: 257485249}
@@ -635,7 +619,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          isCheckZone: 1
           commandDataList:
           - {fileID: 635289426}
           - {fileID: 827945195}
@@ -651,8 +634,6 @@ MonoBehaviour:
           - {fileID: 1075478859}
           - {fileID: 1342064861}
           - {fileID: 802768500}
-          - {fileID: 1018282569}
-          - {fileID: 681381871}
           - {fileID: 1821325504}
           - {fileID: 1015700590}
           - {fileID: 2032352414}
@@ -660,14 +641,13 @@ MonoBehaviour:
           - {fileID: 95605644}
           - {fileID: 701662186}
           - {fileID: 1438258747}
-          - {fileID: 844859821}
           - {fileID: 609747425}
           - {fileID: 2126201947}
           - {fileID: 960672197}
           - {fileID: 79765866}
           - {fileID: 18195847}
           description: "\u7D30\u304B\u3044\u4ED5\u69D8\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
-        <Index>k__BackingField: 20
+        <Index>k__BackingField: 18
         character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
         changeSprite: {fileID: 21300000, guid: 24ea358cd0c6e7d48b3a06eaff46e833, type: 3}
         storyText: "\u3053\u308C\u306B\u3088\u308A\u3001\u30BB\u30FC\u30D6\u306A\u3069\u3067\u30D5\u30ED\u30FC\u30C1\u30E3\u30FC\u30C8\u306E\u9014\u4E2D\u304B\u3089\u30ED\u30FC\u30C9\u3055\u308C\u305F\u5834\u5408\u3067\u3082\u3001\u3061\u3083\u3093\u3068\u80CC\u666F\u8272\u306E\u5909\u66F4\u304C\u3067\u304D\u307E\u3059"
@@ -693,7 +673,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          isCheckZone: 0
           commandDataList:
           - {fileID: 337384760}
           - {fileID: 1748428382}
@@ -742,7 +721,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          isCheckZone: 0
           commandDataList:
           - {fileID: 1576803877}
           - {fileID: 284389983}
@@ -785,7 +763,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          isCheckZone: 0
           commandDataList:
           - {fileID: 1975919719}
           - {fileID: 257485249}
@@ -834,7 +811,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          isCheckZone: 0
           commandDataList:
           - {fileID: 1576803877}
           - {fileID: 284389983}
@@ -877,7 +853,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          isCheckZone: 0
           commandDataList:
           - {fileID: 1576803877}
           - {fileID: 284389983}
@@ -920,7 +895,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          isCheckZone: 0
           commandDataList:
           - {fileID: 1215857798}
           - {fileID: 490381538}
@@ -966,7 +940,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          isCheckZone: 0
           commandDataList:
           - {fileID: 337384760}
           - {fileID: 1748428382}
@@ -1015,7 +988,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          isCheckZone: 0
           commandDataList:
           - {fileID: 337384760}
           - {fileID: 1748428382}
@@ -1064,7 +1036,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          isCheckZone: 0
           commandDataList:
           - {fileID: 1975919719}
           - {fileID: 257485249}
@@ -1112,7 +1083,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          isCheckZone: 0
           commandDataList:
           - {fileID: 1630555032}
           - {fileID: 419201567}
@@ -1156,7 +1126,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          isCheckZone: 0
           commandDataList:
           - {fileID: 337384760}
           - {fileID: 1748428382}
@@ -1205,7 +1174,6 @@ MonoBehaviour:
       type: {class: FlowExecute, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          isCheckZone: 0
           commandDataList:
           - {fileID: 1704022628}
           - {fileID: 2127191575}
@@ -1241,7 +1209,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          isCheckZone: 0
           commandDataList:
           - {fileID: 1215857798}
           - {fileID: 490381538}
@@ -1287,7 +1254,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          isCheckZone: 0
           commandDataList:
           - {fileID: 1630555032}
           - {fileID: 419201567}
@@ -1331,7 +1297,6 @@ MonoBehaviour:
       type: {class: SetIntFlag, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          isCheckZone: 0
           commandDataList:
           - {fileID: 1630555032}
           - {fileID: 419201567}
@@ -1442,7 +1407,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          isCheckZone: 0
           commandDataList:
           - {fileID: 1975919719}
           - {fileID: 257485249}
@@ -1490,7 +1454,6 @@ MonoBehaviour:
       type: {class: Label, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          isCheckZone: 1
           commandDataList:
           - {fileID: 635289426}
           - {fileID: 827945195}
@@ -1506,8 +1469,6 @@ MonoBehaviour:
           - {fileID: 1075478859}
           - {fileID: 1342064861}
           - {fileID: 802768500}
-          - {fileID: 1018282569}
-          - {fileID: 681381871}
           - {fileID: 1821325504}
           - {fileID: 1015700590}
           - {fileID: 2032352414}
@@ -1515,7 +1476,6 @@ MonoBehaviour:
           - {fileID: 95605644}
           - {fileID: 701662186}
           - {fileID: 1438258747}
-          - {fileID: 844859821}
           - {fileID: 609747425}
           - {fileID: 2126201947}
           - {fileID: 960672197}
@@ -1547,7 +1507,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          isCheckZone: 0
           commandDataList:
           - {fileID: 337384760}
           - {fileID: 1748428382}
@@ -1596,7 +1555,6 @@ MonoBehaviour:
       type: {class: Label, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          isCheckZone: 1
           commandDataList:
           - {fileID: 635289426}
           - {fileID: 827945195}
@@ -1612,8 +1570,6 @@ MonoBehaviour:
           - {fileID: 1075478859}
           - {fileID: 1342064861}
           - {fileID: 802768500}
-          - {fileID: 1018282569}
-          - {fileID: 681381871}
           - {fileID: 1821325504}
           - {fileID: 1015700590}
           - {fileID: 2032352414}
@@ -1621,7 +1577,6 @@ MonoBehaviour:
           - {fileID: 95605644}
           - {fileID: 701662186}
           - {fileID: 1438258747}
-          - {fileID: 844859821}
           - {fileID: 609747425}
           - {fileID: 2126201947}
           - {fileID: 960672197}
@@ -1745,7 +1700,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          isCheckZone: 0
           commandDataList:
           - {fileID: 1630555032}
           - {fileID: 419201567}
@@ -1789,7 +1743,6 @@ MonoBehaviour:
       type: {class: Label, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          isCheckZone: 1
           commandDataList:
           - {fileID: 635289426}
           - {fileID: 827945195}
@@ -1805,8 +1758,6 @@ MonoBehaviour:
           - {fileID: 1075478859}
           - {fileID: 1342064861}
           - {fileID: 802768500}
-          - {fileID: 1018282569}
-          - {fileID: 681381871}
           - {fileID: 1821325504}
           - {fileID: 1015700590}
           - {fileID: 2032352414}
@@ -1814,14 +1765,13 @@ MonoBehaviour:
           - {fileID: 95605644}
           - {fileID: 701662186}
           - {fileID: 1438258747}
-          - {fileID: 844859821}
           - {fileID: 609747425}
           - {fileID: 2126201947}
           - {fileID: 960672197}
           - {fileID: 79765866}
           - {fileID: 18195847}
           description: "\u7D30\u304B\u3044\u4ED5\u69D8\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
-        <Index>k__BackingField: 24
+        <Index>k__BackingField: 21
         labelName: "\u304A\u308F\u308A\u306B"
         commandColor: {r: 0.3726415, g: 1, b: 0.75451195, a: 1}
 --- !u!114 &612701571
@@ -1846,7 +1796,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          isCheckZone: 1
           commandDataList:
           - {fileID: 635289426}
           - {fileID: 827945195}
@@ -1862,8 +1811,6 @@ MonoBehaviour:
           - {fileID: 1075478859}
           - {fileID: 1342064861}
           - {fileID: 802768500}
-          - {fileID: 1018282569}
-          - {fileID: 681381871}
           - {fileID: 1821325504}
           - {fileID: 1015700590}
           - {fileID: 2032352414}
@@ -1871,7 +1818,6 @@ MonoBehaviour:
           - {fileID: 95605644}
           - {fileID: 701662186}
           - {fileID: 1438258747}
-          - {fileID: 844859821}
           - {fileID: 609747425}
           - {fileID: 2126201947}
           - {fileID: 960672197}
@@ -1904,7 +1850,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          isCheckZone: 0
           commandDataList:
           - {fileID: 1391726535}
           - {fileID: 1961789263}
@@ -1943,7 +1888,6 @@ MonoBehaviour:
       type: {class: Portrait, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          isCheckZone: 1
           commandDataList:
           - {fileID: 635289426}
           - {fileID: 827945195}
@@ -1959,8 +1903,6 @@ MonoBehaviour:
           - {fileID: 1075478859}
           - {fileID: 1342064861}
           - {fileID: 802768500}
-          - {fileID: 1018282569}
-          - {fileID: 681381871}
           - {fileID: 1821325504}
           - {fileID: 1015700590}
           - {fileID: 2032352414}
@@ -1968,7 +1910,6 @@ MonoBehaviour:
           - {fileID: 95605644}
           - {fileID: 701662186}
           - {fileID: 1438258747}
-          - {fileID: 844859821}
           - {fileID: 609747425}
           - {fileID: 2126201947}
           - {fileID: 960672197}
@@ -2005,7 +1946,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          isCheckZone: 0
           commandDataList:
           - {fileID: 337384760}
           - {fileID: 1748428382}
@@ -2055,7 +1995,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          isCheckZone: 0
           commandDataList:
           - {fileID: 1215857798}
           - {fileID: 490381538}
@@ -2102,7 +2041,6 @@ MonoBehaviour:
       type: {class: SetIntFlag, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          isCheckZone: 0
           commandDataList:
           - {fileID: 1630555032}
           - {fileID: 419201567}
@@ -2123,62 +2061,6 @@ MonoBehaviour:
         <Index>k__BackingField: 9
         flagKey: {fileID: 11400000, guid: 0328191814683ab4db82d3af84d9d0fe, type: 2}
         value: 3
---- !u!114 &681381871
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4399fbfc898731a4f96fd937ce84eeff, type: 3}
-  m_Name: (Clone)(Clone)
-  m_EditorClassIdentifier: 
-  enabled: 1
-  command:
-    rid: 3802097174107389954
-  references:
-    version: 2
-    RefIds:
-    - rid: 3802097174107389954
-      type: {class: SetBackgroundColorZone, ns: Novel.Command, asm: Novel}
-      data:
-        <ParentFlowchart>k__BackingField:
-          isCheckZone: 1
-          commandDataList:
-          - {fileID: 635289426}
-          - {fileID: 827945195}
-          - {fileID: 575792858}
-          - {fileID: 1264726466}
-          - {fileID: 1994864483}
-          - {fileID: 612701571}
-          - {fileID: 1773548616}
-          - {fileID: 1918812170}
-          - {fileID: 561583200}
-          - {fileID: 1808413814}
-          - {fileID: 1688702095}
-          - {fileID: 1075478859}
-          - {fileID: 1342064861}
-          - {fileID: 802768500}
-          - {fileID: 1018282569}
-          - {fileID: 681381871}
-          - {fileID: 1821325504}
-          - {fileID: 1015700590}
-          - {fileID: 2032352414}
-          - {fileID: 2021486787}
-          - {fileID: 95605644}
-          - {fileID: 701662186}
-          - {fileID: 1438258747}
-          - {fileID: 844859821}
-          - {fileID: 609747425}
-          - {fileID: 2126201947}
-          - {fileID: 960672197}
-          - {fileID: 79765866}
-          - {fileID: 18195847}
-          description: "\u7D30\u304B\u3044\u4ED5\u69D8\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
-        <Index>k__BackingField: 15
-        color: {r: 0.7377358, g: 0.9897944, b: 1, a: 0}
 --- !u!114 &696327068
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2201,7 +2083,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          isCheckZone: 0
           commandDataList:
           - {fileID: 1975919719}
           - {fileID: 257485249}
@@ -2249,7 +2130,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          isCheckZone: 1
           commandDataList:
           - {fileID: 635289426}
           - {fileID: 827945195}
@@ -2265,8 +2145,6 @@ MonoBehaviour:
           - {fileID: 1075478859}
           - {fileID: 1342064861}
           - {fileID: 802768500}
-          - {fileID: 1018282569}
-          - {fileID: 681381871}
           - {fileID: 1821325504}
           - {fileID: 1015700590}
           - {fileID: 2032352414}
@@ -2274,14 +2152,13 @@ MonoBehaviour:
           - {fileID: 95605644}
           - {fileID: 701662186}
           - {fileID: 1438258747}
-          - {fileID: 844859821}
           - {fileID: 609747425}
           - {fileID: 2126201947}
           - {fileID: 960672197}
           - {fileID: 79765866}
           - {fileID: 18195847}
           description: "\u7D30\u304B\u3044\u4ED5\u69D8\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
-        <Index>k__BackingField: 21
+        <Index>k__BackingField: 19
         character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
         changeSprite: {fileID: 21300000, guid: 24ea358cd0c6e7d48b3a06eaff46e833, type: 3}
         storyText: "\u306A\u304A\u3001Flowchart.isCheckZone\u3092true\u306B\u3057\u306A\u3044\u3068\u6B63\u5E38\u52D5\u4F5C\u3057\u306A\u3044\u306E\u3067\u6CE8\u610F\u3057\u3066\u304F\u3060\u3055\u3044(\u30C7\u30D5\u30A9\u30EB\u30C8\u306Ffalse)"
@@ -2307,7 +2184,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          isCheckZone: 0
           commandDataList:
           - {fileID: 1576803877}
           - {fileID: 284389983}
@@ -2350,7 +2226,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          isCheckZone: 0
           commandDataList:
           - {fileID: 1630555032}
           - {fileID: 419201567}
@@ -2394,7 +2269,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          isCheckZone: 0
           commandDataList:
           - {fileID: 1975919719}
           - {fileID: 257485249}
@@ -2442,7 +2316,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          isCheckZone: 1
           commandDataList:
           - {fileID: 635289426}
           - {fileID: 827945195}
@@ -2458,8 +2331,6 @@ MonoBehaviour:
           - {fileID: 1075478859}
           - {fileID: 1342064861}
           - {fileID: 802768500}
-          - {fileID: 1018282569}
-          - {fileID: 681381871}
           - {fileID: 1821325504}
           - {fileID: 1015700590}
           - {fileID: 2032352414}
@@ -2467,7 +2338,6 @@ MonoBehaviour:
           - {fileID: 95605644}
           - {fileID: 701662186}
           - {fileID: 1438258747}
-          - {fileID: 844859821}
           - {fileID: 609747425}
           - {fileID: 2126201947}
           - {fileID: 960672197}
@@ -2500,7 +2370,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          isCheckZone: 0
           commandDataList:
           - {fileID: 1704022628}
           - {fileID: 2127191575}
@@ -2534,7 +2403,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          isCheckZone: 0
           commandDataList:
           - {fileID: 337384760}
           - {fileID: 1748428382}
@@ -2585,7 +2453,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          isCheckZone: 1
           commandDataList:
           - {fileID: 635289426}
           - {fileID: 827945195}
@@ -2601,8 +2468,6 @@ MonoBehaviour:
           - {fileID: 1075478859}
           - {fileID: 1342064861}
           - {fileID: 802768500}
-          - {fileID: 1018282569}
-          - {fileID: 681381871}
           - {fileID: 1821325504}
           - {fileID: 1015700590}
           - {fileID: 2032352414}
@@ -2610,7 +2475,6 @@ MonoBehaviour:
           - {fileID: 95605644}
           - {fileID: 701662186}
           - {fileID: 1438258747}
-          - {fileID: 844859821}
           - {fileID: 609747425}
           - {fileID: 2126201947}
           - {fileID: 960672197}
@@ -2621,62 +2485,6 @@ MonoBehaviour:
         character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
         changeSprite: {fileID: 21300000, guid: 217884d24e46f54418eb8fbf3008481d, type: 3}
         storyText: "\u6700\u5F8C\u306B\u3001\u7D30\u304B\u3044Tips\u306B\u3064\u3044\u3066\u8AAC\u660E\u3057\u3066\u3044\u304D\u307E\u3059\uFF01"
---- !u!114 &844859821
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4399fbfc898731a4f96fd937ce84eeff, type: 3}
-  m_Name: (Clone)(Clone)(Clone)
-  m_EditorClassIdentifier: 
-  enabled: 1
-  command:
-    rid: 3802097174107389954
-  references:
-    version: 2
-    RefIds:
-    - rid: 3802097174107389954
-      type: {class: SetBackgroundColorZone, ns: Novel.Command, asm: Novel}
-      data:
-        <ParentFlowchart>k__BackingField:
-          isCheckZone: 1
-          commandDataList:
-          - {fileID: 635289426}
-          - {fileID: 827945195}
-          - {fileID: 575792858}
-          - {fileID: 1264726466}
-          - {fileID: 1994864483}
-          - {fileID: 612701571}
-          - {fileID: 1773548616}
-          - {fileID: 1918812170}
-          - {fileID: 561583200}
-          - {fileID: 1808413814}
-          - {fileID: 1688702095}
-          - {fileID: 1075478859}
-          - {fileID: 1342064861}
-          - {fileID: 802768500}
-          - {fileID: 1018282569}
-          - {fileID: 681381871}
-          - {fileID: 1821325504}
-          - {fileID: 1015700590}
-          - {fileID: 2032352414}
-          - {fileID: 2021486787}
-          - {fileID: 95605644}
-          - {fileID: 701662186}
-          - {fileID: 1438258747}
-          - {fileID: 844859821}
-          - {fileID: 609747425}
-          - {fileID: 2126201947}
-          - {fileID: 960672197}
-          - {fileID: 79765866}
-          - {fileID: 18195847}
-          description: "\u7D30\u304B\u3044\u4ED5\u69D8\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
-        <Index>k__BackingField: 23
-        color: {r: 1, g: 0.8726415, b: 0.8726415, a: 0}
 --- !u!114 &872611349
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2699,7 +2507,6 @@ MonoBehaviour:
       type: {class: SayAdvanced, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          isCheckZone: 0
           commandDataList:
           - {fileID: 1630555032}
           - {fileID: 419201567}
@@ -2748,7 +2555,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          isCheckZone: 0
           commandDataList:
           - {fileID: 1630555032}
           - {fileID: 419201567}
@@ -2801,7 +2607,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   executeOnStart: 1
   flowchart:
-    isCheckZone: 0
     commandDataList:
     - {fileID: 337384760}
     - {fileID: 1748428382}
@@ -2861,7 +2666,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          isCheckZone: 0
           commandDataList:
           - {fileID: 1975919719}
           - {fileID: 257485249}
@@ -2909,7 +2713,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          isCheckZone: 1
           commandDataList:
           - {fileID: 635289426}
           - {fileID: 827945195}
@@ -2925,8 +2728,6 @@ MonoBehaviour:
           - {fileID: 1075478859}
           - {fileID: 1342064861}
           - {fileID: 802768500}
-          - {fileID: 1018282569}
-          - {fileID: 681381871}
           - {fileID: 1821325504}
           - {fileID: 1015700590}
           - {fileID: 2032352414}
@@ -2934,14 +2735,13 @@ MonoBehaviour:
           - {fileID: 95605644}
           - {fileID: 701662186}
           - {fileID: 1438258747}
-          - {fileID: 844859821}
           - {fileID: 609747425}
           - {fileID: 2126201947}
           - {fileID: 960672197}
           - {fileID: 79765866}
           - {fileID: 18195847}
           description: "\u7D30\u304B\u3044\u4ED5\u69D8\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
-        <Index>k__BackingField: 26
+        <Index>k__BackingField: 23
         character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
         changeSprite: {fileID: 21300000, guid: 24ea358cd0c6e7d48b3a06eaff46e833, type: 3}
         storyText: "\u307E\u305F\u3001\u30D0\u30B0\u3084\u6539\u5584\u6848\u3001\u6B32\u3057\u3044\u6A5F\u80FD\u306A\u3069\u3082\u3042\u308A\u307E\u3057\u305F\u3089\u662F\u975E\u305C\u3072\u3054\u9023\u7D61\u304F\u3060\u3055\u3044\uFF01"
@@ -2967,7 +2767,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          isCheckZone: 0
           commandDataList:
           - {fileID: 1576803877}
           - {fileID: 284389983}
@@ -3010,7 +2809,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          isCheckZone: 0
           commandDataList:
           - {fileID: 1215857798}
           - {fileID: 490381538}
@@ -3065,7 +2863,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   executeOnStart: 1
   flowchart:
-    isCheckZone: 0
     commandDataList:
     - {fileID: 1630555032}
     - {fileID: 419201567}
@@ -3120,7 +2917,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          isCheckZone: 1
           commandDataList:
           - {fileID: 635289426}
           - {fileID: 827945195}
@@ -3136,8 +2932,6 @@ MonoBehaviour:
           - {fileID: 1075478859}
           - {fileID: 1342064861}
           - {fileID: 802768500}
-          - {fileID: 1018282569}
-          - {fileID: 681381871}
           - {fileID: 1821325504}
           - {fileID: 1015700590}
           - {fileID: 2032352414}
@@ -3145,74 +2939,16 @@ MonoBehaviour:
           - {fileID: 95605644}
           - {fileID: 701662186}
           - {fileID: 1438258747}
-          - {fileID: 844859821}
           - {fileID: 609747425}
           - {fileID: 2126201947}
           - {fileID: 960672197}
           - {fileID: 79765866}
           - {fileID: 18195847}
           description: "\u7D30\u304B\u3044\u4ED5\u69D8\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
-        <Index>k__BackingField: 17
+        <Index>k__BackingField: 15
         character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
         changeSprite: {fileID: 21300000, guid: 24ea358cd0c6e7d48b3a06eaff46e833, type: 3}
         storyText: "\u3053\u306E\u30B3\u30DE\u30F3\u30C9\u306F\u30D5\u30ED\u30FC\u30C1\u30E3\u30FC\u30C8\u5185\u3067\u30BB\u30FC\u30D6\u3092\u3059\u308B\u5834\u5408\u306A\u3069\u3001\u7279\u6B8A\u306A\u72B6\u6CC1\u3092\u60F3\u5B9A\u3057\u3066\u3044\u307E\u3059\u3002\u6A19\u6E96\u3067\u30BB\u30FC\u30D6\u30ED\u30FC\u30C9\u6A5F\u80FD\u306F\u5B9F\u88C5\u3055\u308C\u3066\u3044\u306A\u3044\u306E\u3067\u3001\u666E\u901A\u306E\u65B9\u306F\u30B9\u30EB\u30FC\u3057\u3066\u69CB\u3044\u307E\u305B\u3093"
---- !u!114 &1018282569
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4399fbfc898731a4f96fd937ce84eeff, type: 3}
-  m_Name: (Clone)(Clone)
-  m_EditorClassIdentifier: 
-  enabled: 1
-  command:
-    rid: 3802097174107389953
-  references:
-    version: 2
-    RefIds:
-    - rid: 3802097174107389953
-      type: {class: Label, ns: Novel.Command, asm: Novel}
-      data:
-        <ParentFlowchart>k__BackingField:
-          isCheckZone: 1
-          commandDataList:
-          - {fileID: 635289426}
-          - {fileID: 827945195}
-          - {fileID: 575792858}
-          - {fileID: 1264726466}
-          - {fileID: 1994864483}
-          - {fileID: 612701571}
-          - {fileID: 1773548616}
-          - {fileID: 1918812170}
-          - {fileID: 561583200}
-          - {fileID: 1808413814}
-          - {fileID: 1688702095}
-          - {fileID: 1075478859}
-          - {fileID: 1342064861}
-          - {fileID: 802768500}
-          - {fileID: 1018282569}
-          - {fileID: 681381871}
-          - {fileID: 1821325504}
-          - {fileID: 1015700590}
-          - {fileID: 2032352414}
-          - {fileID: 2021486787}
-          - {fileID: 95605644}
-          - {fileID: 701662186}
-          - {fileID: 1438258747}
-          - {fileID: 844859821}
-          - {fileID: 609747425}
-          - {fileID: 2126201947}
-          - {fileID: 960672197}
-          - {fileID: 79765866}
-          - {fileID: 18195847}
-          description: "\u7D30\u304B\u3044\u4ED5\u69D8\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
-        <Index>k__BackingField: 14
-        labelName: "Zone\u30B3\u30DE\u30F3\u30C9"
-        commandColor: {r: 0.3726415, g: 1, b: 0.75451195, a: 1}
 --- !u!114 &1031612139
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3235,7 +2971,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          isCheckZone: 0
           commandDataList:
           - {fileID: 1704022628}
           - {fileID: 2127191575}
@@ -3269,7 +3004,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          isCheckZone: 0
           commandDataList:
           - {fileID: 337384760}
           - {fileID: 1748428382}
@@ -3318,7 +3052,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          isCheckZone: 0
           commandDataList:
           - {fileID: 1215857798}
           - {fileID: 490381538}
@@ -3364,7 +3097,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          isCheckZone: 1
           commandDataList:
           - {fileID: 635289426}
           - {fileID: 827945195}
@@ -3380,8 +3112,6 @@ MonoBehaviour:
           - {fileID: 1075478859}
           - {fileID: 1342064861}
           - {fileID: 802768500}
-          - {fileID: 1018282569}
-          - {fileID: 681381871}
           - {fileID: 1821325504}
           - {fileID: 1015700590}
           - {fileID: 2032352414}
@@ -3389,7 +3119,6 @@ MonoBehaviour:
           - {fileID: 95605644}
           - {fileID: 701662186}
           - {fileID: 1438258747}
-          - {fileID: 844859821}
           - {fileID: 609747425}
           - {fileID: 2126201947}
           - {fileID: 960672197}
@@ -3422,7 +3151,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          isCheckZone: 0
           commandDataList:
           - {fileID: 1630555032}
           - {fileID: 419201567}
@@ -3466,7 +3194,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          isCheckZone: 0
           commandDataList:
           - {fileID: 1975919719}
           - {fileID: 257485249}
@@ -3523,7 +3250,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   executeOnStart: 1
   flowchart:
-    isCheckZone: 1
     commandDataList:
     - {fileID: 635289426}
     - {fileID: 827945195}
@@ -3539,8 +3265,6 @@ MonoBehaviour:
     - {fileID: 1075478859}
     - {fileID: 1342064861}
     - {fileID: 802768500}
-    - {fileID: 1018282569}
-    - {fileID: 681381871}
     - {fileID: 1821325504}
     - {fileID: 1015700590}
     - {fileID: 2032352414}
@@ -3548,7 +3272,6 @@ MonoBehaviour:
     - {fileID: 95605644}
     - {fileID: 701662186}
     - {fileID: 1438258747}
-    - {fileID: 844859821}
     - {fileID: 609747425}
     - {fileID: 2126201947}
     - {fileID: 960672197}
@@ -3592,7 +3315,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          isCheckZone: 0
           commandDataList:
           - {fileID: 1975919719}
           - {fileID: 257485249}
@@ -3640,7 +3362,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          isCheckZone: 0
           commandDataList:
           - {fileID: 1975919719}
           - {fileID: 257485249}
@@ -3688,7 +3409,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          isCheckZone: 0
           commandDataList:
           - {fileID: 1215857798}
           - {fileID: 490381538}
@@ -3735,7 +3455,6 @@ MonoBehaviour:
       type: {class: Portrait, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          isCheckZone: 0
           commandDataList:
           - {fileID: 1215857798}
           - {fileID: 490381538}
@@ -3794,7 +3513,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   executeOnStart: 1
   flowchart:
-    isCheckZone: 0
     commandDataList:
     - {fileID: 1391726535}
     - {fileID: 1961789263}
@@ -3844,7 +3562,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          isCheckZone: 0
           commandDataList:
           - {fileID: 1576803877}
           - {fileID: 284389983}
@@ -3887,7 +3604,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          isCheckZone: 1
           commandDataList:
           - {fileID: 635289426}
           - {fileID: 827945195}
@@ -3903,8 +3619,6 @@ MonoBehaviour:
           - {fileID: 1075478859}
           - {fileID: 1342064861}
           - {fileID: 802768500}
-          - {fileID: 1018282569}
-          - {fileID: 681381871}
           - {fileID: 1821325504}
           - {fileID: 1015700590}
           - {fileID: 2032352414}
@@ -3912,7 +3626,6 @@ MonoBehaviour:
           - {fileID: 95605644}
           - {fileID: 701662186}
           - {fileID: 1438258747}
-          - {fileID: 844859821}
           - {fileID: 609747425}
           - {fileID: 2126201947}
           - {fileID: 960672197}
@@ -3954,7 +3667,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   executeOnStart: 1
   flowchart:
-    isCheckZone: 0
     commandDataList:
     - {fileID: 1576803877}
     - {fileID: 284389983}
@@ -4008,7 +3720,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          isCheckZone: 0
           commandDataList:
           - {fileID: 1215857798}
           - {fileID: 490381538}
@@ -4054,7 +3765,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          isCheckZone: 0
           commandDataList:
           - {fileID: 337384760}
           - {fileID: 1748428382}
@@ -4103,7 +3813,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          isCheckZone: 0
           commandDataList:
           - {fileID: 1215857798}
           - {fileID: 490381538}
@@ -4149,7 +3858,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          isCheckZone: 0
           commandDataList:
           - {fileID: 1630555032}
           - {fileID: 419201567}
@@ -4193,7 +3901,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          isCheckZone: 1
           commandDataList:
           - {fileID: 635289426}
           - {fileID: 827945195}
@@ -4209,8 +3916,6 @@ MonoBehaviour:
           - {fileID: 1075478859}
           - {fileID: 1342064861}
           - {fileID: 802768500}
-          - {fileID: 1018282569}
-          - {fileID: 681381871}
           - {fileID: 1821325504}
           - {fileID: 1015700590}
           - {fileID: 2032352414}
@@ -4218,7 +3923,6 @@ MonoBehaviour:
           - {fileID: 95605644}
           - {fileID: 701662186}
           - {fileID: 1438258747}
-          - {fileID: 844859821}
           - {fileID: 609747425}
           - {fileID: 2126201947}
           - {fileID: 960672197}
@@ -4251,7 +3955,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          isCheckZone: 0
           commandDataList:
           - {fileID: 1215857798}
           - {fileID: 490381538}
@@ -4297,7 +4000,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          isCheckZone: 0
           commandDataList:
           - {fileID: 1630555032}
           - {fileID: 419201567}
@@ -4341,7 +4043,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          isCheckZone: 0
           commandDataList:
           - {fileID: 337384760}
           - {fileID: 1748428382}
@@ -4390,7 +4091,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          isCheckZone: 0
           commandDataList:
           - {fileID: 1975919719}
           - {fileID: 257485249}
@@ -4438,7 +4138,6 @@ MonoBehaviour:
       type: {class: Portrait, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          isCheckZone: 0
           commandDataList:
           - {fileID: 1391726535}
           - {fileID: 1961789263}
@@ -4481,7 +4180,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          isCheckZone: 1
           commandDataList:
           - {fileID: 635289426}
           - {fileID: 827945195}
@@ -4497,8 +4195,6 @@ MonoBehaviour:
           - {fileID: 1075478859}
           - {fileID: 1342064861}
           - {fileID: 802768500}
-          - {fileID: 1018282569}
-          - {fileID: 681381871}
           - {fileID: 1821325504}
           - {fileID: 1015700590}
           - {fileID: 2032352414}
@@ -4506,14 +4202,13 @@ MonoBehaviour:
           - {fileID: 95605644}
           - {fileID: 701662186}
           - {fileID: 1438258747}
-          - {fileID: 844859821}
           - {fileID: 609747425}
           - {fileID: 2126201947}
           - {fileID: 960672197}
           - {fileID: 79765866}
           - {fileID: 18195847}
           description: "\u7D30\u304B\u3044\u4ED5\u69D8\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
-        <Index>k__BackingField: 22
+        <Index>k__BackingField: 20
         character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
         changeSprite: {fileID: 21300000, guid: 24ea358cd0c6e7d48b3a06eaff46e833, type: 3}
         storyText: "\u666E\u901A\u306B\u5B9F\u88C5\u3059\u308B\u3068\u3001\u5C02\u7528\u306E\u5909\u6570\u304C\u591A\u304F\u306A\u3063\u305F\u308A\u3001\u8907\u96D1\u306B\u306A\u3063\u3066\u3057\u307E\u3046\u306E\u3067\u3053\u3053\u3060\u3051\u5B9F\u88C5\u3057\u307E\u3057\u305F\u3002\u3054\u81EA\u7531\u306B\u304A\u4F7F\u3044\u304F\u3060\u3055\u3044"
@@ -4539,7 +4234,6 @@ MonoBehaviour:
       type: {class: SayAdvanced, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          isCheckZone: 0
           commandDataList:
           - {fileID: 1630555032}
           - {fileID: 419201567}
@@ -4612,7 +4306,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   executeOnStart: 1
   flowchart:
-    isCheckZone: 0
     commandDataList:
     - {fileID: 1975919719}
     - {fileID: 257485249}
@@ -4656,7 +4349,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          isCheckZone: 0
           commandDataList:
           - {fileID: 1576803877}
           - {fileID: 284389983}
@@ -4699,7 +4391,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          isCheckZone: 0
           commandDataList:
           - {fileID: 1391726535}
           - {fileID: 1961789263}
@@ -4738,7 +4429,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          isCheckZone: 0
           commandDataList:
           - {fileID: 1391726535}
           - {fileID: 1961789263}
@@ -4777,7 +4467,6 @@ MonoBehaviour:
       type: {class: Portrait, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          isCheckZone: 0
           commandDataList:
           - {fileID: 1576803877}
           - {fileID: 284389983}
@@ -4824,7 +4513,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          isCheckZone: 0
           commandDataList:
           - {fileID: 1975919719}
           - {fileID: 257485249}
@@ -4872,7 +4560,6 @@ MonoBehaviour:
       type: {class: Portrait, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          isCheckZone: 0
           commandDataList:
           - {fileID: 1630555032}
           - {fileID: 419201567}
@@ -4920,7 +4607,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          isCheckZone: 0
           commandDataList:
           - {fileID: 1391726535}
           - {fileID: 1961789263}
@@ -4959,7 +4645,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          isCheckZone: 0
           commandDataList:
           - {fileID: 1975919719}
           - {fileID: 257485249}
@@ -5007,7 +4692,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          isCheckZone: 0
           commandDataList:
           - {fileID: 1215857798}
           - {fileID: 490381538}
@@ -5053,7 +4737,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          isCheckZone: 0
           commandDataList:
           - {fileID: 1391726535}
           - {fileID: 1961789263}
@@ -5092,7 +4775,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          isCheckZone: 0
           commandDataList:
           - {fileID: 337384760}
           - {fileID: 1748428382}
@@ -5150,7 +4832,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   executeOnStart: 1
   flowchart:
-    isCheckZone: 0
     commandDataList:
     - {fileID: 1215857798}
     - {fileID: 490381538}
@@ -5207,7 +4888,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          isCheckZone: 1
           commandDataList:
           - {fileID: 635289426}
           - {fileID: 827945195}
@@ -5223,8 +4903,6 @@ MonoBehaviour:
           - {fileID: 1075478859}
           - {fileID: 1342064861}
           - {fileID: 802768500}
-          - {fileID: 1018282569}
-          - {fileID: 681381871}
           - {fileID: 1821325504}
           - {fileID: 1015700590}
           - {fileID: 2032352414}
@@ -5232,7 +4910,6 @@ MonoBehaviour:
           - {fileID: 95605644}
           - {fileID: 701662186}
           - {fileID: 1438258747}
-          - {fileID: 844859821}
           - {fileID: 609747425}
           - {fileID: 2126201947}
           - {fileID: 960672197}
@@ -5265,7 +4942,6 @@ MonoBehaviour:
       type: {class: Portrait, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          isCheckZone: 0
           commandDataList:
           - {fileID: 1704022628}
           - {fileID: 2127191575}
@@ -5303,7 +4979,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          isCheckZone: 0
           commandDataList:
           - {fileID: 1576803877}
           - {fileID: 284389983}
@@ -5346,7 +5021,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          isCheckZone: 0
           commandDataList:
           - {fileID: 1975919719}
           - {fileID: 257485249}
@@ -5394,7 +5068,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          isCheckZone: 0
           commandDataList:
           - {fileID: 337384760}
           - {fileID: 1748428382}
@@ -5443,7 +5116,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          isCheckZone: 0
           commandDataList:
           - {fileID: 337384760}
           - {fileID: 1748428382}
@@ -5492,7 +5164,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          isCheckZone: 0
           commandDataList:
           - {fileID: 1975919719}
           - {fileID: 257485249}
@@ -5540,7 +5211,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          isCheckZone: 1
           commandDataList:
           - {fileID: 635289426}
           - {fileID: 827945195}
@@ -5556,8 +5226,6 @@ MonoBehaviour:
           - {fileID: 1075478859}
           - {fileID: 1342064861}
           - {fileID: 802768500}
-          - {fileID: 1018282569}
-          - {fileID: 681381871}
           - {fileID: 1821325504}
           - {fileID: 1015700590}
           - {fileID: 2032352414}
@@ -5565,7 +5233,6 @@ MonoBehaviour:
           - {fileID: 95605644}
           - {fileID: 701662186}
           - {fileID: 1438258747}
-          - {fileID: 844859821}
           - {fileID: 609747425}
           - {fileID: 2126201947}
           - {fileID: 960672197}
@@ -5598,7 +5265,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          isCheckZone: 0
           commandDataList:
           - {fileID: 337384760}
           - {fileID: 1748428382}
@@ -5647,7 +5313,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          isCheckZone: 0
           commandDataList:
           - {fileID: 1391726535}
           - {fileID: 1961789263}
@@ -5686,7 +5351,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          isCheckZone: 1
           commandDataList:
           - {fileID: 635289426}
           - {fileID: 827945195}
@@ -5702,8 +5366,6 @@ MonoBehaviour:
           - {fileID: 1075478859}
           - {fileID: 1342064861}
           - {fileID: 802768500}
-          - {fileID: 1018282569}
-          - {fileID: 681381871}
           - {fileID: 1821325504}
           - {fileID: 1015700590}
           - {fileID: 2032352414}
@@ -5711,7 +5373,6 @@ MonoBehaviour:
           - {fileID: 95605644}
           - {fileID: 701662186}
           - {fileID: 1438258747}
-          - {fileID: 844859821}
           - {fileID: 609747425}
           - {fileID: 2126201947}
           - {fileID: 960672197}
@@ -5744,7 +5405,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          isCheckZone: 0
           commandDataList:
           - {fileID: 1576803877}
           - {fileID: 284389983}
@@ -5788,7 +5448,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          isCheckZone: 1
           commandDataList:
           - {fileID: 635289426}
           - {fileID: 827945195}
@@ -5804,8 +5463,6 @@ MonoBehaviour:
           - {fileID: 1075478859}
           - {fileID: 1342064861}
           - {fileID: 802768500}
-          - {fileID: 1018282569}
-          - {fileID: 681381871}
           - {fileID: 1821325504}
           - {fileID: 1015700590}
           - {fileID: 2032352414}
@@ -5813,14 +5470,13 @@ MonoBehaviour:
           - {fileID: 95605644}
           - {fileID: 701662186}
           - {fileID: 1438258747}
-          - {fileID: 844859821}
           - {fileID: 609747425}
           - {fileID: 2126201947}
           - {fileID: 960672197}
           - {fileID: 79765866}
           - {fileID: 18195847}
           description: "\u7D30\u304B\u3044\u4ED5\u69D8\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
-        <Index>k__BackingField: 16
+        <Index>k__BackingField: 14
         character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
         changeSprite: {fileID: 21300000, guid: 24ea358cd0c6e7d48b3a06eaff46e833, type: 3}
         storyText: "\u6B21\u306B\u3001\u7279\u6B8A\u306A\u30B3\u30DE\u30F3\u30C9\u3001Zone\u30B3\u30DE\u30F3\u30C9\u306B\u3064\u3044\u3066\u3067\u3059"
@@ -5846,7 +5502,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          isCheckZone: 0
           commandDataList:
           - {fileID: 1391726535}
           - {fileID: 1961789263}
@@ -5885,7 +5540,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          isCheckZone: 0
           commandDataList:
           - {fileID: 1215857798}
           - {fileID: 490381538}
@@ -5931,7 +5585,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          isCheckZone: 0
           commandDataList:
           - {fileID: 1576803877}
           - {fileID: 284389983}
@@ -5974,7 +5627,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          isCheckZone: 0
           commandDataList:
           - {fileID: 1975919719}
           - {fileID: 257485249}
@@ -6119,7 +5771,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          isCheckZone: 0
           commandDataList:
           - {fileID: 1215857798}
           - {fileID: 490381538}
@@ -6165,7 +5816,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          isCheckZone: 0
           commandDataList:
           - {fileID: 337384760}
           - {fileID: 1748428382}
@@ -6214,7 +5864,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          isCheckZone: 0
           commandDataList:
           - {fileID: 1391726535}
           - {fileID: 1961789263}
@@ -6292,7 +5941,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          isCheckZone: 1
           commandDataList:
           - {fileID: 635289426}
           - {fileID: 827945195}
@@ -6308,8 +5956,6 @@ MonoBehaviour:
           - {fileID: 1075478859}
           - {fileID: 1342064861}
           - {fileID: 802768500}
-          - {fileID: 1018282569}
-          - {fileID: 681381871}
           - {fileID: 1821325504}
           - {fileID: 1015700590}
           - {fileID: 2032352414}
@@ -6317,7 +5963,6 @@ MonoBehaviour:
           - {fileID: 95605644}
           - {fileID: 701662186}
           - {fileID: 1438258747}
-          - {fileID: 844859821}
           - {fileID: 609747425}
           - {fileID: 2126201947}
           - {fileID: 960672197}
@@ -6350,7 +5995,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          isCheckZone: 0
           commandDataList:
           - {fileID: 1215857798}
           - {fileID: 490381538}
@@ -6396,7 +6040,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          isCheckZone: 0
           commandDataList:
           - {fileID: 337384760}
           - {fileID: 1748428382}
@@ -6445,7 +6088,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          isCheckZone: 0
           commandDataList:
           - {fileID: 1576803877}
           - {fileID: 284389983}
@@ -6488,7 +6130,6 @@ MonoBehaviour:
       type: {class: SayAdvanced, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          isCheckZone: 0
           commandDataList:
           - {fileID: 1391726535}
           - {fileID: 1961789263}
@@ -6531,7 +6172,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          isCheckZone: 0
           commandDataList:
           - {fileID: 1215857798}
           - {fileID: 490381538}
@@ -6577,7 +6217,6 @@ MonoBehaviour:
       type: {class: Portrait, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          isCheckZone: 0
           commandDataList:
           - {fileID: 1975919719}
           - {fileID: 257485249}
@@ -6629,7 +6268,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          isCheckZone: 1
           commandDataList:
           - {fileID: 635289426}
           - {fileID: 827945195}
@@ -6645,8 +6283,6 @@ MonoBehaviour:
           - {fileID: 1075478859}
           - {fileID: 1342064861}
           - {fileID: 802768500}
-          - {fileID: 1018282569}
-          - {fileID: 681381871}
           - {fileID: 1821325504}
           - {fileID: 1015700590}
           - {fileID: 2032352414}
@@ -6654,7 +6290,6 @@ MonoBehaviour:
           - {fileID: 95605644}
           - {fileID: 701662186}
           - {fileID: 1438258747}
-          - {fileID: 844859821}
           - {fileID: 609747425}
           - {fileID: 2126201947}
           - {fileID: 960672197}
@@ -6688,7 +6323,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          isCheckZone: 0
           commandDataList:
           - {fileID: 1630555032}
           - {fileID: 419201567}
@@ -6732,7 +6366,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          isCheckZone: 0
           commandDataList:
           - {fileID: 337384760}
           - {fileID: 1748428382}
@@ -6781,7 +6414,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          isCheckZone: 1
           commandDataList:
           - {fileID: 635289426}
           - {fileID: 827945195}
@@ -6797,8 +6429,6 @@ MonoBehaviour:
           - {fileID: 1075478859}
           - {fileID: 1342064861}
           - {fileID: 802768500}
-          - {fileID: 1018282569}
-          - {fileID: 681381871}
           - {fileID: 1821325504}
           - {fileID: 1015700590}
           - {fileID: 2032352414}
@@ -6806,14 +6436,13 @@ MonoBehaviour:
           - {fileID: 95605644}
           - {fileID: 701662186}
           - {fileID: 1438258747}
-          - {fileID: 844859821}
           - {fileID: 609747425}
           - {fileID: 2126201947}
           - {fileID: 960672197}
           - {fileID: 79765866}
           - {fileID: 18195847}
           description: "\u7D30\u304B\u3044\u4ED5\u69D8\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
-        <Index>k__BackingField: 19
+        <Index>k__BackingField: 17
         character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
         changeSprite: {fileID: 21300000, guid: 24ea358cd0c6e7d48b3a06eaff46e833, type: 3}
         storyText: "\u666E\u901A\u3053\u3046\u3044\u3063\u305F\u30B3\u30DE\u30F3\u30C9\u306F\u901A\u3063\u305F\u77AC\u9593\u306B\u767A\u52D5\u3059\u308B\u3060\u3051\u3067\u3059\u304C\u3001Zone\u30B3\u30DE\u30F3\u30C9\u306F\u3001\u300C\u3053\u306E\u30B3\u30DE\u30F3\u30C9\u3088\u308A\u4E0B\u304B\u3089Execute\u3055\u308C\u305F\u3053\u3068\u3092\u691C\u77E5\u3067\u304D\u308B\u300D\u3068\u3044\u3046\u4ED5\u69D8\u304C\u5B9F\u88C5\u3055\u308C\u3066\u3044\u307E\u3059"
@@ -6839,7 +6468,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          isCheckZone: 1
           commandDataList:
           - {fileID: 635289426}
           - {fileID: 827945195}
@@ -6855,8 +6483,6 @@ MonoBehaviour:
           - {fileID: 1075478859}
           - {fileID: 1342064861}
           - {fileID: 802768500}
-          - {fileID: 1018282569}
-          - {fileID: 681381871}
           - {fileID: 1821325504}
           - {fileID: 1015700590}
           - {fileID: 2032352414}
@@ -6864,14 +6490,13 @@ MonoBehaviour:
           - {fileID: 95605644}
           - {fileID: 701662186}
           - {fileID: 1438258747}
-          - {fileID: 844859821}
           - {fileID: 609747425}
           - {fileID: 2126201947}
           - {fileID: 960672197}
           - {fileID: 79765866}
           - {fileID: 18195847}
           description: "\u7D30\u304B\u3044\u4ED5\u69D8\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
-        <Index>k__BackingField: 18
+        <Index>k__BackingField: 16
         character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
         changeSprite: {fileID: 21300000, guid: 24ea358cd0c6e7d48b3a06eaff46e833, type: 3}
         storyText: "SetBackgroundColorZone\u3068\u3044\u3046\u9577\u3044\u540D\u524D\u306E\u30B3\u30DE\u30F3\u30C9\u304C\u5165\u3063\u3066\u3044\u307E\u3059\u306E\u3067\u3001\u305D\u3053\u306E\u5B9F\u88C5\u3092\u53C2\u8003\u306B\u3057\u3066\u304F\u3060\u3055\u3044\u3002\u80CC\u666F\u8272\u304C\u5909\u308F\u3063\u305F\u306E\u306F\u3053\u306E\u30B3\u30DE\u30F3\u30C9\u306E\u52B9\u679C\u3067\u3059"
@@ -6897,7 +6522,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          isCheckZone: 0
           commandDataList:
           - {fileID: 1576803877}
           - {fileID: 284389983}
@@ -6940,7 +6564,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          isCheckZone: 0
           commandDataList:
           - {fileID: 337384760}
           - {fileID: 1748428382}
@@ -6998,7 +6621,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   executeOnStart: 1
   flowchart:
-    isCheckZone: 0
     commandDataList:
     - {fileID: 1704022628}
     - {fileID: 2127191575}
@@ -7043,7 +6665,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          isCheckZone: 0
           commandDataList:
           - {fileID: 1215857798}
           - {fileID: 490381538}
@@ -7089,7 +6710,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          isCheckZone: 1
           commandDataList:
           - {fileID: 635289426}
           - {fileID: 827945195}
@@ -7105,8 +6725,6 @@ MonoBehaviour:
           - {fileID: 1075478859}
           - {fileID: 1342064861}
           - {fileID: 802768500}
-          - {fileID: 1018282569}
-          - {fileID: 681381871}
           - {fileID: 1821325504}
           - {fileID: 1015700590}
           - {fileID: 2032352414}
@@ -7114,14 +6732,13 @@ MonoBehaviour:
           - {fileID: 95605644}
           - {fileID: 701662186}
           - {fileID: 1438258747}
-          - {fileID: 844859821}
           - {fileID: 609747425}
           - {fileID: 2126201947}
           - {fileID: 960672197}
           - {fileID: 79765866}
           - {fileID: 18195847}
           description: "\u7D30\u304B\u3044\u4ED5\u69D8\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E"
-        <Index>k__BackingField: 25
+        <Index>k__BackingField: 22
         character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
         changeSprite: {fileID: 21300000, guid: 855f9004ee0d1af44a9142b63035d451, type: 3}
         storyText: "\u3053\u3053\u307E\u3067\u805E\u3044\u3066\u304F\u3060\u3055\u308A\u3042\u308A\u304C\u3068\u3046\u3054\u3056\u3044\u307E\u3059\uFF01\n\u8AAC\u660E\u304C\u4E0D\u8DB3\u3057\u3066\u3044\u308B\u6240\u3082\u591A\u3044\u3068\u601D\u3046\u306E\u3067\u3001\u5206\u304B\u3089\u306A\u3044\u3053\u3068\u304C\u3042\u3063\u305F\u3089\u3054\u5831\u544A\u3092\u304A\u9858\u3044\u3057\u307E\u3059"
@@ -7147,7 +6764,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          isCheckZone: 0
           commandDataList:
           - {fileID: 1704022628}
           - {fileID: 2127191575}

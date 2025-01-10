@@ -7,7 +7,7 @@ namespace Novel.Command
     public class PortraitTurn : CommandBase
     {
         [SerializeField, DropDownCharacter] CharacterData character;
-        [SerializeField] float time;
+        [SerializeField] float time = 0.3f;
         [SerializeField] bool isAwait;
 
         protected override async UniTask EnterAsync()

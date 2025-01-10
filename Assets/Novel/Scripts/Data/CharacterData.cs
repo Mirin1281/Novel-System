@@ -43,7 +43,7 @@ namespace Novel
                 Debug.LogWarning($"キャラクターが見つかりませんでした\n名前: {characterName}");
                 return null;
             }
-            else if(meetCharas.Length == 1)
+            else if (meetCharas.Length == 1)
             {
                 return meetCharas[0];
             }
@@ -56,7 +56,6 @@ namespace Novel
 
             static T[] GetAllScriptableObjects<T>(string folderName = null) where T : ScriptableObject
             {
-
                 string[] guids = folderName == null
                     ? AssetDatabase.FindAssets($"t:{typeof(T).Name}")
                     : AssetDatabase.FindAssets($"t:{typeof(T).Name}", new string[] { folderName });

@@ -4,34 +4,71 @@ using System;
 using System.Threading;
 using System.Collections.Generic;
 using Novel.Command;
+using System.Linq;
 
 namespace Novel
 {
-    // 【説明】
-    // FlowchartはMonoBehaviour型とScriptableObject型があります
-    // MonoBehaviourはシーン内で参照が取れるためできることが多いです
-    // ScriptableObjectはどのシーンからでも呼べるので使い回しが効きます
+    public interface IParentData<T> where T : ICommandData
+    {
+        List<T> GetCommandDataList();
+        void SetCommandDataList(IEnumerable<T> commands);
+    }
+    public interface ICommandData
+    {
+        bool Enabled { get; }
+        string GetSummary();
+        string GetName();
+        Color GetCommandColor();
+    }
+    /*public interface IParentData<T> where T : ICommandData
+    {
+        List<T> GetCommandList();
+        void SetCommandList(IEnumerable<T> commands);
+    }
+    public interface ICommandData
+    {
+        bool Enabled { get; }
+        string Summary { get; }
+        string CommandName { get; }
+        Color Color { get; }
+    }*/
 
+    // 【説明】
+    // Flowchartは、MonoBehaviour型で扱えるFlowchartExecutorと、
+    // ScriptableObject型で扱えるFlowchartDataがあります
+    //
+    // FlowchartExecutorはシーン内で参照が取ることができます
+    // FlowchartDataはAddressableなどを用いてロードすることで、メモリ管理において有効に扱えます
+    //
     // Flowchartは中身が多いですが、ユーザー側が使用するのはExecuteAsync()とStop()がほとんどです
-    
+
     [Serializable]
-    public class Flowchart
+    public class Flowchart : IParentData<CommandData>
     {
         public enum StopType
         {
             [InspectorName("このフローチャートのみ")] Single,
-            [InspectorName("待機中の親も含む全て")] All,
+            [InspectorName("await中の親も含む")] IncludeParent,
         }
-
-        [SerializeField, Tooltip("Zoneコマンドを使用する場合のみtrueにしてください")]
-        bool isCheckZone;
 
         // シリアライズする
         [SerializeField, HideInInspector]
         List<CommandData> commandDataList = new();
-        bool isSingleStopped;
+
+        /// <summary>
+        /// 現在呼び出されているか
+        /// </summary>
         bool isCalling;
+
+        /// <summary>
+        /// 呼び出しているコマンドのインデックス
+        /// </summary>
         int callIndex;
+
+        /// <summary>
+        /// 停止させる際のフラグ
+        /// </summary>
+        bool isSingleStopped;
 
         public FlowchartCallStatus CallStatus { get; set; }
         public IReadOnlyList<CommandData> GetReadOnlyCommandDataList() => commandDataList;
@@ -50,7 +87,7 @@ namespace Novel
         // 通常、こちらはユーザーから呼び出しません
         public UniTask ExecuteAsync(int index, FlowchartCallStatus callStatus)
         {
-            CallStatus = callStatus;
+            SetStatus(callStatus);
             return PrecessAsync(index);
         }
 
@@ -58,7 +95,6 @@ namespace Novel
         {
             isCalling = true;
             SetIndex(index, false);
-            if (isCheckZone) ApplyZone(commandDataList, callIndex);
 
             while (commandDataList.Count > callIndex && isSingleStopped == false)
             {
@@ -67,23 +103,24 @@ namespace Novel
                 callIndex++;
             }
 
-            if (isSingleStopped == false && CallStatus.ExistWaitOthers == false)
+            if (CallStatus.ExistWaitOthers == false && isSingleStopped == false)
             {
                 NovelManager.Instance.ClearAllUI();
             }
             isSingleStopped = false;
             isCalling = false;
+            callIndex = 0;
         }
 
         /// <summary>
         /// フローチャートを停止します
         /// </summary>
-        public void Stop(StopType stopType = StopType.All, bool isClearUI = false)
+        public void Stop(StopType stopType = StopType.IncludeParent, bool isClearUI = false)
         {
-            if (stopType == StopType.All)
+            if (stopType == StopType.IncludeParent)
             {
                 CallStatus.Cts?.Cancel();
-                if(isCalling && isClearUI)
+                if (isCalling && isClearUI)
                 {
                     NovelManager.Instance.ClearAllUI();
                 }
@@ -97,7 +134,7 @@ namespace Novel
         // コマンド内で呼ばれた際は抜ける際にindexを+1するので、その分予め引いておく
         public void SetIndex(int index, bool calledInCommand)
         {
-            if(calledInCommand)
+            if (calledInCommand)
             {
                 callIndex = index - 1;
             }
@@ -114,42 +151,30 @@ namespace Novel
             {
                 cts = CancellationTokenSource.CreateLinkedTokenSource(token, cts.Token);
             }
-            CallStatus = new(cts.Token, cts, false);
-        }    
-
-        // 呼び出し時のインデックスを見て、それよりも上に存在する
-        // IZoneCommandのついたコマンドを発火します(詳しくはIZoneCommand参照)
-        static void ApplyZone(IList<CommandData> commandDataList, int currentIndex)
+            CallStatus = new(cts, false);
+        }
+        void SetStatus(FlowchartCallStatus status)
         {
-            for (int i = 0; i < commandDataList.Count; i++)
-            {
-                if (commandDataList[i].GetCommandBase() is IZoneCommand zoneCommand)
-                {
-                    if(i < currentIndex)
-                    {
-                        zoneCommand.CallIfInZone();
-                    }
-                }
-            }
+            CallStatus = status;
         }
 
 #if UNITY_EDITOR
         [SerializeField, TextArea, Tooltip("エディタでのみ使用されます")]
-        string description = "Description";
+        string description;
         public string Description => description;
         public List<CommandData> GetCommandDataList() => commandDataList;
-        public void SetCommandDataList(List<CommandData> list)
+        public void SetCommandDataList(IEnumerable<CommandData> commands)
         {
-            commandDataList = list;
+            commandDataList = commands.ToList();
+            for (int i = 0; i < commandDataList.Count; i++)
+            {
+                var cmd = commandDataList[i].GetCommandBase();
+                if (cmd == null) continue;
+                cmd.SetFlowchart(this);
+                cmd.SetIndex(i);
+            }
         }
 #endif
-    }
-
-    public interface IFlowchartObject
-    {
-        string Name { get; }
-        Flowchart Flowchart { get; }
-        UniTask ExecuteAsync(int index = 0, CancellationToken token = default);
     }
 
     /// <summary>
@@ -157,16 +182,17 @@ namespace Novel
     /// </summary>
     public class FlowchartCallStatus
     {
-        public readonly CancellationToken Token;
         public readonly CancellationTokenSource Cts;
+        public readonly CancellationToken Token;
+
         /// <summary>
         /// 待機している別のフローチャートが存在するか
         /// </summary>
         public readonly bool ExistWaitOthers;
 
-        public FlowchartCallStatus(CancellationToken token, CancellationTokenSource cts, bool existWaitOthers)
+        public FlowchartCallStatus(CancellationTokenSource cts, bool existWaitOthers)
         {
-            Token = token;
+            Token = cts.Token;
             Cts = cts;
             ExistWaitOthers = existWaitOthers;
         }

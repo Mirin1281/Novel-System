@@ -4,12 +4,11 @@ using System.Threading;
 
 namespace Novel
 {
-    public class FlowchartExecutor : MonoBehaviour, IFlowchartObject
+    public class FlowchartExecutor : MonoBehaviour
     {
         [SerializeField] bool executeOnStart;
         [SerializeField] Flowchart flowchart;
         public Flowchart Flowchart => flowchart;
-        public string Name => name;
 
         void Start()
         {
@@ -24,11 +23,11 @@ namespace Novel
         /// <param name="token">キャンセル用のトークン(通常はStop()があるので不要)</param>
         public void Execute(int index = 0, CancellationToken token = default)
         {
-            ExecuteAsync(index, token).Forget();
+            ExecuteAsync(index, token);
         }
         public UniTask ExecuteAsync(int index = 0, CancellationToken token = default)
         {
-            if(token == default)
+            if (token == default)
             {
                 token = this.GetCancellationTokenOnDestroy();
             }
@@ -40,7 +39,7 @@ namespace Novel
         /// </summary>
         public void Stop()
         {
-            flowchart.Stop(Flowchart.StopType.All, isClearUI: true);
+            flowchart.Stop(Flowchart.StopType.IncludeParent, isClearUI: true);
         }
     }
 }

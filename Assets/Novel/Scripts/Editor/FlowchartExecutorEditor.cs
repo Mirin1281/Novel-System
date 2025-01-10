@@ -1,92 +1,89 @@
 using UnityEngine;
 using UnityEditor;
 using System.Collections.Generic;
-using Cysharp.Threading.Tasks;
 using Novel.Command;
+using System.Text.RegularExpressions;
 
 namespace Novel.Editor
 {
     [CustomEditor(typeof(FlowchartExecutor))]
     public class FlowchartExecutorEditor : UnityEditor.Editor
     {
-        [SerializeField] bool isFold;
-
         public override void OnInspectorGUI()
         {
             base.OnInspectorGUI();
 
             EditorGUILayout.Space(10);
 
-            if (GUILayout.Button("フローチャートエディタを開く"))
-            {
-                EditorWindow.GetWindow<FlowchartEditorWindow>(
-                    "Flowchart Editor", typeof(SceneView));
-            }
-
-            EditorGUILayout.Space(10);
-
-            isFold = EditorGUILayout.Foldout(isFold, "More");
-            if(isFold == false) return;
-
-            EditorGUILayout.Space(10);
-
             EditorGUILayout.LabelField(
-                "◆◆注意\n" +
-                "下のボタンから複製をしてください。じゃないとバグります\n" +
-                "もし普通に複製してしまっても、そのまま削除すれば大丈夫です"
+                "◆注意\n" +
+                "複製する場合は下のボタンから複製をしてください。もしctrl+Dで複製してしまっても、そのまま削除すれば大丈夫です"
                 , EditorStyles.wordWrappedLabel);
 
             EditorGUILayout.Space(10);
 
-            if (GUILayout.Button("複製する"))
+            if (GUILayout.Button("Duplicate"))
             {
-                var flowchartExecutor = target as FlowchartExecutor;
-                var copiedFlowchartExecutor = Instantiate(flowchartExecutor);
-                copiedFlowchartExecutor.name = "Copied_"+ flowchartExecutor.name;
-                var flowchart = copiedFlowchartExecutor.Flowchart;
+                var baseExecutor = target as FlowchartExecutor;
+                var copiedExecutor = Instantiate(baseExecutor);
+                copiedExecutor.name = GenerateHierarchyName(baseExecutor.name);
+                var flowchart = copiedExecutor.Flowchart;
 
                 var copiedCmdList = new List<CommandData>();
                 foreach (var cmdData in flowchart.GetCommandDataList())
                 {
                     var copiedCmdData = Instantiate(cmdData);
                     var cmd = copiedCmdData.GetCommandBase();
-                    if (cmd != null)
-                    {
-                        cmd.SetFlowchart(flowchart);
-                    }
+                    cmd?.SetFlowchart(flowchart);
                     copiedCmdList.Add(copiedCmdData);
                 }
                 flowchart.SetCommandDataList(copiedCmdList);
+
+                // ヒエラルキーの位置を調整
+                copiedExecutor.transform.SetParent(baseExecutor.transform.parent);
+                int siblingIndex = baseExecutor.transform.GetSiblingIndex();
+                copiedExecutor.transform.SetSiblingIndex(siblingIndex + 1);
+            }
+        }
+
+        /// <summary>
+        /// 指定した名前を基に、ヒエラルキー内で重複しない名前を生成する
+        /// </summary>
+        static string GenerateHierarchyName(string baseName)
+        {
+            // ヒエラルキー内のすべてのゲームオブジェクトを取得
+            GameObject[] allObjects = FindObjectsByType<GameObject>(FindObjectsInactive.Include, FindObjectsSortMode.None);
+
+            // ヒエラルキーに存在する名前をリスト化
+            var existingNames = new HashSet<string>();
+            foreach (var obj in allObjects)
+            {
+                existingNames.Add(obj.name);
             }
 
-            EditorGUILayout.Space(10);
-
-            EditorGUILayout.LabelField(
-                "◆◆CSVの入出力について\n" +
-                "エクスポートすると、シーン内の全FlowchartExecutorのコマンドデータが書き込まれます\n" +
-                "インポートすると、出力した形式でデータを取り込むことができます\n" +
-                "Excelでのデータ形式に準じていますので、そのまま扱えます\n" +
-                "\n" +
-                "出力するデータや入力するデータを設定したい場合は、CommandBase内のCSVContent1やCSVContent2プロパティを派生コマンド内にオーバーライドしてください。ゲッターとセッターは相互変換できるようにしてください\n" +
-                "\n" +
-                "また、縦の列のコマンドを自由に増やすこともできます\n" +
-                "すでにあるコマンドをCSVから消す機能は実装していません。とりあえず無効にしたい場合は\"Null\"を入れてください\n" +
-                "\n" +
-                "注意点として、ファイル名は変更してもかまいませんが、CSV内の1行目と3行目のデータは基本的に変えないでください"
-                , EditorStyles.wordWrappedLabel);
-
-            EditorGUILayout.Space(10);
-
-            using (new EditorGUILayout.HorizontalScope())
+            string trimedName = baseName;
+            string regex = @" \( ?\d+\)$";
+            if (Regex.IsMatch(baseName, regex))
             {
-                if (GUILayout.Button("CSV形式でエクスポートする"))
+                trimedName = Regex.Replace(baseName, regex, string.Empty);
+            }
+
+            // ベース名が重複しない場合、そのまま返す
+            if (!existingNames.Contains(trimedName))
+            {
+                return trimedName;
+            }
+
+            // 重複する場合、「(n)」を付けてユニークな名前を探す
+            int suffix = 1;
+            while (true)
+            {
+                string newName = $"{trimedName} ({suffix})";
+                if (!existingNames.Contains(newName))
                 {
-                    FlowchartCSVIO.ExportFlowchartCommandDataAsync(FlowchartCSVIO.FlowchartType.Executor).Forget();
+                    return newName;
                 }
-                if (GUILayout.Button("CSVをインポートする"))
-                {
-                    FlowchartCSVIO.ImportFlowchartCommandDataAsync(FlowchartCSVIO.FlowchartType.Executor).Forget();
-                }
+                suffix++;
             }
         }
     }

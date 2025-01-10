@@ -5,7 +5,7 @@ using Cysharp.Threading.Tasks;
 namespace Novel.Command
 {
     [Serializable]
-    public class CommandData : ScriptableObject
+    public class CommandData : ScriptableObject, ICommandData
     {
         [SerializeField] bool enabled = true;
         public bool Enabled => enabled;
@@ -13,11 +13,11 @@ namespace Novel.Command
         [SerializeField, SerializeReference, SubclassSelector]
         ICommand command;
 
-        public async UniTask ExecuteAsync(Flowchart flowchart)
+        public async UniTask ExecuteAsync(Flowchart parentFlowchart)
         {
-            if(enabled && command != null)
+            if (enabled && command != null)
             {
-                await command.ExecuteAsync(flowchart);
+                await command.ExecuteAsync(parentFlowchart);
             }
         }
 
@@ -50,7 +50,7 @@ namespace Novel.Command
         public string GetName() => command?.GetName();
 
         /// <summary>
-        /// (CSV用)Typeからコマンドをセットします
+        /// (CSV用)型からコマンドをセットします
         /// </summary>
         public void SetCommand(Type type)
         {

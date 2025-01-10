@@ -23,13 +23,13 @@ namespace Novel
             RubyEnd,
         }
 
-        public readonly struct TagData : IEquatable<TagData>
+        public readonly struct TagData
         {
             public readonly TagType TagType;
             public readonly float Value;
 
             /// <summary>
-            /// リッチテキストを含む全てのタグを無視した時のタグの位置
+            /// リッチテキストを含む他の全てのタグを無視した時のタグの位置
             /// </summary>
             public readonly int IndexIgnoreAllTag;
 
@@ -38,25 +38,6 @@ namespace Novel
                 TagType = tagType;
                 Value = value;
                 IndexIgnoreAllTag = indexIgnoreAllTag;
-            }
-
-            public bool Equals(TagData other)
-            {
-                return TagType == other.TagType
-                    && Value == other.Value
-                    && IndexIgnoreAllTag == other.IndexIgnoreAllTag;
-            }
-
-            public override bool Equals(object obj)
-            {
-                if (obj is TagData)
-                    return Equals((TagData)obj);
-                return false;
-            }
-
-            public override readonly int GetHashCode()
-            {
-                return HashCode.Combine(TagType, Value, IndexIgnoreAllTag);
             }
         }
 
@@ -101,18 +82,17 @@ namespace Novel
             int allTagsLength = 0;
             foreach (Match match in matches)
             {
-                string tag = match.Value;
-                
-                var (tagType, value) = GetTagStatus(tag);
+                string tagStr = match.Value;
+                var (tagType, value) = GetTagStatus(tagStr);
 
                 if (tagType != TagType.None)
                 {
                     tagDataList.Add(new TagData(tagType, value, match.Index - allTagsLength));
                     if (tagType is TagType.RubyStart or TagType.RubyEnd) continue;
                     text = text.Replace(match.Value, string.Empty);
-                    myTagsLength += tag.Length;
+                    myTagsLength += tagStr.Length;
                 }
-                allTagsLength += tag.Length;
+                allTagsLength += tagStr.Length;
             }
             return (text, tagDataList);
 

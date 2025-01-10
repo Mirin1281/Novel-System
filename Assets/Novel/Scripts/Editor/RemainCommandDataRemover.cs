@@ -4,11 +4,9 @@ using UnityEditor.Build.Reporting;
 
 namespace Novel.Editor
 {
-    // CommandDataは普通に削除しても空のassetファイルが残ります
-    // これはUndo操作に対応するためですが、再起動などでも消えないため明示的に削除する必要があります
-    //
-    // このクラスではエディタの終了時とビルドの直前に掃除をします
-    // またFlowchartDataの"未使用のCommandDataを削除する"でも掃除ができます
+    // まれに不要となったCommandDataがフォルダ内に残ることがあります
+    // このクラスでは"エディタの終了時"と"ビルドの直前"にそのコマンドを削除します
+    // 上部メニューのTools/Novel System/Clear Trash Commandsから手動で行うこともできます
     public class RemainCommandDataRemover : IPreprocessBuildWithReport
     {
         [InitializeOnLoadMethod]
@@ -18,9 +16,10 @@ namespace Novel.Editor
             EditorApplication.quitting += RemoveUnusedCommandData;
         }
 
+        [MenuItem("Tools/Novel System/Clear Trash Commands")]
         static void RemoveUnusedCommandData()
         {
-            FlowchartEditorUtility.RemoveUnusedCommandData();
+            FlowchartEditorUtility.RemoveAllUnusedCommandData();
         }
 
         public int callbackOrder => 0;
@@ -29,7 +28,7 @@ namespace Novel.Editor
         // のチェックを外さないと、この中で呼び出されたログが表示されません
         public void OnPreprocessBuild(BuildReport report)
         {
-            FlowchartEditorUtility.RemoveUnusedCommandData();
+            RemoveUnusedCommandData();
         }
     }
 }

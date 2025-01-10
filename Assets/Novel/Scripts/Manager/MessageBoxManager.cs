@@ -7,7 +7,7 @@ using LinkedBox = Novel.MessageBoxesData.LinkedObject;
 
 namespace Novel
 {
-    // 【ふるまいの雑な説明】
+    // 【ふるまいの簡単な説明】
     // メッセージボックスをBoxTypeに応じてプレハブから生成、提供します
     // 既にシーンの中にボックスがある場合はそれを使います(名前で検索してます)ので、オーバーライドできます
     // シーンの中ではボックスはキャッシュされますが、シーン遷移するとリセットされます
@@ -60,7 +60,7 @@ namespace Novel
             foreach (var linkedBox in data.GetLinkedObjectEnumerable())
             {
                 linkedBox.Object = null;
-                foreach(var existBox in existBoxes)
+                foreach (var existBox in existBoxes)
                 {
                     if (existBox.IsTypeEqual(linkedBox.Type))
                     {
@@ -99,7 +99,7 @@ namespace Novel
 
         public async UniTask AllClearFadeAsync(float time = ConstContainer.DefaultFadeTime, CancellationToken token = default)
         {
-            foreach(var linkedBox in data.GetLinkedObjectEnumerable())
+            foreach (var linkedBox in data.GetLinkedObjectEnumerable())
             {
                 if (linkedBox.Object == null) continue;
                 linkedBox.Object.ClearFadeAsync(time, token).Forget();
@@ -123,7 +123,7 @@ namespace Novel
 
         public void AllClearText()
         {
-            foreach(var linkedBox in data.GetLinkedObjectEnumerable())
+            foreach (var linkedBox in data.GetLinkedObjectEnumerable())
             {
                 if (linkedBox.Object == null) continue;
                 linkedBox.Object.Writer.ClearText();
