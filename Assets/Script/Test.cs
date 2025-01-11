@@ -13,7 +13,7 @@ using Novel.Editor;
 
 public class Test : MonoBehaviour
 {
-    [SerializeField] MessageBoxManager msgBoxManagerPrefab;
+    /*[SerializeField] MessageBoxManager msgBoxManagerPrefab;
     [SerializeField] FlowchartExecutor flowchartExecutor;
     [SerializeField] FlagKey_Int intFlag;
     [SerializeField] FlagKey_String stringFlag;
@@ -56,10 +56,10 @@ public class Test : MonoBehaviour
         await Wait(1f);
         DontDestroyOnLoad(Instantiate(msgBoxManagerPrefab));
         await Wait(1f);
-        flowchartExecutor.ExecuteAsync().Forget();*/
+        flowchartExecutor.ExecuteAsync().Forget();
         //FlagManager.SetFlagValue(intFlag, 256);
         //FlagManager.SetFlagValue(stringFlag, "‚¨‚ñ‚¨‚ñ");
         await UniTask.CompletedTask;
-    }
+    }*/
 
 }

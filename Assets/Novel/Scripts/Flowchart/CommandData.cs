@@ -5,7 +5,7 @@ using Cysharp.Threading.Tasks;
 namespace Novel.Command
 {
     [Serializable]
-    public class CommandData : ScriptableObject, ICommandData
+    public class CommandData : ScriptableObject
     {
         [SerializeField] bool enabled = true;
         public bool Enabled => enabled;

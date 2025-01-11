@@ -111,14 +111,13 @@ namespace Novel.Editor
                 }
 
                 AssetDatabase.Refresh(ImportAssetOptions.ForceUpdate);
-                AssetDatabase.SaveAssets();
                 var path = FlowchartEditorUtility.AbsoluteToAssetsPath(settingsData.CSVFolderPath);
                 var csv = AssetDatabase.LoadAssetAtPath<TextAsset>($"{path}/{sheetName}");
                 if (settingsData.IsPing)
                 {
                     EditorGUIUtility.PingObject(csv);
                 }
-                Debug.Log("<color=lightblue>CSVを書き出しました！</color>");
+                Debug.Log("<color=lightblue>CSVを書き出しました！\nなお選択時に警告が発生しますが、特に問題はありません</color>");
             }
             finally
             {
@@ -131,7 +130,7 @@ namespace Novel.Editor
         {
             await UniTask.Yield();
             CSVIOSettingsData settingsData = GetSettingsData();
-            var dataList = LoadCSV();
+            List<string[]> dataList = LoadCSV();
             if (dataList == null) return;
 
             // 名前のチェック 
@@ -180,9 +179,8 @@ namespace Novel.Editor
                 var relativePath = FlowchartEditorUtility.AbsoluteToAssetsPath(absolutePath);
 
                 var fs = new FileStream(relativePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
-                var encoding = Encoding.GetEncoding("shift_jis");
-                var reader = new StreamReader(fs, encoding);
-                var dataList = CSV2StringTable(reader);
+                var reader = new StreamReader(fs, Encoding.GetEncoding("shift_jis"));
+                List<string[]> dataList = CSV2StringTable(reader);
                 reader.Close();
                 return dataList;
 
@@ -238,16 +236,6 @@ namespace Novel.Editor
                         result.Add(line.ToArray());
                     }
 
-                    // デバッグ用
-                    /*for(int i = 0; i < result.Count; i++)
-                    {
-						for(int k = 0; k < result[i].Length; k++)
-                        {
-							if (string.IsNullOrEmpty(result[i][k])) continue;
-							Debug.Log(result[i][k]);
-                        }
-                    }*/
-
                     return result;
 
 
@@ -297,7 +285,7 @@ namespace Novel.Editor
                                                         chartObj.obj as FlowchartData, $"{nameof(CommandData)}_{chartObj.obj.name}"),
                                     _ => throw new Exception(),
                                 };
-                                if (cellName is not ("<Null>" or "Null"))
+                                if (cellName != "Null")
                                 {
                                     Type type = GetTypeByClassName(cellName);
                                     if (type == null) break;
@@ -313,7 +301,7 @@ namespace Novel.Editor
                                 var cmdName = GetCommandName(colomn_cmdBase);
 
                                 if (cmdName == cellName) continue;
-                                if (settingsData.IsChangeIfDifferentCmdName && (cellName != "Null" || cellName != "<Null>"))
+                                if (settingsData.IsChangeIfDifferentCmdName && cellName != "Null")
                                 {
                                     Debug.LogWarning(
                                         $"コマンドの名前が合いませんので上書きします\n" +
@@ -327,7 +315,7 @@ namespace Novel.Editor
                                     break;
                                 }
 
-                                if (notExistCell == false && cellName is not ("<Null>" or "Null"))
+                                if (notExistCell == false && cellName != "Null")
                                 {
                                     Type type = GetTypeByClassName(cellName);
                                     if (type == null) break;

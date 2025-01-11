@@ -11,7 +11,7 @@ namespace Novel
         menuName = ConstContainer.DATA_CREATE_PATH + "Flowchart",
         order = 1)
     ]
-    public class FlowchartData : ScriptableObject, IParentData<CommandData>
+    public class FlowchartData : ScriptableObject
     {
         public List<CommandData> GetCommandDataList() => Flowchart.GetCommandDataList();
         public void SetCommandDataList(IEnumerable<CommandData> commands) => Flowchart.SetCommandDataList(commands);

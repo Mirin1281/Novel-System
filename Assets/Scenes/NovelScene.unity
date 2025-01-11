@@ -144,13 +144,13 @@ MonoBehaviour:
       type: {class: Portrait, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "RPG\u306ENPC\u304C\u3088\u304F\u3084\u308B\u3084\u3064"
-          isCheckZone: 0
           commandDataList:
           - {fileID: 70053805}
           - {fileID: 697857474}
           - {fileID: 2042005737}
+          - {fileID: 809907432}
           - {fileID: 652428905}
+          description: "RPG\u306ENPC\u304C\u3088\u304F\u3084\u308B\u3084\u3064"
         <Index>k__BackingField: 0
         character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
         actionType: 0
@@ -190,8 +190,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   executeOnStart: 1
   flowchart:
-    description: "RPG\u306ENPC\u304C\u3088\u304F\u3084\u308B\u3084\u3064"
-    isCheckZone: 0
     commandDataList:
     - {fileID: 1592338014}
     - {fileID: 550837508}
@@ -200,6 +198,7 @@ MonoBehaviour:
     - {fileID: 116226849}
     - {fileID: 585864509}
     - {fileID: 579132655}
+    description: "RPG\u306ENPC\u304C\u3088\u304F\u3084\u308B\u3084\u3064"
 --- !u!4 &71884965
 Transform:
   m_ObjectHideFlags: 0
@@ -305,8 +304,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "RPG\u306ENPC\u304C\u3088\u304F\u3084\u308B\u3084\u3064"
-          isCheckZone: 0
           commandDataList:
           - {fileID: 1592338014}
           - {fileID: 550837508}
@@ -315,6 +312,7 @@ MonoBehaviour:
           - {fileID: 116226849}
           - {fileID: 585864509}
           - {fileID: 579132655}
+          description: "RPG\u306ENPC\u304C\u3088\u304F\u3084\u308B\u3084\u3064"
         <Index>k__BackingField: 4
         character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
         changeSprite: {fileID: 0}
@@ -350,13 +348,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   executeOnStart: 1
   flowchart:
-    description: "RPG\u306ENPC\u304C\u3088\u304F\u3084\u308B\u3084\u3064"
-    isCheckZone: 0
     commandDataList:
     - {fileID: 70053805}
     - {fileID: 697857474}
     - {fileID: 2042005737}
+    - {fileID: 809907432}
     - {fileID: 652428905}
+    description: "RPG\u306ENPC\u304C\u3088\u304F\u3084\u308B\u3084\u3064"
 --- !u!4 &187121800
 Transform:
   m_ObjectHideFlags: 0
@@ -394,8 +392,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "RPG\u306ENPC\u304C\u3088\u304F\u3084\u308B\u3084\u3064"
-          isCheckZone: 0
           commandDataList:
           - {fileID: 1592338014}
           - {fileID: 550837508}
@@ -404,6 +400,7 @@ MonoBehaviour:
           - {fileID: 116226849}
           - {fileID: 585864509}
           - {fileID: 579132655}
+          description: "RPG\u306ENPC\u304C\u3088\u304F\u3084\u308B\u3084\u3064"
         <Index>k__BackingField: 1
         character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
         changeSprite: {fileID: 0}
@@ -430,8 +427,6 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "RPG\u306ENPC\u304C\u3088\u304F\u3084\u308B\u3084\u3064"
-          isCheckZone: 0
           commandDataList:
           - {fileID: 1592338014}
           - {fileID: 550837508}
@@ -440,6 +435,7 @@ MonoBehaviour:
           - {fileID: 116226849}
           - {fileID: 585864509}
           - {fileID: 579132655}
+          description: "RPG\u306ENPC\u304C\u3088\u304F\u3084\u308B\u3084\u3064"
         <Index>k__BackingField: 6
         character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
         changeSprite: {fileID: 0}
@@ -466,8 +462,6 @@ MonoBehaviour:
       type: {class: LoopEnd, ns: Novel.Command, asm: Assembly-CSharp}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "RPG\u306ENPC\u304C\u3088\u304F\u3084\u308B\u3084\u3064"
-          isCheckZone: 0
           commandDataList:
           - {fileID: 1592338014}
           - {fileID: 550837508}
@@ -476,6 +470,7 @@ MonoBehaviour:
           - {fileID: 116226849}
           - {fileID: 585864509}
           - {fileID: 579132655}
+          description: "RPG\u306ENPC\u304C\u3088\u304F\u3084\u308B\u3084\u3064"
         <Index>k__BackingField: 5
 --- !u!114 &607309513
 MonoBehaviour:
@@ -499,8 +494,6 @@ MonoBehaviour:
       type: {class: LoopStart, ns: Novel.Command, asm: Assembly-CSharp}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "RPG\u306ENPC\u304C\u3088\u304F\u3084\u308B\u3084\u3064"
-          isCheckZone: 0
           commandDataList:
           - {fileID: 1592338014}
           - {fileID: 550837508}
@@ -509,6 +502,7 @@ MonoBehaviour:
           - {fileID: 116226849}
           - {fileID: 585864509}
           - {fileID: 579132655}
+          description: "RPG\u306ENPC\u304C\u3088\u304F\u3084\u308B\u3084\u3064"
         <Index>k__BackingField: 2
         loopCount: 5
         useFlagKey: 1
@@ -536,12 +530,11 @@ MonoBehaviour:
       type: {class: FlowExecute, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "RPG\u306ENPC\u304C\u3088\u304F\u3084\u308B\u3084\u3064"
-          isCheckZone: 0
           commandDataList:
           - {fileID: 1522411429}
           - {fileID: 618562577}
           - {fileID: 854219047}
+          description: "RPG\u306ENPC\u304C\u3088\u304F\u3084\u308B\u3084\u3064"
         <Index>k__BackingField: 1
         flowchartType: 0
         flowchartExecutor: {fileID: 1433522579}
@@ -570,14 +563,14 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "RPG\u306ENPC\u304C\u3088\u304F\u3084\u308B\u3084\u3064"
-          isCheckZone: 0
           commandDataList:
           - {fileID: 70053805}
           - {fileID: 697857474}
           - {fileID: 2042005737}
+          - {fileID: 809907432}
           - {fileID: 652428905}
-        <Index>k__BackingField: 3
+          description: "RPG\u306ENPC\u304C\u3088\u304F\u3084\u308B\u3084\u3064"
+        <Index>k__BackingField: 4
         character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
         changeSprite: {fileID: 0}
         storyText: "\u3053\u3093\u306B\u3061\u306F4"
@@ -603,17 +596,37 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "RPG\u306ENPC\u304C\u3088\u304F\u3084\u308B\u3084\u3064"
-          isCheckZone: 0
           commandDataList:
           - {fileID: 70053805}
           - {fileID: 697857474}
           - {fileID: 2042005737}
+          - {fileID: 809907432}
           - {fileID: 652428905}
+          description: "RPG\u306ENPC\u304C\u3088\u304F\u3084\u308B\u3084\u3064"
         <Index>k__BackingField: 1
         character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
         changeSprite: {fileID: 0}
         storyText: "\u3053\u3093\u306B\u3061\u306F"
+--- !u!114 &809907432
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4399fbfc898731a4f96fd937ce84eeff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enabled: 1
+  command:
+    rid: -2
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
 --- !u!114 &854219047
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -636,12 +649,11 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "RPG\u306ENPC\u304C\u3088\u304F\u3084\u308B\u3084\u3064"
-          isCheckZone: 0
           commandDataList:
           - {fileID: 1522411429}
           - {fileID: 618562577}
           - {fileID: 854219047}
+          description: "RPG\u306ENPC\u304C\u3088\u304F\u3084\u308B\u3084\u3064"
         <Index>k__BackingField: 2
         character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
         changeSprite: {fileID: 0}
@@ -870,12 +882,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   executeOnStart: 0
   flowchart:
-    description: "RPG\u306ENPC\u304C\u3088\u304F\u3084\u308B\u3084\u3064"
-    isCheckZone: 0
     commandDataList:
     - {fileID: 1522411429}
     - {fileID: 618562577}
     - {fileID: 854219047}
+    description: "RPG\u306ENPC\u304C\u3088\u304F\u3084\u308B\u3084\u3064"
 --- !u!4 &1255573784
 Transform:
   m_ObjectHideFlags: 0
@@ -1254,10 +1265,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   executeOnStart: 0
   flowchart:
-    description: "RPG\u306ENPC\u304C\u3088\u304F\u3084\u308B\u3084\u3064"
-    isCheckZone: 0
     commandDataList:
     - {fileID: 2108430552}
+    description: "RPG\u306ENPC\u304C\u3088\u304F\u3084\u308B\u3084\u3064"
 --- !u!4 &1433522580
 Transform:
   m_ObjectHideFlags: 0
@@ -1295,12 +1305,11 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "RPG\u306ENPC\u304C\u3088\u304F\u3084\u308B\u3084\u3064"
-          isCheckZone: 0
           commandDataList:
           - {fileID: 1522411429}
           - {fileID: 618562577}
           - {fileID: 854219047}
+          description: "RPG\u306ENPC\u304C\u3088\u304F\u3084\u308B\u3084\u3064"
         <Index>k__BackingField: 0
         character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
         changeSprite: {fileID: 0}
@@ -1327,8 +1336,6 @@ MonoBehaviour:
       type: {class: Portrait, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "RPG\u306ENPC\u304C\u3088\u304F\u3084\u308B\u3084\u3064"
-          isCheckZone: 0
           commandDataList:
           - {fileID: 1592338014}
           - {fileID: 550837508}
@@ -1337,6 +1344,7 @@ MonoBehaviour:
           - {fileID: 116226849}
           - {fileID: 585864509}
           - {fileID: 579132655}
+          description: "RPG\u306ENPC\u304C\u3088\u304F\u3084\u308B\u3084\u3064"
         <Index>k__BackingField: 0
         character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
         actionType: 0
@@ -1367,8 +1375,6 @@ MonoBehaviour:
       type: {class: SayAdvanced, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "RPG\u306ENPC\u304C\u3088\u304F\u3084\u308B\u3084\u3064"
-          isCheckZone: 0
           commandDataList:
           - {fileID: 1592338014}
           - {fileID: 550837508}
@@ -1377,6 +1383,7 @@ MonoBehaviour:
           - {fileID: 116226849}
           - {fileID: 585864509}
           - {fileID: 579132655}
+          description: "RPG\u306ENPC\u304C\u3088\u304F\u3084\u308B\u3084\u3064"
         <Index>k__BackingField: 3
         character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
         changeSprite: {fileID: 0}
@@ -1386,7 +1393,6 @@ MonoBehaviour:
         characterName: 
         flagKeys:
         - {fileID: 11400000, guid: 0328191814683ab4db82d3af84d9d0fe, type: 2}
-        ints: 0100000000000000
 --- !u!114 &2042005737
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1409,13 +1415,13 @@ MonoBehaviour:
       type: {class: FlowExecute, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "RPG\u306ENPC\u304C\u3088\u304F\u3084\u308B\u3084\u3064"
-          isCheckZone: 0
           commandDataList:
           - {fileID: 70053805}
           - {fileID: 697857474}
           - {fileID: 2042005737}
+          - {fileID: 809907432}
           - {fileID: 652428905}
+          description: "RPG\u306ENPC\u304C\u3088\u304F\u3084\u308B\u3084\u3064"
         <Index>k__BackingField: 2
         flowchartType: 0
         flowchartExecutor: {fileID: 1255573783}
@@ -1681,10 +1687,9 @@ MonoBehaviour:
       type: {class: Say, ns: Novel.Command, asm: Novel}
       data:
         <ParentFlowchart>k__BackingField:
-          description: "RPG\u306ENPC\u304C\u3088\u304F\u3084\u308B\u3084\u3064"
-          isCheckZone: 0
           commandDataList:
           - {fileID: 2108430552}
+          description: "RPG\u306ENPC\u304C\u3088\u304F\u3084\u308B\u3084\u3064"
         <Index>k__BackingField: 0
         character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
         changeSprite: {fileID: 0}

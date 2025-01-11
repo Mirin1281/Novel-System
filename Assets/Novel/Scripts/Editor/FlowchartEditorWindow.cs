@@ -12,7 +12,7 @@ namespace Novel.Editor
 {
     public class FlowchartEditorWindow : EditorWindow
     {
-        enum ActiveMode
+        enum ActiveType
         {
             None,
             Executor,
@@ -20,94 +20,128 @@ namespace Novel.Editor
         }
 
         /// <summary>
-        /// MonoBehaviourとScriptableObjectのどちらのFlowchartがフォーカスされているか
+        /// ExecutorとDataのどちらのFlowchartが選択されているか
         /// </summary>
-        [SerializeField] ActiveMode activeMode;
+        [SerializeField] ActiveType activeType;
 
-        [SerializeField] Flowchart activeFlowchart;
+        [SerializeField] Flowchart activeFlow;
         GameObject activeExecutorObj;
         [SerializeField] FlowchartData activeFlowchartData;
-
-        /// <summary>
-        /// FlowchartExecutorの選択状態を、エディタを閉じた後も記録するための名前
-        /// </summary>
-        [SerializeField] string selectedName;
 
         /// <summary>
         /// 表示用のコマンドリスト
         /// </summary>
         [SerializeField] List<CommandData> commandList;
 
-        [SerializeField] ReorderableList reorderableList;
-        List<CommandData> selectedCommandList;
+        List<int> selectedIndices;
+        int? LastSelectedIndex
+        {
+            get
+            {
+                if (selectedIndices == null || selectedIndices.Count == 0) return null;
+                return selectedIndices.Last();
+            }
+        }
         CommandData LastSelectedCommand
         {
             get
             {
-                if (selectedCommandList == null || selectedCommandList.Count == 0) return null;
-                return selectedCommandList?.Last();
+                if (selectedIndices == null || selectedIndices.Count == 0
+                 || commandList == null || commandList.Count == 0) return null;
+                return commandList[Mathf.Clamp(selectedIndices.Last(), 0, commandList.Count - 1)];
             }
         }
 
+        /// <summary>
+        /// コマンド操作のUndoをする際、直前に変化したコマンドのインデックスが知りたい
+        /// </summary>
+        List<int> updatedIndices;
+
         List<CommandData> copiedCommandList;
+
+        [SerializeField] ReorderableList reorderableList;
+
+        /// <summary>
+        /// FlowchartExecutorの選択状態を、エディタを閉じた後も記録するための名前
+        /// </summary>
+        [SerializeField] string selectedName;
 
         Vector2 listScrollPos;
         Vector2 commandScrollPos;
 
-        /// <summary>
-        /// コマンドのAddをUndoする際、元々選択していたコマンドのインデックスが知りたいので導入 
-        /// </summary>
-        int addUndoIndex;
+        int reorderFromIndex;
+        int reorderToIndex;
 
         /// <summary>
-        /// コマンドのRemoveをUndoする際、削除したコマンドが知りたいので導入
+        /// ウィンドウの分割する割合
         /// </summary>
-        List<CommandData> removedCommands;
-
         static readonly float WindowSplitRatio = 0.5f;
 
-        [MenuItem("Tools/Novel System/Flowchart Window")]
-        public static void OpenEditorWindow()
+        /// <summary>
+        /// コマンドを選択した際の色
+        /// </summary>
+        static readonly Color CommandSelectedColor = new Color(0.4f, 0.9f, 0.95f, 0.9f);
+
+        /// <summary>
+        /// コマンドのリストを区切る線の太さ
+        /// </summary>
+        static readonly int CommandsSplitLineWeight = 1;
+
+        /// <summary>
+        /// コマンドリストの各要素の縦幅
+        /// </summary>
+        static readonly int CommandsElementHeight = 30;
+
+        [MenuItem("Tools/Novel System/Open Flowchart Window")]
+        public static void OpenWindow()
         {
             GetWindow<FlowchartEditorWindow>("Flowchart Editor", typeof(SceneView));
         }
 
+        static void Log(string message, bool isWarning = false)
+        {
+            string text = $"<color=lightblue>{message}</color>";
+            if (isWarning)
+            {
+                Debug.LogWarning(text);
+            }
+            else
+            {
+                Debug.Log(text);
+            }
+        }
+
         void OnEnable()
         {
-            Init();
+            EditorSceneManager.sceneOpened -= OnSceneChangedInEditor;
+            EditorSceneManager.sceneOpened += OnSceneChangedInEditor;
+            EditorApplication.playModeStateChanged -= OnChangePlayMode;
+            EditorApplication.playModeStateChanged += OnChangePlayMode;
+            Undo.undoRedoEvent -= OnUndoRedo;
+            Undo.undoRedoEvent += OnUndoRedo;
 
-
-            void Init()
+            // エディタの起動時に前回選択していたフローチャートを復元
+            if (activeType == ActiveType.Executor)
             {
-                EditorSceneManager.sceneOpened -= OnSceneChanged;
-                EditorSceneManager.sceneOpened += OnSceneChanged;
-                EditorApplication.playModeStateChanged -= OnChangePlayMode;
-                EditorApplication.playModeStateChanged += OnChangePlayMode;
-                Undo.undoRedoEvent -= OnUndo;
-                Undo.undoRedoEvent += OnUndo;
-
-                if (activeMode == ActiveMode.Executor)
+                var executor = GameObject.FindObjectsByType<FlowchartExecutor>(FindObjectsInactive.Include, FindObjectsSortMode.None)
+                    .FirstOrDefault(e => e.name == selectedName);
+                if (executor != null)
                 {
-                    var executor = GameObject.FindObjectsByType<FlowchartExecutor>(FindObjectsInactive.Include, FindObjectsSortMode.None)
-                        .FirstOrDefault(e => e.name == selectedName);
-                    if (executor != null)
-                    {
-                        activeExecutorObj = executor.gameObject;
-                    }
+                    activeExecutorObj = executor.gameObject;
                 }
-
-                commandList = new();
-                selectedCommandList = new();
-                removedCommands = new();
-                UpdateFlowchartObjectAndWindow();
-                SetActiveFlowchart();
             }
+
+            commandList = new();
+            selectedIndices = new();
+            updatedIndices = new();
+            UpdateFlowchartObjectAndWindow();
+            UpdateActiveFlowchart();
         }
         void OnDisable()
         {
-            EditorSceneManager.sceneOpened -= OnSceneChanged;
+            EditorSceneManager.sceneOpened -= OnSceneChangedInEditor;
             EditorApplication.playModeStateChanged -= OnChangePlayMode;
-            Undo.undoRedoEvent -= OnUndo;
+            Undo.undoRedoEvent -= OnUndoRedo;
         }
 
         // 選択しているオブジェクトが変更された際に呼ばれる
@@ -121,36 +155,34 @@ namespace Novel.Editor
             // モードが変化した際に処理をする
             if (state is PlayModeStateChange.EnteredEditMode or PlayModeStateChange.EnteredPlayMode)
             {
-                SetActiveFlowchart();
+                UpdateActiveFlowchart();
             }
         }
 
-        void OnSceneChanged(Scene _, OpenSceneMode __)
+        void OnSceneChangedInEditor(Scene _, OpenSceneMode __)
         {
-            // シーン変更時、Executorのエディタをリセット
-            if (activeMode == ActiveMode.Executor)
+            // シーン変更時かつExecutor選択時、エディタをリセット
+            if (activeType == ActiveType.Executor)
             {
-                selectedName = string.Empty;
-                activeMode = ActiveMode.None;
+                activeType = ActiveType.None;
                 activeExecutorObj = null;
-                activeFlowchart = null;
+                activeFlow = null;
 
                 reorderableList = null;
-                selectedCommandList = null;
+                selectedIndices = null;
+                updatedIndices = null;
                 copiedCommandList?.Clear();
 
+                selectedName = string.Empty;
                 listScrollPos = Vector2.zero;
                 commandScrollPos = Vector2.zero;
-
-                addUndoIndex = 0;
-                removedCommands = new();
             }
         }
 
         void UpdateFlowchartObjectAndWindow()
         {
-            bool isUpdated = UpdateFlowchartObject();
-            if (isUpdated)
+            bool isChanged = UpdateFlowchartObject();
+            if (isChanged)
                 UpdateWindow();
 
 
@@ -161,29 +193,33 @@ namespace Novel.Editor
                 GameObject activeObj = Selection.activeGameObject;
                 if (activeObj != null && activeObj.TryGetComponent<FlowchartExecutor>(out var executor))
                 {
-                    // Executorがヒットした
-                    isChanged = activeFlowchart != executor.Flowchart;
-                    activeMode = ActiveMode.Executor;
+                    // Executorがヒット
+                    isChanged = executor.Flowchart.EqualsCommands(activeFlow) == false;
+                    // 本来は下のようにしたいが、コンパイル時だと同じフローチャートでも不一致判定が出るためコマンドリストを照合している
+                    // isChanged = activeFlowchart != executor.Flowchart;
+                    activeType = ActiveType.Executor;
                     activeExecutorObj = activeObj;
-                    activeFlowchart = executor.Flowchart;
+                    activeFlow = executor.Flowchart;
+
                 }
                 else if (Selection.activeObject != null)
                 {
                     var data = Selection.GetFiltered<FlowchartData>(SelectionMode.Assets).FirstOrDefault();
                     if (data != null)
                     {
-                        // Dataがヒットした
-                        isChanged = activeFlowchart != data.Flowchart;
-                        activeMode = ActiveMode.Data;
+                        // Dataがヒット
+                        isChanged = data.Flowchart.EqualsCommands(activeFlow) == false;
+                        activeType = ActiveType.Data;
                         activeFlowchartData = data;
-                        activeFlowchart = data.Flowchart;
+                        activeFlow = data.Flowchart;
                     }
                 }
 
                 if (isChanged)
                 {
-                    commandList = activeFlowchart.GetCommandDataList();
-                    selectedCommandList = new();
+                    commandList = activeFlow.GetCommandDataList();
+                    selectedIndices = new();
+                    updatedIndices = new();
                     listScrollPos = Vector2.zero;
                     commandScrollPos = Vector2.zero;
                     selectedName = Selection.activeObject.name;
@@ -192,52 +228,105 @@ namespace Novel.Editor
             }
         }
 
-        // Flowchartの表示を更新する
-        void SetActiveFlowchart()
-        {
-            if (activeMode == ActiveMode.Executor && activeExecutorObj != null)
-            {
-                activeFlowchart = activeExecutorObj.GetComponent<FlowchartExecutor>().Flowchart;
-            }
-            else if (activeMode == ActiveMode.Data && activeFlowchartData != null)
-            {
-                activeFlowchart = activeFlowchartData.Flowchart;
-            }
-
-            if (activeFlowchart != null)
-                commandList = activeFlowchart.GetCommandDataList();
-            UpdateWindow();
-        }
-
         void UpdateWindow()
         {
-            if (activeFlowchart == null) return;
+            if (activeFlow == null) return;
             AssetDatabase.SaveAssets();
             reorderableList = CreateReorderableList();
+            selectedIndices.ForEach(s => reorderableList.Select(s, true));
             Repaint();
         }
 
-        void OnUndo(in UndoRedoInfo info)
+        // Flowchartの表示を更新する
+        void UpdateActiveFlowchart()
         {
-            UndoType operateType = GetUndoRedoType(info);
-            if (activeFlowchart == null || operateType == UndoType.None) return;
-
-            List<CommandData> oldList = null;
-            if (operateType is UndoType.Remove && activeMode == ActiveMode.Data && info.isRedo == false)
+            if (activeType == ActiveType.Executor && activeExecutorObj != null)
             {
-                oldList = new(activeFlowchartData.Flowchart.GetCommandDataList());
-                AssetDatabase.SaveAssets();
-                var subAssets = AssetDatabase.LoadAllAssetsAtPath(AssetDatabase.GetAssetPath(activeFlowchartData))
-                    .Where(x => AssetDatabase.IsSubAsset(x))
-                    .ToArray();
+                activeFlow = activeExecutorObj.GetComponent<FlowchartExecutor>().Flowchart;
+            }
+            else if (activeType == ActiveType.Data && activeFlowchartData != null)
+            {
+                activeFlow = activeFlowchartData.Flowchart;
+            }
 
+            if (activeFlow != null)
+                commandList = activeFlow.GetCommandDataList();
+            UpdateWindow();
+        }
+
+        void SetCommandToFlowchart(List<CommandData> list)
+        {
+            if (activeFlow == null) return;
+            activeFlow.SetCommandDataList(list);
+            if (activeType == ActiveType.Executor)
+            {
+                EditorUtility.SetDirty(activeExecutorObj);
+            }
+            else if (activeType == ActiveType.Data)
+            {
+                EditorUtility.SetDirty(activeFlowchartData);
+            }
+        }
+
+        #region UndoRedo Operate
+
+        enum OperateType
+        {
+            None,
+            Add,
+            Remove,
+            Paste,
+            Duplicate,
+            Reorder,
+        }
+
+        void SetRecordUndoName(OperateType operate)
+        {
+            string recordName = operate switch
+            {
+                OperateType.Add => "Add Command",
+                OperateType.Remove => "Remove Command",
+                OperateType.Paste => "Paste Command",
+                OperateType.Duplicate => "Duplicate Command",
+                OperateType.Reorder => "Reorder Command",
+                _ => throw new Exception($"{nameof(OperateType)} is None")
+            };
+            Undo.SetCurrentGroupName(recordName);
+        }
+
+        OperateType GetUndoRedoType(UndoRedoInfo info)
+        {
+            return info.undoName switch
+            {
+                "Add Command" => OperateType.Add,
+                "Remove Command" => OperateType.Remove,
+                "Paste Command" => OperateType.Paste,
+                "Duplicate Command" => OperateType.Duplicate,
+                "Reorder Command" => OperateType.Reorder,
+                _ => OperateType.None
+            };
+        }
+
+        void OnUndoRedo(in UndoRedoInfo info)
+        {
+            OperateType operate = GetUndoRedoType(info);
+            if (operate == OperateType.None) return;
+
+            AssetDatabase.SaveAssets();
+
+            if (operate is OperateType.Remove && activeType == ActiveType.Data && info.isRedo == false)
+            {
+                var subAssets = AssetDatabase.LoadAllAssetsAtPath(AssetDatabase.GetAssetPath(activeFlowchartData))
+                    .Where(x => AssetDatabase.IsSubAsset(x));
+
+                // Unity特有の偽nullに対処するため、サブアセットを直接更新する
                 var list = activeFlowchartData.Flowchart.GetCommandDataList();
                 for (int i = 0; i < list.Count; i++)
                 {
-                    for (int k = 0; k < subAssets.Length; k++)
+                    foreach (var sub in subAssets)
                     {
-                        // Unity特有の偽nullに対処するため意味の分からないコードを書いている
-                        CommandData convertedCmd = subAssets[k] as CommandData;
+                        // Insane Code
+                        CommandData convertedCmd = sub as CommandData;
                         if (list[i] == convertedCmd)
                         {
                             list[i] = convertedCmd;
@@ -248,43 +337,86 @@ namespace Novel.Editor
             }
             else
             {
-                AssetDatabase.SaveAssets();
                 SetCommandToFlowchart(commandList);
             }
             reorderableList = CreateReorderableList();
 
-            if (operateType is UndoType.Add or UndoType.Paste or UndoType.Duplicate
-             || operateType is UndoType.Remove && info.isRedo)
+            if (operate is OperateType.Add or OperateType.Paste or OperateType.Duplicate && info.isRedo)
             {
-                var cmd = LastSelectedCommand;
-                SelectCommand(null);
-                if (cmd == null || commandList.Contains(cmd) == false)
+                int updatedIndex = updatedIndices.FirstOrDefault();
+                SelectCommand(updatedIndex);
+            }
+            else if (operate is OperateType.Add or OperateType.Paste or OperateType.Duplicate
+                  || operate is OperateType.Remove && info.isRedo)
+            {
+                int updatedIndex = updatedIndices.FirstOrDefault();
+                int lastIndex = LastSelectedIndex.GetValueOrDefault();
+                if (updatedIndex <= lastIndex)
                 {
-                    SelectCommand(addUndoIndex - 1);
+                    SelectCommand(lastIndex - 1);
                 }
                 else
                 {
-                    SelectCommand(cmd);
+                    SelectCommand(lastIndex);
                 }
             }
-            else if (operateType == UndoType.Remove)
+            else if (operate == OperateType.Remove)
             {
                 // Undo前に選択していたコマンドを選択状態にする
                 SelectCommand(null);
-                IEnumerable<CommandData> removedCmds = activeMode == ActiveMode.Executor ?
-                    removedCommands :
-                    commandList.Except(oldList.Where(c => c != null));
-                foreach (var c in removedCmds)
+                foreach (var i in updatedIndices)
                 {
-                    SelectCommand(c, append: true);
+                    SelectCommand(i, append: true);
                 }
             }
+            else if (operate == OperateType.Reorder)
+            {
+                int from = reorderFromIndex;
+                int to = reorderToIndex;
+                if (info.isRedo) // Redo時は逆にする
+                    (from, to) = (to, from);
+
+                // 例えば「0 => 2」へ移動したら、「2 => 0」までスワップして戻す
+                if (from < to)
+                {
+                    for (int i = to; i > from; i--)
+                    {
+                        (commandList[i], commandList[i - 1]) = (commandList[i - 1], commandList[i]);
+                    }
+                }
+                else
+                {
+                    for (int i = to; i < from; i++)
+                    {
+                        (commandList[i], commandList[i + 1]) = (commandList[i + 1], commandList[i]);
+                    }
+                }
+                SelectCommand(from);
+                SetCommandToFlowchart(commandList);
+            }
+
+            reorderableList.GrabKeyboardFocus();
             Repaint();
         }
 
+        #endregion
+
+        #region OnGUI
+
         void OnGUI()
         {
-            if (activeMode == ActiveMode.None || activeFlowchart == null) return;
+            // selectedIndicesのデバッグ用
+            /*if (selectedIndices != null)
+            {
+                string s = string.Empty;
+                foreach (var i in selectedIndices)
+                {
+                    s += $"{i} ";
+                }
+                if (string.IsNullOrEmpty(s) == false)
+                    Debug.Log(s);
+            }*/
+            if (activeType == ActiveType.None || activeFlow == null) return;
             using (var scope = new EditorGUI.ChangeCheckScope())
             {
                 using (new GUILayout.HorizontalScope())
@@ -292,56 +424,67 @@ namespace Novel.Editor
                     DrawList(reorderableList);
                     DrawCommandInspector(LastSelectedCommand);
                 }
+                HandleShortcutKey();
+                HandleMenu();
 
                 if (scope.changed)
                 {
                     SetCommandToFlowchart(commandList);
                 }
             }
-        }
 
-        void SetCommandToFlowchart(List<CommandData> list)
-        {
-            if (activeFlowchart == null) return;
-            activeFlowchart.SetCommandDataList(list);
-            if (activeMode == ActiveMode.Executor)
-            {
-                EditorUtility.SetDirty(activeExecutorObj);
-            }
-            else if (activeMode == ActiveMode.Data)
-            {
-                EditorUtility.SetDirty(activeFlowchartData);
-            }
-        }
 
-        void DrawList(ReorderableList reorderableList)
-        {
-            if (reorderableList == null) return;
-            var e = Event.current;
-            if (e.type == EventType.KeyDown && e.control && selectedCommandList.Count != 0)
+            void DrawList(ReorderableList reorderableList)
             {
-                if (e.keyCode == KeyCode.C && selectedCommandList != null)
+                if (reorderableList == null) return;
+                using (var scroll = new GUILayout.ScrollViewScope(
+                    listScrollPos, EditorStyles.helpBox, GUILayout.Width(position.size.x * WindowSplitRatio)))
                 {
-                    CopyFrom(selectedCommandList);
-                }
-                else if (e.keyCode == KeyCode.V && copiedCommandList != null)
-                {
-                    PasteFrom(copiedCommandList);
-                }
-                else if (e.keyCode == KeyCode.D && selectedCommandList != null)
-                {
-                    DuplicateFrom(selectedCommandList);
+                    listScrollPos = scroll.scrollPosition;
+                    reorderableList.DoLayoutList();
                 }
             }
 
-            if (Event.current.type == EventType.ContextClick && Event.current.button == 1)
+            void DrawCommandInspector(CommandData cmdData)
             {
-                var mousePos = Event.current.mousePosition;
+                if (cmdData == null) return;
+                using (var scroll = new GUILayout.ScrollViewScope(commandScrollPos, EditorStyles.helpBox))
+                {
+                    commandScrollPos = scroll.scrollPosition;
+                    UnityEditor.Editor.CreateEditor(cmdData).OnInspectorGUI();
+                }
+            }
+
+            void HandleShortcutKey()
+            {
+                var e = Event.current;
+                if (e.type == EventType.KeyDown && e.control
+                 && selectedIndices != null && selectedIndices.Count != 0)
+                {
+                    if (e.keyCode == KeyCode.C)
+                    {
+                        copiedCommandList = CopyFrom(selectedIndices);
+                    }
+                    else if (e.keyCode == KeyCode.V)
+                    {
+                        PasteFrom(copiedCommandList);
+                    }
+                    else if (e.keyCode == KeyCode.D)
+                    {
+                        DuplicateFrom(selectedIndices);
+                    }
+                }
+            }
+
+            void HandleMenu()
+            {
+                var e = Event.current;
+                var mousePos = e.mousePosition;
                 var commandListRect = new Rect(0, 0, position.size.x * WindowSplitRatio, position.size.y);
-                if (commandListRect.Contains(mousePos))
+                if (e.type == EventType.ContextClick && e.button == 1 && commandListRect.Contains(mousePos))
                 {
                     GenericMenu menu = new();
-                    if (selectedCommandList.Count == 0)
+                    if (selectedIndices.Count == 0)
                     {
                         menu.AddDisabledItem(new GUIContent("Add"));
                         menu.AddDisabledItem(new GUIContent("Remove"));
@@ -354,8 +497,8 @@ namespace Novel.Editor
                     {
                         menu.AddItem(new GUIContent("Add"), false, () => Add());
                         menu.AddItem(new GUIContent("Remove"), false, () => Remove());
-                        menu.AddItem(new GUIContent("Copy"), false, () => CopyFrom(selectedCommandList));
-                        if (copiedCommandList == null)
+                        menu.AddItem(new GUIContent("Copy"), false, () => copiedCommandList = CopyFrom(selectedIndices));
+                        if (copiedCommandList == null || copiedCommandList.Where(c => c != null).Count() == 0)
                         {
                             menu.AddDisabledItem(new GUIContent("Paste"));
                         }
@@ -378,45 +521,30 @@ namespace Novel.Editor
                                     var scriptAsset = AssetDatabase.LoadAssetAtPath<UnityEngine.Object>(scriptPath);
                                     AssetDatabase.OpenAsset(scriptAsset, 7); // おおよその行数をカーソル
                                 }
+                                else
+                                {
+                                    Log($"スクリプト\"{cmdName}\"を開くのに失敗しました\n" +
+                                    "クラス名とファイル名が一致していない可能性があります", true);
+                                }
                             });
                         }
                     }
+
                     if (menu.GetItemCount() > 0)
                     {
                         menu.ShowAsContext();
-                        Event.current.Use();
+                        e.Use();
                     }
                 }
             }
-
-            using (var scroll = new GUILayout.ScrollViewScope(
-                listScrollPos, EditorStyles.helpBox, GUILayout.Width(position.size.x * WindowSplitRatio)))
-            {
-                listScrollPos = scroll.scrollPosition;
-                reorderableList.DoLayoutList();
-            }
         }
 
-        void DrawCommandInspector(CommandData command)
+        List<CommandData> CopyFrom(IEnumerable<int> selectedIndices, bool callLog = true)
         {
-            using (var scroll = new GUILayout.ScrollViewScope(commandScrollPos, EditorStyles.helpBox))
-            {
-                commandScrollPos = scroll.scrollPosition;
-                if (command == null) return;
-                UnityEditor.Editor.CreateEditor(command).OnInspectorGUI();
-            }
-        }
-
-        void CopyFrom(List<CommandData> selectedCommandList, bool callLog = true)
-        {
-            Event.current?.Use();
-            if (GUIUtility.keyboardControl > 0)
-            {
-                copiedCommandList = new List<CommandData>(selectedCommandList);
-            }
+            List<CommandData> copiedList = selectedIndices.Select(i => commandList[i]).ToList();
             if (callLog)
             {
-                if (copiedCommandList == null || copiedCommandList.Count == 0)
+                if (copiedList == null || copiedList.Count == 0)
                 {
                     Log("コマンドのコピーに失敗しました", true);
                 }
@@ -425,114 +553,134 @@ namespace Novel.Editor
                     Log("コマンドをコピーしました");
                 }
             }
+            Event.current?.Use();
+            return copiedList;
         }
-        void PasteFrom(List<CommandData> copiedCommandList, bool callLog = true)
+        void PasteFrom(List<CommandData> copiedList, bool callLog = true)
         {
-            if (callLog && (copiedCommandList == null || copiedCommandList.Where(c => c != null).Count() == 0))
+            if (copiedList == null || copiedList.Where(c => c != null).Count() == 0)
             {
-                Log("ペーストに失敗しました\nコマンドがコピーされていません", true);
+                if (callLog)
+                    Log("ペーストに失敗しました\nコピーされているコマンドがありません", true);
                 return;
             }
 
-            SetRecordUndoName(UndoType.Paste);
-            int currentIndex = commandList.IndexOf(LastSelectedCommand);
-            SelectCommand(null);
-            Event.current?.Use();
-            if (GUIUtility.keyboardControl <= 0) return;
+            SetRecordUndoName(OperateType.Paste);
 
-            List<CommandData> createdList = new(copiedCommandList.Count);
-            for (int i = 0; i < copiedCommandList.Count; i++)
+            List<CommandData> createdList = new(copiedList.Count);
+            for (int i = 0; i < copiedList.Count; i++)
             {
-                var cmdData = copiedCommandList[^(i + 1)];
-                if (cmdData == null) continue;
+                var cmd = copiedList[^(i + 1)];
+                if (cmd == null) continue;
 
                 CommandData createdCmd = null;
-                if (activeMode == ActiveMode.Executor)
+                if (activeType == ActiveType.Executor)
                 {
-                    createdCmd = Instantiate(cmdData);
+                    createdCmd = Instantiate(cmd);
                 }
-                else if (activeMode == ActiveMode.Data)
+                else if (activeType == ActiveType.Data)
                 {
-                    createdCmd = FlowchartEditorUtility.DuplicateSubCommandData(activeFlowchartData, cmdData);
+                    createdCmd = FlowchartEditorUtility.DuplicateSubCommandData(activeFlowchartData, cmd);
                 }
                 createdList.Add(createdCmd);
             }
 
             Undo.RecordObject(this, "Paste List");
 
+            int currentIndex = LastSelectedIndex.GetValueOrDefault();
             foreach (var c in createdList)
             {
                 commandList.Insert(currentIndex + 1, c);
             }
+
+            SelectCommand(null);
+            updatedIndices.Clear();
             foreach (var c in createdList)
             {
                 SelectCommand(c, append: true);
+                updatedIndices.Add(commandList.IndexOf(c));
             }
+
+            if (activeType == ActiveType.Executor)
+            {
+                EditorUtility.SetDirty(activeExecutorObj);
+            }
+            else if (activeType == ActiveType.Data)
+            {
+                EditorUtility.SetDirty(activeFlowchartData);
+            }
+
+            SetCommandToFlowchart(commandList);
+            Event.current?.Use();
 
             if (callLog)
                 Log("コマンドをペーストしました");
         }
-        void DuplicateFrom(List<CommandData> selectedCommandList, bool callLog = true)
+        void DuplicateFrom(List<int> selectedIndices, bool callLog = true)
         {
-            CopyFrom(selectedCommandList, false);
-            PasteFrom(copiedCommandList, false);
-            SetRecordUndoName(UndoType.Duplicate);
+            List<CommandData> copiedList = CopyFrom(selectedIndices, false);
+            PasteFrom(copiedList, false);
+            SetRecordUndoName(OperateType.Duplicate);
             if (callLog)
                 Log("コマンドを複製しました");
         }
 
         void Add(ReorderableList list = null)
         {
-            SetRecordUndoName(UndoType.Add);
+            SetRecordUndoName(OperateType.Add);
 
             CommandData createdCmd = null;
-            if (activeMode == ActiveMode.Executor)
+            if (activeType == ActiveType.Executor)
             {
                 createdCmd = CreateInstance<CommandData>();
             }
-            else if (activeMode == ActiveMode.Data)
+            else if (activeType == ActiveType.Data)
             {
-                createdCmd = FlowchartEditorUtility.CreateSubCommandData(
-                    activeFlowchartData, $"{nameof(CommandData)}_{activeFlowchartData.name}");
+                createdCmd = FlowchartEditorUtility.CreateSubCommandData(activeFlowchartData, $"Command_{activeFlowchartData.name}");
             }
 
             Undo.RecordObject(this, "Add List");
-
-            int insertIndex = LastSelectedCommand == null ?
+            updatedIndices.Clear();
+            int insertIndex = LastSelectedIndex == null ?
                 commandList.Count :
-                (commandList.IndexOf(LastSelectedCommand) + 1);
+                (LastSelectedIndex.GetValueOrDefault() + 1);
             commandList.Insert(insertIndex, createdCmd);
+            updatedIndices.Add(insertIndex);
             SelectCommand(createdCmd);
             reorderableList.GrabKeyboardFocus();
         }
 
         void Remove(ReorderableList list = null)
         {
-            SetRecordUndoName(UndoType.Remove);
+            Undo.IncrementCurrentGroup(); // Deleteキーの押しっぱなし対策
+            SetRecordUndoName(OperateType.Remove);
 
-            if (activeMode == ActiveMode.Data)
+            if (activeType == ActiveType.Data)
             {
-                for (int i = 0; i < selectedCommandList.Count; i++)
+                for (int i = 0; i < selectedIndices.Count; i++)
                 {
-                    var cmd = selectedCommandList[^(i + 1)];
+                    var cmd = commandList[selectedIndices[^(i + 1)]];
                     Undo.DestroyObjectImmediate(cmd);
                 }
                 AssetDatabase.SaveAssets();
             }
 
             Undo.RecordObject(this, "Remove List");
-            removedCommands.Clear();
-            for (int i = 0; i < selectedCommandList.Count; i++)
+            updatedIndices.Clear();
+
+            for (int i = 0; i < selectedIndices.Count; i++)
             {
                 // selectedCommandListの後ろから適用する
-                var cmd = selectedCommandList[^(i + 1)];
-                int removeIndex = commandList.IndexOf(cmd);
+                int removeIndex = selectedIndices[^(i + 1)];
+                var cmd = commandList[removeIndex];
                 commandList.Remove(cmd);
-                removedCommands.Add(cmd);
+                updatedIndices.Add(removeIndex);
 
-                if (i != selectedCommandList.Count - 1) continue;
-                selectedCommandList.Clear();
-                SelectCommand(removeIndex - 1);
+                if (i == selectedIndices.Count - 1)
+                {
+                    selectedIndices.Clear();
+                    SelectCommand(removeIndex - 1);
+                }
             }
         }
 
@@ -543,16 +691,17 @@ namespace Novel.Editor
         {
             if (append == false)
             {
-                selectedCommandList.Clear();
+                selectedIndices.Clear();
             }
             if (command == null)
             {
                 reorderableList.ClearSelection();
                 return;
             }
-            selectedCommandList.Add(command);
+            selectedIndices.Add(commandList.IndexOf(command));
+            if (selectedIndices.Count >= 2)
+                selectedIndices.Sort();
             reorderableList.Select(commandList.IndexOf(command), append);
-            addUndoIndex = commandList.IndexOf(command);
         }
         void SelectCommand(int index, bool append = false)
         {
@@ -560,52 +709,6 @@ namespace Novel.Editor
             SelectCommand(commandList[Mathf.Clamp(index, 0, commandList.Count - 1)], append);
         }
 
-        static void Log(string message, bool isWarning = false)
-        {
-            string text = $"<color=lightblue>{message}</color>";
-            if (isWarning)
-            {
-                Debug.LogWarning(text);
-            }
-            else
-            {
-                Debug.Log(text);
-            }
-        }
-
-        enum UndoType
-        {
-            None,
-            Add,
-            Remove,
-            Paste,
-            Duplicate,
-        }
-
-        void SetRecordUndoName(UndoType undoType)
-        {
-            string recordName = undoType switch
-            {
-                UndoType.Add => "Add Command",
-                UndoType.Remove => "Remove Command",
-                UndoType.Paste => "Paste Command",
-                UndoType.Duplicate => "Duplicate Command",
-                _ => throw new Exception("UndoRedoType is None")
-            };
-            Undo.SetCurrentGroupName(recordName);
-        }
-
-        UndoType GetUndoRedoType(UndoRedoInfo info)
-        {
-            return info.undoName switch
-            {
-                "Add Command" => UndoType.Add,
-                "Remove Command" => UndoType.Remove,
-                "Paste Command" => UndoType.Paste,
-                "Duplicate Command" => UndoType.Duplicate,
-                _ => UndoType.None
-            };
-        }
 
         ReorderableList CreateReorderableList()
         {
@@ -620,29 +723,33 @@ namespace Novel.Editor
                 onAddCallback = Add,
                 onRemoveCallback = Remove,
                 onSelectCallback = OnSelect,
-                onReorderCallback = OnReorder,
+                onReorderCallbackWithDetails = OnReorder,
+                elementHeightCallback = GetElementHeight,
                 drawElementCallback = DrawElement,
                 drawElementBackgroundCallback = DrawElementBackground,
-                elementHeightCallback = GetElementHeight,
             };
+
 
             void OnSelect(ReorderableList list)
             {
-                selectedCommandList.Clear();
+                selectedIndices.Clear();
                 foreach (var i in list.selectedIndices)
                 {
-                    selectedCommandList.Add(commandList[i]);
+                    SelectCommand(i, append: true);
                 }
-                addUndoIndex = list.selectedIndices.Last();
             }
 
-            void OnReorder(ReorderableList list)
+            void OnReorder(ReorderableList list, int fromIndex, int toIndex)
             {
-                if (activeMode == ActiveMode.Executor)
+                SetRecordUndoName(OperateType.Reorder);
+                Undo.RecordObject(this, "Reorder List");
+                reorderFromIndex = fromIndex;
+                reorderToIndex = toIndex;
+                if (activeType == ActiveType.Executor)
                 {
                     EditorUtility.SetDirty(activeExecutorObj);
                 }
-                else if (activeMode == ActiveMode.Data)
+                else if (activeType == ActiveType.Data)
                 {
                     EditorUtility.SetDirty(activeFlowchartData);
                 }
@@ -661,9 +768,9 @@ namespace Novel.Editor
                 GUI.color = Color.black;
 
                 string cmdName = cmd.GetName() ?? "Null";
-                EditorGUI.LabelField(rect, $"<size=12>{cmdName}</size>", style);
-                EditorGUI.LabelField(new Rect(rect.x + 90, rect.y, rect.width, rect.height),
-                    $"<size=10>{TagUtility.RemoveSizeTag(cmd.GetSummary())}</size>", style);
+                EditorGUI.LabelField(rect, $"<size=12>{cmdName}</size>", style); // コマンド名の表示
+                EditorGUI.LabelField(new Rect(rect.x + 100, rect.y, rect.width, rect.height),
+                    $"<size=10>{TagUtility.RemoveSizeTag(cmd.GetSummary())}</size>", style); // サマリーの表示
 
                 GUI.color = tmpColor;
             }
@@ -673,31 +780,28 @@ namespace Novel.Editor
                 if (index < 0 || commandList.Count <= index) return;
                 var cmd = commandList[index];
 
-                var color = (Color)default;
+                Color color = cmd.Enabled ?
+                    cmd.GetCommandColor() :
+                    color = new Color(0.7f, 0.7f, 0.7f, 1f);
+                EditorGUI.DrawRect(rect, color);
+
                 if (isActive)
                 {
-                    color = new Color(0.2f, 0.85f, 0.95f, 1f);
+                    EditorGUI.DrawRect(rect, CommandSelectedColor);
                 }
-                else if (cmd.Enabled)
-                {
-                    color = cmd.GetCommandColor();
-                }
-                else
-                {
-                    color = new Color(0.7f, 0.7f, 0.7f, 1f);
-                }
-                EditorGUI.DrawRect(rect, color);
 
                 var tmpColor = GUI.color;
                 GUI.color = Color.black;
-                GUI.Box(new Rect(rect.x, rect.y, rect.width, 1), string.Empty);
+                GUI.Box(new Rect(rect.x, rect.y, rect.width, CommandsSplitLineWeight), string.Empty);
                 GUI.color = tmpColor;
             }
 
             float GetElementHeight(int index)
             {
-                return 30;
+                return CommandsElementHeight;
             }
         }
+
+        #endregion
     }
 }

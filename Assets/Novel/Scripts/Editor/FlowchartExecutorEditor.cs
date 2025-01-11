@@ -29,6 +29,8 @@ namespace Novel.Editor
                 copiedExecutor.name = GenerateHierarchyName(baseExecutor.name);
                 var flowchart = copiedExecutor.Flowchart;
 
+                Undo.RegisterCreatedObjectUndo(copiedExecutor.gameObject, "Duplicate Flowchart");
+
                 var copiedCmdList = new List<CommandData>();
                 foreach (var cmdData in flowchart.GetCommandDataList())
                 {

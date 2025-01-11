@@ -16,17 +16,7 @@ MonoBehaviour:
   m_Data:
     m_SerializedData: []
   m_GUID: 9196e992a374a5c4db5a990e5c9577f0
-  m_SerializeEntries:
-  - m_GUID: 77cce57af4d3d1f4591dbe3225d67863
-    m_Address: Assets/Scriptable/Flow 1.asset
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: bad6bfd867829f14ab2b59862dff87d7
-    m_Address: Assets/Scriptable/Flow.asset
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
+  m_SerializeEntries: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 948489a93751eed41bffdc9a57cea44e, type: 2}
   m_SchemaSet:

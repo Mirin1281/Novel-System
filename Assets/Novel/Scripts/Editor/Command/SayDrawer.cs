@@ -34,7 +34,7 @@ namespace Novel.Editor
             CharacterData chara = CommandDrawerUtility.DropDownCharacterList(position, characterProp);
             position.y += GetHeight();
 
-            if(chara != null)
+            if (chara != null)
             {
                 // 立ち絵の設定 //
                 var spriteProp = property.FindPropertyRelative("changeSprite");
@@ -62,8 +62,7 @@ namespace Novel.Editor
         {
             position.y += GetHeight(10);
 
-            if (GUI.Button(new Rect(
-                    position.x + buttonWidth, position.y, position.width - buttonWidth * 2, buttonHeight),
+            if (GUI.Button(new Rect(position.x + buttonWidth, position.y, position.width - buttonWidth * 2, buttonHeight),
                 "テキストをプレビュー"))
             {
                 var text = textProp.stringValue;

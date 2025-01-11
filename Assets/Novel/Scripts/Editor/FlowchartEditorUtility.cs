@@ -13,21 +13,11 @@ namespace Novel.Editor
     public static class FlowchartEditorUtility
     {
         /// <summary>
-        /// 絶対パスから Assets/のパスに変換します
+        /// 絶対パスから"Assets/"のパスに変換します
         /// </summary>
         public static string AbsoluteToAssetsPath(string path)
         {
             return path.Replace("\\", "/").Replace(Application.dataPath, "Assets");
-        }
-
-        public static void DestroyScritableObject(ScriptableObject obj)
-        {
-            var path = GetExistFolderPath(obj);
-            var deleteName = obj.name;
-            Object.DestroyImmediate(obj, true);
-            File.Delete($"{path}/{deleteName}.asset");
-            File.Delete($"{path}/{deleteName}.asset.meta");
-            AssetDatabase.Refresh(ImportAssetOptions.ForceUpdate);
         }
 
         /// <summary>
@@ -51,17 +41,6 @@ namespace Novel.Editor
                 relativePath = string.Empty;
             }
             return isExist;
-        }
-
-        /// <summary>
-        /// プロジェクト上にあるアセットのパスを返します
-        /// </summary>
-        public static string GetExistFolderPath(Object obj)
-        {
-            var dataPath = AssetDatabase.GetAssetPath(obj.GetInstanceID());
-            if (string.IsNullOrEmpty(dataPath)) return null;
-            var index = dataPath.LastIndexOf("/");
-            return dataPath.Substring(0, index);
         }
 
         /// <summary>
@@ -134,51 +113,46 @@ namespace Novel.Editor
         /// <returns></returns>
         public static CommandData CreateSubCommandData(FlowchartData parentData, string baseName)
         {
-            var cmdData = ScriptableObject.CreateInstance<CommandData>();
+            var createdCmd = ScriptableObject.CreateInstance<CommandData>();
             string path = AssetDatabase.GetAssetPath(parentData);
             int lastIndex = path.LastIndexOf('/');
             string folderPath = path.Substring(0, lastIndex);
-            cmdData.name = GenerateAssetName(folderPath, baseName);
-            AssetDatabase.AddObjectToAsset(cmdData, parentData);
-            Undo.RegisterCreatedObjectUndo(cmdData, "Create Command");
-            AssetDatabase.SaveAssets();
-            return cmdData;
-        }
-
-        public static CommandData DuplicateSubCommandData(FlowchartData parentData, CommandData cmdData)
-        {
-            var createdCmd = Object.Instantiate(cmdData);
-            string path = AssetDatabase.GetAssetPath(parentData);
-            int lastIndex = path.LastIndexOf('/');
-            string folderPath = path.Substring(0, lastIndex);
-            createdCmd.name = GenerateAssetName(folderPath, createdCmd.name);
+            createdCmd.name = GenerateAssetName(folderPath, baseName);
             AssetDatabase.AddObjectToAsset(createdCmd, parentData);
-            Undo.RegisterCreatedObjectUndo(createdCmd, "Duplicate Command");
+            Undo.RegisterCreatedObjectUndo(createdCmd, "Create Command");
             AssetDatabase.SaveAssets();
             return createdCmd;
         }
 
+        public static CommandData DuplicateSubCommandData(FlowchartData parentData, CommandData cmdData)
+        {
+            var duplicatedCmd = Object.Instantiate(cmdData);
+            string path = AssetDatabase.GetAssetPath(parentData);
+            int lastIndex = path.LastIndexOf('/');
+            string folderPath = path.Substring(0, lastIndex);
+            duplicatedCmd.name = GenerateAssetName(folderPath, cmdData.name);
+            AssetDatabase.AddObjectToAsset(duplicatedCmd, parentData);
+            Undo.RegisterCreatedObjectUndo(duplicatedCmd, "Duplicate Command");
+            AssetDatabase.SaveAssets();
+            return duplicatedCmd;
+        }
+
         /// <summary>
-        /// 不要なCommandDataを削除します
+        /// 未使用のCommandDataを削除します
         /// </summary>
-        public static void RemoveAllUnusedCommandData()
+        public static void DestroyAllUnusedCommandData()
         {
             int removeCount = 0;
-            // どのフローチャートにも属していないCommandDataを削除
-            var flowchartDatas = GetAllScriptableObjects<FlowchartData>();
-            foreach (var d in GetAllScriptableObjects<CommandData>())
+            foreach (var data in GetAllScriptableObjects<FlowchartData>())
             {
-                if (IsUsed(d, flowchartDatas) == false)
-                {
-                    removeCount++;
-                    DestroyScritableObject(d);
-                }
+                removeCount += DestroyUnusedCommandData(data);
             }
 
             AssetDatabase.Refresh(ImportAssetOptions.ForceUpdate);
+            AssetDatabase.SaveAssets();
             if (removeCount > 0)
             {
-                Debug.Log($"不要なデータが{removeCount}個削除されました");
+                Debug.Log($"未使用のコマンドが合計{removeCount}個削除されました");
             }
             else
             {
@@ -186,74 +160,27 @@ namespace Novel.Editor
             }
 
 
-            static bool IsUsed(CommandData targetData, FlowchartData[] flowchartDatas)
+            // 指定したFlowchartDataで使われていないコマンドを削除
+            static int DestroyUnusedCommandData(FlowchartData flowchartData)
             {
-                foreach (var flowchartData in flowchartDatas)
+                int removeCount = 0;
+                var subAssets = AssetDatabase.LoadAllAssetsAtPath(AssetDatabase.GetAssetPath(flowchartData))
+                    .Where(x => AssetDatabase.IsSubAsset(x));
+                foreach (var sub in subAssets)
                 {
-                    if (flowchartData.IsUsed(targetData)) return true;
+                    CommandData cmdData = sub as CommandData;
+                    if (flowchartData.IsUsed(cmdData) == false)
+                    {
+                        removeCount++;
+                        Object.DestroyImmediate(cmdData, true);
+                    }
                 }
-                return false;
-            }
-        }
-    }
 
-    /// <summary>
-    /// コマンド表示のユーティリティ
-    /// </summary>
-    public static class CommandDrawerUtility
-    {
-        /// <summary>
-        /// CharacterDataのドロップダウンリストを表示します
-        /// </summary>
-        public static CharacterData DropDownCharacterList(Rect position, SerializedProperty property)
-        {
-            var characterArray = FlowchartEditorUtility.GetAllScriptableObjects<CharacterData>()
-                .Prepend(null).ToArray();
-            int previousCharaIndex = Array.IndexOf(
-                    characterArray, property.objectReferenceValue as CharacterData);
-            int selectedCharaIndex = EditorGUI.Popup(position, property.displayName, previousCharaIndex,
-                characterArray.Select(c => c == null ? "<Null>" : c.CharacterName).ToArray());
-
-            if (previousCharaIndex != selectedCharaIndex)
-            {
-                property.objectReferenceValue = characterArray[selectedCharaIndex];
-                property.serializedObject.ApplyModifiedProperties();
-            }
-
-            if (selectedCharaIndex < characterArray.Length && selectedCharaIndex >= 0)
-            {
-                return characterArray[selectedCharaIndex];
-            }
-            else
-            {
-                return null;
-            }
-        }
-
-        /// <summary>
-        /// CharacterData内のスプライトのドロップダウンリストを表示します
-        /// </summary>
-        public static Sprite DropDownSpriteList(Rect position, SerializedProperty property, CharacterData character)
-        {
-            if (character == null || character.Portraits == null || character.Portraits.Count() == 0) return null;
-            Sprite[] portraitsArray = character.Portraits.Prepend(null).ToArray();
-            int previousPortraitIndex = Array.IndexOf(portraitsArray, property.objectReferenceValue as Sprite);
-            int selectedPortraitIndex = EditorGUI.Popup(position, property.displayName, previousPortraitIndex,
-                portraitsArray.Select(p => p == null ? "<Null>" : p.name).ToArray());
-
-            if (selectedPortraitIndex != previousPortraitIndex)
-            {
-                property.objectReferenceValue = portraitsArray[selectedPortraitIndex];
-                property.serializedObject.ApplyModifiedProperties();
-            }
-
-            if (selectedPortraitIndex < portraitsArray.Length && selectedPortraitIndex >= 0)
-            {
-                return portraitsArray[selectedPortraitIndex];
-            }
-            else
-            {
-                return null;
+                if (removeCount > 0)
+                {
+                    Debug.Log($"{flowchartData.name} で未使用のコマンドが{removeCount}個削除されました");
+                }
+                return removeCount;
             }
         }
     }

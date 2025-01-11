@@ -19,7 +19,7 @@ namespace Novel.Editor
         [MenuItem("Tools/Novel System/Clear Trash Commands")]
         static void RemoveUnusedCommandData()
         {
-            FlowchartEditorUtility.RemoveAllUnusedCommandData();
+            FlowchartEditorUtility.DestroyAllUnusedCommandData();
         }
 
         public int callbackOrder => 0;

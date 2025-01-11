@@ -8,42 +8,8 @@ using System.Linq;
 
 namespace Novel
 {
-    public interface IParentData<T> where T : ICommandData
-    {
-        List<T> GetCommandDataList();
-        void SetCommandDataList(IEnumerable<T> commands);
-    }
-    public interface ICommandData
-    {
-        bool Enabled { get; }
-        string GetSummary();
-        string GetName();
-        Color GetCommandColor();
-    }
-    /*public interface IParentData<T> where T : ICommandData
-    {
-        List<T> GetCommandList();
-        void SetCommandList(IEnumerable<T> commands);
-    }
-    public interface ICommandData
-    {
-        bool Enabled { get; }
-        string Summary { get; }
-        string CommandName { get; }
-        Color Color { get; }
-    }*/
-
-    // 【説明】
-    // Flowchartは、MonoBehaviour型で扱えるFlowchartExecutorと、
-    // ScriptableObject型で扱えるFlowchartDataがあります
-    //
-    // FlowchartExecutorはシーン内で参照が取ることができます
-    // FlowchartDataはAddressableなどを用いてロードすることで、メモリ管理において有効に扱えます
-    //
-    // Flowchartは中身が多いですが、ユーザー側が使用するのはExecuteAsync()とStop()がほとんどです
-
     [Serializable]
-    public class Flowchart : IParentData<CommandData>
+    public class Flowchart
     {
         public enum StopType
         {
@@ -52,7 +18,7 @@ namespace Novel
         }
 
         // シリアライズする
-        [SerializeField, HideInInspector]
+        [SerializeField]
         List<CommandData> commandDataList = new();
 
         /// <summary>
@@ -173,6 +139,26 @@ namespace Novel
                 cmd.SetFlowchart(this);
                 cmd.SetIndex(i);
             }
+        }
+
+        public bool EqualsCommands(Flowchart other)
+        {
+            if (other == null) return false;
+            var myList = GetReadOnlyCommandDataList();
+            var otherList = other.GetReadOnlyCommandDataList();
+            if (myList == null && otherList == null) return true;
+            if (myList == null || otherList == null || myList.Count != otherList.Count) return false;
+
+            bool isEqual = true;
+            for (int i = 0; i < myList.Count; i++)
+            {
+                if (myList[i] != otherList[i])
+                {
+                    isEqual = false;
+                    break;
+                }
+            }
+            return isEqual;
         }
 #endif
     }
