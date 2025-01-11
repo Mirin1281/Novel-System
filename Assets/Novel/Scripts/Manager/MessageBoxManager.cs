@@ -20,7 +20,14 @@ namespace Novel
             base.Awake();
             InitCheck();
             SceneManager.activeSceneChanged += NewFetchBoxes;
-            //NewFetchBoxes(); // 一番最初は2回分呼ばれるので注意
+#if UNITY_EDITOR
+            // EnterPlayModeSettingsのReloadSceneがfalseであれば読み込む
+            if (UnityEditor.EditorSettings.enterPlayModeOptionsEnabled
+             && UnityEditor.EditorSettings.enterPlayModeOptions.HasFlag(UnityEditor.EnterPlayModeOptions.DisableSceneReload))
+            {
+                NewFetchBoxes();
+            }
+#endif
         }
 
         protected override void OnDestroy()

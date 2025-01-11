@@ -38,12 +38,12 @@ namespace Novel.Command
         Color color = Color.white;
 
 
-        // フローチャート上でコマンドが呼ばれた際に実行します
+        // フローチャート上でコマンドが呼ばれた際に実行します 
         protected override async UniTask EnterAsync()
         {
             if (character != null)
             {
-                Debug.Log($"キャラクターの名前: {character.CharacterName}");
+                Debug.Log($"サンプル\nキャラクターの名前: {character.CharacterName}");
             }
             await UniTask.CompletedTask;
         }

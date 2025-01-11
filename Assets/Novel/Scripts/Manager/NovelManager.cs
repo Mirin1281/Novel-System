@@ -8,13 +8,24 @@ namespace Novel
     {
         #region Init and Destroy
 
+        /// <summary>
+        /// 開始時に自身のインスタンスを作成するか
+        /// </summary>
+        static readonly bool initCreateInstance = true;
+
+        /// <summary>
+        /// 開始時に他のマネージャーのインスタンスを作成するか
+        /// </summary>
+        static readonly bool initCreateManagers = true;
+
         [SerializeField] CreateManagerParam[] managerParams;
 
-        // この属性によりAwakeより前に処理が走る(ここでしか呼ばないほうが吉)
-        // managerParamsのマネージャーを生成する
+        // この属性によりAwakeより前に処理が走る
+        // 自身のインスタンスとmanagerParamsのマネージャーを生成する
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
-        static void InitBeforeAwake()
+        public static void CreateInstances()
         {
+            if (initCreateInstance == false) return;
             var managerPrefab = Resources.Load<NovelManager>(nameof(NovelManager));
             if (managerPrefab == null)
             {
@@ -24,10 +35,11 @@ namespace Novel
             var novelManager = Instantiate(managerPrefab);
             novelManager.name = managerPrefab.name;
             DontDestroyOnLoad(novelManager);
-            novelManager.InitCreateManagers();
+            if (initCreateManagers == false) return;
+            novelManager.CreateManagers();
         }
 
-        public void InitCreateManagers()
+        public void CreateManagers()
         {
             foreach (var param in managerParams)
             {

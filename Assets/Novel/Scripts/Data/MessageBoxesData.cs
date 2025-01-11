@@ -9,10 +9,10 @@ namespace Novel
     ]
     public class MessageBoxesData : Enum2ObjectListDataBase<BoxType, MessageBox>
     {
-        [field: SerializeField, Tooltip(
-                "true時はシーン切り替え時に全メッセージボックスを生成します\n" +
-                "false時は受注生産方式でキャッシュします")]
-        public bool CreateOnSceneChanged { get; private set; }
+        [Header("true : シーン切り替え時に全メッセージボックスを都度生成します\n" +
+                "false : 受注生産方式でキャッシュします")]
+        [SerializeField, Space(10)] bool createOnSceneChanged;
+        public bool CreateOnSceneChanged => createOnSceneChanged;
     }
 
     public enum BoxType

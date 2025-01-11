@@ -1,0 +1,269 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-6081391150171630791
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4399fbfc898731a4f96fd937ce84eeff, type: 3}
+  m_Name: CommandData_ChartDataSample.asset (4)
+  m_EditorClassIdentifier: 
+  enabled: 1
+  command:
+    rid: 8267576664832606213
+  references:
+    version: 2
+    RefIds:
+    - rid: 8267576664832606213
+      type: {class: Say, ns: Novel.Command, asm: Novel}
+      data:
+        <ParentFlowchart>k__BackingField:
+          commandDataList:
+          - {fileID: -244628700268089091}
+          - {fileID: -848210094542310244}
+          - {fileID: -6081391150171630791}
+          - {fileID: -4647955295239166589}
+          - {fileID: 5193421880270398159}
+          - {fileID: 2768529401657507406}
+          - {fileID: 1780612157532771584}
+          description: 
+        <Index>k__BackingField: 2
+        character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
+        changeSprite: {fileID: 0}
+        storyText: "\u5148\u307B\u3069\u307E\u3067\u3044\u305FFlowchartExecutor\u3068\u6BD4\u3079\u308B\u3068\u3001\u30B7\u30FC\u30F3\u5185\u306E\u53C2\u7167\u306F\u7C21\u5358\u306B\u53D6\u308C\u307E\u305B\u3093"
+--- !u!114 &-4647955295239166589
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4399fbfc898731a4f96fd937ce84eeff, type: 3}
+  m_Name: CommandData_ChartDataSample.asset (5)
+  m_EditorClassIdentifier: 
+  enabled: 1
+  command:
+    rid: 8267576664832606212
+  references:
+    version: 2
+    RefIds:
+    - rid: 8267576664832606212
+      type: {class: Say, ns: Novel.Command, asm: Novel}
+      data:
+        <ParentFlowchart>k__BackingField:
+          commandDataList:
+          - {fileID: -244628700268089091}
+          - {fileID: -848210094542310244}
+          - {fileID: -6081391150171630791}
+          - {fileID: -4647955295239166589}
+          - {fileID: 5193421880270398159}
+          - {fileID: 2768529401657507406}
+          - {fileID: 1780612157532771584}
+          description: 
+        <Index>k__BackingField: 3
+        character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
+        changeSprite: {fileID: 0}
+        storyText: "\u305D\u306E\u4EE3\u308F\u308A\u3001Addressable\u306A\u3069\u306E\u30ED\u30FC\u30C9\u6A5F\u80FD\u3092\u5229\u7528\u3059\u308B\u3053\u3068\u304C\u3067\u304D\u308B\u306E\u304C\u5927\u304D\u306A\u5229\u70B9\u3067\u3059\uFF01"
+--- !u!114 &-848210094542310244
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4399fbfc898731a4f96fd937ce84eeff, type: 3}
+  m_Name: CommandData_ChartDataSample.asset (6)
+  m_EditorClassIdentifier: 
+  enabled: 1
+  command:
+    rid: 8267576664832606211
+  references:
+    version: 2
+    RefIds:
+    - rid: 8267576664832606211
+      type: {class: Say, ns: Novel.Command, asm: Novel}
+      data:
+        <ParentFlowchart>k__BackingField:
+          commandDataList:
+          - {fileID: -244628700268089091}
+          - {fileID: -848210094542310244}
+          - {fileID: -6081391150171630791}
+          - {fileID: -4647955295239166589}
+          - {fileID: 5193421880270398159}
+          - {fileID: 2768529401657507406}
+          - {fileID: 1780612157532771584}
+          description: 
+        <Index>k__BackingField: 1
+        character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
+        changeSprite: {fileID: 0}
+        storyText: "\u306F\u3044\u3001\u547C\u3073\u51FA\u3055\u308C\u307E\u3057\u305F\u2026\u2026<w=0.5>\n\u2026\u2026\u3068\u3044\u3046\u8A33\u3067\u3001\u307E\u3042\u3001\u898B\u304B\u3051\u306F\u5909\u308F\u308A\u307E\u305B\u3093"
+--- !u!114 &-244628700268089091
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4399fbfc898731a4f96fd937ce84eeff, type: 3}
+  m_Name: CommandData_ChartDataSample.asset (7)
+  m_EditorClassIdentifier: 
+  enabled: 1
+  command:
+    rid: 8267576664832606210
+  references:
+    version: 2
+    RefIds:
+    - rid: 8267576664832606210
+      type: {class: Say, ns: Novel.Command, asm: Novel}
+      data:
+        <ParentFlowchart>k__BackingField:
+          commandDataList:
+          - {fileID: -244628700268089091}
+          - {fileID: -848210094542310244}
+          - {fileID: -6081391150171630791}
+          - {fileID: -4647955295239166589}
+          - {fileID: 5193421880270398159}
+          - {fileID: 2768529401657507406}
+          - {fileID: 1780612157532771584}
+          description: 
+        <Index>k__BackingField: 0
+        character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
+        changeSprite: {fileID: 0}
+        storyText: <s=0.1>......</s>
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94ac70fcc31edf246858120251834f81, type: 3}
+  m_Name: SampleFlowchart
+  m_EditorClassIdentifier: 
+  flowchart:
+    commandDataList:
+    - {fileID: -244628700268089091}
+    - {fileID: -848210094542310244}
+    - {fileID: -6081391150171630791}
+    - {fileID: -4647955295239166589}
+    - {fileID: 5193421880270398159}
+    - {fileID: 2768529401657507406}
+    - {fileID: 1780612157532771584}
+    description: "\u30B5\u30F3\u30D7\u30EB\u3067\u547C\u3070\u308C\u308B\u30D5\u30ED\u30FC\u30C1\u30E3\u30FC\u30C8\u30C7\u30FC\u30BF"
+--- !u!114 &1780612157532771584
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4399fbfc898731a4f96fd937ce84eeff, type: 3}
+  m_Name: CommandData_ChartDataSample.asset
+  m_EditorClassIdentifier: 
+  enabled: 1
+  command:
+    rid: 8267576664832606217
+  references:
+    version: 2
+    RefIds:
+    - rid: 8267576664832606217
+      type: {class: Say, ns: Novel.Command, asm: Novel}
+      data:
+        <ParentFlowchart>k__BackingField:
+          commandDataList:
+          - {fileID: -244628700268089091}
+          - {fileID: -848210094542310244}
+          - {fileID: -6081391150171630791}
+          - {fileID: -4647955295239166589}
+          - {fileID: 5193421880270398159}
+          - {fileID: 2768529401657507406}
+          - {fileID: 1780612157532771584}
+          description: 
+        <Index>k__BackingField: 6
+        character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
+        changeSprite: {fileID: 0}
+        storyText: "\u4EE5\u4E0A\u3067\u3059"
+--- !u!114 &2768529401657507406
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4399fbfc898731a4f96fd937ce84eeff, type: 3}
+  m_Name: CommandData_ChartDataSample.asset (1)
+  m_EditorClassIdentifier: 
+  enabled: 1
+  command:
+    rid: 8267576664832606216
+  references:
+    version: 2
+    RefIds:
+    - rid: 8267576664832606216
+      type: {class: Say, ns: Novel.Command, asm: Novel}
+      data:
+        <ParentFlowchart>k__BackingField:
+          commandDataList:
+          - {fileID: -244628700268089091}
+          - {fileID: -848210094542310244}
+          - {fileID: -6081391150171630791}
+          - {fileID: -4647955295239166589}
+          - {fileID: 5193421880270398159}
+          - {fileID: 2768529401657507406}
+          - {fileID: 1780612157532771584}
+          description: 
+        <Index>k__BackingField: 5
+        character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
+        changeSprite: {fileID: 0}
+        storyText: "\u3042\u3068\u306F\u8907\u6570\u306E\u30B7\u30FC\u30F3\u3067\u540C\u3058\u30D5\u30ED\u30FC\u30C1\u30E3\u30FC\u30C8\u3092\u547C\u3073\u51FA\u3057\u305F\u3044\u6642\u306A\u3069\u306B\u3082\u6709\u52B9\u3067\u3059\u306D\uFF01"
+--- !u!114 &5193421880270398159
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4399fbfc898731a4f96fd937ce84eeff, type: 3}
+  m_Name: CommandData_ChartDataSample.asset (3)
+  m_EditorClassIdentifier: 
+  enabled: 1
+  command:
+    rid: 8267576664832606214
+  references:
+    version: 2
+    RefIds:
+    - rid: 8267576664832606214
+      type: {class: Say, ns: Novel.Command, asm: Novel}
+      data:
+        <ParentFlowchart>k__BackingField:
+          commandDataList:
+          - {fileID: -244628700268089091}
+          - {fileID: -848210094542310244}
+          - {fileID: -6081391150171630791}
+          - {fileID: -4647955295239166589}
+          - {fileID: 5193421880270398159}
+          - {fileID: 2768529401657507406}
+          - {fileID: 1780612157532771584}
+          description: 
+        <Index>k__BackingField: 4
+        character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
+        changeSprite: {fileID: 0}
+        storyText: "\u4F8B\u3048\u3070\u30E2\u30D0\u30A4\u30EB\u7AEF\u672B\u3067\u306F\u30E1\u30E2\u30EA\u3084\u5BB9\u91CF\u3092\u30B7\u30D3\u30A2\u306B\u7BA1\u7406\u3059\u308B\u5834\u9762\u304C\u3042\u308A\u307E\u3059\u304C\u3001\u305D\u3046\u3044\u3063\u305F\u6240\u3067\u30B9\u30DE\u30FC\u30C8\u306B\u30D5\u30ED\u30FC\u30C1\u30E3\u30FC\u30C8\u3092\u8AAD\u307F\u8FBC\u3093\u3067\u767A\u706B\u3059\u308B\u3053\u3068\u304C\u3067\u304D\u307E\u3059"

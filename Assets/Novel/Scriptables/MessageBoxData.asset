@@ -19,4 +19,4 @@ MonoBehaviour:
     prefab: {fileID: 3966473258314235236, guid: 01f398ff4e924394181e7ebaa91b7e76, type: 3}
   - type: 2
     prefab: {fileID: 5228983518920981639, guid: 527be47de0893f14bb4548a36b3e3249, type: 3}
-  <CreateOnSceneChanged>k__BackingField: 0
+  createOnSceneChanged: 0

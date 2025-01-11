@@ -17,7 +17,14 @@ namespace Novel
             base.Awake();
             InitCheck();
             SceneManager.activeSceneChanged += NewFetchPortraits;
-            //NewFetchPortraits();
+#if UNITY_EDITOR
+            // EnterPlayModeSettingsのReloadSceneがfalseであれば読み込む
+            if (UnityEditor.EditorSettings.enterPlayModeOptionsEnabled
+             && UnityEditor.EditorSettings.enterPlayModeOptions.HasFlag(UnityEditor.EnterPlayModeOptions.DisableSceneReload))
+            {
+                NewFetchPortraits();
+            }
+#endif
         }
 
         protected override void OnDestroy()
