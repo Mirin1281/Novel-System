@@ -20,7 +20,7 @@ namespace Novel
 
         void Awake()
         {
-            if(input == null)
+            if (input == null)
             {
                 GetComponent<MessageBoxInput>();
             }
@@ -35,7 +35,7 @@ namespace Novel
                 isSkipped = true;
             }
         }
-        
+
         public UniTask WriteAsync(CharacterData character, string fullText, CancellationToken token, bool wholeShow = false)
         {
             return WriteAsync(character, character.CharacterName, fullText, token, wholeShow);
@@ -43,11 +43,12 @@ namespace Novel
 
         public async UniTask WriteAsync(CharacterData character, string nameText, string fullText, CancellationToken token, bool wholeShow = false)
         {
+            ClearText();
             // 名前と色の設定 //
-            nameText = string.IsNullOrEmpty(nameText) ? 
-                (character == null ? 
-                    null : 
-                    character.NameIncludeRuby) : 
+            nameText = string.IsNullOrEmpty(nameText) ?
+                (character == null ?
+                    null :
+                    character.NameIncludeRuby) :
                 nameText;
             if (NovelManager.Instance != null && NovelManager.Instance.IsUseRuby == false)
             {
@@ -57,8 +58,8 @@ namespace Novel
             SetName(nameText, nameColor);
 
             // テキストの設定 //
-            ClearText();
-            if(NovelManager.Instance.IsUseRuby == false)
+
+            if (NovelManager.Instance.IsUseRuby == false)
             {
                 fullText = TagUtility.RemoveRubyText(fullText);
             }
@@ -66,7 +67,7 @@ namespace Novel
             isSkipped = false;
             timePer100Charas = wholeShow ? 0 : DefaultSpeed;
             await WriteTextAsync(richText, tagDataList, token);
-            //SayLogger.AddLog(nameText, richText);
+            //SayLogger.AddLog(nameText, richText); // ログを記録する場合
 
 
             async UniTask WriteTextAsync(string richText, List<TagData> tagDataList, CancellationToken token)
@@ -83,7 +84,7 @@ namespace Novel
                 int tagNumber = 0;
                 int rubyDelta = 0;
 
-                for(int i = 0; i < planeText.Length; i++)
+                for (int i = 0; i < planeText.Length; i++)
                 {
                     storyTmpro.maxVisibleCharacters = i + 1;
 
@@ -94,7 +95,7 @@ namespace Novel
                         {
                             await ApplyTag(tagDataList[tagNumber]);
                             tagNumber++;
-                            if(tagNumber < tagDataList.Count)
+                            if (tagNumber < tagDataList.Count)
                             {
                                 insertIndex = tagDataList[tagNumber].IndexIgnoreAllTag + rubyDelta;
                             }

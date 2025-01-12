@@ -30,7 +30,7 @@ MonoBehaviour:
           - {fileID: 5193421880270398159}
           - {fileID: 2768529401657507406}
           - {fileID: 1780612157532771584}
-          description: 
+          description: "\u30B5\u30F3\u30D7\u30EB\u3067\u547C\u3070\u308C\u308B\u30D5\u30ED\u30FC\u30C1\u30E3\u30FC\u30C8\u30C7\u30FC\u30BF"
         <Index>k__BackingField: 2
         character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
         changeSprite: {fileID: 0}
@@ -65,7 +65,7 @@ MonoBehaviour:
           - {fileID: 5193421880270398159}
           - {fileID: 2768529401657507406}
           - {fileID: 1780612157532771584}
-          description: 
+          description: "\u30B5\u30F3\u30D7\u30EB\u3067\u547C\u3070\u308C\u308B\u30D5\u30ED\u30FC\u30C1\u30E3\u30FC\u30C8\u30C7\u30FC\u30BF"
         <Index>k__BackingField: 3
         character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
         changeSprite: {fileID: 0}
@@ -100,7 +100,7 @@ MonoBehaviour:
           - {fileID: 5193421880270398159}
           - {fileID: 2768529401657507406}
           - {fileID: 1780612157532771584}
-          description: 
+          description: "\u30B5\u30F3\u30D7\u30EB\u3067\u547C\u3070\u308C\u308B\u30D5\u30ED\u30FC\u30C1\u30E3\u30FC\u30C8\u30C7\u30FC\u30BF"
         <Index>k__BackingField: 1
         character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
         changeSprite: {fileID: 0}
@@ -135,7 +135,7 @@ MonoBehaviour:
           - {fileID: 5193421880270398159}
           - {fileID: 2768529401657507406}
           - {fileID: 1780612157532771584}
-          description: 
+          description: "\u30B5\u30F3\u30D7\u30EB\u3067\u547C\u3070\u308C\u308B\u30D5\u30ED\u30FC\u30C1\u30E3\u30FC\u30C8\u30C7\u30FC\u30BF"
         <Index>k__BackingField: 0
         character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
         changeSprite: {fileID: 0}
@@ -192,7 +192,7 @@ MonoBehaviour:
           - {fileID: 5193421880270398159}
           - {fileID: 2768529401657507406}
           - {fileID: 1780612157532771584}
-          description: 
+          description: "\u30B5\u30F3\u30D7\u30EB\u3067\u547C\u3070\u308C\u308B\u30D5\u30ED\u30FC\u30C1\u30E3\u30FC\u30C8\u30C7\u30FC\u30BF"
         <Index>k__BackingField: 6
         character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
         changeSprite: {fileID: 0}
@@ -227,7 +227,7 @@ MonoBehaviour:
           - {fileID: 5193421880270398159}
           - {fileID: 2768529401657507406}
           - {fileID: 1780612157532771584}
-          description: 
+          description: "\u30B5\u30F3\u30D7\u30EB\u3067\u547C\u3070\u308C\u308B\u30D5\u30ED\u30FC\u30C1\u30E3\u30FC\u30C8\u30C7\u30FC\u30BF"
         <Index>k__BackingField: 5
         character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
         changeSprite: {fileID: 0}
@@ -262,7 +262,7 @@ MonoBehaviour:
           - {fileID: 5193421880270398159}
           - {fileID: 2768529401657507406}
           - {fileID: 1780612157532771584}
-          description: 
+          description: "\u30B5\u30F3\u30D7\u30EB\u3067\u547C\u3070\u308C\u308B\u30D5\u30ED\u30FC\u30C1\u30E3\u30FC\u30C8\u30C7\u30FC\u30BF"
         <Index>k__BackingField: 4
         character: {fileID: 11400000, guid: 666c6b3227b72df449192f657636feda, type: 2}
         changeSprite: {fileID: 0}

@@ -2,7 +2,6 @@
 using Cysharp.Threading.Tasks;
 using Novel.Command;
 using System.Threading;
-using System.Collections.Generic;
 
 namespace Novel
 {
@@ -13,9 +12,6 @@ namespace Novel
     ]
     public class FlowchartData : ScriptableObject
     {
-        public List<CommandData> GetCommandDataList() => Flowchart.GetCommandDataList();
-        public void SetCommandDataList(IEnumerable<CommandData> commands) => Flowchart.SetCommandDataList(commands);
-
         [SerializeField] Flowchart flowchart;
         public Flowchart Flowchart => flowchart;
 

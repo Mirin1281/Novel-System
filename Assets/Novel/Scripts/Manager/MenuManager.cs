@@ -21,17 +21,21 @@ namespace Novel
         public async UniTask<int> ShowAndWaitButtonClick(CancellationToken token, params string[] texts)
         {
             gameObject.SetActive(true);
+            CancellationTokenSource cts = new();
+            CancellationToken linkedToken = CancellationTokenSource.CreateLinkedTokenSource(cts.Token, token).Token;
             var buttons = buttonCreator.CreateShowButtons(texts);
             var tasks = new UniTask[buttons.Count];
             for (int i = 0; i < buttons.Count; i++)
             {
-                tasks[i] = buttons[i].OnClickAsync(token);
+                tasks[i] = buttons[i].OnClickAsync(linkedToken);
             }
             EventSystem.current.SetSelectedGameObject(buttons[0].gameObject);
-            int clickIndex = await UniTask.WhenAny(tasks);
+            int clickIndex = await UniTask.WhenAny(tasks); // 選ばれなかった方のタスクはキャンセルしないと残るので注意
+            cts.Cancel();
+            cts.Dispose();
 
             buttonCreator.AllClearFadeAsync(0.1f, token).Forget();
-            if(selectSE != null)
+            if (selectSE != null)
             {
                 NovelManager.Instance.PlayOneShot(selectSE, seVolume);
             }

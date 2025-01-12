@@ -4,6 +4,7 @@ using System;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using LinkedBox = Novel.MessageBoxesData.LinkedObject;
+using System.Text.RegularExpressions;
 
 namespace Novel
 {
@@ -14,6 +15,10 @@ namespace Novel
     public class MessageBoxManager : SingletonMonoBehaviour<MessageBoxManager>
     {
         [SerializeField] MessageBoxesData data;
+
+        // Regexはキャッシュしてメモリ負荷を軽減
+        readonly Regex tagRegex = new Regex(TagUtility.TagRegexString);
+        public Regex TagRegex => tagRegex;
 
         protected override void Awake()
         {

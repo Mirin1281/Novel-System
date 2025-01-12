@@ -769,8 +769,13 @@ namespace Novel.Editor
 
                 string cmdName = cmd.GetName() ?? "Null";
                 EditorGUI.LabelField(rect, $"<size=12>{cmdName}</size>", style); // コマンド名の表示
-                EditorGUI.LabelField(new Rect(rect.x + 100, rect.y, rect.width, rect.height),
-                    $"<size=10>{TagUtility.RemoveSizeTag(cmd.GetSummary())}</size>", style); // サマリーの表示
+
+                string summary = cmd.GetSummary();
+                if (string.IsNullOrEmpty(summary) == false)
+                {
+                    EditorGUI.LabelField(new Rect(rect.x + 100, rect.y, rect.width, rect.height),
+                        $"<size=10>{TagUtility.RemoveSizeTag(cmd.GetSummary())}</size>", style); // サマリーの表示
+                }
 
                 GUI.color = tmpColor;
             }

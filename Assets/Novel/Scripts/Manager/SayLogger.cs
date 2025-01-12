@@ -5,7 +5,7 @@ namespace Novel
 {
     /*
     /// <summary>
-    /// ログを記録するクラス(使わなければ削除して構いません)
+    /// ログを記録するクラス
     /// </summary>
     public static class SayLogger
     {

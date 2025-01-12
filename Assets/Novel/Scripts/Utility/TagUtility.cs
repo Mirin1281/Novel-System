@@ -1,12 +1,15 @@
 ﻿using System;
 using System.Text.RegularExpressions;
 using System.Collections.Generic;
+using System.Text;
+using UnityEngine;
+using TMPro;
 
 namespace Novel
 {
     public static class TagUtility
     {
-        const string RegexString = @"\<.*?\>";
+        public const string TagRegexString = @"\<.*?\>";
 
         // 【タグの増やし方】
         // 1. 直下のTagTypeの項目を増やす
@@ -43,16 +46,46 @@ namespace Novel
 
         public static string RemoveRubyText(string text)
         {
-            string regexString = @"\<r=.*?\>";
-            text = Regex.Replace(text, regexString, string.Empty);
-            text = text.Replace("</r>", string.Empty);
-            return text;
+            StringBuilder result = new StringBuilder();
+            int length = text.Length;
+            int i = 0;
+
+            while (i < length)
+            {
+                if (i + 2 < length && text[i] == '<' && text[i + 1] == 'r' && text[i + 2] == '=')
+                {
+                    // "<r="が見つかった場合、対応する閉じタグ ">" を探す
+                    int endIndex = text.IndexOf('>', i);
+                    if (endIndex != -1)
+                    {
+                        // ">" の次の文字に移動
+                        i = endIndex + 1;
+                        continue;
+                    }
+                }
+                else if (i + 4 < length && text.Substring(i, 4) == "</r>")
+                {
+                    // "</r>" が見つかった場合、スキップ
+                    i += 4;
+                    continue;
+                }
+                else
+                {
+                    // それ以外の文字は結果に追加
+                    result.Append(text[i]);
+                    i++;
+                }
+            }
+
+            return result.ToString();
         }
 
+#if UNITY_EDITOR
+        // エディタのサイズタグが暴発するため
         public static string RemoveSizeTag(string text)
         {
-            text ??= string.Empty;
-            var matches = Regex.Matches(text, RegexString);
+            var regex = new Regex(TagRegexString);
+            var matches = regex.Matches(text);
             if (matches.Count == 0) return text;
             var match = matches[0];
             while (match.Success)
@@ -65,6 +98,7 @@ namespace Novel
             }
             return text;
         }
+#endif
 
         /// <summary>
         /// テキストからタグを抽出します
@@ -73,7 +107,7 @@ namespace Novel
         /// <returns>(タグを取り除いたテキスト, TagDataの配列)</returns>
         public static (string convertedText, List<TagData> tagDataList) ExtractMyTag(string text)
         {
-            var regex = new Regex(RegexString);
+            var regex = MessageBoxManager.Instance == null ? new Regex(TagRegexString) : MessageBoxManager.Instance.TagRegex;
             var matches = regex.Matches(text);
             if (matches.Count == 0) return (text, null);
 
@@ -100,7 +134,7 @@ namespace Novel
             static (TagType, float) GetTagStatus(string tag)
             {
                 // "<>"を取り除く
-                var content = tag.Remove(0, 1).Remove(tag.Length - 2);
+                string content = tag[1..^1];
 
                 TagType tagType = TagType.None;
                 float value = 0f;

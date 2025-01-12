@@ -25,7 +25,7 @@ namespace Novel.Command
                 Token, new string[] { topSelectionText, bottomSelectionText });
             bool select = clickedButtonIndex == 0 ^ isReverse;
 
-            if(actionType == ActionType.Jump)
+            if (actionType == ActionType.Jump)
             {
                 int index;
                 // Reverseを考えない場合、上を選んだ
