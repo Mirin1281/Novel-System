@@ -25,11 +25,20 @@ namespace Novel.Editor
         /// </summary>
         public static bool TryGetScriptPath(string fileName, out string relativePath)
         {
-            var assetName = fileName;
-            var path = AssetDatabase.FindAssets(assetName + " t:Script")
-                .Select(AssetDatabase.GUIDToAssetPath)
-                .FirstOrDefault(str => string.Equals(Path.GetFileNameWithoutExtension(str),
-                    assetName, StringComparison.CurrentCultureIgnoreCase));
+            string path = null;
+            var pathes = AssetDatabase.FindAssets(fileName + " t:Script")
+                .Select(AssetDatabase.GUIDToAssetPath);
+            var novelPathes = pathes.Where(s => s.Contains("Novel"));
+            if (novelPathes.Count() == 0)
+            {
+                path = pathes.FirstOrDefault(str => string.Equals(Path.GetFileNameWithoutExtension(str),
+                    fileName, StringComparison.CurrentCultureIgnoreCase));
+            }
+            else
+            {
+                path = novelPathes.FirstOrDefault(str => string.Equals(Path.GetFileNameWithoutExtension(str),
+                    fileName, StringComparison.CurrentCultureIgnoreCase));
+            }
 
             bool isExist = !string.IsNullOrEmpty(path);
             if (isExist)

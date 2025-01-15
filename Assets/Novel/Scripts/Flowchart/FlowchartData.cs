@@ -26,7 +26,7 @@ namespace Novel
         }
         public UniTask ExecuteAsync(int index = 0, CancellationToken token = default)
         {
-            return Flowchart.ExecuteAsync(index, token);
+            return flowchart.ExecuteAsync(index, token);
         }
 
         /// <summary>
@@ -43,7 +43,7 @@ namespace Novel
         /// </summary>
         public bool IsUsed(CommandData targetData)
         {
-            foreach (var cmdData in Flowchart.GetReadOnlyCommandDataList())
+            foreach (var cmdData in flowchart.GetReadOnlyCommandDataList())
             {
                 if (cmdData == targetData) return true;
             }

@@ -24,28 +24,35 @@ namespace Novel.Editor
 
             if (GUILayout.Button("Duplicate"))
             {
-                var baseExecutor = target as FlowchartExecutor;
-                var copiedExecutor = Instantiate(baseExecutor);
-                copiedExecutor.name = GenerateHierarchyName(baseExecutor.name);
-                var flowchart = copiedExecutor.Flowchart;
-
-                Undo.RegisterCreatedObjectUndo(copiedExecutor.gameObject, "Duplicate Flowchart");
-
-                var copiedCmdList = new List<CommandData>();
-                foreach (var cmdData in flowchart.GetCommandDataList())
-                {
-                    var copiedCmdData = Instantiate(cmdData);
-                    var cmd = copiedCmdData.GetCommandBase();
-                    cmd?.SetFlowchart(flowchart);
-                    copiedCmdList.Add(copiedCmdData);
-                }
-                flowchart.SetCommandDataList(copiedCmdList);
-
-                // ヒエラルキーの位置を調整
-                copiedExecutor.transform.SetParent(baseExecutor.transform.parent);
-                int siblingIndex = baseExecutor.transform.GetSiblingIndex();
-                copiedExecutor.transform.SetSiblingIndex(siblingIndex + 1);
+                DupulicateFrom(target as FlowchartExecutor);
             }
+        }
+
+        FlowchartExecutor DupulicateFrom(FlowchartExecutor baseExecutor)
+        {
+            var copiedExecutor = Instantiate(baseExecutor);
+            copiedExecutor.name = GenerateHierarchyName(baseExecutor.name);
+            var flowchart = copiedExecutor.Flowchart;
+
+            Undo.RegisterCreatedObjectUndo(copiedExecutor.gameObject, "Duplicate Flowchart");
+
+            var copiedCmdList = new List<CommandData>();
+            foreach (var cmdData in flowchart.GetCommandDataList())
+            {
+                var copiedCmdData = Instantiate(cmdData);
+                var cmd = copiedCmdData.GetCommandBase();
+                cmd?.SetFlowchart(flowchart);
+                copiedCmdList.Add(copiedCmdData);
+            }
+            flowchart.SetCommandDataList(copiedCmdList);
+
+            // ヒエラルキーの位置を調整
+            copiedExecutor.transform.SetParent(baseExecutor.transform.parent);
+            int siblingIndex = baseExecutor.transform.GetSiblingIndex();
+            copiedExecutor.transform.SetSiblingIndex(siblingIndex + 1);
+
+            Selection.activeGameObject = copiedExecutor.gameObject;
+            return copiedExecutor;
         }
 
         /// <summary>

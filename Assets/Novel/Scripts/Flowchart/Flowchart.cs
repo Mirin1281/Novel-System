@@ -128,6 +128,7 @@ namespace Novel
         [SerializeField, TextArea, Tooltip("エディタでのみ使用されます")]
         string description;
         public string Description => description;
+
         public List<CommandData> GetCommandDataList() => commandDataList;
         public void SetCommandDataList(IEnumerable<CommandData> commands)
         {

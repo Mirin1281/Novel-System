@@ -15,6 +15,10 @@ namespace Novel
             if (executeOnStart)
                 Execute();
         }
+        void OnDestroy()
+        {
+            flowchart = null;
+        }
 
         /// <summary>
         /// フローチャートを呼び出します
